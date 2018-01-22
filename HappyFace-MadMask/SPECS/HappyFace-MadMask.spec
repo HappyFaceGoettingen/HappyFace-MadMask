@@ -162,6 +162,23 @@ which forever || npm install -g forever@0.15.2
 [ -e %{_module_cfg}/phedex_prod.cfg ] && mv -v %{_module_cfg}/phedex_prod.cfg %{_module_dis_cfg}
 [ -e %{_module_cfg}/uschi_basic_dcap.cfg ] && mv -v %{_module_cfg}/uschi_*.cfg %{_module_dis_cfg}
 
+
+##----------------------------------
+## Disabling outdated ones
+##----------------------------------
+[ -e %{_category_cfg}/panda.cfg ] && mv -v %{_category_cfg}/panda*.cfg %{_category_dis_cfg}
+[ -e %{_category_cfg}/site_services.cfg ] && sed -e "s/,g__stat//g" -i %{_category_cfg}/site_services.cfg
+
+
+## Making database
+echo "------------------------------------"
+echo "Populating default Happy Face database ..."
+cd %{_prefix}
+su %{happyface_user} -c "python acquire.py"
+echo "------------------------------------"
+
+
+
 service httpd start
 
 

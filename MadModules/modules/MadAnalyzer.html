@@ -11,25 +11,41 @@
             element.style.display = 'none';
     }
 </script>
-
-% for host in hostlist:
-    <a href="javascript: void(0);" onclick="toggle('${host}');">${host}</a>
-    <table class="TableData" width="350" id="${host}" style="display: none">
+% if not details_job:
+    <p>List empty!</p>
+% else:
+    % if module.dataset['status'] == 1:
+        <p>All Ganga jobs are Running!</p>
+    % endif      
+      
+    <table class="TableData">
         <tr class="TableHeader">
-            <td>Variable</td>
-            <td>Value</td>
-            <td>Description</td>
+        <td>Job ID</td>
+        <td>Job Status</td>
+        <td>Information</td>
+        <td>Last Check</td>
+        <td>Error Info</td>
+        
         </tr>
-        % for detail in host_details:
-            % if detail['host'] == host:
-                <tr>
-                    <td>${detail['variable']}</td>
-                    <td>${detail['value']} ${detail['unit']}</td>
-                    <td>${detail['info']}</td>
-                </tr>
+        % for detail_job in details_job:
+            % if 'ok' == detail_job['job_status'].lower():
+                <tr bgcolor=#AAFFAA>
+            % elif 'critical' == detail_job['job_status'].lower():
+                <tr bgcolor=#FF6464>
+            % elif  'warning' == detail_job['job_status'].lower():
+                <tr bgcolor=#FFFF96>
+            % else:
+                <tr bgcolor=#EEEEEE>
             % endif
+                <td><a href="javascript: void(0);" onclick="toggle('${detail_job['job_id']}');">${detail_job['job_id']}</a></td>
+                <td>${detail_job['job_status']}</td>
+                <td>${detail_job['information']}</td>
+                <td>${detail_job['last_check'].strftime("%Y-%m-%d %H:%M:%S")}</td>
+                <td>${detail_job['error_info']}</td>
+            </tr>
         % endfor
-    </table>
-<br>
-% endfor
+</table>
+<br/>
+% endif
+
 </%def>
