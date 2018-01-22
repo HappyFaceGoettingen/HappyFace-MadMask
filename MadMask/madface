@@ -1,0 +1,92 @@
+#!/usr/bin/node
+// http://cruft.io/posts/node-command-line-utilities/
+
+process.title = 'madface';
+
+// Libraries
+var program = require('commander');
+var fs = require('fs');
+
+// module and config
+var madface = require('./lib/madface');
+
+
+program
+  .version('0.3.0')
+  .option('-c, --config [SiteDefDir]', 'Select site definition dir [default: sites/default]', 'sites/default')
+  .option('-m, --mode [Switch]', 'Select a mode [default: ON]', 'ON')
+  .option('-i, --ionic', 'Start ionic server')
+  .option('-l, --logdir [LogDir]', 'Log dir [default: /tmp]', '/tmp')
+  .option('-p, --piddir [PidDir]', 'Pid dir [default: /tmp]', '/tmp')
+  .option('-x, --xwin', 'Start Virtual X window')
+  .option('-s, --server', 'Start admin server')
+  .option('-f, --firefox', 'Start capture by Firefox')
+  .option('-r, --reference', 'Make reference data')
+  .option('-a, --analysis', 'Analyze data')
+  .option('-v, --voice', 'Output summary by voice')
+  .option('-e, --email', 'Send summary by email')
+  .option('-b, --build', 'Build Android application')
+  .option('-w, --wipe', 'Wipe old files/dirs in data dir')
+  .parse(process.argv);
+
+//console.log(program);
+
+if(program.rawArgs.length <= 2) {
+   program.help();
+   process.exit(0);
+} else { 
+   /*******************************
+	Read config file
+   *********************************/
+   var configJson = program.config + "/config.json";
+   console.log('Reading config file: %s', configJson);
+   config = JSON.parse(fs.readFileSync(configJson));
+
+
+   /*******************************
+	Show command line options
+   *********************************/
+   console.log('Mode: %s', program.mode);
+
+   console.log('Start Ionic server: %s', program.ionic);
+   console.log('Ionic logdir: %s', program.logdir);
+   console.log('Ionic piddir: %s', program.piddir);
+
+   console.log('Admin Server: %s', program.server);
+   console.log('Virtual Xwin: %s', program.xwin);
+   console.log('Start firefox: %s', program.firefox);
+   console.log('Make reference: %s', program.reference);
+   console.log('Start analysis: %s', program.analysis);
+   console.log('Output voice: %s', program.voice);
+   console.log('Send e-mail: %s', program.email);
+   console.log('Host is: %s', config.host);
+   console.log('Port is: %s', config.port);
+   console.log('Wipe is: %s', program.wipe);
+
+
+
+   /*******************************
+	Execute actions
+   *********************************/
+   if (program.ionic) madface.ionic(program.config, config, program.logdir, program.piddir);
+
+   if (program.xwin) madface.virtual_xwin(program.config, config, program.mode);
+
+   if (program.server) madface.adminserver(program.config, config, program.mode);
+
+   if (program.firefox) madface.capture_browser(program.config, config);
+
+   if (program.reference) madface.make_reference(program.config, config);
+
+   if (program.analysis) madface.start_analysis(program.config, config);
+
+   if (program.voice) madface.output_voice(program.config, config);
+
+   if (program.email) madface.send_email(program.config, config);
+
+   if (program.build) madface.build_android_apk(program.config, config);
+
+   if (program.wipe) madface.wipe_data(program.config, config);
+}
+
+

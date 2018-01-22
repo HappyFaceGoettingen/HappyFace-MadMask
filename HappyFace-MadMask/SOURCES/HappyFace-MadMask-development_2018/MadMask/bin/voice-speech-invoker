@@ -1,0 +1,44 @@
+#!/bin/bash
+
+usage="$0 [option]
+
+ -i:  input voice
+ 
+"
+
+if [ $# -eq 0 ]; then
+    echo "$usage"
+    exit 0
+fi
+
+
+#--------------------------
+# Getopt
+#--------------------------
+while getopts "i:hv" op
+  do
+  case $op in
+      i) input="$OPTARG"
+	  ;;
+      h) echo "$usage"
+	  exit 0
+	  ;;
+      v) echo "$version"
+	  exit 0
+	  ;;
+      ?) echo "$usage"
+	  exit 0
+	  ;;
+  esac
+done
+
+
+if [ ! -z "$input" ]; then
+    refined_input=$(echo "$input" | sed 's/\([A-Z][A-Z]\{1\}\)/\1 /g' | sed "s/\([A-Z]\)\([A-Z]\)/\1 \2/g")
+    
+    fest_command="(voice_ked_diphone) (SayText \"$refined_input\")"
+    echo "$fest_command"
+    echo "$fest_command" | festival --pipe
+fi
+
+

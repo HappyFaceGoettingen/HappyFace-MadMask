@@ -1,0 +1,1 @@
+Hello. $MYNAME checked status of $SITE at $VOICE_DATE. Status level of $SITE is Warning. Please have a look at $R_LINK_NAMES.

@@ -1,0 +1,300 @@
+[
+  {
+    "name": "virt3",
+    "text": "Virtual machine provider",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt3 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "virt4",
+    "text": "Virtual machine provider",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt4 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "virt5",
+    "text": "Virtual machine provider",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt5 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "virt6",
+    "text": "Virtual machine provider",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt6 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "apel",
+    "text": "Apel accounting provider",
+    "img": "img/apel.png",
+    "services": [{
+	  "name": "Run apel publisher",
+	  "command": "ssh apel 'hostname'"
+	  }
+	]
+  }, {
+    "name": "bdii",
+    "text": "BDII site information provider",
+    "img": "img/bdii.png",
+    "services": [{
+	  "name": "Restart BDII",
+	  "command": "ssh bdii 'service bdii restart'"
+	  }
+	]
+  }, {
+    "name": "creamce2",
+    "text": "2nd Computing element",
+    "img": "img/ce.png",
+    "services": [{
+	  "name": "Restart BDII",
+	  "command": "ssh creamce2 'service bdii restart'"
+	  }, {
+	  "name": "Restart gLite CREAMCE",
+	  "command": "ssh creamce2 'service gLite restart'"
+	  }
+	]
+  }, {
+    "name": "creamce3",
+    "text": "3rd Computing element",
+    "img": "img/ce.png",
+    "services": [{
+	  "name": "Restart BDII",
+	  "command": "ssh creamce3 'service bdii restart'"
+	}, {
+	  "name": "Restart gLite CREAMCE",
+	  "command": "ssh creamce3 'service gLite restart'"
+	  }
+	]
+  }, {
+    "name": "pbs",
+    "text": "PBS batch server",
+    "img": "img/pbs.png",
+    "services": [{
+	  "name": "Restart PBS",
+	  "command": "ssh creamce2 'service pbs_server restart'"
+	  }, {
+	  "name": "Restart MAUI",
+	  "command": "ssh pbs 'service maui restart'"
+	  }
+	]
+  }, {
+    "name": "nagios",
+    "text": "Internal Nagios monitoring",
+    "img": "img/nagios.png",
+    "services": [{
+	  "name": "Restart Nagios",
+	  "command": "ssh nagios 'service nagios restart'"
+	  }
+	]
+  }, {
+    "name": "perfsonar01",
+    "text": "Perfsonar node = !!old SE4!!",
+    "img": "img/perfsonar.png",
+    "services": [{
+	  "name": "Restart Perfsonar",
+	  "command": "ssh perfsonar01 'service perfsonar restart'"
+	  }
+	]
+  }, {
+    "name": "se-xrootd",
+    "text": "FAX Xrootd proxy",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart xrootd service",
+	  "command": "ssh se-xrootd '/etc/init.d/cmsd stop; /etc/init.d/xrootd stop; /etc/init.d/xrootd start; /etc/init.d/cmsd start'"
+	  }
+	]
+  }, {
+    "name": "se",
+    "text": "dCache head node",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se 'service dcache restart'"
+	  }, {
+	  "name": "Restart PostgreSQL",
+	  "command": "ssh se 'service postgresql-9.2 restart'"
+	  }
+	]
+  }, {
+    "name": "se5",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se5 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se5 'service dcache restart se5-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se5 'service dcache restart dcap-se5-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache Xrootd service",
+	  "command": "ssh se5 'service dcache restart xrootd-se5-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se7",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se7 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se7 'service dcache restart se7-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se7 'service dcache restart dcap-se7-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se8",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se8 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se8 'service dcache restart se8-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se8 'service dcache restart dcap-se8-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se9",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se9 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se9 'service dcache restart se9-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se9 'service dcache restart dcap-se9-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se10",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se10 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se10 'service dcache restart se10-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se10 'service dcache restart dcap-se10-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se11",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se11 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se11 'service dcache restart se11-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se11 'service dcache restart dcap-se11-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se12",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se12 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se12 'service dcache restart se12-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se12 'service dcache restart dcap-se12-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se13",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se13 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se13 'service dcache restart se13-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se13 'service dcache restart dcap-se13-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se14",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se14 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se14 'service dcache restart se14-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se14 'service dcache restart dcap-se14-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se15",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se15 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se15 'service dcache restart se15-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se15 'service dcache restart dcap-se15-goegridDomain'"
+	  }
+	]
+  }, {
+    "name": "se16",
+    "text": "dCache disk pool",
+    "img": "img/se.png",
+    "services": [{
+	  "name": "Restart all dCache services",
+	  "command": "ssh se16 'service dcache restart'"
+	  }, {
+	  "name": "Restart dCache Pool service",
+	  "command": "ssh se16 'service dcache restart se16-goegridDomain'"
+	  }, {
+	  "name": "Restart dCache dCap service",
+	  "command": "ssh se16 'service dcache restart dcap-se16-goegridDomain'"
+	  }
+	]
+  }
+]

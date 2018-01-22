@@ -1,0 +1,107 @@
+#!/bin/bash
+
+#-------------------------------
+# Functions
+#-------------------------------
+[ ! -e bin/functions.sh ] && INFO "No bin/functions.sh" && exit -1 
+. bin/functions.sh
+
+
+usage="$0 [option]
+
+ -j:  Specify config.json [default: $config_json]
+ -m:  mode [ON/OFF]
+  
+"
+
+if [ $# -eq 0 ]; then
+    echo "$usage"
+    exit 0
+fi
+
+
+#--------------------------
+# Getopt
+#--------------------------
+while getopts "j:m:hv" op
+  do
+  case $op in
+      j) config_json=$OPTARG
+	  ;;
+      m) mode=$OPTARG
+	  ;;
+      h) echo "$usage"
+	  exit 0
+	  ;;
+      v) echo "$version"
+	  exit 0
+	  ;;
+      ?) echo "$usage"
+	  exit 0
+	  ;;
+  esac
+done
+
+
+#---------------------------------------------------------
+# Function: Starting Xvfb
+#
+#---------------------------------------------------------
+start_x_virtual_frame_buffer(){
+    local config_json=$1
+
+    load_config_json $config_json
+    i=0
+    for display_name in ${DISPLAY_NAMES[*]}
+    do
+	xscreen=${DISPLAY_NUMBERS[$i]}
+	xresolution=${DISPLAY_RESOLUTIONS[$i]}
+
+	[ -z "$xscreen" ] && echo "xscreen is empty!" && let i++ && continue
+	[ -z "$xresolution" ] && echo "xresolution is empty!" && let i++ && continue
+
+	INFO "Starting Virtual X-Window [$display_name] DISPLAY=:$xscreen.0, ${xresolution}x24"
+	INFO "Executing [Xvfb :$xscreen -screen 0 ${xresolution}x24] ..."
+	Xvfb :$xscreen -screen 0 ${xresolution}x24 &> /dev/null &
+	[ $? -ne 0 ] && echo "Failed to start [$$display_name]"
+	let i++
+    done
+}
+
+
+#---------------------------------------------------------
+# Function: Stopping Xvfb
+#
+#---------------------------------------------------------
+stop_x_virtual_frame_buffer(){
+    local config_json=$1
+
+    load_config_json $config_json
+    i=0
+    for display_name in ${DISPLAY_NAMES[*]}
+    do
+	xscreen=${DISPLAY_NUMBERS[$i]}
+	[ -z "$xscreen" ] && echo "xscreen is empty!" && let i++ && continue
+
+	pid=$(ps aux  | grep "^$USER" | grep "Xvfb :$xscreen" | grep -v grep | awk '{print $2}')
+	if [ ! -z "$pid" ]; then
+	    INFO "Stopping Xvfb $xscreen [$pid] ..."
+	    kill -kill $pid
+	fi
+	let i++
+    done
+}
+
+
+#-------------------------------
+# Main
+#-------------------------------
+[ ! -e "$config_json" ] && INFO "config_json [$config_json] does not exist!" && exit -1
+
+
+## Start/Stop Xvfb
+[ "$mode" == "ON" ] && start_x_virtual_frame_buffer $config_json
+[ "$mode" == "OFF" ] && stop_x_virtual_frame_buffer $config_json
+
+
+

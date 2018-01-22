@@ -1,0 +1,2 @@
+Hey, Status is Critical. $MYNAME checked status of $SITE at $VOICE_DATE. Please have a look at $R_LINK_NAMES.
+

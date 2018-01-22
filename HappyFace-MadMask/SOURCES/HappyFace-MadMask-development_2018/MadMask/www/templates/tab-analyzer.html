@@ -1,0 +1,55 @@
+<ion-view view-title="Mad Monitoring Analyzer">
+  <ion-content>
+    <div class="card">
+      <div class="item item-divider" ng-class="statusColor()">
+	Status: {{statusLevel}}
+      </div>
+      <div class="item item-thumbnail-left item-text-wrap" ng-click="speakSummary()">
+	<img ng-src="{{statusImg}}">
+        <h2>{{statusText}}</h2>
+      </div>
+    </div>
+
+    <div class="list">
+      <label class="item item-input item-select">
+	<div class="input-label">
+	  Viewer
+	</div>
+	<select ng-model="selectedItem" ng-change="setPlots(selectedItem)">
+	  <option value="infogain">Information Gain</option>
+	  <option value="analysis">Analysis</option>
+	  <option value="pathway">Pathway</option>
+	  <option value="overall_pathway" selected>Overall Pathway</option>
+	  <option value="reference">Reference</option>
+	  <option value="validation">Validation</option>
+	</select>
+      </label>
+    </div>
+
+    <!-- Multi plot -->
+    <ion-list ng-repeat="monitoringUrl in monitoringUrls" ng-hide="hideMultiPlot()">
+    <fieldset class="group">
+      <legend class="group-title">{{monitoringUrl.name}}</legend>
+
+      <div class="launchpad" ng-repeat="url in monitoringUrl.urls" >
+	<a href="#/tab/analyzer/{{url.file_prefix}}">
+          <div class="logo"><img src="{{url.analysis_plot}}" alt="Not Analyzed"/></div>
+        </a>
+	
+        <a href="{{url.link}}" target="_blank">
+          <div class="caption">{{url.name}}</div>
+        </a>
+      </div>
+    </fieldset>
+    </ion-list>
+
+    <!-- Single plot -->
+      <div class="diagramview" ng-hide="hideSinglePlot()">
+        <center>
+          <img src="{{single_plot_src}}"></img>
+        </center>
+      </div>
+
+
+  </ion-content>
+</ion-view>

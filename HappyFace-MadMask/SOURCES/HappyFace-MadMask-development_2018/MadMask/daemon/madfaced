@@ -1,0 +1,138 @@
+#!/bin/sh
+#
+### BEGIN INIT INFO
+# Provides: madfaced
+# Default-Start:
+# Default-Stop:
+# Short-Description: Start and stop the madface server
+# Description: madfaced provides the dynamic shock dumping scheduler with Torque Maui
+### END INIT INFO
+#
+# The fields below are left around for legacy tools (will remove later).
+#
+# chkconfig: - 65 35
+# description: madfaced provides the dynamic shock dumping scheduler with Torque Maui
+# processname: madface
+# config: /etc/madface.conf
+# pidfile: /var/run/madface.pid
+
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+prog=madfaced
+user=happyface3
+group=happyface3
+lockfile=/var/lock/subsys/madfaced
+pidfile_base=/var/run/HappyFace
+logfile_base=/var/log/HappyFace
+config=/etc/madface.conf
+
+if [ ! -e $config ]; then
+    echo "$config does not exist" 
+    exit -1
+fi
+. $config
+
+read_ports(){
+    site_defs=$(find $MADFACE_HOME/sites/*/config.json)
+    jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
+}
+
+forever_status() {
+    su $user -c "forever list"
+    su $user -c "forever list" | grep -v "No forever processes" > /dev/null
+    return $?
+}
+
+check_pidfiles(){
+    ls $pidfile_base | grep ionic-server > /dev/null
+    [ $? -eq 0 ] && echo "pidfiles in [$pidfile_base] exist" && return 1
+    return 0
+}
+
+
+start() {
+    [ `id -u` -eq 0 ] || return 4
+    #[ -f $config ] || return 6
+
+    forever_status && return 0
+    check_pidfiles || return 1
+
+    echo -n "Starting $prog server: "
+
+    RETVAL=0
+    pushd $MADFACE_HOME &> /dev/null
+    for site_def in $(find $MADFACE_HOME/sites/* -maxdepth 0 -type d)
+    do
+	## For cron logs
+	site_name=$(basename $site_def)
+	cron_logdir=$MADFACE_HOME/data/$site_name/log
+	[ -e $cron_logdir ] || su $user -c "mkdir -pv $cron_logdir"
+
+	## Starting daemons
+	su $user -c "$MADFACE_HOME/madface -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
+	[ $? -ne 0 ] && RETVAL=255
+    done
+    popd &> /dev/null
+
+    if [ $RETVAL -eq 0 ]; then
+	touch $lockfile
+	echo -e "\t[OK]"
+    else
+	echo -e "\t[ERROR]"
+    fi
+    return $RETVAL
+}
+
+stop() {
+    [ `id -u` -eq 0 ] || return 4
+
+    echo -n "Shutting down $prog: "
+    su $user -c "forever stopall" &> /dev/null
+    RETVAL=$?
+
+    for port in $(read_ports)
+    do
+	pidfile=${pidfile_base}/ionic-server.${port}
+	[ -e ${pidfile} ] && rm ${pidfile}
+    done
+
+    if [ $RETVAL -eq 0 ]; then
+	rm -f $lockfile
+	echo "[OK]"
+    else
+	echo "[ERROR]"
+    fi
+
+    return $RETVAL
+}
+
+usage() {
+    echo $"Usage: $0 {start|stop|restart|status}"
+}
+
+if [ $# -gt 1 ]; then
+    exit 2
+fi
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop ; start
+        ;;
+    status)
+        forever_status
+        ;;
+    *)
+        usage
+        exit 2
+        ;;
+esac
+
+exit $?

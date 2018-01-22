@@ -1,0 +1,14 @@
+#!/bin/bash
+
+## Reading config
+source /etc/madface.conf
+
+
+## Launch madface default server
+cd $MADFACE_HOME
+echo $PWD
+./madface -i
+
+
+## Checking default Ionic server log
+tail -F /tmp/ionic-server.8111.log

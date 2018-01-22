@@ -1,0 +1,15 @@
+<ion-view view-title="Ticket, E-mail & Contact">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar" ng-repeat="email in emails" type="item-text-wrap" href="{{email.url}}">
+        <img ng-src="{{email.img}}">
+	<div class="item-text-wrap">
+          <h2>{{email.name}}</a></h2>
+	  E-mail: <a href="mailto:{{email.email}}" target="_blank">{{email.email}}</a>
+	  Tel: {{email.tel}}
+          <p>{{email.text}}</p>
+	</div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

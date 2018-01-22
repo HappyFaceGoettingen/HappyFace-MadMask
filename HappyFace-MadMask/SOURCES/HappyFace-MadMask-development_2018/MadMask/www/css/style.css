@@ -1,0 +1,123 @@
+    body {
+      background: #ffffff;
+      color: #222222;
+      font-family: Verdana,Arial,sans-serif;
+      font-size: 0.875em;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #376797;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:hover {
+      color: #3d7dbd;
+    }
+    .atlas-logo {
+      position: absolute;
+      top: 0;
+      left: 5px;
+      border-style: none;
+    }
+    .content {
+      padding: 0.35em;
+    }
+    .group {
+      background: #e4e2e5;
+      display: inline;
+      margin: 0.35em;
+      padding: 0.35em;
+    }
+    .group, .group-title, .launchpad {
+      border: 1px solid #aaaaaa;
+      /* rounded corners */
+      -moz-border-radius: 0.3em; -webkit-border-radius: 0.3em; border-radius: 0.3em;
+    }
+    .group-title {
+      text-align:center;
+      border-color: #376797;
+      background: #3d7dbd;
+      color: #ffffff;
+      font-weight: bold;
+      max-width: 10em; max-height: 3em;
+    }
+    .launchpad {
+      background: #ffffff;
+      width: 11em;
+      min-height: 8em;
+      float: left;
+      margin: 0.35em;
+      padding: 0.35em;
+    }
+    .launchpad:hover {
+      border-color: #3d7dbd;
+    }
+    .logo {
+      height: 8em;
+      border-style: none;
+      text-align:center;
+     }
+    .logo img {
+      max-width: 10em; max-height: 8em;
+      min-width: 10em; min-height: 8em;
+      border-style: none;
+     }
+    .caption {
+      min-height: 5em;
+      margin-top: 0.35em;
+      text-align:center;
+    }
+    .footer {
+      text-align: center;
+    }
+
+.ng-animate .scroll-bar {
+  visibility: visible !important;
+}
+
+.scroll-bar-fade-out{
+  opacity:1 !important
+}
+
+.diagramview img{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+.webview img{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+.plotview img{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+/* Very important to have a proper size of ion-list!! */
+.disable-user-behavior{
+    max-width: 2000px;
+    width: 100%;
+}
+
+.list{
+    max-width: 2000px;
+    width: 100%;
+}
+
+.ion-list{
+    max-width: 2000px;
+    width: 100%;
+}
+
+.modal{  /*modal always full screen*/
+    top: 0 ;
+    bottom: 0 ;
+    left: 0 ;
+    right: 0 ;
+    width: 100% ;
+}

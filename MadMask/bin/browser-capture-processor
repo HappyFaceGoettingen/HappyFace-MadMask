@@ -1,0 +1,470 @@
+#!/bin/bash
+
+WAIT_FIREFOX=120
+output_dir="data/$USER/capture"
+thumbnail_dir=""
+
+PICTURE_TYPE=jpg
+
+# Some wait parameters
+WAIT_START_WINDOW=15
+WAIT_WINDOW=5
+
+WAIT_FIREFOX_COMMAND=0.3
+
+WAIT_FIREFOX_TAB=1
+WAIT_FIREFOX_TABS=5
+
+MAX_NUM_OF_FIREFOX_TABS=30
+
+WAIT_MADFOX=5
+MAX_NUM_WAIT_MADFOX=36
+
+# For load monitor
+FIREFOX_LOAD_THRESHOLD=50
+
+# Firefox profile
+FIREFOX_PROFILE=""
+
+# For X window
+USE_XWINDOW="OFF"
+
+
+# Madfox Config
+MADFOX_PICTURE_TYPE=png
+MADFOX_TMP_DIR="/tmp/madfox.$USER"
+
+# Debug option (0: No debug mode, 1: X win is ":0.0", above 5: num of tabs is only 5)
+DEBUG_MODE=0
+DEBUG_NUM_TABS=5
+
+
+#-------------------------------
+# Functions
+#-------------------------------
+[ ! -e bin/functions.sh ] && INFO "No bin/functions.sh" && exit -1 
+. bin/functions.sh
+
+
+usage="$0 [option]
+
+ -j:  Specify config.json [default:config_json]
+ -u:  URL JSON file 
+ -o:  Output dir [default: $output_dir]
+ -t:  Make thumbnails. If a directory is set, then make thumbnails in the directory.
+
+ -x:  Use virtual X window
+
+
+ -l:  Set sysetm load threshold [default: $FIREFOX_LOAD_THRESHOLD %]
+ -p:  Set firefox profile
+  
+"
+
+if [ $# -eq 0 ]; then
+    echo "$usage"
+    exit 0
+fi
+
+
+#--------------------------
+# Getopt
+#--------------------------
+while getopts "d:j:u:o:t:xl:p:hv" op
+  do
+  case $op in
+      d) DEBUG_MODE=$OPTARG
+	  ;;
+      j) config_json=$OPTARG
+	  ;;
+      u) urlfile=$OPTARG
+	  ;;
+      o) output_dir="$OPTARG"
+	  ;;
+      t) thumbnail_dir="$OPTARG"
+	  ;;
+      x) USE_XWINDOW="ON"
+	  ;;
+      l) FIREFOX_LOAD_THRESHOLD=$OPTARG
+	  ;;
+      p) FIREFOX_PROFILE="$OPTARG"
+	  ;;
+      h) echo "$usage"
+	  exit 0
+	  ;;
+      v) echo "$version"
+	  exit 0
+	  ;;
+      ?) echo "$usage"
+	  exit 0
+	  ;;
+  esac
+done
+
+
+#-------------------------------
+# Firefox functions
+#-------------------------------
+check_firefox_process(){
+    pid=$(ps aux  | grep "^$USER" | grep -v grep | grep "/firefox " | awk '{print $2}')
+    [ ! -z "$pid" ] && INFO "Firefox process [$pid] is running!" && return 1
+    return 0
+}
+
+
+open_firefox_tabs(){
+    local urls="$1"
+    local url
+
+    local command_option
+    [ -e "$FIREFOX_PROFILE" ] && command_option="--profile $FIREFOX_PROFILE"
+    for url in $urls
+    do
+	INFO "Opening Firefox Tabs [$url]"
+	command_option="$command_option -new-tab $url"
+    done
+    INFO "COMMAND = [firefox $command_option]"
+    firefox $command_option &> /dev/null &
+}
+
+
+run_madfox(){
+    ## Run MadFox
+    #[ ! -e $MADFOX_TMP_DIR ] && mkdir -v $MADFOX_TMP_DIR
+    INFO "Pushed Shift+Ctrl+s for Madfox"
+    xdotool key Shift+Ctrl+s
+
+    ## Wait until firefox stops
+    for num in $(seq 1 $MAX_NUM_WAIT_MADFOX)
+    do
+	WAIT $WAIT_MADFOX
+	check_firefox_process && INFO "Firefox is not running!" && return 0
+
+	## Run MadFox again
+	if [ $num -eq $(echo "$MAX_NUM_WAIT_MADFOX / 2"|bc) ] && ! ls $MADFOX_TMP_DIR/*.png &> /dev/null; then
+	    INFO "Pushed Shift+Ctrl+s for Madfox"
+	    xdotool key Shift+Ctrl+s
+	fi
+    done
+    return 1
+}
+
+
+fit_window(){
+    local app=$1
+    local resolution=$2
+
+    INFO "Fitting $app window"
+
+    ## Fitting window
+    width=$(echo $resolution | sed "s/x.*$//g")
+    height=$(echo $resolution | sed "s/^.*x//g")
+
+    windowid=$(xdotool search --onlyvisible $app 2>&1 | tail -n 1) 
+    xdotool windowmove $windowid 0 0
+    xdotool windowsize $windowid $width $height
+
+    ## Moving mouse pointer
+    xdotool mousemove 10000 10000
+}
+
+
+run_firefox_commands(){
+    local fcommands="$(echo $1 | sed 's/,/ /g')"
+
+    [ "$fcommands" == "null" ] && return
+
+    INFO "Executing Firefox command [$fcommands] ..."
+    for fcommand in $fcommands
+    do
+	WAIT $WAIT_FIREFOX_COMMAND
+	INFO "Pushing [$fcommand]"
+	xdotool key $fcommand
+    done
+}
+
+
+run_waits(){
+    local fwait="$1"
+
+    [ "$fwait" == "null" ] && return
+    WAIT $fwait
+}
+
+
+has_firefox_commands(){
+    local com=""
+    for com in $*
+    do
+	[ "$com" != "null" ] && return 0
+    done
+    return 1
+}
+
+
+really_close_firefox(){
+    ## Really closing
+    INFO "Killing Firefox: killall firefox"
+    check_firefox_process || killall firefox
+}
+
+
+capture_xwin_display(){
+    local display=$(echo $DISPLAY | perl -pe "s/://g")
+    while :
+    do
+	import -window root -silent /tmp/xwindow.${display}.jpg
+	sleep 3
+    done
+}
+
+#-------------------------------
+# Firefox script actions
+#-------------------------------
+start_firefox_with_urls(){
+    RET=""
+    local urlfile=$1
+    local xdisplay_id=$2
+    
+    local default_xdisplay="XDISPLAY_ID_IS_NOT_ZERO_NOR_NULL"
+    [ $xdisplay_id -eq 0 ] && default_xdisplay="null"
+
+    load_monitoringUrls_json $urlfile
+    ## Open Firefox Tab
+    local i=0
+    local opened_tabs=0
+    local stored_tabs=0
+    local urls_for_tabs=""
+    for url in ${urls[*]}
+    do
+	## Checking "xdisplay_namge" attribute in urls
+	if [ "${FIREFOX_XDISPLAY_NAMES[$i]}" == "$default_xdisplay" ] || [ "${FIREFOX_XDISPLAY_NAMES[$i]}" == "${DISPLAY_NAMES[$xdisplay_id]}" ]; then
+	    ## Checking "capture" attribute in urls
+	    if [ "${captures[$i]}" == "true" ]; then
+
+                ## Store Tabs
+		urls_for_tabs="$urls_for_tabs $url"
+		let stored_tabs++
+
+		## Open tabs
+		has_firefox_commands "${FIREFOX_WAITS_BEFORE_COMMANDS[$i]}" "${FIREFOX_COMMANDS[$i]}" "${FIREFOX_WAITS[$i]}"
+		if [ $? -eq 0 ] || [ $opened_tabs -eq 0 ] || [ $stored_tabs -ge $MAX_NUM_OF_FIREFOX_TABS ]; then
+		    open_firefox_tabs "$urls_for_tabs"
+
+		    [ $opened_tabs -eq 0 ] && WAIT $WAIT_START_WINDOW
+		    [ $opened_tabs -ne 0 ] && [ $stored_tabs -eq 1 ] && WAIT $WAIT_FIREFOX_TAB
+		    [ $opened_tabs -ne 0 ] && [ $stored_tabs -gt 1 ] && WAIT $WAIT_FIREFOX_TABS
+
+
+		    ## initialize again
+		    INFO "[$stored_tabs] tabs are opened"
+		    stored_tabs=0
+		    urls_for_tabs=""
+
+        	    ## Running given commands and wait
+		    run_waits "${FIREFOX_WAITS_BEFORE_COMMANDS[$i]}"
+		    run_firefox_commands "${FIREFOX_COMMANDS[$i]}"
+		    run_waits "${FIREFOX_WAITS[$i]}"
+		fi
+		let opened_tabs++
+	    fi
+	fi
+	[ $DEBUG_MODE -gt 5 ] && [ $i -gt $DEBUG_NUM_TABS ] && break
+	let i++
+    done
+
+
+    ## Open the remaining URLs
+    if [ $stored_tabs -ge 1 ]; then
+	open_firefox_tabs "$urls_for_tabs"
+	WAIT $WAIT_FIREFOX_TABS
+
+	INFO "[$stored_tabs] tabs are opened"
+    fi
+
+
+    INFO "Opened tabs = $opened_tabs"
+    RET=$opened_tabs
+}
+
+
+capture_firefox_tabs(){
+    local urlfile=$1
+    local opened_tabs=$2
+    local pic_dir=$3
+    local xdisplay_id=$4
+    
+    local default_xdisplay="XDISPLAY_ID_IS_NOT_ZERO_NOR_NULL"
+    [ $xdisplay_id -eq 0 ] && default_xdisplay="null"
+
+    ## Capture by Madfox
+    run_madfox
+
+    local i=0
+    local tab=0
+    for filename in ${file_prefixes[*]}
+    do
+	## Checking "xdisplay_namge" attribute in urls
+	if [ "${FIREFOX_XDISPLAY_NAMES[$i]}" == "$default_xdisplay" ] || [ "${FIREFOX_XDISPLAY_NAMES[$i]}" == "${DISPLAY_NAMES[$xdisplay_id]}" ]; then
+	    ## Checking "capture" attribute in urls
+	    if [ "${captures[$i]}" == "true" ]; then
+		import_image "$MADFOX_TMP_DIR/$tab.${MADFOX_PICTURE_TYPE}" "$pic_dir/${filename}.${PICTURE_TYPE}"
+		let tab++
+		[ $tab -ge $opened_tabs ] && break
+	    fi
+	fi
+	[ $DEBUG_MODE -gt 5  ] && [ $i -gt $DEBUG_NUM_TABS ] && break
+	let i++
+    done
+
+    ## Cleaning up remaining pictures, in case there are garbarges ...
+    ls $MADFOX_TMP_DIR/*.${MADFOX_PICTURE_TYPE} &> /dev/null && rm -v $MADFOX_TMP_DIR/*.${MADFOX_PICTURE_TYPE}
+}
+
+
+#-------------------------------
+# Capture browser main func
+#-------------------------------
+capture_browser(){
+    local config_json=$1
+    local urlfile=$2
+    local pic_dir=$3
+
+    ## Loading site specific JSON files
+    load_config_json $config_json
+    load_monitoringUrls_json $urlfile
+
+
+    local id=0
+    for display_name in ${DISPLAY_NAMES[*]}
+    do
+	## X display
+	if [ $DEBUG_MODE -eq 1 ]; then
+	    INFO "X Window Screen is debug mode, DISPLAY=:0.0"
+	    export DISPLAY=:0.0
+	    local xresolution=$DEFAULT_XRESOLUTION
+	elif [ "$USE_XWINDOW" == "ON" ]; then
+	    INFO "X Window Screen [$id] = [${display_name}], DISPLAY=:${DISPLAY_NUMBERS[$id]}.0"
+	    export DISPLAY=:${DISPLAY_NUMBERS[$id]}.0
+	    local xresolution=${DISPLAY_RESOLUTIONS[$id]}
+	else
+	    local xresolution=$DEFAULT_XRESOLUTION
+	fi
+
+	## Wait value
+	local wait_firefox=$WAIT_FIREFOX
+	[ "${DISPLAY_WAITS_FIREFOX[$id]}" != "null" ] && wait_firefox=${DISPLAY_WAITS_FIREFOX[$id]}
+
+	## For debug, this is useful. Periodically capturing X win
+	capture_xwin_display &
+	local pid_capture_xwin=$!
+	
+        ## Starting firefox
+	start_firefox_with_urls $urlfile $id; local opened_tabs=$RET 
+	
+        ## Catpture routine
+	if [ $opened_tabs -gt 0 ]; then
+	    ## Fitting window
+	    [ "$USE_XWINDOW" == "ON" ] && fit_window "firefox" $xresolution
+
+            ## Waiting ...
+	    WAIT $wait_firefox
+
+            ## Starting captures
+	    capture_firefox_tabs $urlfile $opened_tabs $pic_dir $id
+	    
+            ## Close firefox
+	    really_close_firefox
+	fi
+	let id++
+
+	## kill periodic capture xwin
+	kill -kill $pid_capture_xwin
+    done
+}
+
+
+#-------------------------------
+# Image manipulation
+#-------------------------------
+import_image(){
+    local input_image=$1
+    local output_image=$2
+
+    [ ! -e $input_image ] && echo "No input_image [$input_image]!" && return 1
+
+    echo -n "Trimming [$input_image] --> [$output_image], "
+    convert -fuzz $TRIM_FUZZ_OPTION -trim $input_image -type TrueColor -quality $JPG_QUALITY $output_image 2>&1 | grep "geometry does not contain image"
+    if [ $? -eq 0 ]; then
+	INFO "Trim error: [$input_image]"
+	#convert $input_image -quality $JPG_QUALITY $output_image
+	rm -v $input_image $output_image
+	return 1
+    else
+	rm -v $input_image
+	return 0
+    fi
+}
+
+
+make_thumbnails(){
+    local input_dir=$1
+    local thumbnail_dir=$2
+    
+    thumbnail_tmpdir=$(mktemp -d)
+    picture_converter $input_dir "$THUMBNAIL_OPTION" $thumbnail_tmpdir
+    
+    [ ! -e "$thumbnail_dir" ] && mkdir -pv $thumbnail_dir
+    mv -v $thumbnail_tmpdir/* $thumbnail_dir
+
+    rm -v $(dirname $thumbnail_dir)/latest
+    ln -vs $(basename $thumbnail_dir) $(dirname $thumbnail_dir)/latest
+}
+
+
+
+#====================================================
+#
+# Main
+#
+#====================================================
+date_id=$(date +%Y%m%d-%H%M)
+[ -e "$output_dir/$date_id" ] && INFO "Output dir [$output_dir/$date_id] already exists!" && exit -1
+[ ! -e "$urlfile" ] && INFO "urlfile [$urlfile] does not exist!" && exit -1
+[ ! -e "$config_json" ] && INFO "config_json [$config_json] does not exist!" && exit -1
+
+INFO "urlfile          = [$urlfile]"
+INFO "config.json      = [$config_json]"
+INFO "Final output dir = [$output_dir/$date_id]"
+
+
+## Check firefox, if it's already running, stop.
+check_firefox_process || exit -1
+
+
+## Check system load
+system_load_monitor $FIREFOX_LOAD_THRESHOLD
+[ $? -ne 0 ] && echo "System load is high!" && exit -1
+
+
+#-----------------------------------
+# Start to capture browser
+#-----------------------------------
+capture_tmpdir=$(mktemp -d)
+capture_browser $config_json $urlfile $capture_tmpdir
+
+
+#-----------------------------------
+# Final Output
+#-----------------------------------
+[ ! -e "$output_dir" ] && mkdir -pv $output_dir
+move_data_to_latest_dir $capture_tmpdir $output_dir/$date_id
+
+
+#-----------------------------------
+# Make thumbnails
+#-----------------------------------
+if [ ! -z "$thumbnail_dir" ]; then
+    make_thumbnails $output_dir/$date_id $thumbnail_dir/$date_id
+fi
+

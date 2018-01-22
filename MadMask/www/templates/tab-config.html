@@ -1,0 +1,37 @@
+<ion-view view-title="Configuration">
+  <ion-content>
+    
+    <!-- Detect only change -->
+    <div class="item item-toggle">
+      <span class="input-label">Text speech</span>	
+      <label class="toggle">
+	<input type="checkbox" ng-model="configuration.enableTextSpeech" ng-disabled="false">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Detect only change -->
+    <div class="item item-toggle">
+      <span class="input-label">Detect only change</span>
+      <label class="toggle">
+	<input type="checkbox" ng-model="configuration.enableDetectOnlyChange" ng-disabled="false">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Automatic Fetch -->        
+    <div class="item item-toggle">
+      <span class="input-label">Automatic fetch</span>	
+      <label class="toggle">
+	<input type="checkbox" ng-model="configuration.enableFetch" ng-disabled="false">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Fetch interval -->
+    <div class="item range">
+      <input type="range" name="fetch_interval" min="1" max="60" value="5" ng-disabled="false">
+    </div>
+
+  </ion-content>
+</ion-view>

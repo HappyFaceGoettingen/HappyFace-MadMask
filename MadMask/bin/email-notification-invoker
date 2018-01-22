@@ -1,0 +1,90 @@
+#!/bin/bash
+
+[ ! -e bin/functions.sh ] && echo "[bin/functions.sh] does not exist!" && exit -1 
+. bin/functions.sh
+
+
+mail_client="mail"
+
+
+usage="$0 [option]
+
+ -c:  configuration file [default:$conf]
+ 
+"
+
+if [ $# -eq 0 ]; then
+    echo "$usage"
+    exit 0
+fi
+
+
+#--------------------------
+# Getopt
+#--------------------------
+while getopts "s:f:e:m:hv" op
+  do
+  case $op in
+      s) summary_json=$OPTARG
+	  [ ! -e $summary_json ] && echo "[$summary_json] does not exist!" && exit -1
+	  ;;
+      f) voice_json=$1
+	  [ ! -e $voice_json ] && echo "[$voice_json] does not exist!" && exit -1
+	  ;;
+      e) emails_json=$OPTARG
+	  [ ! -e $email_json ] && echo "[$email_json] does not exist!" && exit -1
+	  ;;
+      m) mail_client="$OPTARG"
+	  ;;
+      h) echo "$usage"
+	  exit 0
+	  ;;
+      v) echo "$version"
+	  exit 0
+	  ;;
+      ?) echo "$usage"
+	  exit 0
+	  ;;
+  esac
+done
+
+
+#---------------------------------------------------------------------------
+#
+# Functions
+#
+#---------------------------------------------------------------------------
+sendemail(){
+    local title="$1"
+    local body_file=$2
+    local attach_files="$3"
+    local emails="$4"
+
+    ## build email
+    local com="cat $body_file"
+    for f in $attach_files
+      do
+      com="$com; uuencode $f `basename $f`"
+    done
+
+    ## send email
+    INFO "
+To: $emails
+Subject: $title
+Body:
+$(cat $body_file)
+
+Attachment:
+$attach_files
+"
+
+
+    for email in $emails
+    do
+      INFO "sending an email to [$email] ..."
+      (eval $com) | $mail_client -s "$title" $email
+    done
+
+}
+
+

@@ -1,0 +1,5 @@
+## MadFace Server
+0,30 * * * * /usr/lib/MadFace/cron/cronjob.sh goegrid &> /usr/lib/MadFace/data/goegrid/log/cron.log
+15,45 * * * * /usr/lib/MadFace/cron/cronjob.sh adcos &> /usr/lib/MadFace/data/adcos/log/cron.log
+43 * * * * /usr/lib/MadFace/cron/cronjob.sh goe-ph2 &> /usr/lib/MadFace/data/goe-ph2/log/cron.log
+

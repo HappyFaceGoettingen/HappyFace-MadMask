@@ -1,0 +1,48 @@
+<ion-view view-title="Mad Meta-Monitoring">
+  <!-- Configuration panel for sites -->
+  <ion-nav-buttons side="right">
+      <button class="button button-icon ion-android-more-vertical" ng-click="openModalMetaMetaConfiguration()" ng-hide="{{isBrowser}}">
+      </button>
+   </ion-nav-buttons>
+
+  <!-- Contents -->
+  <ion-content>
+
+    <div class="card">
+      <div class="item item-divider" ng-class="statusColor()">
+	Status: {{statusLevel}}
+      </div>
+      <div class="item item-thumbnail-left item-text-wrap" ng-click="speakSummary()">
+	<img ng-src="{{statusImg}}">
+        <h2>{{statusText}}</h2>
+      </div>
+    </div>
+
+    <div class="list">
+      <label class="item item-input item-select">
+	<div class="input-label">
+	  History
+	</div>
+	  <select ng-model="selectedItem" ng-options="ts.datetime for ts in history" ng-change="reload(selectedItem)">
+	  <option value="ts.datetime">{{ts.datetime}}</option>
+	</select>
+      </label>
+    </div>
+
+    <ion-list ng-repeat="monitoringUrl in monitoringUrls">
+    <fieldset class="group">
+      <legend class="group-title">{{monitoringUrl.name}}</legend>
+
+      <div class="launchpad" ng-repeat="url in monitoringUrl.urls" >
+        <a href="#/tab/monitoring/{{url.file_prefix}}">
+          <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured"/></div>
+        </a>
+	
+        <a href="{{url.link}}" target="_blank">
+          <div class="caption">{{url.name}}</div>
+        </a>
+      </div>
+    </fieldset>
+    </ion-list>
+  </ion-content>
+</ion-view>

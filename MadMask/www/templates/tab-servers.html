@@ -1,0 +1,14 @@
+<ion-view view-title="Controller">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar item-icon-right" ng-repeat="server in servers" type="item-text-wrap" href="#/tab/servers/{{server.name}}">
+        <img ng-src="{{server.img}}">
+	<div class="item-text-wrap">
+        <h2>{{server.name}}</h2>
+        <p>{{server.text}}</p>
+	</div>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

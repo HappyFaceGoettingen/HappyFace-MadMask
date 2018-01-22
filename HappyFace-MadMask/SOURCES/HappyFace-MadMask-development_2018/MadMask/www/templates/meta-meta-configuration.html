@@ -1,0 +1,100 @@
+<div class="modal" ng-controller="CtrlModalMetaMetaConfiguration">
+
+  <!-- Header -->
+  <ion-header-bar class="bar-dark">
+    <h1 class="title">Mad Meta-Meta configuration</h1>
+    <button class="button button-icon" ng-click="closeModalMetaMetaConfiguration()">
+      <i class="icon ion-ios-close-empty"></i>
+    </button>
+  </ion-header-bar>
+
+  <!-- Content -->
+  <ion-content class="ios7-grey-bg">
+
+    <!-- sites selector -->        
+    <div class="item item-input item-select">
+      <div class="input-label">Meta-Monitor</div>
+      <select ng-model="selectedSite" ng-options="site.name for site in metaMetaSites" ng-change="setSite(selectedSite)">
+	<option value="site.name">{{site.name}}</option>
+      </select>
+    </div>
+
+
+    <!-- Automatic Rotation -->
+    <div class="item item-toggle">
+      <span class="input-label">Automatic rotation</span>	
+      <label class="toggle">
+	<input type="checkbox" ng-model="mobileConfig.automaticRotation" ng-disabled="false" ng-change="onChange()">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Automatic fetch -->
+    <div class="item item-toggle">
+      <span class="input-label">Automatic fetch</span>	
+      <label class="toggle">
+	<input type="checkbox" ng-model="mobileConfig.automaticFetch" ng-disabled="false" ng-change="onChange()">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Interval -->
+    <!--
+    <div class="item range">
+      <p>1 min</p>
+      <input type="range" name="interval" min="1" max="60" value="{{mobileConfig.interval}}" ng-disabled="false">
+      <p>60 min</p>
+    </div>
+    -->
+
+    <!-- Only change -->
+    <div class="item item-toggle">
+      <span class="input-label">Detect only change</span>	
+      <label class="toggle">
+	<input type="checkbox" ng-model="mobileConfig.detectOnlyChange" ng-disabled="false" ng-change="onChange()">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Enable Mad Vision -->        
+    <div class="item item-toggle">
+      <span class="input-label">Enable Mad vision</span>
+      <label class="toggle">
+	<input type="checkbox" ng-model="mobileConfig.enableMadVision" ng-disabled="false" ng-change="onChange()">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- Enable text-speech -->        
+    <div class="item item-toggle">
+      <span class="input-label">Enable Text-speech</span>
+      <label class="toggle">
+	<input type="checkbox" ng-model="mobileConfig.enableTextSpeech" ng-disabled="false" ng-change="onChange()">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- HappyFace -->        
+    <div class="item item-toggle">
+      <span class="input-label">HappyFace compatible</span>
+      <label class="toggle">
+	<input type="checkbox" ng-model="mobileConfig.happyFaceCompatible" ng-disabled="false" ng-change="onChange()">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+
+    <!-- site selector -->
+
+    <!-- Debug -->
+    <!--
+    <div class="item item-toggle">
+      <span class="input-label">Debug</span>	
+      <label class="toggle">
+	<input type="checkbox" ng-model="configuration.enableDebug">
+	<div class="track"><div class="handle"></div></div>
+      </label>
+    </div>
+    -->
+
+  </ion-content>
+</div>

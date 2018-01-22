@@ -1,0 +1,43 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-true-positive">
+
+  <!-- Monitoring Tab -->
+  <ion-tab title="Monitoring" icon-off="ion-ios-world-outline" icon-on="ion-ios-world" href="#/tab/monitoring">
+    <ion-nav-view name="tab-monitoring"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Analysis Tab -->
+  <ion-tab title="Analyzer" icon-off="ion-ios-analytics-outline" icon-on="ion-ios-analytics" href="#/tab/analyzer">
+    <ion-nav-view name="tab-analyzer"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Server Tab -->
+  <ion-tab title="Controller" icon-off="ion-ios-game-controller-b-outline" icon-on="ion-ios-game-controller-b" href="#/tab/servers">
+    <ion-nav-view name="tab-servers"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Visualizer Tab -->
+  <ion-tab title="Visualizer" icon-off="ion-social-snapchat-outline" icon-on="ion-social-snapchat" href="#/tab/diagram">
+    <ion-nav-view name="tab-diagram"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Log Tab -->
+  <ion-tab title="Logs" icon-off="ion-ios-recording-outline" icon-on="ion-ios-recording" href="#/tab/log">
+    <ion-nav-view name="tab-log"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Email Tab -->
+  <ion-tab title="Humans" icon-off="ion-ios-people-outline" icon-on="ion-ios-people" href="#/tab/account">
+    <ion-nav-view name="tab-account"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Config Tab (For Mobile phone and Tablet) -->
+  <ion-tab title="Config" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/config" hidden="true">
+    <ion-nav-view name="tab-config"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>

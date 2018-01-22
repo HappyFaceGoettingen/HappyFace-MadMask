@@ -1,0 +1,19 @@
+<ion-view view-title="Visualizer">
+  <ion-content>
+    <label class="item item-input item-select">
+      <div class="input-label">
+	Diagram
+      </div>
+      <select ng-model="selectedItem" ng-options="visualizer.name for visualizer in visualizers" ng-change="reload(selectedItem)">
+	<option value="{{visualizer.name}}">{{visualizer.name}}</option>
+      </select>
+    </label>
+    <label class="item">
+      <div class="diagramview">
+	<center>
+	  <img src="{{diagram}}"></img>
+	</center>
+      </div>
+    </label>
+  </ion-content>
+</ion-view>

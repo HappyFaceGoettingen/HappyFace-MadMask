@@ -1,0 +1,29 @@
+[{
+    "name": "GWDG ticket",
+    "email": "support@gwdg.de",
+    "notification": false,
+    "display": true,
+    "text": "GWDG ticket: This email is used for some fundamental troubles in the GWDG infrastructure.",
+    "img": "https://www.datacite.org/sites/default/files/styles/full-logo-member/public/member_logos/Gwdg-logo-neu_0.jpg?itok=ySJ8SB0f"
+ }, {
+    "name": "Dr. Juergen Holm @ Theory in 2nd Physics Institute",
+    "email": "holm@theorie.physik.uni-goettingen.de",
+    "notification": false,
+    "display": true,
+    "text": "An administrator of GoeGrid. He is responsible for batch system, some networks, a provisioning system and so on.",
+    "img": "http://www.theorie.physik.uni-goettingen.de/php/photo.php?user=holm&width=200"
+ }, {
+    "name": "Tim Ehlers @ GWDG",
+    "email": "tehlers@gwdg.de",
+    "notification": false,
+    "display": true,
+    "text": "He is responsible for hardware issues, and helping exchanges of broken RAID disks in GoeGrid SE disk pools.",
+    "img": "https://www.gwdg.de/typo3temp/pics/706439136e.jpg"
+ }, {
+    "name": "Dr. Gen Kawamura @ ATLAS in 2nd Physics Institute",
+    "email": "gen.kawamura@cern.ch",
+    "notification": true,
+    "display": true,
+    "text": "A Grid expert. He is responsible for Grid middleware, services, the WLCG system and ATLAS production & analysis jobs.",
+    "img": "http://physik2.uni-goettingen.de/Members/photos/GenKawamura.jpg"
+}]

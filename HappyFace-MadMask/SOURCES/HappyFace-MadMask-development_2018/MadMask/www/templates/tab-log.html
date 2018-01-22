@@ -1,0 +1,18 @@
+<ion-view view-title="Log Viewer">
+
+ <!-- Implement this later, https://github.com/cfjedimaster/Cordova-Examples/tree/master/readtextfile/www -->
+  <ion-content>
+    <label class="item item-input item-select">
+      <div class="input-label">
+	Log
+      </div>
+      <select ng-model="selectedItem" ng-options="log.name for log in logs" ng-change="reload(selectedItem)">
+        <option value="{{log.name}}">{{log.name}}</option>
+      </select>
+    </label>
+    
+    <div class="text-wrap">
+      {{logfileContent}}
+    </div>
+  </ion-content>
+</ion-view>
