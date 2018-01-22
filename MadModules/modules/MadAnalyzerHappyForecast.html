@@ -1,0 +1,26 @@
+## -*- coding: utf-8 -*-
+<%inherit file="/module_base.html" />
+
+<%def name="content()">
+    % if module.dataset['status'] == 1:
+        <p>Analyzed!</p>
+    % endif
+
+    ## Output by for loop
+    <script src="../static/madurls.js" type="text/javascript"></script>
+
+    <img id="fimg0" src="smiley.gif" width="200">
+    <img id="fimg1" src="smiley.gif" width="200">
+    <img id="fimg2" src="smiley.gif" width="200">
+    <img id="fimg3" src="smiley.gif" width="200">
+    <img id="fimg4" src="smiley.gif" width="200">
+
+    <script>
+      var dir = "../static/data/forecast/images/";
+      for (index = 0; index < 5; index++) {
+         document.getElementById("fimg" + index).src = dir + fimages[index] + ".png";
+      }
+
+    </script>
+
+</%def>

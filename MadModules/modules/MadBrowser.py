@@ -20,7 +20,7 @@ import re
 from datetime import datetime
 from datetime import timedelta
 
-class MadAnalyzer(hf.module.ModuleBase):
+class MadBrowser(hf.module.ModuleBase):
     config_keys = {
         'job_mode': ('Job Submission Mode', 'CREAM'),
         'job_endpoint': ('Job Submission Endpoint', 'https://creamce3.goegrid.gwdg.de:8443/ce-cream/services'),

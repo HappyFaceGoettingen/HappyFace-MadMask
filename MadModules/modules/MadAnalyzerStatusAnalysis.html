@@ -1,0 +1,31 @@
+## -*- coding: utf-8 -*-
+<%inherit file="/module_base.html" />
+
+<%def name="content()">
+    % if module.dataset['status'] == 1:
+        <p>Analyzed!</p>
+    % endif
+
+    ## Output by for loop
+    <script src="../static/madurls.js" type="text/javascript"></script>
+
+    <img id="simg0" src="smiley.gif" width="200">
+    <img id="simg1" src="smiley.gif" width="200">
+    <img id="simg2" src="smiley.gif" width="200">
+    <img id="simg3" src="smiley.gif" width="200">
+    <img id="simg4" src="smiley.gif" width="200">
+    <img id="simg5" src="smiley.gif" width="200">
+    <img id="simg6" src="smiley.gif" width="200">
+    <img id="simg7" src="smiley.gif" width="200">
+    <img id="simg8" src="smiley.gif" width="200">
+    <img id="simg9" src="smiley.gif" width="200">
+
+    <script>
+      var dir = "../static/data/goegrid/analysis/plot_analysis/latest/";
+      for (index = 0; index < 10; index++) {
+         document.getElementById("simg" + index).src = dir + files[index] + ".png";
+      }
+
+    </script>
+
+</%def>

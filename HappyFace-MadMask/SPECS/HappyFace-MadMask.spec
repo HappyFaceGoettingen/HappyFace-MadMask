@@ -87,7 +87,7 @@ cd ..
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 # make directories
-! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
+! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix} mkdir -vp $RPM_BUILD_ROOT/%{_prefix}/static
 ! [ -d $RPM_BUILD_ROOT/%{_module_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_module_cfg}
 ! [ -d $RPM_BUILD_ROOT/%{_category_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_category_cfg}
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
@@ -112,6 +112,10 @@ ln -s %{_prefix}/MadMask/daemon/madface-default-start $RPM_BUILD_ROOT/%{_sbindir
 rm -v $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
+## Into static dir such as javascript and link
+cp -vr %{_source_dir}/MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
+ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
+
 
 
 ## Example Data dir (taken from MadFace)
@@ -123,6 +127,7 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_madface_dir}/data
 ## --> From Docker Volume (under /devel)
 rmdir -v $RPM_BUILD_ROOT/%{_datadir}
 ln -s /devel/MadMask/MadMaskExampleData $RPM_BUILD_ROOT/%{_datadir}
+
 
 
 
@@ -193,6 +198,7 @@ service httpd start
 %files
 %defattr(-,%{happyface_user},%{happyface_group})
 %{_prefix}/MadMask
+%{_prefix}/static/*
 %{_prefix}/modules/*
 %{_module_cfg}/*
 %{_category_cfg}/*
