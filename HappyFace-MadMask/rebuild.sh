@@ -18,6 +18,7 @@ localzip(){
     TARDIR="HappyFace-MadMask-development_2018"
 
    ## Making Source file
+   [ ! -e SOURCES ] && mkdir -v SOURCES
    pushd SOURCES
    [ ! -e $TARDIR ] && mkdir -v $TARDIR
    rsync -avlp --delete ../../MadMask $TARDIR/
