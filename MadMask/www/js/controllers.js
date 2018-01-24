@@ -151,21 +151,24 @@ angular.module('madface.controllers', [])
       console.log(name);
       $scope.selectedItem = name;
       $scope.monitoringUrls = MonitoringUrls.setPlots(name);
-      if (name == "overall_pathway"){
-	  $scope.single_plot_src = $scope.monitoringUrls[0].urls[0].plot_overall_pathway;
-      } else if (name == "happyface"){
-	  $scope.single_plot_src = "img/happyface_classical.png";
-      }
+      if (name == "overall_pathway") $scope.single_plot_src = $scope.monitoringUrls[0].urls[0].plot_overall_pathway;
+
+      // Not yet implemented. Displaying an image.
+      if (name == "happyface") $scope.single_plot_src = "img/happyface_classical.png";
+      if (name == "forecast") $scope.single_plot_src = "img/forecast.png";
   };
 
   $scope.hideMultiPlot = function(){
-      if (($scope.selectedItem == "infogain") || ($scope.selectedItem == "analysis") || ($scope.selectedItem == "pathway")) return(false);
+      if ($scope.selectedItem == "infogain") return(false);
+      if ($scope.selectedItem == "analysis") return(false);
+      if ($scope.selectedItem == "pathway") return(false);
       return(true);
   };
 
   $scope.hideSinglePlot = function(){
       if ($scope.selectedItem == "overall_pathway") return(false);
       if ($scope.selectedItem == "happyface") return(false);
+      if ($scope.selectedItem == "forecast") return(false);
       return(true);
   };
 

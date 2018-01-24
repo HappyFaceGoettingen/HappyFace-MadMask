@@ -1,7 +1,10 @@
 #!/bin/sh
 
 cd $(dirname $0)
-usage="./rebuild.sh [build|test]"
+[ ! -e SOURCES ] && mkdir -v SOURCES
+usage="./rebuild.sh [build|test]
+   build {madmask|libs}
+"
 
 if [ $# -eq 0 ]; then
   echo "$usage"
@@ -12,35 +15,52 @@ fi
 echo "%_topdir        $PWD" > rpmmacros_HappyFace-MadMask
 ln -sf $PWD/rpmmacros_HappyFace-MadMask ~/.rpmmacros
 
-specs="HappyFace-MadMask.spec"
 
-localzip(){
+madmask_zip(){
     TARDIR="HappyFace-MadMask-development_2018"
 
-   ## Making Source file
-   [ ! -e SOURCES ] && mkdir -v SOURCES
-   pushd SOURCES
-   [ ! -e $TARDIR ] && mkdir -v $TARDIR
-   rsync -avlp --delete ../../MadMask $TARDIR/
-   rsync -avlp --delete ../../MadModules $TARDIR/
-   tar zcvf HappyFace-MadMask.zip ${TARDIR}
-   popd
+    pushd SOURCES
+    [ ! -e $TARDIR ] && mkdir -v $TARDIR
+    
+    ## HappyFace-MadMask.zip
+    rsync -avlp --delete ../../MadMask $TARDIR/
+    rsync -avlp --delete ../../MadModules $TARDIR/
+    tar zcvf HappyFace-MadMask.zip ${TARDIR}
+    
+    ## MadMask-R-libs.zip
+    tar zcvf MadMask-R-libs.zip MadMask-R-libs
+    
+    popd
+}
+
+libs_zip(){
+    pushd SOURCES
+
+    ## MadMask-R-libs.zip
+    tar zcvf MadMask-R-libs.zip MadMask-R-libs
+    
+    popd
 }
 
 
 case "$1" in
   build)
-   localzip
-
-   ## Build
-   for s in $specs
-   do
-     rpmbuild --define 'dist .el6' --clean -ba SPECS/$s
-   done
+   case "$2" in 
+       madmask)
+	   madmask_zip
+	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/HappyFace-MadMask.spec
+	   ;;
+       libs)
+	   libs_zip
+	   ## Skipping check-buildroot
+	   export QA_SKIP_BUILD_ROOT=1
+	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadMask-R-libs.spec
+	   ;;
+   esac
    ;;
   test)
 	yum -y remove HappyFace-MadMask
-	yum -y install RPMS/x86_64/HappyFace-MadMask-1*.rpm
+	yum -y install RPMS/x86_64/*.rpm
 	chown -R happyface3:happyface3 ../MadMaskExampleData
 	;;
 esac
