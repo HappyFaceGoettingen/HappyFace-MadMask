@@ -3,13 +3,12 @@
 	"site": "GoeGrid",
 	"host": "goegrid-controller.ph2.physik.uni-goettingen.de",
 	"port": "8111",
-	"admin_port": "10443",
 	"summary_json": "data/goegrid/json/summary.json",
 	"capture": "data/goegrid/capture",
 	"thumbnail": "data/goegrid/thumbnail",
 	"analysis": "data/goegrid/analysis",
 	"analysis_image_size": "384x384",
-	"keep_data_days": 20,
+	"keep_data_days": 15,
 	"debug_mode": 0,
 	"xdisplay": [{
 		"name": "default",
@@ -24,7 +23,6 @@
 		}],
 	"firefox_profile": "firefox_profiles/dbzvej40.default",
 	"parallel_analysis": 2,
-	"mail_client": "nail",
 	"logs": [{ 
 		"name": "Cron log",
 		"file": "data/goegrid/log/cron.log"

@@ -18,20 +18,10 @@ Requires: npm
 Requires: tmpwatch
 Requires: firefox
 Requires: ImageMagick
-Requires: festival
 Requires: xdotool
 Requires: jq
 Requires: fftw-devel
 Requires: fftw2-devel
-Requires: festival
-Requires: festvox-ked-diphone
-Requires: festvox-kal-diphone
-Requires: festvox-slt-arctic-hts
-Requires: festvox-bdl-arctic-hts
-Requires: festvox-rms-arctic-hts
-Requires: festvox-awb-arctic-hts
-Requires: festvox-clb-arctic-hts
-Requires: festvox-jmk-arctic-hts
 Requires: sysstat
 Requires: bc
 

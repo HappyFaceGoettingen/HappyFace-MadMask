@@ -278,11 +278,19 @@ INFO(){
 }
 
 
+ERROR(){
+    local message="$1"
+    echo "$(tput setaf 1)[$(date)]: ${message}$(tput sgr 0)"
+}
+
+
 WAIT(){
     local wait_sec=$1
     INFO "Waiting [$wait_sec sec] ..."
     sleep $wait_sec
 }
+
+
 
 
 #---------------------------------------------------------

@@ -71,7 +71,7 @@ start() {
 	[ -e $cron_logdir ] || su $user -c "mkdir -pv $cron_logdir"
 
 	## Starting daemons
-	su $user -c "$MADFACE_HOME/madface -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
+	su $user -c "$MADFACE_HOME/madmask -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
 	[ $? -ne 0 ] && RETVAL=255
     done
     popd &> /dev/null

@@ -1,0 +1,130 @@
+[{
+    "name": "GoeGrid 1",
+    "file": "sites/goegrid/img/GoeGrid_Photo1.jpg"
+},{
+    "name": "GoeGrid 2",
+    "file": "sites/goegrid/img/GoeGrid_Photo2.jpg"
+},{
+    "name": "GoeGrid 3",
+    "file": "sites/goegrid/img/GoeGrid_Photo3.jpg"
+},{
+    "name": "GoeGrid Structure",
+    "file": "sites/goegrid/img/structure.png"
+},{
+    "name": "GoeGrid SE Real-time Activity",
+    "file": "sites/goegrid/img/se-activity-sample.gif"
+},{
+    "name": "GoeGrid PBS CPU Wall Time last 1 day",
+    "file": "sites/goegrid/img/accounting_cpu_walltime_day.jpg"
+},{
+    "name": "GoeGrid PBS CPU Wall Time last 1 week",
+    "file": "sites/goegrid/img/accounting_cpu_walltime_week.jpg"
+},{
+    "name": "GoeGrid PBS CPU Wall Time last 1 month",
+    "file": "sites/goegrid/img/accounting_cpu_walltime_month.jpg"
+},{
+    "name": "GoeGrid PBS CPU Wall Time daily barplot",
+    "file": "sites/goegrid/img/accounting_cpu_walltime_day_barplot.jpg"
+},{
+    "name": "GoeGrid PBS CPU Wall Time weekly barplot",
+    "file": "sites/goegrid/img/accounting_cpu_walltime_week_barplot.jpg"
+},{
+    "name": "Wall Clock consumption last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=wab"
+},{
+    "name": "Wall Clock consumption last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=wab"
+},{
+    "name": "Wall Clock consumption last 1 month",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastMonth&granularity=8%20Hours&generic=0&sortBy=12&series=All&type=wab"
+},{
+    "name": "Wall Clock consumption of DE Cloud last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=All%20Sites&sitesCat=GERMANY&resourcetype=All&sitesSort=0&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=0&series=All&type=ewa"
+},{
+    "name": "Wall Clock consumption of DE Cloud last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=All%20Sites&sitesCat=GERMANY&resourcetype=All&sitesSort=0&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=0&series=All&type=ewa"
+},{
+    "name": "Wall Clock consumption of DE Cloud last 1 month",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=All%20Sites&sitesCat=GERMANY&resourcetype=All&sitesSort=0&sitesCatSort=0&start=null&end=null&timeRange=lastMonth&granularity=Hourly&generic=0&sortBy=0&series=All&type=ewa"
+},{
+    "name": "Slots of Running Grid Jobs 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=rmulticores"
+},{
+    "name": "Slots of Running Grid Jobs last week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=rmulticores"
+},{
+    "name": "Slots of Running Grid Jobs last 1 month",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastMonth&granularity=8%20Hours&generic=0&sortBy=12&series=All&type=rmulticores"
+},{
+    "name": "Grid Jobs last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=GERMANY&resourcetype=All&sitesSort=4&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=t"
+},{
+    "name": "Submitted Grid Jobs last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=s"
+},{
+    "name": "Pending Grid Jobs last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=GERMANY&resourcetype=All&sitesSort=4&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=p"
+},{
+    "name": "Grid Jobs last 48h - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=GERMANY&resourcetype=All&sitesSort=4&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=tp"
+},{
+    "name": "Num of successful and failed jobs last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&sortBy=12&granularity=Hourly&generic=0&series=All&type=nsfb"
+},{
+    "name": "Num of successful and failed jobs last 48h - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&sortBy=12&granularity=Hourly&generic=0&series=All&type=nsfp"
+},{
+    "name": "Job efficiency last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&sortBy=12&granularity=Hourly&generic=0&series=All&type=ebsf"
+},{
+    "name": "NEvents Processed last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=net"
+},{
+    "name": "NFiles Processed last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=fet"
+},{
+    "name": "NBytes Processed last 48h",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=bet"
+},{
+    "name": "NBytes Processed last 48h - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=bep"
+},{
+    "name": "Grid Jobs last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=t"
+},{
+    "name": "Submitted Grid Jobs last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=s"
+},{
+    "name": "Grid Jobs last 1 week - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=tp"
+},{
+    "name": "Num of successful and failed jobs last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&sortBy=12&granularity=Hourly&generic=0&series=All&type=nsfb"
+},{
+    "name": "Num of successful and failed jobs last 1 week - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&sortBy=12&granularity=Hourly&generic=0&series=All&type=nsfp"
+},{
+    "name": "Job efficiency last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&sortBy=12&granularity=Hourly&generic=0&series=All&type=ebsf"
+},{
+    "name": "NEvents Processed last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=net"
+},{
+    "name": "NFiles Processed last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=fet"
+},{
+    "name": "NBytes Processed last 1 week",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=bet"
+},{
+    "name": "NBytes Processed last 1 week - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/processedEvents_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Hourly&generic=0&sortBy=12&series=All&type=bep"
+},{
+    "name": "Usage of Datasets",
+    "file": "http://dashb-atlas-ddm-acc.cern.ch/dashboard/request.py/historical_view_individual?sites=GOEGRID&sitesCat=All%20Countries&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Daily&gen_spacetoken=0&gen_project=0&gen_datatype=0&gen_streamname=0&sortBy=10&series=All&graph=cum&logical=true&type=physbyte"
+},{
+    "name": "Number of Physical Files",
+    "file": "http://dashb-atlas-ddm-acc.cern.ch/dashboard/request.py/historical_view_individual?sites=GOEGRID&sitesCat=All%20Countries&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=lastWeek&granularity=Daily&gen_spacetoken=0&gen_project=0&gen_datatype=0&gen_streamname=0&sortBy=10&series=All&logical=true&type=physfile"
+},{
+    "name": "Number of Physical Files - Snapshot Pie Chart",
+    "file": "http://dashb-atlas-ddm-acc.cern.ch/dashboard/request.py/snapshot_view_individual?sites=GOEGRID&sitesCat=All%20Countries&spacetokens=All%20Spacetokens&resacc=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last24&granularity=Daily&gen_spacetoken=1&gen_project=0&gen_datatype=0&gen_streamname=0&sortBy=10&series=All&logical=true&type=physbyte"
+}]

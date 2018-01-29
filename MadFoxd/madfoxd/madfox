@@ -1,0 +1,379 @@
+#!/bin/bash
+
+COMMAND=$(basename $0)
+
+## Sourcing functions from this directory
+MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/madfoxd
+
+## Some parameters before starting firefox and opening its tabs
+WAIT_FIREFOX_BOOT=10
+WAIT_FIREFOX_OPEN_TAB=1
+
+## Input WEB pages by a JSON file
+URLFILE=""
+
+# Firefox profile
+FIREFOX_PROFILE=""
+
+# Outputs for image importer
+CAPTURE_DIR="data/$USER/capture"
+THUMBNAIL_DIR="data/$USER/thumbnail"
+INDEX_DIR="data/$USER/index"
+
+## X-Window options
+X_RESOLUTION=1280x1024
+X_COLOR_DEPTH=24
+
+## Images by MadFox addon are png, Outputs are jpg
+MADFOX_PICTURE_TYPE=png
+PICTURE_TYPE=jpg
+
+## Daemon options
+DAEMONIZE=""
+LOGDIR="/tmp/madfox.$USER"
+PIDDIR="/tmp/madfox.$USER"
+PIDFILE="$PIDDIR/madfox.pid"
+
+
+#-------------------------------
+# External functions
+#-------------------------------
+for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
+
+
+## Default display and its resolution
+[[ "$DISPLAY" =~ ^:0 ]] && X_RESOLUTION=$(xwininfo -root -display :0.0 | grep 'geometry' | perl -pe "s/.*geometry (.*?)\+.*$/\1/g")
+
+
+usage="$0 [options] -a [actions]
+ * Log level
+ -l {TRACE|DEBUG|INFO|WARN|ERROR}
+
+ * Process
+ -p:  set piddir [default: $PIDDIR]
+
+ * X-Display
+ -x:  X-window display [default: $DISPLAY]
+ -r:  X-window resolution [default: $X_RESOLUTION]
+
+ * Firefox
+ -f:  Set Firefox profile
+ -w:  Set a wait time of booting Firefox [default: $WAIT_FIREFOX_BOOT]
+
+ * URLs (as input sources)
+ -u:  URL JSON file
+
+ * Outputs (with 'import' action)
+ -c:  Capture dir [default: $CAPTURE_DIR]
+ -t:  Thumbnail dir [default: $THUMBNAIL_DIR]
+ -o:  JSON/HTML index dir [default: $INDEX_DIR]
+
+
+ * Run an action
+ -a:  Set action [start|stop|restart|killall|status|reload|capture|import]
+
+
+ * Daemonizer options
+ -D:  daemonize
+ -L:  set logdir [default: $LOGDIR]
+ -P:  set pidfile [default: $PIDFILE]
+
+
+ Report Bugs to Gen Kawamura <gen.kawamura@cern.ch>"
+
+
+if [ $# -eq 0 ]; then
+    echo "$usage"
+    exit 0
+fi
+
+
+#--------------------------
+# Log Level
+#--------------------------
+set_loglevel INFO
+
+
+#--------------------------
+# Getopt
+#--------------------------
+while getopts "l:u:j:o:t:x:r:f:a:w:DL:P:p:hv" op
+  do
+  case $op in
+      S) for func in $(ls $MADFOX_LIB_DIR/*); do source $func; done
+          ;;
+      l) set_loglevel=$OPTARG
+	  ;;
+      u) URLFILE=$OPTARG
+	  ;;
+      j) JSON_OUT=$OPTARG
+	  ;;
+      o) CAPTURE_DIR="$OPTARG"
+	  ;;
+      t) THUMBNAIL_DIR="$OPTARG"
+	  ;;
+      x) export DISPLAY="$OPTARG"
+	  ;;
+      r) X_RESOLUTION="$OPTARG"
+	  ;;
+      f) FIREFOX_PROFILE="$OPTARG"
+	  ;;
+      a) ACTION=$OPTARG
+	 ;;
+      w) WAIT_FIREFOX_BOOT=$OPTARG
+	  ;;
+      D) DAEMONIZE=true
+	  ;;
+      L) LOGDIR=$OPTARG
+	  ;;
+      P) PIDDIR=$OPTARG
+	  ;;
+      p) PIDFILE=$OPTARG
+	  ;;
+      h) echo "$usage"
+	  exit 0
+	  ;;
+      v) echo "$version"
+	  exit 0
+	  ;;
+      ?) echo "$usage"
+	  exit 0
+	  ;;
+  esac
+done
+
+
+
+#-------------------------------
+# Image importer (for debug)
+#-------------------------------
+debug_capture_xwin_display(){
+    local output=$PIDDIR/xwindow.${X_DISPLAY}__${X_RESOLUTION}.jpg
+    INFO "Importing X-Display --> [$output]"
+    import -window root -silent $output &
+}
+
+
+#-------------------------------
+# Firefox boot loader
+#-------------------------------
+copy_firefox_profile(){
+    local new_profile=$PIDDIR/$(basename $FIREFOX_PROFILE).${X_DISPLAY}__{$X_RESOLUTION}
+    rsync -avl $FIREFOX_PROFILE $new_profile
+    FIREFOX_PROFILE=$new_profile
+    return 0
+}
+
+
+start_firefox(){
+    local command_option="--profile $FIREFOX_PROFILE $1"
+    firefox $command_option &> /dev/null &
+    [ $? -ne 0 ] && return 1
+    echo "$!"
+    return 0
+}
+
+
+open_firefox_tabs(){
+    ## Loading a JSON file defining URLs
+    load_monitoringUrls_json $URLFILE
+
+    local profile_option=""
+    [ ! -z "$FIREFOX_PROFILE" ] && profile_option="--profile $FIREFOX_PROFILE"
+
+    local url
+    for url in ${urls[*]}
+    do
+	local command_option="$profile_option -new-tab $url"
+	INFO "COMMAND = [firefox $command_option]"
+	firefox $command_option &> /dev/null &
+	[ $? -ne 0 ] && ERROR "Opening Firefox Tabs failed" && return 1
+	sleep $WAIT_FIREFOX_OPEN_TAB
+    done
+    return 0
+}
+
+
+
+#-------------------------------
+# Main actions
+#-------------------------------
+start_browser(){
+    check_lock && ERROR "Already running" && return 1
+
+    ## Copying Firefox profile
+    copy_firefox_profile || return 1
+
+    ## Starting Firefox
+    ! check_lock firefox && return 1
+    local pid=$(start_firefox "https://www.google.com")
+    write_lock firefox $pid
+    ! check_lock firefox && ERROR "Starting firefox failed" && remove_lock firefox && return 1
+
+    ## Waiting ...
+    WAIT $WAIT_FIREFOX_BOOT
+
+    ## Fitting Window (for Xvfb screen)
+    fit_window "firefox" $X_RESOLUTION
+    debug_capture_xwin_display
+
+    ## A loop over opening Tabs
+    open_firefox_tabs
+
+    return 0
+}
+
+
+stop_browser(){
+    ! check_lock firefox && ERROR "Firefox already stopped" && return 1
+    remove_lock firefox
+    return $?
+}
+
+
+reload_browser(){
+    INFO "Reloading browser pages ..."
+    run_madfox_addon "reload"
+    return 0
+}
+
+
+capture_browser(){
+    INFO "Capturing browser views to [$(get_madfox_addon_outdir)] ..."
+    run_madfox_addon "capture"
+    debug_capture_xwin_display
+    return 0
+}
+
+
+import_images(){
+    local index_dir=$1
+    local capture_dir=$2
+    local thumbnail_dir=$3
+
+    ## Loading a JSON file defining URLs
+    load_monitoringUrls_json $URLFILE
+
+    #-----------------------------------
+    # Import captured images
+    #-----------------------------------
+    date_id=$(date +%Y%m%d-%H%M)
+    [ -e $capture_dir/$date_id ] && ERROR "Capture dir [$capture_dir/$date_id] already exists!" && return 1
+    [ ! -e $capture_dir/$date_id ] && mkdir -pv $capture_dir/$date_id
+    move_data_to_latest_dir $(get_madfox_addon_outdir) $capture_dir/$date_id
+
+    #-----------------------------------
+    # Make thumbnails
+    #-----------------------------------
+    [ ! -e $thumbnail_dir ] && mkdir -pv $thumbnail_dir
+    generate_thumbnails $capture_dir/$date_id $thumbnail_dir/$date_id
+
+    #-----------------------------------
+    # Write JSON/HTML output
+    #-----------------------------------
+    [ ! -e $index_dir ] && mkdir -pv $index_dir
+    write_index_json $index_dir $date_id $capture_dir $thumbnail_dir
+    write_index_html $index_dir $date_id $capture_dir $thumbnail_dir
+}
+
+
+
+
+#-------------------------------
+# Trapping kill signals
+#-------------------------------
+clean_madfox(){
+    stop_browser
+    stop_virutal_xwin    
+}
+
+
+
+#====================================================
+#
+# Main
+#
+#====================================================
+
+## Check variables
+[ -z "$URLFILE" ] && ERROR "urlfile is empty!" && exit -1
+[ ! -e "$URLFILE" ] && ERROR "urlfile [$URLFILE] does not exist" && exit -1
+[ -z "$FIREFOX_PROFILE" ] && ERROR "[$FIREFOX_PROFILE] is not given" && exit -1
+[ ! -e $FIREFOX_PROFILE ] && ERROR "FIREFOX_PROFILE [$FIREFOX_PROFILE] does not exist" && return 1
+[ ! -d $FIREFOX_PROFILE ] && ERROR "FIREFOX_PROFILE [$FIREFOX_PROFILE] is not a directory" && return 1
+[ -z "$DISPLAY" ] && ERROR "DISPLAY is empty" && exit -1
+[[ ! "$DISPLAY" =~ ^: ]] && ERROR "DISPLAY does not have a proper format" && exit -1
+[ -z "$X_RESOLUTION" ] && ERROR "X_RESOLUTION is empty" && exit -1
+[ -z "$PIDDIR" ] && ERROR "PIDDIR is empty" && exit -1
+[ ! -e $PIDDIR ] && ! mkdir -pv $PIDDIR && ERROR "Cannot create [$PIDDIR]" && exit -1
+[ -d "$PIDDIR" ] && ERROR "$PIDDIR is not a directory" && exit -1
+
+
+## Show main input variables
+INFO "DISPLAY          = [$DISPLAY]"
+INFO "URLFILE          = [$URLFILE]"
+INFO "FIREFOX_PROFILE  = [$FIREFOX_PROFILE]"
+INFO "PIDDIR           = [$PIDDIR]"
+
+
+## For X-Window
+X_DISPLAY=$(echo $DISPLAY | perl -pe "s/://g")
+
+
+#-----------------------------------
+# Daemonize
+#-----------------------------------
+if [ "$DAEMONIZE" == "true" ]; then
+    echo "MOCK daemonizer"
+    exit 0
+fi
+
+
+#-----------------------------------
+# Run main actions over X-wins
+#-----------------------------------
+case $ACTION in
+    start)
+	trap clean_madfox SIGINT SIGTERM SIGKILL SIGHUP
+	start_virutal_xwin || exit -1
+	start_browser
+	;;
+    stop)
+	stop_browser
+	stop_virutal_xwin
+	;;
+    restart)
+	stop_browser
+	stop_virutal_xwin
+	start_virutal_xwin || exit -1
+	start_browser
+	;;
+    status)
+	check_running_browsers
+	## Latest time images were captured
+	## last_captured
+	;;
+    killall)
+	remove_all_locks
+	;;
+    reload)
+	reload_browser
+	;;
+    capture)
+	capture_browser
+	;;
+    import)
+	[ -z "$INDEX_DIR" ] && ERROR "INDEX_DIR is empty!" && exit -1
+	[ -z "$CAPTURE_DIR" ] && ERROR "CAPTURE_DIR is empty!" && exit -1
+	[ -z "$THUMBNAIL_DIR" ] && ERROR "THUMBNAIL_DIR is empty!" && exit -1
+	INFO "INDEX_DIR        = [$INDEX_DIR]"
+	INFO "CAPTURE_DIR      = [$CAPTURE_DIR]"
+	INFO "THUMBNAIL_DIR    = [$THUMBNAIL_DIR]"
+	import_images $INDEX_DIR $CAPTURE_DIR $THUMBNAIL_DIR
+	;;
+    *)
+	ERROR "Action [$ACTION] does not exist"
+	exit -1
+	;;
+esac
+	
