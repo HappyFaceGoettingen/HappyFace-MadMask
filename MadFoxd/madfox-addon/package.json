@@ -1,0 +1,16 @@
+{
+  "title": "Madfox",
+  "name": "Madfox",
+  "version": "0.3.1",
+  "description": "Save Firefox tabs to image files for MadFace.",
+  "main": "index.js",
+  "author": "Gen Kawamura",
+  "engines": {
+    "firefox": ">=31.0a1",
+    "fennec": ">=31.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "madfox"
+  ]
+}

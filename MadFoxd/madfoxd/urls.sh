@@ -20,6 +20,7 @@ load_monitoringUrls_json(){
     URLS=(`jq ".[].urls[].link" $jsonfile | sed "s/^\"\(.*\)\"$/\1/g"`)
     CAPTURES=(`jq ".[].urls[].capture" $jsonfile`)
     FIREFOX_XDISPLAY_NAMES=(`jq ".[].urls[].xdisplay_name" $jsonfile | sed "s/^\"\(.*\)\"$/\1/g"`)
+    DEBUG "load_monitoringUrls_json contains ${URLS[*]} items"
     return 0
 }
 

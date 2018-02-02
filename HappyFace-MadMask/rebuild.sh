@@ -26,10 +26,7 @@ madmask_zip(){
     rsync -avlp --delete ../../MadMask $TARDIR/
     rsync -avlp --delete ../../MadModules $TARDIR/
     tar zcvf HappyFace-MadMask.zip ${TARDIR}
-    
-    ## MadMask-R-libs.zip
-    tar zcvf MadMask-R-libs.zip MadMask-R-libs
-    
+
     popd
 }
 

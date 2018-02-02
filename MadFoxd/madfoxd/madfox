@@ -45,7 +45,7 @@ for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
 [[ "$DISPLAY" =~ ^:0 ]] && X_RESOLUTION=$(xwininfo -root -display :0.0 | grep 'geometry' | perl -pe "s/.*geometry (.*?)\+.*$/\1/g")
 
 
-usage="$0 [options] -a [actions]
+usage="$0 [options] -a [action]
  * Log level
  -l {TRACE|DEBUG|INFO|WARN|ERROR}
 
@@ -58,7 +58,7 @@ usage="$0 [options] -a [actions]
 
  * Firefox
  -f:  Set Firefox profile
- -w:  Set a wait time of booting Firefox [default: $WAIT_FIREFOX_BOOT]
+ -w:  Set a wait time to boot Firefox [default: $WAIT_FIREFOX_BOOT]
 
  * URLs (as input sources)
  -u:  URL JSON file
@@ -66,7 +66,7 @@ usage="$0 [options] -a [actions]
  * Outputs (with 'import' action)
  -c:  Capture dir [default: $CAPTURE_DIR]
  -t:  Thumbnail dir [default: $THUMBNAIL_DIR]
- -o:  JSON/HTML index dir [default: $INDEX_DIR]
+ -i:  JSON/HTML index dir [default: $INDEX_DIR]
 
 
  * Run an action
@@ -97,7 +97,7 @@ set_loglevel INFO
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "l:u:j:o:t:x:r:f:a:w:DL:P:p:hv" op
+while getopts "l:u:i:c:t:x:r:f:a:w:DL:P:p:hv" op
   do
   case $op in
       S) for func in $(ls $MADFOX_LIB_DIR/*); do source $func; done
@@ -106,9 +106,9 @@ while getopts "l:u:j:o:t:x:r:f:a:w:DL:P:p:hv" op
 	  ;;
       u) URLFILE=$OPTARG
 	  ;;
-      j) JSON_OUT=$OPTARG
+      i) INDEX_DIR=$OPTARG
 	  ;;
-      o) CAPTURE_DIR="$OPTARG"
+      c) CAPTURE_DIR="$OPTARG"
 	  ;;
       t) THUMBNAIL_DIR="$OPTARG"
 	  ;;
@@ -158,17 +158,19 @@ debug_capture_xwin_display(){
 # Firefox boot loader
 #-------------------------------
 copy_firefox_profile(){
-    local new_profile=$PIDDIR/$(basename $FIREFOX_PROFILE).${X_DISPLAY}__{$X_RESOLUTION}
-    rsync -avl $FIREFOX_PROFILE $new_profile
+    local new_profile=$PIDDIR/$(basename $FIREFOX_PROFILE).${X_DISPLAY}__${X_RESOLUTION}
+    INFO "Copying [$FIREFOX_PROFILE/] --> [$new_profile]"
+    rsync -alogp --delete $FIREFOX_PROFILE/ $new_profile
     FIREFOX_PROFILE=$new_profile
     return 0
 }
 
 
 start_firefox(){
-    local command_option="--profile $FIREFOX_PROFILE $1"
+    local url=$1
+    local command_option="--profile $FIREFOX_PROFILE $url"
     firefox $command_option &> /dev/null &
-    [ $? -ne 0 ] && return 1
+    #[ $? -ne 0 ] && return 1
     echo "$!"
     return 0
 }
@@ -182,7 +184,7 @@ open_firefox_tabs(){
     [ ! -z "$FIREFOX_PROFILE" ] && profile_option="--profile $FIREFOX_PROFILE"
 
     local url
-    for url in ${urls[*]}
+    for url in ${URLS[*]}
     do
 	local command_option="$profile_option -new-tab $url"
 	INFO "COMMAND = [firefox $command_option]"
@@ -199,26 +201,27 @@ open_firefox_tabs(){
 # Main actions
 #-------------------------------
 start_browser(){
-    check_lock && ERROR "Already running" && return 1
+    check_lock firefox && ERROR "Already running" && return 1
 
     ## Copying Firefox profile
-    copy_firefox_profile || return 1
+    copy_firefox_profile
 
     ## Starting Firefox
-    ! check_lock firefox && return 1
     local pid=$(start_firefox "https://www.google.com")
     write_lock firefox $pid
     ! check_lock firefox && ERROR "Starting firefox failed" && remove_lock firefox && return 1
 
     ## Waiting ...
-    WAIT $WAIT_FIREFOX_BOOT
+    INFO "Waiting [$WAIT_FIREFOX_BOOT] ..."
+    sleep $WAIT_FIREFOX_BOOT
 
     ## Fitting Window (for Xvfb screen)
     fit_window "firefox" $X_RESOLUTION
     debug_capture_xwin_display
 
-    ## A loop over opening Tabs
+    ## A loop over opening Firefox tabs
     open_firefox_tabs
+    debug_capture_xwin_display
 
     return 0
 }
@@ -306,7 +309,7 @@ clean_madfox(){
 [ -z "$X_RESOLUTION" ] && ERROR "X_RESOLUTION is empty" && exit -1
 [ -z "$PIDDIR" ] && ERROR "PIDDIR is empty" && exit -1
 [ ! -e $PIDDIR ] && ! mkdir -pv $PIDDIR && ERROR "Cannot create [$PIDDIR]" && exit -1
-[ -d "$PIDDIR" ] && ERROR "$PIDDIR is not a directory" && exit -1
+[ ! -d "$PIDDIR" ] && ERROR "$PIDDIR is not a directory" && exit -1
 
 
 ## Show main input variables
@@ -324,7 +327,6 @@ X_DISPLAY=$(echo $DISPLAY | perl -pe "s/://g")
 # Daemonize
 #-----------------------------------
 if [ "$DAEMONIZE" == "true" ]; then
-    echo "MOCK daemonizer"
     exit 0
 fi
 
@@ -350,7 +352,7 @@ case $ACTION in
 	;;
     status)
 	check_running_browsers
-	## Latest time images were captured
+	## Latest time when images were captured
 	## last_captured
 	;;
     killall)

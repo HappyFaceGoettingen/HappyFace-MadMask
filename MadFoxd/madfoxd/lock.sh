@@ -16,6 +16,7 @@ has_lock(){
 write_lock(){
     local type=$1
     local pid=$2
+    INFO "Writing a lock file of pid [$pid] for [$type]"
     echo "$pid" > $(get_lockfile $type)
     return 0
 }
@@ -23,20 +24,21 @@ write_lock(){
 read_lock(){
     local type=$1
     local lockfile=$(get_lockfile $type)
-    [ ! -e $lockfile ] && ERROR "$type: $lockfile does not exist" && return 1
+    [ ! -e $lockfile ] && return 1
     cat $lockfile
     return 0
 }
 
 check_lock(){
     local type=$1
+    ! has_lock $type && return 1
     local pid=$(read_lock $type)
-    [ $? -ne 0 ] && return 1
-    if ps ax | grep "^$pid " &> /dev/null; then
-	echo "$type: [$pid] is running"
+    if [ ! -z "$pid" ] && ps ax | grep "^ *$pid " &> /dev/null; then
+	INFO "$type: [$pid] is running"
 	return 0
     else
-	echo "$type: [$pid] in lockfile exists. But process is not running."
+	DEBUG "$(ps ax | grep firefox)"
+	ERROR "$type: [$pid] in lockfile exists. But process is not running."
 	return 1
     fi
 }
@@ -45,6 +47,7 @@ remove_lock(){
     local type=$1
     local pid=$(read_lock $type)
     [ $? -ne 0 ] && return 1
+    INFO "Killing $type [$pid]"
     kill -kill $pid
     rm -v $(get_lockfile $type)
     return 0
