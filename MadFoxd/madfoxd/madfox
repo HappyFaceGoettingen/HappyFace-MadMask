@@ -7,7 +7,7 @@ MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/madfoxd
 
 ## Some parameters before starting firefox and opening its tabs
 WAIT_FIREFOX_BOOT=10
-WAIT_FIREFOX_OPEN_TAB=1
+WAIT_FIREFOX_OPEN_TAB=0.5
 
 ## Input WEB pages by a JSON file
 URLFILE=""
@@ -16,17 +16,11 @@ URLFILE=""
 FIREFOX_PROFILE=""
 
 # Outputs for image importer
-CAPTURE_DIR="data/$USER/capture"
-THUMBNAIL_DIR="data/$USER/thumbnail"
-INDEX_DIR="data/$USER/index"
+DATA_DIR="data/$USER"
 
 ## X-Window options
 X_RESOLUTION=1280x1024
 X_COLOR_DEPTH=24
-
-## Images by MadFox addon are png, Outputs are jpg
-MADFOX_PICTURE_TYPE=png
-PICTURE_TYPE=jpg
 
 ## Daemon options
 DAEMONIZE=""
@@ -59,14 +53,14 @@ usage="$0 [options] -a [action]
  * Firefox
  -f:  Set Firefox profile
  -w:  Set a wait time to boot Firefox [default: $WAIT_FIREFOX_BOOT]
+ -t:  Set a wait time to open each tab [default: $WAIT_FIREFOX_OPEN_TAB]
 
  * URLs (as input sources)
  -u:  URL JSON file
 
  * Outputs (with 'import' action)
- -c:  Capture dir [default: $CAPTURE_DIR]
- -t:  Thumbnail dir [default: $THUMBNAIL_DIR]
- -i:  JSON/HTML index dir [default: $INDEX_DIR]
+ -o:  data dir [default: $DATA_DIR] 
+   (capture/thumbnail/index dirs will be created. The 'index' dir will contain JSON/HTML outputs)
 
 
  * Run an action
@@ -97,20 +91,17 @@ set_loglevel INFO
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "l:u:i:c:t:x:r:f:a:w:DL:P:p:hv" op
+while getopts "S:l:u:o:x:r:f:a:w:t:DL:P:p:hv" op
   do
   case $op in
-      S) for func in $(ls $MADFOX_LIB_DIR/*); do source $func; done
+      S) MADFOX_LIB_DIR=$OPTARG
+	  for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
           ;;
-      l) set_loglevel=$OPTARG
+      l) set_loglevel $OPTARG
 	  ;;
       u) URLFILE=$OPTARG
 	  ;;
-      i) INDEX_DIR=$OPTARG
-	  ;;
-      c) CAPTURE_DIR="$OPTARG"
-	  ;;
-      t) THUMBNAIL_DIR="$OPTARG"
+      o) DATA_DIR=$OPTARG
 	  ;;
       x) export DISPLAY="$OPTARG"
 	  ;;
@@ -121,6 +112,8 @@ while getopts "l:u:i:c:t:x:r:f:a:w:DL:P:p:hv" op
       a) ACTION=$OPTARG
 	 ;;
       w) WAIT_FIREFOX_BOOT=$OPTARG
+	  ;;
+      t) WAIT_FIREFOX_OPEN_TAB=$OPTARG
 	  ;;
       D) DAEMONIZE=true
 	  ;;
@@ -160,6 +153,7 @@ debug_capture_xwin_display(){
 set_new_firefox_profile(){
     local new_profile=$PIDDIR/$(basename $FIREFOX_PROFILE).${X_DISPLAY}__${X_RESOLUTION}
     FIREFOX_PROFILE=$new_profile
+    INFO "Firefox profile of this process [$X_DISPLAY - $X_RESOLUTION] is [$FIREFOX_PROFILE]"
 }
 
 copy_firefox_profile(){
@@ -174,7 +168,7 @@ copy_firefox_profile(){
 start_firefox(){
     local url=$1
     local command_option="--profile $FIREFOX_PROFILE $url"
-    firefox $command_option &> /dev/null &
+    firefox $command_option &> $PIDDIR/firefox__$(basename ${FIREFOX_PROFILE}).log &
     #[ $? -ne 0 ] && return 1
     echo "$!"
     return 0
@@ -196,6 +190,9 @@ open_firefox_tabs(){
 	firefox $command_option &> /dev/null &
 	[ $? -ne 0 ] && ERROR "Opening Firefox Tabs failed" && return 1
 	sleep $WAIT_FIREFOX_OPEN_TAB
+
+	## For Debug
+	[ $LOGLEVEL -ge $DEBUG_LEVEL ] && INFO "DEBUG mode. Exiting." && break
     done
     return 0
 }
@@ -264,40 +261,50 @@ last_captured(){
     ## Show latest time when images were captured
     INFO "Firefox profile of running process = $FIREFOX_PROFILE]"
     local madfox_out=$(get_madfox_addon_outdir)
-    [ ! -e $madfox_out ] && INFO "[$madfox_out] does not exist" && return 1
-    INFO "Last captured: [$(stat -c %y $madfox_out)]"
+    ! ls $madfox_out/* &> /dev/null && INFO "[$madfox_out] does not exist" && return 1
+    DEBUG "Checking [$madfox_out]"
+    INFO "Last captured: [$(stat -c %y $(ls -t $madfox_out/* | head -n 1))]"
     return 0
 }
 
 
 import_images(){
-    local index_dir=$1
-    local capture_dir=$2
-    local thumbnail_dir=$3
+    local data_dir=$1
+
+    ## Import dirs
+    local capture_dir=$data_dir/capture
+    local thumbnail_dir=$data_dir/thumbnail
+    local index_dir=$data_dir/index
+
+    INFO "CAPTURE_DIR      = [$capture_dir]"
+    INFO "THUMBNAIL_DIR    = [$thumbnail_dir]"
+    INFO "INDEX_DIR        = [$index_dir]"
 
     ## Loading a JSON file defining URLs
     load_monitoringUrls_json $URLFILE
 
+    ## Set date ID
+    date_id=$(date +%Y%m%d-%H%M)
+    [ -e $capture_dir/$date_id ] && ERROR "Capture dir [$capture_dir/$date_id] already exists!" && return 1
+
     #-----------------------------------
     # Import captured images
     #-----------------------------------
-    date_id=$(date +%Y%m%d-%H%M)
-    [ -e $capture_dir/$date_id ] && ERROR "Capture dir [$capture_dir/$date_id] already exists!" && return 1
     [ ! -e $capture_dir/$date_id ] && mkdir -pv $capture_dir/$date_id
-    move_data_to_latest_dir $(get_madfox_addon_outdir) $capture_dir/$date_id
+    import_madfox_images $(get_madfox_addon_outdir) $capture_dir/$date_id
 
     #-----------------------------------
     # Make thumbnails
     #-----------------------------------
-    [ ! -e $thumbnail_dir ] && mkdir -pv $thumbnail_dir
+    [ ! -e $thumbnail_dir/$date_id ] && mkdir -pv $thumbnail_dir/$date_id
     generate_thumbnails $capture_dir/$date_id $thumbnail_dir/$date_id
 
     #-----------------------------------
     # Write JSON/HTML output
     #-----------------------------------
-    [ ! -e $index_dir ] && mkdir -pv $index_dir
-    write_index_json $index_dir $date_id $capture_dir $thumbnail_dir
-    write_index_html $index_dir $date_id $capture_dir $thumbnail_dir
+    [ ! -e $index_dir/$date_id ] && mkdir -pv $index_dir/$date_id
+    write_index_json $data_dir $date_id
+    write_index_html $data_dir $date_id
 }
 
 
@@ -368,6 +375,7 @@ case $ACTION in
     restart)
 	stop_browser
 	stop_virutal_xwin
+	trap clean_madfox SIGINT SIGTERM SIGKILL SIGHUP
 	start_virutal_xwin || exit -1
 	start_browser
 	;;
@@ -380,21 +388,20 @@ case $ACTION in
 	remove_all_locks
 	;;
     reload)
+	set_new_firefox_profile
 	reload_browser
 	;;
     capture)
+	set_new_firefox_profile
 	capture_browser
 	;;
     import)
-	[ -z "$INDEX_DIR" ] && ERROR "INDEX_DIR is empty!" && exit -1
-	[ -z "$CAPTURE_DIR" ] && ERROR "CAPTURE_DIR is empty!" && exit -1
-	[ -z "$THUMBNAIL_DIR" ] && ERROR "THUMBNAIL_DIR is empty!" && exit -1
-	INFO "INDEX_DIR        = [$INDEX_DIR]"
-	INFO "CAPTURE_DIR      = [$CAPTURE_DIR]"
-	INFO "THUMBNAIL_DIR    = [$THUMBNAIL_DIR]"
+	INFO "DATA_DIR = [$DATA_DIR]"
+	[ -z "$DATA_DIR" ] && ERROR "DATA_DIR is empty" && exit -1
+	[ ! -e "$DATA_DIR" ] && ERROR "DATA_DIR [$DATA_DIR] does not exist" && exit -1
 
 	set_new_firefox_profile
-	import_images $INDEX_DIR $CAPTURE_DIR $THUMBNAIL_DIR
+	import_images $DATA_DIR
 	;;
     *)
 	ERROR "Action [$ACTION] does not exist"

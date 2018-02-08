@@ -177,7 +177,7 @@ angular.module('madface.FacJsonContents', [])
 
 
 .factory('Visualizers', function(Config) {
-  var visualizers = config.visualizers;
+  //var visualizers = config.visualizers;
   setLinks();
 
   function setLinks(){
@@ -197,7 +197,7 @@ angular.module('madface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Visualizers ...");
-	  visualizers = Config.get().visualizers;
+	  servers = loadJsonByConfig(Config.get(), visualizersJson);
 	  setLinks();
     }
   };
@@ -205,7 +205,7 @@ angular.module('madface.FacJsonContents', [])
 
 
 .factory('Logs', function(Config) {
-  var logs = config.logs;
+  //var logs = config.logs;
   setLinks();
 
   function setLinks(){
@@ -225,29 +225,29 @@ angular.module('madface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Logs ...");
-	  logs = Config.get().logs;
+	  servers = loadJsonByConfig(Config.get(), logsJson);
 	  setLinks();
     }
   };
 })
 
-.factory('Emails', function(Config) {
+.factory('Humans', function(Config) {
 
   return {
     all: function() {
-      return emails;
+      return humans;
     },
     get: function(emailAddress) {
-      for (var i = 0; i < emails.length; i++) {
-        if (emails[i].email === emailAddress) {
-          return emails[i];
+      for (var i = 0; i < humans.length; i++) {
+        if (humans[i].email === emailAddress) {
+          return humanss[i];
         }
       }
       return null;
     },
     reload: function(){
-	  logger.debug("Reloading Emails ...");
-	  emails = loadJsonByConfig(Config.get(), emailsJson);
+	  logger.debug("Reloading Humanss ...");
+	  humans = loadJsonByConfig(Config.get(), humansJson);
     }
   };
 });

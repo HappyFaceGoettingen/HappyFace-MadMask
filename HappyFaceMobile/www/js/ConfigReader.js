@@ -1,18 +1,21 @@
 /*
   Const variables
 */
-var LOAD_LOCAL_META_META_FILE = false; // load meta-meta.json from local
+var FORCE_LOAD_LOCAL_META_META_FILE = false; // load meta-meta.json from local
 var FORCE_MOBILE = false; // Completely behaves like a mobile phone
 
-var META_META_JSON_HOST = "goegrid-controller.ph2.physik.uni-goettingen.de";
-var META_META_JSON_PORT = "8111";
-var META_META_DIR = "sites";
-var META_META_JSON = "meta-meta.json";
+// Seed node
+var SEED_META_META_HOST = "goegrid-controller.ph2.physik.uni-goettingen.de";
+var SEED_META_META_PORT = "8111";
+var SEED_META_META_DIR = "sites";
+var SEED_META_META_JSON = "meta-meta.json";
 
 var configJson = "config.json";
-var emailsJson = "emails.json";
-var serversJson = "servers.json";
 var monitoringUrlsJson = "monitoring-urls.json";
+var serversJson = "servers.json";
+var visualizersJson = "visualizers.json";
+var logsJson = "logs.json";
+var humansJson = "humans.json";
 
 //var summaryJson = "data/json/summary.json";
 
@@ -87,47 +90,55 @@ function isHttpUrl(str){
 /*
   Loading JSON variables
  */
-// Default mode is Meta-Monitoring server
-var host = "localhost";
-var port = null;
+// Default mode is connectiong to a local Meta-Monitoring server
+var host = location.hostname;
+var port = location.port;
 var dir = "sites/default";
+var meta_meta_json = "meta-meta.json"
+
 
 // Defaut mode of mobile phone is Meta-Meta Monitoring client
 var metaMetaSites = null;
-if (LOAD_LOCAL_META_META_FILE){
+if (FORCE_LOAD_LOCAL_META_META_FILE){
     logger.setLevel(LoggerLevel.DEBUG);
-    metaMetaSites = loadJson("localhost", META_META_JSON_PORT, META_META_DIR, META_META_JSON);
+
+    // Normal meta-meta.json exists under "http://host:port/sites/meta-meta.json"
+    metaMetaSites = loadJson("localhost", port, "sites", meta_meta_json);
     host = metaMetaSites[0].host;
-    port = metaMetaSites[0].port;
+    port = metaMetaSites[0].mobile_port;
     dir = metaMetaSites[0].dir;
+    console.log("Identifying the request and set a site config from [" + host + ":" + port + "/" + dir + "] ...");
 
 } else if (isMobilePlatform()){
     logger.setLevel(LoggerLevel.INFO);
-    metaMetaSites = loadJson(META_META_JSON_HOST, META_META_JSON_PORT, META_META_DIR, META_META_JSON);
+
+    // Normal meta-meta.json exists under "http://SEED_HOST:SEED_PORT/sites/meta-meta.json"
+    metaMetaSites = loadJson(SEED_META_META_HOST, SEED_META_META_PORT, SEED_META_META_DIR, SEED_META_META_JSON);
     host = metaMetaSites[0].host;
-    port = metaMetaSites[0].port;
+    port = metaMetaSites[0].mobile_port;
     dir = metaMetaSites[0].dir;
 
 } else {
     logger.setLevel(LoggerLevel.INFO);
-    metaMetaSites = loadJson("localhost", META_META_JSON_PORT, META_META_DIR, META_META_JSON);
-    host = location.hostname;
-    port = location.port;
-    
+    metaMetaSites = loadJson(host, port, "sites", meta_meta_json);
+
+    // If the host and port are found in the meta-meta.json file, put the 'dir' variable
     for (var i = 0; i < metaMetaSites.length; i++) {
-	if ((metaMetaSites[i].host == host) && (metaMetaSites[i].port == port)) {
+	if ((metaMetaSites[i].host == host) && (metaMetaSites[i].mobile_port == port)) {
 		dir = metaMetaSites[i].dir;
 		break;
 	}
     }
-    console.log("Identifying the request [" + host + ":" + port + "/" + dir + "] ...");
+    console.log("Identifying the request and set a site config from [" + host + ":" + port + "/" + dir + "] ...");
 }
 
 var config = loadJson(host, port, dir, configJson);
 config.dir = dir;
 var monitoringUrls = loadJsonByConfig(config, monitoringUrlsJson);
-var servers = loadJsonByConfig(config, serversJson);
-var emails = loadJsonByConfig(config, emailsJson);
-
 var summaryJson = config.summary_json;
 var summary = loadJson(host, port, "", summaryJson);
+
+var servers = loadJsonByConfig(config, serversJson);
+var visualizers = loadJsonByConfig(config, visualizersJson);
+var logs = loadJsonByConfig(config, logsJson);
+var humans = loadJsonByConfig(config, humansJson);

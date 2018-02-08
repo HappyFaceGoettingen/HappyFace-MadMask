@@ -1,6 +1,6 @@
 angular.module('madface.FacMetaSiteReloader', [])
 
-    .factory('MetaSiteReloader', function(MetaMetaSites, MobileConfig, Config, Summary, MonitoringUrls, Servers, Visualizers, Logs, Emails) {
+    .factory('MetaSiteReloader', function(MetaMetaSites, MobileConfig, Config, Summary, MonitoringUrls, Servers, Visualizers, Logs, Humans) {
 
 	var metaSite = MetaMetaSites.getSelectedSite();
 
@@ -14,7 +14,7 @@ angular.module('madface.FacMetaSiteReloader', [])
 		Servers.reload();
 		Visualizers.reload();
 		Logs.reload();
-		Emails.reload();
+		Humans.reload();
 	    },
 	    next: function() {
 		    metaSite = MetaMetaSites.getNextSite();

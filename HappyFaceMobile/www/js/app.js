@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('madface', ['ionic', 'madface.controllers', 'madface.CtrlModalMetaMetaConfiguration', 
+angular.module('madface', ['ionic', 'madface.controllers', 'madface.CtrlModalMetaMetaConfiguration',
 			   'madface.FacMetaMetaSites', 'madface.FacMobileConfig', 'madface.FacMetaSiteReloader',
 			   'madface.FacJsonContents'])
 
@@ -61,11 +61,11 @@ angular.module('madface', ['ionic', 'madface.controllers', 'madface.CtrlModalMet
       }
     })
 
-    .state('tab.account', {
-       url: '/account',
+    .state('tab.humans', {
+       url: '/humans',
        views: {
-	  'tab-account': {
-	   templateUrl: 'templates/tab-account.html',
+	  'tab-humans': {
+	   templateUrl: 'templates/tab-humans.html',
 	   controller: 'AccountCtrl'
 	 }
        }
@@ -111,11 +111,11 @@ angular.module('madface', ['ionic', 'madface.controllers', 'madface.CtrlModalMet
       }
     })
 
-    .state('tab.log', {
-       url: '/log',
+    .state('tab.logs', {
+       url: '/logs',
        views: {
-	  'tab-log': {
-	   templateUrl: 'templates/tab-log.html',
+	  'tab-logs': {
+	   templateUrl: 'templates/tab-logs.html',
 	   controller: 'LogCtrl'
 	 }
        }

@@ -207,6 +207,6 @@ angular.module('madface.controllers', [])
 
 })
 
-.controller('AccountCtrl', function($scope, Emails) {
-  $scope.emails = Emails.all();
+.controller('AccountCtrl', function($scope, Humans) {
+  $scope.emails = Humans.all();
 });

@@ -1,4 +1,32 @@
-# HappyFace-MadMask
+# HappyFace Mobile Application and its HappyFace Modules
+
+--------------------------
+## HappyFaceMobile
+HappyFace mobile application and its web server based on the Ionic framework. The Ionic builder can generate the HappyFace mobile phone application. To avoid confusion, this Ionic web server in HappyFace instance is called "MadMask" and a symbolic link of "HappyFaceMobile" is created. The madmask daemon is controllable by 'madmask' command.
+
+
+### Structure
+     HappyFaceMobile
+     ├── bin      --->  Mediators of browser analyzer
+     ├── daemon   --->  Ioinic web server launcher, configuration and some cron jobs
+     ├── data     --->  A symbolic link to data location
+     ├── hooks
+     ├── lib
+     ├── madmask  --->  MadMask command executor as a web server and executable wrappers in a HappyFace instance
+     ├── node_modules  ---> Local npm libraries
+     ├── resources     ---> Resources of native Android and iPhone applications
+     ├── scss
+     ├── sites    --->  Site information for a MadMask instance
+     └── www      --->  Main source codes of mobile application
+
+
+--------------------------
+## MadModules
+* MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.
+* MadAnalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyzer.
+* bin - Analysis mediator scripts of browser views, JSON structures and HappyFace data
+
+
 --------------------------
 ## HappyFace-MadMask (RPM builder)
 A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-R-libs and MadFoxd RPMs.
@@ -10,32 +38,6 @@ A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some
 
 ### Test packages (removing and installing them indeed)
      $ ./rebuild.sh test
-
---------------------------
-## MadModules
-* MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.
-* MadAnalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyzer.
-* bin - Analysis mediator scripts of browser views, JSON structures and HappyFace data
-
-
---------------------------
-## HappyFaceMobile
-HappyFace mobile application and its Ionic web server. In HappyFace, a symbolic link is created. To avoid confusion, this Ionic web server by the mobile application component is called "MadMask" in HappyFace instance.
-
-
-### Structure
-     HappyFaceMobile
-     ├── bin      --->  Mediators of browser analyzer
-     ├── daemon   --->  Ioinic web server launcher and some cron jobs
-     ├── data     --->  A symbolic link to data location
-     ├── hooks
-     ├── lib
-     ├── madmask  --->  MadMask command executor as a web server and executable wrappers in a HappyFace node
-     ├── node_modules  ---> Local npm libraries
-     ├── resources     ---> Resources of native Android and iPhone applications
-     ├── scss
-     ├── sites    --->  Site information for this MadMask instance
-     └── www      --->  Main source codes of the mobile application
 
 
 --------------------------
