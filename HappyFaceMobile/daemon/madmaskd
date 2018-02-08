@@ -1,32 +1,32 @@
 #!/bin/sh
 #
 ### BEGIN INIT INFO
-# Provides: madfaced
+# Provides: madmaskd
 # Default-Start:
 # Default-Stop:
-# Short-Description: Start and stop the madface server
+# Short-Description: Start and stop the madmask server
 # Description: madfaced provides the dynamic shock dumping scheduler with Torque Maui
 ### END INIT INFO
 #
 # The fields below are left around for legacy tools (will remove later).
 #
 # chkconfig: - 65 35
-# description: madfaced provides the dynamic shock dumping scheduler with Torque Maui
-# processname: madface
-# config: /etc/madface.conf
-# pidfile: /var/run/madface.pid
+# description: madmaskd provides a web server of Ionic Web Launcher
+# processname: madmask
+# config: /etc/madmask.conf
+# pidfile: /var/run/madmask.pid
 
 . /etc/rc.d/init.d/functions
 
 RETVAL=0
 
-prog=madfaced
+prog=madmaskd
 user=happyface3
 group=happyface3
-lockfile=/var/lock/subsys/madfaced
+lockfile=/var/lock/subsys/madmaskd
 pidfile_base=/var/run/HappyFace
 logfile_base=/var/log/HappyFace
-config=/etc/madface.conf
+config=/etc/madmask.conf
 
 if [ ! -e $config ]; then
     echo "$config does not exist" 
@@ -35,7 +35,7 @@ fi
 . $config
 
 read_ports(){
-    site_defs=$(find $MADFACE_HOME/sites/*/config.json)
+    site_defs=$(find $MADMASK_HOME/sites/*/config.json)
     jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
 }
 
@@ -62,16 +62,16 @@ start() {
     echo -n "Starting $prog server: "
 
     RETVAL=0
-    pushd $MADFACE_HOME &> /dev/null
-    for site_def in $(find $MADFACE_HOME/sites/* -maxdepth 0 -type d)
+    pushd $MADMASK_HOME &> /dev/null
+    for site_def in $(find $MADMASK_HOME/sites/* -maxdepth 0 -type d)
     do
 	## For cron logs
 	site_name=$(basename $site_def)
-	cron_logdir=$MADFACE_HOME/data/$site_name/log
+	cron_logdir=$MADMASK_HOME/data/$site_name/log
 	[ -e $cron_logdir ] || su $user -c "mkdir -pv $cron_logdir"
 
 	## Starting daemons
-	su $user -c "$MADFACE_HOME/madmask -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
+	su $user -c "$MADMASK_HOME/madmask -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
 	[ $? -ne 0 ] && RETVAL=255
     done
     popd &> /dev/null

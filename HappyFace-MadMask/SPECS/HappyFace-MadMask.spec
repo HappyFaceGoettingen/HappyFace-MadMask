@@ -10,18 +10,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
 Requires: HappyFaceCore = 3.0.0-3
-Requires: MadMask-R-libs
+#Requires: MadMask-R-libs
 
-Requires: xorg-x11-server-Xvfb
 Requires: nodejs
 Requires: npm
 Requires: tmpwatch
-Requires: firefox
 Requires: ImageMagick
-Requires: xdotool
 Requires: jq
-Requires: fftw-devel
-Requires: fftw2-devel
 Requires: sysstat
 Requires: bc
 
@@ -92,19 +87,20 @@ cp -vr %{_source_dir}/MadModules/config/categories-enabled/* $RPM_BUILD_ROOT/%{_
 
 
 
-## Install MadMask and service
-cp -vr %{_source_dir}/MadMask $RPM_BUILD_ROOT/%{_prefix}/
-ln -s %{_prefix}/MadMask/daemon/madface.conf $RPM_BUILD_ROOT/%{_etc}/madface.conf
-ln -s %{_prefix}/MadMask/daemon/madfaced $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d/
-ln -s %{_prefix}/MadMask/daemon/madface-default-start $RPM_BUILD_ROOT/%{_sbindir}/
+## Install MadMask (HappyFaceMobile Instance) and its service
+cp -vr %{_source_dir}/HappyFaceMobile $RPM_BUILD_ROOT/%{_prefix}/MadMask
+ln -s MadMask $RPM_BUILD_ROOT/%{_prefix}/HappyFaceMobile
+ln -s %{_prefix}/MadMask/daemon/madmask.conf $RPM_BUILD_ROOT/%{_etc}/madmask.conf
+ln -s %{_prefix}/MadMask/daemon/madmaskd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d/
+ln -s %{_prefix}/MadMask/daemon/madmask-default-start $RPM_BUILD_ROOT/%{_sbindir}/
 rm -v $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 
-## Into static dir such as javascript and link
+## Into static dir such as javascript, data and so on
 cp -vr %{_source_dir}/MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
 ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
-
+ln -s %{_prefix}/MadMask/sites $RPM_BUILD_ROOT/%{_prefix}/static/sites
 
 
 ## For development, example data dir (taken from MadFace)
@@ -185,6 +181,7 @@ service httpd start
 
 %files
 %defattr(-,%{happyface_user},%{happyface_group})
+%{_prefix}/HappyFaceMobile
 %{_prefix}/MadMask
 %{_prefix}/static/*
 %{_prefix}/modules/*

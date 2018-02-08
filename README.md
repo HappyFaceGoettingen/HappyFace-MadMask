@@ -1,7 +1,7 @@
 # HappyFace-MadMask
 --------------------------
 ## HappyFace-MadMask (RPM builder)
-A RPM builder for HappyFace-MadMask modules, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-R-libs and MadFoxd RPMs.
+A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-R-libs and MadFoxd RPMs.
 
 ### How to build RPMs
      $ ./rebuild.sh build madmask
@@ -13,33 +13,34 @@ A RPM builder for HappyFace-MadMask modules, services and some dependent librari
 
 --------------------------
 ## MadModules
-* MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON Wrapper. They are called MadBrowser and MadJsonin, respectivelly.
-* MadAalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyser.
-
+* MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.
+* MadAnalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyzer.
+* bin - Analysis mediator scripts of browser views, JSON structures and HappyFace data
 
 
 --------------------------
-## MadMask
-This component is used as HappyFace mobile application and its Ionic Web launcher
+## HappyFaceMobile
+HappyFace mobile application and its Ionic web server. In HappyFace, a symbolic link is created. To avoid confusion, this Ionic web server by the mobile application component is called "MadMask" in HappyFace instance.
+
 
 ### Structure
-     MadMask
-     ├── bin      --->  Processors such as meta-browser and its analsys exporters
-     ├── daemon   --->  An Ioinic Web launcher
+     HappyFaceMobile
+     ├── bin      --->  Mediators of browser analyzer
+     ├── daemon   --->  Ioinic web server launcher and some cron jobs
      ├── data     --->  A symbolic link to data location
      ├── hooks
      ├── lib
-     ├── madmask  --->  MadMask command executor
+     ├── madmask  --->  MadMask command executor as a web server and executable wrappers in a HappyFace node
      ├── node_modules  ---> Local npm libraries
-     ├── resources     ---> Information of native Android and iPhone applications
+     ├── resources     ---> Resources of native Android and iPhone applications
      ├── scss
-     ├── sites    --->  Site information for this MadMask instance and mobile application
+     ├── sites    --->  Site information for this MadMask instance
      └── www      --->  Main source codes of the mobile application
 
 
 --------------------------
 ## MadFoxd
-A service capturing browser views (browser canvases) via Firefox using MadFox addon
+A service capturing browser views (browser canvases) via Firefox using MadFox addon program. This service is extendable to download JSON and WSDL web services as files.
 
 ### Components
 * madfoxd/madfox - Main program of madfox

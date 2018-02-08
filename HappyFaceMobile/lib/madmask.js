@@ -92,7 +92,7 @@ module.exports = {
 	console.log("Capturing browser");
 
 	// Capturing URLs
-	var commandLine = "bin/browser-capture-processor"
+	var commandLine = "madfox"
 	+ " -j " + getJsonUrl("localhost", "", dir + "/" + configJson)
 	+ " -u " + getJsonUrl("localhost", "", dir + "/" + monitoringUrlsJson)
 	+ " -o " + config.capture + " -t " + config.thumbnail
@@ -109,7 +109,7 @@ module.exports = {
 
 	// Using Bayesian Change Point analyser
 	// In the future, various methods should be included
-	var commandLine = "bin/analysis-processor -m all"
+	var commandLine = "madanalyzer -m all"
 	+ " -j " + getJsonUrl("localhost", "", dir + "/" + configJson)
 	+ " -s " + getJsonUrl("localhost", "", dir + "/" + serversJson)
 	+ " -u " + getJsonUrl("localhost", "", dir + "/" + monitoringUrlsJson) +  " -o " + getJsonUrl("localhost", "", config.summary_json)

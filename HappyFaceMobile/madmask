@@ -18,7 +18,7 @@ program
   .option('-i, --ionic', 'Start ionic server')
   .option('-l, --logdir [LogDir]', 'Log dir [default: /tmp]', '/tmp')
   .option('-p, --piddir [PidDir]', 'Pid dir [default: /tmp]', '/tmp')
-  .option('-f, --firefox', 'Start capture by Firefox')
+  .option('-f, --firefox', 'Import browser views from MadFoxd')
   .option('-a, --analysis', 'Analyze data')
   .option('-b, --build', 'Build Android application')
   .option('-w, --wipe', 'Wipe old files/dirs in data dir')

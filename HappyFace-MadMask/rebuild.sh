@@ -23,7 +23,7 @@ madmask_zip(){
     [ ! -e $TARDIR ] && mkdir -v $TARDIR
     
     ## HappyFace-MadMask.zip
-    rsync -avlp --delete ../../MadMask $TARDIR/
+    rsync -avlp --delete ../../HappyFaceMobile $TARDIR/
     rsync -avlp --delete ../../MadModules $TARDIR/
     tar zcvf HappyFace-MadMask.zip ${TARDIR}
 
@@ -52,6 +52,9 @@ case "$1" in
 	   ## Skipping check-buildroot
 	   export QA_SKIP_BUILD_ROOT=1
 	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadMask-R-libs.spec
+	   ;;
+       madfox)
+	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadFoxd.spec
 	   ;;
    esac
    ;;

@@ -11,6 +11,10 @@ run_madfox_addon(){
 	    INFO "Pushed Shift+Ctrl+s for Madfox"
 	    xdotool key Shift+Ctrl+s
 	    ;;
+	capture_and_close)
+	    INFO "Pushed Shift+Ctrl+s for Madfox"
+	    xdotool key Shift+Ctrl+s
+	    ;;
 	*)
 	    echo "Such action is not defined by MadFox"
 	    exit -1
