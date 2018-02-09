@@ -3,7 +3,7 @@
 cd $(dirname $0)
 [ ! -e SOURCES ] && mkdir -v SOURCES
 usage="./rebuild.sh [build|test]
-   build {madmask|libs}
+   build {madmask|libs|madfoxd}
 "
 
 if [ $# -eq 0 ]; then
@@ -17,7 +17,7 @@ ln -sf $PWD/rpmmacros_HappyFace-MadMask ~/.rpmmacros
 
 
 madmask_zip(){
-    TARDIR="HappyFace-MadMask-development_2018"
+    TARDIR="HappyFace-MadMask"
 
     pushd SOURCES
     [ ! -e $TARDIR ] && mkdir -v $TARDIR
@@ -39,6 +39,16 @@ libs_zip(){
     popd
 }
 
+madfoxd_zip(){
+    pushd SOURCES
+
+    ## MadFoxd.zip
+    rsync -avlp --delete ../../MadFoxd .
+    tar zcvf MadFoxd.zip MadFoxd
+    
+    popd
+}
+
 
 case "$1" in
   build)
@@ -53,14 +63,16 @@ case "$1" in
 	   export QA_SKIP_BUILD_ROOT=1
 	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadMask-R-libs.spec
 	   ;;
-       madfox)
+       madfoxd)
+	   madfoxd_zip
 	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadFoxd.spec
 	   ;;
    esac
    ;;
   test)
-	yum -y remove HappyFace-MadMask
-	yum -y install RPMS/x86_64/*.rpm
+	yum -y remove HappyFace-MadMask MadFoxd
+	yum -y install RPMS/x86_64/MadFoxd-*.rpm
+	yum -y install RPMS/x86_64/HappyFace-MadMask-*.rpm RPMS/x86_64/MadMask-R-libs-*.rpm
 	chown -R happyface3:happyface3 ../MadMaskExampleData
 	;;
 esac

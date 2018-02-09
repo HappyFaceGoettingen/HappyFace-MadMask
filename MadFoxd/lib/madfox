@@ -3,7 +3,7 @@
 COMMAND=$(basename $0)
 
 ## Sourcing functions from this directory
-MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/madfoxd
+MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
 
 ## Some parameters before starting firefox and opening its tabs
 WAIT_FIREFOX_BOOT=10
@@ -22,17 +22,15 @@ DATA_DIR="data/$USER"
 X_RESOLUTION=1280x1024
 X_COLOR_DEPTH=24
 
-## Daemon options
-DAEMONIZE=""
-LOGDIR="/tmp/madfox.$USER"
+## For process management
 PIDDIR="/tmp/madfox.$USER"
-PIDFILE="$PIDDIR/madfox.pid"
+LOGDIR="/tmp/madfox.$USER"
 
 
 #-------------------------------
 # External functions
 #-------------------------------
-for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
+[ -e $MADFOX_LIB_DIR ] && for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
 
 
 ## Default display and its resolution
@@ -41,10 +39,11 @@ for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
 
 usage="$0 [options] -a [action]
  * Log level
- -l {TRACE|DEBUG|INFO|WARN|ERROR}
+ -L {TRACE|DEBUG|INFO|WARN|ERROR}
 
- * Process
+ * Process management
  -p:  set piddir [default: $PIDDIR]
+ -l:  set logdir [default: $LOGDIR]
 
  * X-Display
  -x:  X-window display [default: $DISPLAY]
@@ -67,12 +66,6 @@ usage="$0 [options] -a [action]
  -a:  Set action [start|stop|restart|killall|status|reload|capture|import]
 
 
- * Daemonizer options
- -D:  daemonize
- -L:  set logdir [default: $LOGDIR]
- -P:  set pidfile [default: $PIDFILE]
-
-
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch>"
 
 
@@ -83,21 +76,15 @@ fi
 
 
 #--------------------------
-# Log Level
-#--------------------------
-set_loglevel INFO
-
-
-#--------------------------
 # Getopt
 #--------------------------
-while getopts "S:l:u:o:x:r:f:a:w:t:DL:P:p:hv" op
+while getopts "S:L:u:o:x:r:f:a:w:t:p:l:hv" op
   do
   case $op in
       S) MADFOX_LIB_DIR=$OPTARG
 	  for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
           ;;
-      l) set_loglevel $OPTARG
+      L) set_loglevel $OPTARG
 	  ;;
       u) URLFILE=$OPTARG
 	  ;;
@@ -115,13 +102,9 @@ while getopts "S:l:u:o:x:r:f:a:w:t:DL:P:p:hv" op
 	  ;;
       t) WAIT_FIREFOX_OPEN_TAB=$OPTARG
 	  ;;
-      D) DAEMONIZE=true
+      p) PIDDIR=$OPTARG
 	  ;;
-      L) LOGDIR=$OPTARG
-	  ;;
-      P) PIDDIR=$OPTARG
-	  ;;
-      p) PIDFILE=$OPTARG
+      l) LOGDIR=$OPTARG
 	  ;;
       h) echo "$usage"
 	  exit 0
@@ -134,7 +117,6 @@ while getopts "S:l:u:o:x:r:f:a:w:t:DL:P:p:hv" op
 	  ;;
   esac
 done
-
 
 
 #-------------------------------
@@ -153,7 +135,7 @@ debug_capture_xwin_display(){
 set_new_firefox_profile(){
     local new_profile=$PIDDIR/$(basename $FIREFOX_PROFILE).${X_DISPLAY}__${X_RESOLUTION}
     FIREFOX_PROFILE=$new_profile
-    INFO "Firefox profile of this process [$X_DISPLAY - $X_RESOLUTION] is [$FIREFOX_PROFILE]"
+    INFO "Firefox profile of X-Window [$X_DISPLAY - $X_RESOLUTION] is [$FIREFOX_PROFILE]"
 }
 
 copy_firefox_profile(){
@@ -168,7 +150,7 @@ copy_firefox_profile(){
 start_firefox(){
     local url=$1
     local command_option="--profile $FIREFOX_PROFILE $url"
-    firefox $command_option &> $PIDDIR/firefox__$(basename ${FIREFOX_PROFILE}).log &
+    firefox $command_option &> $LOGDIR/firefox__$(basename ${FIREFOX_PROFILE}).log &
     #[ $? -ne 0 ] && return 1
     echo "$!"
     return 0
@@ -336,8 +318,9 @@ clean_madfox(){
 [[ ! "$DISPLAY" =~ ^: ]] && ERROR "DISPLAY does not have a proper format" && exit -1
 [ -z "$X_RESOLUTION" ] && ERROR "X_RESOLUTION is empty" && exit -1
 [ -z "$PIDDIR" ] && ERROR "PIDDIR is empty" && exit -1
-[ ! -e $PIDDIR ] && ! mkdir -pv $PIDDIR && ERROR "Cannot create [$PIDDIR]" && exit -1
-[ ! -d "$PIDDIR" ] && ERROR "$PIDDIR is not a directory" && exit -1
+[ ! -d $PIDDIR ] && ! mkdir -pv $PIDDIR && ERROR "Cannot create [$PIDDIR]" && exit -1
+[ -z "$LOGDIR" ] && ERROR "LOGDIR is empty" && exit -1
+[ ! -d $LOGDIR ] && ! mkdir -pv $LOGDIR && ERROR "Cannot create [$LOGDIR]" && exit -1
 
 
 ## Show main input variables
@@ -345,18 +328,11 @@ INFO "DISPLAY          = [$DISPLAY]"
 INFO "URLFILE          = [$URLFILE]"
 INFO "FIREFOX_PROFILE  = [$FIREFOX_PROFILE]"
 INFO "PIDDIR           = [$PIDDIR]"
+INFO "LOGDIR           = [$LOGDIR]"
 
 
 ## For X-Window
 X_DISPLAY=$(echo $DISPLAY | perl -pe "s/://g")
-
-
-#-----------------------------------
-# Daemonize
-#-----------------------------------
-if [ "$DAEMONIZE" == "true" ]; then
-    exit 0
-fi
 
 
 #-----------------------------------

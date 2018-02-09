@@ -1,0 +1,42 @@
+{
+      "myname": "HappyFace",
+	"site": "GoeGrid",
+	"host": "goegrid-controller.ph2.physik.uni-goettingen.de",
+	"port": "8111",
+	"summary_json": "data/goegrid/json/summary.json",
+	"capture": "data/goegrid/capture",
+	"thumbnail": "data/goegrid/thumbnail",
+	"index": "data/goegrid/index",
+	"analysis": "data/goegrid/analysis",
+	"analysis_image_size": "384x384",
+	"keep_data_days": 15,
+	"debug_mode": 0,
+	"xdisplay": [{
+		"name": "default",
+		"resolution": "1280x3840",
+		"number": "100"
+		}, {
+		"name": "middle",
+		"resolution": "1280x1280",
+		"number": "101"
+		}],
+	"firefox_profile": "firefox_profiles/dbzvej40.default",
+	"parallel_analysis": 2,
+	"status": [{
+		"name": "Normal",
+		"color": "item-calm",
+		"file": "http://i.ytimg.com/vi/hEJnMQG9ev8/maxresdefault.jpg"
+            },{
+		"name": "Warning",
+		"color": "item-balanced",
+		"file": "http://surbrook.devermore.net/adaptationsmovie/madmax/wez.jpg"
+            },{
+		"name": "Error",
+		"color": "item-energized",
+		"file": "https://shutupandwatchthemovie.files.wordpress.com/2011/03/mad-max-2-humungus.jpg"
+            },{
+		"name": "Critical",
+		"color": "item-assertive",
+		"file": "http://papystreaming.com/fr/files/2013/10/Mad-Max-2.jpg"
+            }]
+}

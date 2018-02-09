@@ -28,8 +28,7 @@ Requires: bc
 # Preamble
 #
 # Macro definitions
-%define _branch_name    development_2018
-%define _source_dir     HappyFace-MadMask-%{_branch_name}
+%define _source_dir     HappyFace-MadMask
 
 # Macro definitions
 %define _prefix         /var/lib/HappyFace3

@@ -2,13 +2,13 @@
 
 --------------------------
 ## HappyFaceMobile
-HappyFace mobile application and its web server based on the Ionic framework. The Ionic builder can generate the HappyFace mobile phone application. To avoid confusion, this Ionic web server in HappyFace instance is called "MadMask" and a symbolic link of "HappyFaceMobile" is created. The madmask daemon is controllable by 'madmask' command.
+HappyFace mobile application and its web server based on the Ionic framework. The Ionic builder can generate the HappyFace mobile phone application. To avoid confusion, this Ionic web server in HappyFace instance is called 'MadMask' and a symbolic link of 'HappyFaceMobile' is created. The 'madmask' command is called by the 'madmask daemon (= daemon/madmaskd)'.
 
 
 ### Structure
      HappyFaceMobile
      ├── bin      --->  Mediators of browser analyzer
-     ├── daemon   --->  Ioinic web server launcher, configuration and some cron jobs
+     ├── daemon   --->  Ioinic web server launcher as daemon, configuration and some cron jobs
      ├── data     --->  A symbolic link to data location
      ├── hooks
      ├── lib
@@ -16,7 +16,7 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
      ├── node_modules  ---> Local npm libraries
      ├── resources     ---> Resources of native Android and iPhone applications
      ├── scss
-     ├── sites    --->  Site information for a MadMask instance
+     ├── sites    --->  Site configurations for HappyFace MadMask instances
      └── www      --->  Main source codes of mobile application
 
 

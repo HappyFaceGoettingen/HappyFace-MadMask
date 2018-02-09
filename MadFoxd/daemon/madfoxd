@@ -1,0 +1,149 @@
+#!/bin/sh
+#
+### BEGIN INIT INFO
+# Provides: madfoxd
+# Default-Start:
+# Default-Stop:
+# Short-Description: Start and stop the madfoxd server
+# Description: madfoxd provides firefox as backend server capturing browser views
+### END INIT INFO
+#
+# The fields below are left around for legacy tools (will remove later).
+#
+# chkconfig: - 65 35
+# description: madfoxd provides firefox as backend server capturing browser views
+# processname: madfoxd
+# config: /etc/madfoxd.conf
+# pidfile: /var/run/madfoxd.pid
+
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+prog=madfox
+lockfile=/var/lock/subsys/madfoxd
+
+config=/etc/madfoxd.conf
+
+if [ ! -e $config ]; then
+    echo "$config does not exist" 
+    exit -1
+fi
+. $config
+
+user=$MADFOXD_USER
+group=$MADFOXD_GROUP
+pidfile_base=$MADFOXD_PIDDIR
+logfile_base=$MADFOXD_LOGDIR
+
+
+read_displays(){
+    site_defs=$(find $MADMASK_HOME/sites/*/config.json)
+    jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
+}
+
+check_pidfiles(){
+    ls $pidfile_base | grep -e "^firefox" -e "^Xwin" &> /dev/null
+    [ $? -eq 0 ] && echo "pidfiles in [$pidfile_base] exist" && return 1
+    return 0
+}
+
+run_madfox(){
+    local action=$1
+    su $user -c "madfox -S $MADFOXD_LIB_DIR -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -l ${logfile_base} -p ${pidfile_base} -a $action"
+    return $?
+}
+
+status() {
+    run_madfox status
+    return $?
+}
+
+
+capture() {
+    check_pidfiles || return 1
+
+    ## Reloading screens
+    echo "Capturing $prog screens ..."
+    run_madfox capture 2>&1 >> $logfile_base/madfoxd.log
+    return $?
+}
+
+reload() {
+    check_pidfiles || return 1
+
+    ## Reloading screens
+    echo "Reloading $prog screens ..."
+    run_madfox reload 2>&1 >> $logfile_base/madfoxd.log
+    return $?
+}
+
+start() {
+    check_pidfiles || return 1
+
+    echo -n "Starting $prog server: "
+
+    ## Starting daemon
+    run_madfox start 2>&1 >> $logfile_base/madfoxd.log &
+    RETVAL=$?
+
+    if [ $RETVAL -eq 0 ]; then
+	touch $lockfile
+	echo -e "\t[OK]"
+    else
+	echo -e "\t[ERROR]"
+    fi
+    return $RETVAL
+}
+
+stop() {
+    echo -n "Shutting down $prog: "
+    run_madfox stop 2>&1 >> $logfile_base/madfoxd.log
+    RETVAL=$?
+
+    if [ $RETVAL -eq 0 ]; then
+	rm -f $lockfile
+	echo "[OK]"
+    else
+	echo "[ERROR]"
+    fi
+
+    return $RETVAL
+}
+
+usage() {
+    echo $"Usage: $0 {start|stop|restart|status|reload|capture}"
+}
+
+if [ $# -gt 1 ]; then
+    exit 2
+fi
+
+[ `id -u` -eq 0 ] || exit 4
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop ; start
+        ;;
+    status)
+        status
+        ;;
+    reload)
+	reload
+	;;
+    capture)
+	capture
+	;;
+    *)
+        usage
+        exit 2
+        ;;
+esac
+
+exit $?

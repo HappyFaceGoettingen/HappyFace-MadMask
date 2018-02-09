@@ -24,13 +24,11 @@ Requires: bc
 # Preamble
 #
 # Macro definitions
-%define _branch_name    development_2018
-%define _source_dir     MadFoxd-%{_branch_name}
+%define _source_dir     MadFoxd
 
 # Macro definitions
 %define _prefix         /usr/share/madfoxd
-%define _etc            /etc/madfoxd
-%define _profile_dir    /etc/profile.d
+%define _etc            /etc
 %define _logdir         /var/log/madfoxd
 %define _piddir         /var/run/madfoxd
 %define _sbindir        /usr/sbin
@@ -38,7 +36,7 @@ Requires: bc
 
 
 %description
-MadFoxd is a server which can gather many web pages as images by Firefox browsers in virtual X-window. 
+MadFoxd is a server which can gather many web pages as images by Firefox browsers. 
 
 
 %prep
@@ -54,47 +52,26 @@ cd ..
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 # make directories
-! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix} $RPM_BUILD_ROOT/%{_prefix}/static
-! [ -d $RPM_BUILD_ROOT/%{_module_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_module_cfg}
-! [ -d $RPM_BUILD_ROOT/%{_category_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_category_cfg}
-[ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
-! [ -d $RPM_BUILD_ROOT/%{_datadir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_datadir}
+! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
+[ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -vp $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 ! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
 ! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
 
 
-# copy MadMask modules
-cp -vr %{_source_dir}/MadModules/modules $RPM_BUILD_ROOT/%{_prefix}
-cp -vr %{_source_dir}/MadModules/config/modules-enabled/* $RPM_BUILD_ROOT/%{_module_cfg}
-cp -vr %{_source_dir}/MadModules/config/categories-enabled/* $RPM_BUILD_ROOT/%{_category_cfg}
+# copy MadFoxd main programs
+cp -vr %{_source_dir}/lib $RPM_BUILD_ROOT/%{_prefix}
+cp -vr %{_source_dir}/firefox_profiles $RPM_BUILD_ROOT/%{_prefix}
+cp -vr %{_source_dir}/examples $RPM_BUILD_ROOT/%{_prefix}
+cp -vr %{_source_dir}/madfox-addon $RPM_BUILD_ROOT/%{_prefix}
+cp -vr %{_source_dir}/man $RPM_BUILD_ROOT/%{_prefix}
+cp -vr %{_source_dir}/daemon $RPM_BUILD_ROOT/%{_prefix}
 
 
-
-## Install MadMask and service
-cp -vr %{_source_dir}/MadMask $RPM_BUILD_ROOT/%{_prefix}/
-ln -s %{_prefix}/MadMask/daemon/madface.conf $RPM_BUILD_ROOT/%{_etc}/madface.conf
-ln -s %{_prefix}/MadMask/daemon/madfaced $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d/
-ln -s %{_prefix}/MadMask/daemon/madface-default-start $RPM_BUILD_ROOT/%{_sbindir}/
-rm -v $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
-ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
-
-
-## Into static dir such as javascript and link
-cp -vr %{_source_dir}/MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
-ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
-
-
-
-## For development, example data dir (taken from MadFace)
-# Generating old structure
-%define _madface_dir        /usr/lib/MadFace
-! [ -d $RPM_BUILD_ROOT/%{_madface_dir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_madface_dir}
-ln -s %{_datadir} $RPM_BUILD_ROOT/%{_madface_dir}/data
-
-## --> From Docker Volume (under /devel)
-rmdir -v $RPM_BUILD_ROOT/%{_datadir}
-ln -s /devel/MadMask/MadMaskExampleData $RPM_BUILD_ROOT/%{_datadir}
+# Making symlinks of executable, daemon and default configurations
+ln -sv %{_prefix}/lib/madfox $RPM_BUILD_ROOT/%{_sbindir}
+ln -sv %{_prefix}/daemon/madfoxd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
+ln -sv %{_prefix}/daemon/madfoxd.conf $RPM_BUILD_ROOT/%{_etc}
 
 
 
@@ -105,6 +82,7 @@ ln -s /devel/MadMask/MadMaskExampleData $RPM_BUILD_ROOT/%{_datadir}
 %files
 %defattr(-,root,root)
 %{_etc}/*
+%{_prefix}/*
 %{_sbindir}/*
 
 
