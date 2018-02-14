@@ -1,4 +1,4 @@
-angular.module('madface.FacMetaMetaSites', [])
+angular.module('happyface.FacMetaMetaSites', [])
 
 .factory('MetaMetaSites', function() {
 

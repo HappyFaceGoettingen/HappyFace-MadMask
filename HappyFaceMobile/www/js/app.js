@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('madface', ['ionic', 'madface.controllers', 'madface.CtrlModalMetaMetaConfiguration',
-			   'madface.FacMetaMetaSites', 'madface.FacMobileConfig', 'madface.FacMetaSiteReloader',
-			   'madface.FacJsonContents'])
+angular.module('happyface', ['ionic', 'happyface.controllers', 'happyface.CtrlModalMetaMetaConfiguration',
+			   'happyface.FacMetaMetaSites', 'happyface.FacMobileConfig', 'happyface.FacMetaSiteReloader',
+			   'happyface.FacJsonContents'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

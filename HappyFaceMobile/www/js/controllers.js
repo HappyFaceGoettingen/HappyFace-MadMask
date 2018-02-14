@@ -1,4 +1,4 @@
-angular.module('madface.controllers', [])
+angular.module('happyface.controllers', [])
 
 .controller('ServersCtrl', function($scope, Servers) {
   $scope.servers = Servers.all();

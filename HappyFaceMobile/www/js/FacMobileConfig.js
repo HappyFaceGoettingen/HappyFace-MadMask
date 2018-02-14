@@ -1,4 +1,4 @@
-angular.module('madface.FacMobileConfig', [])
+angular.module('happyface.FacMobileConfig', [])
 
 .factory('MobileConfig', function() {
 

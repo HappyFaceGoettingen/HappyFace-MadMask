@@ -98,3 +98,5 @@ A service capturing browser views (browser canvases) via Firefox using MadFox ad
      $ jpm run -b $(which firefox)
 
 
+## License
+Developed under [Apache Licence Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)

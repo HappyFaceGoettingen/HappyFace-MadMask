@@ -1,4 +1,4 @@
-angular.module('madface.CtrlModalMetaMetaConfiguration', []).controller(
+angular.module('happyface.CtrlModalMetaMetaConfiguration', []).controller(
 		'CtrlModalMetaMetaConfiguration',
 		function($scope, $ionicModal, MetaMetaSites, MobileConfig) {
 

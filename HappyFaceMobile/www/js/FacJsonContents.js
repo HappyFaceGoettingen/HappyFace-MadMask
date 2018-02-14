@@ -1,4 +1,4 @@
-angular.module('madface.FacJsonContents', [])
+angular.module('happyface.FacJsonContents', [])
 
 .factory('Config', function() {
 

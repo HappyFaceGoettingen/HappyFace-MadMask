@@ -1,4 +1,4 @@
-angular.module('madface.FacMetaSiteReloader', [])
+angular.module('happyface.FacMetaSiteReloader', [])
 
     .factory('MetaSiteReloader', function(MetaMetaSites, MobileConfig, Config, Summary, MonitoringUrls, Servers, Visualizers, Logs, Humans) {
 
