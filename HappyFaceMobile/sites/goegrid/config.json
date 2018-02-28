@@ -1,7 +1,6 @@
 {
       "myname": "HappyFace",
 	"site": "GoeGrid",
-	"host": "goegrid-controller.ph2.physik.uni-goettingen.de",
 	"port": "8111",
 	"summary_json": "data/goegrid/json/summary.json",
 	"capture": "data/goegrid/capture",

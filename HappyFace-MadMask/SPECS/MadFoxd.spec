@@ -34,7 +34,6 @@ Requires: bc
 %define _sbindir        /usr/sbin
 
 
-
 %description
 MadFoxd is a server which can gather many web pages as images by Firefox browsers. 
 

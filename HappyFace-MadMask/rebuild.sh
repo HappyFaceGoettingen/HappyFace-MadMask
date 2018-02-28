@@ -57,15 +57,29 @@ case "$1" in
 	   madmask_zip
 	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/HappyFace-MadMask.spec
 	   ;;
+       madfoxd)
+	   madfoxd_zip
+	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadFoxd.spec
+	   ;;
        libs)
 	   libs_zip
 	   ## Skipping check-buildroot
 	   export QA_SKIP_BUILD_ROOT=1
 	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadMask-R-libs.spec
 	   ;;
-       madfoxd)
+       all)
+	   ## MadMask
+	   madmask_zip
+	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/HappyFace-MadMask.spec
+	   libs_zip
+
+	   ## Madfox
 	   madfoxd_zip
 	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadFoxd.spec
+
+	   ## Skipping check-buildroot
+	   export QA_SKIP_BUILD_ROOT=1
+	   rpmbuild --define "debug_package %{nil}" --clean -ba SPECS/MadMask-R-libs.spec
 	   ;;
    esac
    ;;

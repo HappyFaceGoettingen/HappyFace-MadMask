@@ -49,7 +49,6 @@ if(program.rawArgs.length <= 2) {
 
    console.log('Start firefox: %s', program.firefox);
    console.log('Start analysis: %s', program.analysis);
-   console.log('Host is: %s', config.host);
    console.log('Port is: %s', config.port);
    console.log('Wipe is: %s', program.wipe);
 

@@ -43,6 +43,9 @@ read_displays(){
 }
 
 check_pidfiles(){
+    [ ! -e $logfile_base ] && su $user -c "mkdir -pv $logfile_base"
+    [ ! -e $pidfile_base ] && su $user -c "mkdir -pv $pidfile_base"
+
     ls $pidfile_base | grep -e "^firefox" -e "^Xwin" &> /dev/null
     [ $? -eq 0 ] && echo "pidfiles in [$pidfile_base] exist" && return 1
     return 0

@@ -14,7 +14,6 @@ var exec = require('child_process').exec;
   Const variables
 */
 var configJson = "config.json";
-var emailsJson = "emails.json";
 var serversJson = "servers.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 
