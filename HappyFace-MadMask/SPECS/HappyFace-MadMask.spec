@@ -72,7 +72,6 @@ cd ..
 ! [ -d $RPM_BUILD_ROOT/%{_module_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_module_cfg}
 ! [ -d $RPM_BUILD_ROOT/%{_category_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_category_cfg}
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
-! [ -d $RPM_BUILD_ROOT/%{_datadir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_datadir}
 ! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
 ! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
@@ -136,6 +135,9 @@ if ! id $happyface_user; then
     groupadd %{happyface_group} -g %{happyface_gid}
     useradd %{happyface_user} -u %{happyface_uid} -g %{happyface_gid} -d %{_prefix} -M
 fi
+
+## Making data dir
+[ ! -d %{_datadir} ] && mkdir -vp %{_datadir}
 
 
 ## Disabling some development modules and updating HF-DB
