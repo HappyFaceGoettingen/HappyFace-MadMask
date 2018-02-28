@@ -192,7 +192,6 @@ service httpd start
 %{_prefix}/modules/*
 %{_module_cfg}/*
 %{_category_cfg}/*
-%{_datadir}
 %{_logdir}
 %{_piddir}
 
