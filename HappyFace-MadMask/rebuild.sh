@@ -87,6 +87,5 @@ case "$1" in
 	yum -y remove HappyFace-MadMask MadFoxd
 	yum -y install RPMS/x86_64/MadFoxd-*.rpm
 	yum -y install RPMS/x86_64/HappyFace-MadMask-*.rpm RPMS/x86_64/MadMask-R-libs-*.rpm
-	chown -R happyface3:happyface3 ../MadMaskExampleData
 	;;
 esac

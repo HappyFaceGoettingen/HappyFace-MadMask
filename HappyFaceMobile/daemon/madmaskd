@@ -51,7 +51,6 @@ check_pidfiles(){
     return 0
 }
 
-
 start() {
     [ `id -u` -eq 0 ] || return 4
     #[ -f $config ] || return 6

@@ -74,8 +74,12 @@ function loadJson(host, port, json){
 ***********************************************/
 module.exports = {
     ionic: function (dir, config, logdir, piddir) {
+        // default site_dir dir or meta-meta.json does not, so make them
+	if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
+	if (!fileExists("sites/meta-meta.json")) my_exec("ln -vs default/meta-meta.json sites/meta-meta.json");
+
 	// whatever
-	console.log("Starting madface server: port = " + config.port);
+	console.log("Starting madmask server: port = " + config.port);
 	var pidfile = piddir + "/ionic-server." + config.port;
 	if (fileExists(pidfile)){
 	    console.log("pidfile exists! [" + pidfile + "]");
