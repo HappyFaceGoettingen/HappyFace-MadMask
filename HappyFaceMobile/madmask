@@ -14,7 +14,6 @@ var madface = require('./lib/madmask');
 program
   .version('0.3.0')
   .option('-c, --config [SiteDefDir]', 'Select site definition dir [default: sites/default]', 'sites/default')
-  .option('-m, --mode [Switch]', 'Select a mode [default: ON]', 'ON')
   .option('-i, --ionic', 'Start ionic server')
   .option('-l, --logdir [LogDir]', 'Log dir [default: /tmp]', '/tmp')
   .option('-p, --piddir [PidDir]', 'Pid dir [default: /tmp]', '/tmp')
@@ -41,8 +40,6 @@ if(program.rawArgs.length <= 2) {
    /*******************************
 	Show command line options
    *********************************/
-   console.log('Mode: %s', program.mode);
-
    console.log('Start Ionic server: %s', program.ionic);
    console.log('Ionic logdir: %s', program.logdir);
    console.log('Ionic piddir: %s', program.piddir);

@@ -1,0 +1,10 @@
+[{ 
+    "name": "Cron log",
+    "file": "data/GoeGrid/log/cron.log"
+}, {
+    "name": "Firefox log",
+    "file": "data/GoeGrid/log/firefox.log"
+}, {
+    "name": "Analysis log",
+    "file": "data/GoeGrid/log/analysis.log"
+}]

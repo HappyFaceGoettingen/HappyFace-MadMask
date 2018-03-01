@@ -244,8 +244,8 @@ last_captured(){
     INFO "Firefox profile of running process = $FIREFOX_PROFILE]"
     local madfox_out=$(get_madfox_addon_outdir)
     ! ls $madfox_out/* &> /dev/null && INFO "[$madfox_out] does not exist" && return 1
-    DEBUG "Checking [$madfox_out]"
-    INFO "Last captured: [$(stat -c %y $(ls -t $madfox_out/* | head -n 1))]"
+    INFO "Checking [$madfox_out]"
+    INFO "Last captured: [$(stat -c %y $(ls -t $madfox_out/* | head -n 1))], Num. Files: $(ls -t $madfox_out/* | wc -l)"
     return 0
 }
 

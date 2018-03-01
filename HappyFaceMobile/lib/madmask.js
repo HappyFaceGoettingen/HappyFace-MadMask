@@ -26,7 +26,8 @@ var summaryTemplate = "summary_template";
 
 function fileExists(filePath){
     try {
-	return fs.statSync(filePath).isFile();
+	//return fs.statSync(filePath).isFile();
+      return fs.existsSync(filePath);
     } catch (err) {
 	return false;
     }
@@ -66,6 +67,13 @@ function loadJson(host, port, json){
 };
 
 
+function makeDefaultSite(dir){
+  // default site_dir dir or meta-meta.json does not, so make them
+  console.log("dir = " + dir.split('/').reverse()[0] + " " + fileExists("sites/default"));
+  if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
+  if (!fileExists("sites/meta-meta.json")) my_exec("ln -vs default/meta-meta.json sites/meta-meta.json");
+};
+
 
 /**********************************************
 
@@ -75,8 +83,7 @@ function loadJson(host, port, json){
 module.exports = {
     ionic: function (dir, config, logdir, piddir) {
         // default site_dir dir or meta-meta.json does not, so make them
-	if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
-	if (!fileExists("sites/meta-meta.json")) my_exec("ln -vs default/meta-meta.json sites/meta-meta.json");
+        makeDefaultSite(dir);
 
 	// whatever
 	console.log("Starting madmask server: port = " + config.port);
@@ -93,14 +100,17 @@ module.exports = {
 
     capture_browser: function (dir, config) {
 	console.log("Capturing browser");
+        makeDefaultSite(dir);
 
 	// Capturing URLs
 	var commandLine = "madfox"
-	+ " -j " + getJsonUrl("localhost", "", dir + "/" + configJson)
-	+ " -u " + getJsonUrl("localhost", "", dir + "/" + monitoringUrlsJson)
-	+ " -o " + config.capture + " -t " + config.thumbnail
+        + " -L " + config.log_level
+	+ " -u " + dir + "/" + monitoringUrlsJson
+	+ " -o " + config.data_dir
 	+ " -p " + config.firefox_profile
-	+ " -x " + "-d " + config.debug_mode;
+	+ " -x :1000"
+        + " -a import";
+
 	console.log("Executing ... [" + commandLine + "]");
 	my_exec(commandLine);
     },

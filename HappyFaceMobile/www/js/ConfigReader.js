@@ -135,7 +135,7 @@ if (FORCE_LOAD_LOCAL_META_META_FILE){
 var config = loadJson(host, port, dir, configJson);
 config.dir = dir;
 var monitoringUrls = loadJsonByConfig(config, monitoringUrlsJson);
-var summaryJson = config.summary_json;
+var summaryJson = config.data_dir + "/json/summary.json";
 var summary = loadJson(host, port, "", summaryJson);
 
 var servers = loadJsonByConfig(config, serversJson);

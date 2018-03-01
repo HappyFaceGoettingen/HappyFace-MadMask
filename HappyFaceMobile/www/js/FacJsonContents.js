@@ -74,15 +74,16 @@ angular.module('happyface.FacJsonContents', [])
   function setLinks(datetime_dir){
       var remote_url = getMobileUrl();
 
-      var capture_dir = config.capture;
-      var thumbnail_dir = config.thumbnail;
+      var capture_dir = config.data_dir + "/capture";
+      var thumbnail_dir = config.data_dir + "/thumbnail";
+      var analysis_dir = config.data_dir + "/analysis";
       if (MobileConfig.get().enableMadVision){
-	  capture_dir = config.analysis + "/mad_vision";
-	  thumbnail_dir = config.analysis + "/mad_vision_thumbnail";
+	  capture_dir = analysis_dir + "/mad_vision";
+	  thumbnail_dir = analysis_dir + "/mad_vision_thumbnail";
       }
-      var plot_infogain_dir = config.analysis + "/plot_infogain/latest";
-      var plot_analysis_dir = config.analysis + "/plot_analysis/latest";
-      var plot_pathway_dir = config.analysis + "/plot_pathway/latest";
+      var plot_infogain_dir = analysis_dir + "/plot_infogain/latest";
+      var plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
+      var plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
 
       for (var i = 0; i < monitoringUrls.length; i++) {
 	  for (var j = 0; j < monitoringUrls[i].urls.length; j++){
