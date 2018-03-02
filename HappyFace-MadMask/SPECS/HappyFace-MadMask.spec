@@ -117,16 +117,23 @@ service httpd stop
 
 
 %post
+
+## Reinstalling node-sass to HFMobile again, due to a native hardware or vender issue 
+echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
+su - %{happyface_user} -c "cd %{_prefix}/MadMask && npm install node-sass@4.2.0" &> /dev/null
+
+
+## Installing Basic packages for Ionic and Cordova
 if ! which ionic; then
-    echo "Installing Ionic and Cordova modules"
-    npm install -g cordova@6.0.0 bplist-parser@0.1.1
-    npm install -g ionic@1.6.1
-    WRONG_FILE=/usr/lib/node_modules/ionic/node_modules/ionic-app-lib/lib/config.js
-    cat $WRONG_FILE | perl -pe "s/CONFIG_FILE:.*/CONFIG_FILE: \'.\/ionic\/ionic.config\',/g" > /tmp/config.js
-    cp -v /tmp/config.js $WRONG_FILE
+    echo "Installing Ionic and Cordova modules ..."
+    npm install -g cordova@6.0.0 bplist-parser@0.1.1 &> /dev/null
+    npm install -g ionic@2.0.0 &> /dev/null
 fi
-which jpm || npm install -g jpm@1.0.7
-which forever || npm install -g forever@0.15.2
+
+echo "Installing JPM and Forever ..."
+which jpm || npm install -g jpm@1.0.7 &> /dev/null
+which forever || npm install -g forever@0.15.2 &> /dev/null
+
 
 
 ## If HappyFace user does not exist, the create it

@@ -1,7 +1,7 @@
 {
-  "name": "HelloIonic",
+  "name": "HappyFace2",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.0.1"
+    "ionic": "ionic-team/ionic-bower#1.3.4"
   }
 }
