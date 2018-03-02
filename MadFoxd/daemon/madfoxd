@@ -71,8 +71,17 @@ capture() {
     check_pidfiles || return 1
 
     ## Reloading screens
-    echo "Capturing $prog screens ..."
+    echo "Capturing $prog tabs ..."
     run_madfox capture 2>&1 >> $logfile_base/madfoxd.log
+    return $?
+}
+
+import() {
+    check_pidfiles || return 1
+
+    ## Reloading screens
+    echo "Importing $prog images --> [$MADFOXD_DATA_HOME] ..."
+    run_madfox import 2>&1 >> $logfile_base/madfoxd.log
     return $?
 }
 
@@ -80,7 +89,7 @@ reload() {
     check_pidfiles || return 1
 
     ## Reloading screens
-    echo "Reloading $prog screens ..."
+    echo "Reloading $prog tabs ..."
     run_madfox reload 2>&1 >> $logfile_base/madfoxd.log
     return $?
 }
