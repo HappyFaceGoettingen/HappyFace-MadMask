@@ -38,8 +38,12 @@ logfile_base=$MADFOXD_LOGDIR
 
 
 read_displays(){
-    site_defs=$(find $MADMASK_HOME/sites/*/config.json)
-    jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
+    local displays=$(find $MADFOXD_CONFIG)
+    jq '.port' $displays | sed "s/\"//g" | sort | uniq
+}
+
+read_data_dir(){
+    local data_dir
 }
 
 check_pidfiles(){
@@ -53,7 +57,7 @@ check_pidfiles(){
 
 run_madfox(){
     local action=$1
-    su $user -c "madfox -S $MADFOXD_LIB_DIR -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -l ${logfile_base} -p ${pidfile_base} -a $action"
+    su $user -c "madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -l ${logfile_base} -p ${pidfile_base} -a $action"
     return $?
 }
 
@@ -115,7 +119,7 @@ stop() {
 }
 
 usage() {
-    echo $"Usage: $0 {start|stop|restart|status|reload|capture}"
+    echo $"Usage: $0 {start|stop|restart|status|reload|capture|import}"
 }
 
 if [ $# -gt 1 ]; then
@@ -142,6 +146,9 @@ case "$1" in
 	;;
     capture)
 	capture
+	;;
+    import)
+	import
 	;;
     *)
         usage

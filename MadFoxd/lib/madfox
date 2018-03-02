@@ -4,19 +4,24 @@ COMMAND=$(basename $0)
 
 ## Sourcing functions from this directory
 MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
+[ ! -e $MADFOX_LIB_DIR ] && MADFOX_LIB_DIR=/usr/share/madfoxd/lib
 
 ## Some parameters before starting firefox and opening its tabs
 WAIT_FIREFOX_BOOT=10
 WAIT_FIREFOX_OPEN_TAB=0.5
 
+## Common config by a JSON file
+CONFIG_JSON=""
+
 ## Input WEB pages by a JSON file
-URLFILE=""
+URL_JSON=""
 
 # Firefox profile
 FIREFOX_PROFILE=""
 
 # Outputs for image importer
-DATA_DIR="data/$USER"
+CONFIG_DATA_DIR=""
+DATA_HOME="data/$USER"
 
 ## X-Window options
 X_RESOLUTION=1280x1024
@@ -54,12 +59,16 @@ usage="$0 [options] -a [action]
  -w:  Set a wait time to boot Firefox [default: $WAIT_FIREFOX_BOOT]
  -t:  Set a wait time to open each tab [default: $WAIT_FIREFOX_OPEN_TAB]
 
+ * Common config file
+ -c:  Config JSON file (typically, config.json)
+
  * URLs (as input sources)
- -u:  URL JSON file
+ -u:  URL JSON file (typically, monitoring-urls.json)
 
  * Outputs (with 'import' action)
- -o:  data dir [default: $DATA_DIR] 
-   (capture/thumbnail/index dirs will be created. The 'index' dir will contain JSON/HTML outputs)
+ -o:  data home [default: $DATA_HOME] 
+   Dirs (capture/thumbnail/index) will be created under 'data home' / 'data_dir of config.json'. 
+   The 'index' dir contains JSON/HTML outputs
 
 
  * Run an action
@@ -78,7 +87,7 @@ fi
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "S:L:u:o:x:r:f:a:w:t:p:l:hv" op
+while getopts "S:L:c:u:o:x:r:f:a:w:t:p:l:hv" op
   do
   case $op in
       S) MADFOX_LIB_DIR=$OPTARG
@@ -86,9 +95,12 @@ while getopts "S:L:u:o:x:r:f:a:w:t:p:l:hv" op
           ;;
       L) set_loglevel $OPTARG
 	  ;;
-      u) URLFILE=$OPTARG
+      c) CONFIG_JSON=$OPTARG	  
 	  ;;
-      o) DATA_DIR=$OPTARG
+      u) URL_JSON=$OPTARG
+	  ;;
+      o) DATA_HOME=$OPTARG
+	  
 	  ;;
       x) export DISPLAY="$OPTARG"
 	  ;;
@@ -159,7 +171,7 @@ start_firefox(){
 
 open_firefox_tabs(){
     ## Loading a JSON file defining URLs
-    load_monitoringUrls_json $URLFILE
+    load_monitoringUrls_json $URL_JSON
 
     local profile_option=""
     [ ! -z "$FIREFOX_PROFILE" ] && profile_option="--profile $FIREFOX_PROFILE"
@@ -263,7 +275,7 @@ import_images(){
     INFO "INDEX_DIR        = [$index_dir]"
 
     ## Loading a JSON file defining URLs
-    load_monitoringUrls_json $URLFILE
+    load_monitoringUrls_json $URL_JSON
 
     ## Set date ID
     date_id=$(date +%Y%m%d-%H%M)
@@ -307,11 +319,17 @@ clean_madfox(){
 # Main
 #
 #====================================================
+## If common config is set, the priority is high
+if [ ! -z "$CONFIG_JSON" ]; then
+    [ ! -e "$CONFIG_JSON" ] && ERROR "Common config [$CONFIG_JSON] does not exist" && exit -1
+    read_common_config $CONFIG_JSON 
+fi
+
 
 ## Check variables
-[ -z "$URLFILE" ] && ERROR "urlfile is empty!" && exit -1
-[ ! -e "$URLFILE" ] && ERROR "urlfile [$URLFILE] does not exist" && exit -1
-[ -z "$FIREFOX_PROFILE" ] && ERROR "[$FIREFOX_PROFILE] is not given" && exit -1
+[ -z "$URL_JSON" ] && ERROR "urlfile is empty!" && exit -1
+[ ! -e "$URL_JSON" ] && ERROR "urlfile [$URL_JSON] does not exist" && exit -1
+[ -z "$FIREFOX_PROFILE" ] && ERROR "FIREFOX_PROFILE [$FIREFOX_PROFILE] is not given" && exit -1
 [ ! -e $FIREFOX_PROFILE ] && ERROR "FIREFOX_PROFILE [$FIREFOX_PROFILE] does not exist" && return 1
 [ ! -d $FIREFOX_PROFILE ] && ERROR "FIREFOX_PROFILE [$FIREFOX_PROFILE] is not a directory" && return 1
 [ -z "$DISPLAY" ] && ERROR "DISPLAY is empty" && exit -1
@@ -321,14 +339,17 @@ clean_madfox(){
 [ ! -d $PIDDIR ] && ! mkdir -pv $PIDDIR && ERROR "Cannot create [$PIDDIR]" && exit -1
 [ -z "$LOGDIR" ] && ERROR "LOGDIR is empty" && exit -1
 [ ! -d $LOGDIR ] && ! mkdir -pv $LOGDIR && ERROR "Cannot create [$LOGDIR]" && exit -1
+[ ! -z "$DATA_HOME" ] && [ ! -e "$DATA_HOME" ] && ERROR "DATA_HOME [$DATA_HOME] does not exist" && exit -1
 
 
 ## Show main input variables
 INFO "DISPLAY          = [$DISPLAY]"
-INFO "URLFILE          = [$URLFILE]"
+INFO "CONFIG_JSON      = [$CONFIG_JSON]"
+INFO "URL_JSON         = [$URL_JSON]"
 INFO "FIREFOX_PROFILE  = [$FIREFOX_PROFILE]"
 INFO "PIDDIR           = [$PIDDIR]"
 INFO "LOGDIR           = [$LOGDIR]"
+INFO "DATA_HOME        = [$DATA_HOME]"
 
 
 ## For X-Window
@@ -372,12 +393,13 @@ case $ACTION in
 	capture_browser
 	;;
     import)
-	INFO "DATA_DIR = [$DATA_DIR]"
-	[ -z "$DATA_DIR" ] && ERROR "DATA_DIR is empty" && exit -1
-	[ ! -e "$DATA_DIR" ] && ERROR "DATA_DIR [$DATA_DIR] does not exist" && exit -1
+	INFO "DATA_HOME = [$DATA_HOME]"
+	[ -z "$DATA_HOME" ] && ERROR "DATA_HOME is empty" && exit -1
+	[ ! -z "$CONFIG_DATA_DIR" ] && DATA_HOME=$DATA_HOME/$CONFIG_DATA_DIR
+	[ ! -e "$DATA_HOME" ] && ERROR "DATA_HOME [$DATA_HOME] does not exist" && exit -1
 
 	set_new_firefox_profile
-	import_images $DATA_DIR
+	import_images $DATA_HOME
 	;;
     *)
 	ERROR "Action [$ACTION] does not exist"
