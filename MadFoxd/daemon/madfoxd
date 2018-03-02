@@ -57,7 +57,7 @@ check_pidfiles(){
 
 run_madfox(){
     local action=$1
-    su $user -c "madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -l ${logfile_base} -p ${pidfile_base} -a $action"
+    su $user -c "madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action"
     return $?
 }
 
