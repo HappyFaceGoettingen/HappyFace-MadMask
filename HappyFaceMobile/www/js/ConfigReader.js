@@ -12,7 +12,7 @@ var SEED_META_META_JSON = "meta-meta.json";
 
 var configJson = "config.json";
 var monitoringUrlsJson = "monitoring-urls.json";
-var serversJson = "servers.json";
+var systemsJson = "systems.json";
 var visualizersJson = "visualizers.json";
 var logsJson = "logs.json";
 var humansJson = "humans.json";
@@ -90,7 +90,7 @@ function isHttpUrl(str){
 /*
   Loading JSON variables
  */
-// Default mode is connectiong to a local Meta-Monitoring server
+// Default mode is connectiong to a local Meta-Monitoring system
 var host = location.hostname;
 var port = location.port;
 var dir = "sites/default";
@@ -138,7 +138,7 @@ var monitoringUrls = loadJsonByConfig(config, monitoringUrlsJson);
 var summaryJson = config.data_dir + "/json/summary.json";
 var summary = loadJson(host, port, "", summaryJson);
 
-var servers = loadJsonByConfig(config, serversJson);
+var systems = loadJsonByConfig(config, systemsJson);
 var visualizers = loadJsonByConfig(config, visualizersJson);
 var logs = loadJsonByConfig(config, logsJson);
 var humans = loadJsonByConfig(config, humansJson);

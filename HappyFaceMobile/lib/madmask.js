@@ -14,7 +14,7 @@ var exec = require('child_process').exec;
   Const variables
 */
 var configJson = "config.json";
-var serversJson = "servers.json";
+var systemsJson = "systems.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 
 var summaryTemplate = "summary_template";
@@ -124,7 +124,7 @@ module.exports = {
 	// In the future, various methods should be included
 	var commandLine = "madanalyzer -m all"
 	+ " -j " + getJsonUrl("localhost", "", dir + "/" + configJson)
-	+ " -s " + getJsonUrl("localhost", "", dir + "/" + serversJson)
+	+ " -s " + getJsonUrl("localhost", "", dir + "/" + systemsJson)
 	+ " -u " + getJsonUrl("localhost", "", dir + "/" + monitoringUrlsJson) +  " -o " + getJsonUrl("localhost", "", config.summary_json)
 	+ " -c " + config.capture + " -a " + config.analysis + " -t " + summaryTemplateDir
 	+ " -r " + config.analysis_image_size + " -e " + config.thumbnail

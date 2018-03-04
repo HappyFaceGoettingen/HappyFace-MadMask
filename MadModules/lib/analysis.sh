@@ -1,129 +1,72 @@
-#!/bin/bash
+## Max outputs for summary of system elements
+MAX_SUMMARY_OUTPUTS=3
 
-[ ! -e bin/functions.sh ] && echo "[bin/functions.sh] does not exist!" && exit -1 
-. bin/functions.sh
-
-
-
-## X window
-USE_XWINDOW="OFF"
-
-
-## Original inputs
-date_IDs_limit=50
-capture_dir="data/$USER/capture"
-summary_template_dir="sites/default/summary_template"
-
-
-## Analysis method
-algorithm="bcp"
-input_image_size="340x426"
 input_image_convert_option="-geometry $input_image_size!"
 
 
-# System parameters
-parallel=$(grep processor /proc/cpuinfo | wc -l)
-SYSTEM_LOAD_THRESHOLD=80
+#---------------------------------------------------------
+# Function: Picture converter
+#
+#---------------------------------------------------------
+set_analysis_dirs(){
+    local data_home="$1"
+
+    ##
+    analysis_dir=$OPTARG
+    plot_analysis_dir="$analysis_dir/plot_analysis"
+    plot_infogain_dir="$analysis_dir/plot_infogain"
+    plot_pathway_dir="$analysis_dir/plot_pathway"
+    robj_dir="$analysis_dir/robj"
+    base_images_dir="$analysis_dir/base_images"
+    madvision_dir="$analysis_dir/mad_vision"
+    madvision_thumbnail_dir="$analysis_dir/mad_vision_thumbnail"
+    R_output_dir="$analysis_dir/results"
+    
+    [ -z "$analysis_dir" ] && INFO "analysis_dir is empty!" && exit -1
+    [ ! -e "$analysis_dir" ] && mkdir -pv $analysis_dir
+}
 
 
-# Default thumbnaill dir
-thumbnail_dir="data/$USER/thumbnail"
+#---------------------------------------------------------
+# Function: Picture converter
+#
+#---------------------------------------------------------
+picture_converter(){
+    local input_dir="$1"
+    local convert_option="$2"
+    local output_dir="$3"
 
-# Max output for URL names
-MAX_OUTPUT_LIST=3
-
-
-usage="$0 [option]
- -j:  Specify config.json
- -s:  Specify servers.json
-
- -c:  capture_dir (default: $capture_dir)
- -i:  limit of date IDs (default: $date_IDs_limit)
- -u:  URL JSON file
-
- -m:  mode {all|images|classifier|result|voice}
-
- -a:  analysis_dir dir (default: $analysis_dir)
- -t:  voice template dir (default: $summary_template_dir)
- -e:  set existing thumbnail dir (default: $thumbnail_dir) 
-
- -r:  Set analysis image size (default: $input_image_size)
-
- -o:  summary.json [default: $summary_json]
-
- -x:  Use virtual Xwindow
-
- -n:  number of parallel processes
- -l:  system load limit
-
-"
-
-if [ $# -eq 0 ]; then
-    echo "$usage"
-    exit 0
-fi
+    for f in $(ls $input_dir/*)
+    do
+	if [ -e $f ]; then
+	    INFO "Converting [$f] ($convert_option)  -->  [$output_dir/$(basename ${f})]"
+	    convert "$f" $convert_option $output_dir/$(basename ${f})
+	else
+	    INFO "[$f] does not exist! Skipping."
+	fi
+    done
+}
 
 
-#--------------------------
-# Getopt
-#--------------------------
-while getopts "dj:c:i:u:s:f:m:xn:a:t:l:r:e:o:hv" op
-  do
-  case $op in
-      d) DEBUG="yes"
-	  ;;
-      j) config_json=$OPTARG
-	  ;;
-      s) servers_json=$OPTARG
-	  ;;
-      c) capture_dir=$OPTARG
-	  ;;
-      i) date_IDs_limit=$OPTARG
-	  ;;
-      u) urlfile=$OPTARG
-	  ;;
-      o) summary_json=$OPTARG
-	  ;;
-      m) mode=$OPTARG
-	  ;;
-      x) USE_XWINDOW="ON"
-	  ;;
-      n) parallel=$OPTARG
-	  ;;
-      a) analysis_dir=$OPTARG
-	  [ -z "$analysis_dir" ] && INFO "analysis_dir is empty!" && exit -1
-	  [ ! -e "$analysis_dir" ] && mkdir -pv $analysis_dir
-	  plot_analysis_dir="$analysis_dir/plot_analysis"
-	  plot_infogain_dir="$analysis_dir/plot_infogain"
-	  plot_pathway_dir="$analysis_dir/plot_pathway"
-	  robj_dir="$analysis_dir/robj"
-	  input_images_dir="$analysis_dir/input_images"
-	  madvision_dir="$analysis_dir/mad_vision"
-	  madvision_thumbnail_dir="$analysis_dir/mad_vision_thumbnail"
-	  R_output_dir="$analysis_dir/results"
-	  ;;
-      t) summary_template_dir=$OPTARG
-	  ;;
-      l) SYSTEM_LOAD_THRESHOLD=$OPTARG
-	  ;;
-      r)
-	  input_image_size="$OPTARG"
-	  input_image_convert_option="-geometry $input_image_size!"
-	  ;;
-      e) 
-	  thumbnail_dir="$OPTARG"
-	  ;;
-      h) echo "$usage"
-	  exit 0
-	  ;;
-      v) echo "$version"
-	  exit 0
-	  ;;
-      ?) echo "$usage"
-	  exit 0
-	  ;;
-  esac
-done
+move_data_to_latest_dir(){
+    local from_dir=$1
+    local to_dir=$2
+
+    [ -e $to_dir ] && echo "[$to_dir] already exists!" && return 1
+    [ ! -e $(dirname $to_dir) ] && mkdir -vp $(dirname $to_dir)
+    rm -v $(dirname $to_dir)/latest
+    mv -v $from_dir $to_dir
+    ln -s $(basename $to_dir) $(dirname $to_dir)/latest
+}
+
+move_data_to_dir(){
+    local from_dir=$1
+    local to_dir=$2
+
+    [ ! -e $to_dir ] && mkdir -vp $to_dir
+    mv -v $from_dir/* $to_dir
+    rmdir -v $from_dir
+}
 
 
 #---------------------------------------------------------------------------
@@ -308,57 +251,3 @@ write_summary_json(){
     cat $summary_json
     return 0
 }
-
-
-#---------------------------------------------------------------------------
-#
-# Main
-#
-#---------------------------------------------------------------------------
-[ ! -e "$thumbnail_dir" ] && echo "No [$thumbnail_dir]!" && exit -1
-[ ! -e "$urlfile" ] && INFO "urlfile [$urlfile] does not exist!" && exit -1
-
-## Use Xvfb
-[ "$USE_XWINDOW" == "ON" ] && set_default_virtual_xwindow $config_json
-
-
-## Start main
-[ "$algorithm" == "bcp" ] && source bin/bcp-classifier.sh
-
-case "$mode" in
-    all)
-        ## Check system load
-	system_load_monitor $SYSTEM_LOAD_THRESHOLD
-	[ $? -ne 0 ] && INFO "System load is high!" && exit -1
-
-	make_input_images "$capture_dir" "$input_images_dir"
-	generate_classifier "R_generate_classifier"
-	generate_pathway
-	generate_madvision "R_generate_madvision"
-	generate_results "R_generate_results"
-	write_summary_json
-	;;
-    images)
-	make_input_images "$capture_dir" "$input_images_dir"
-	;;
-    classifier)
-	generate_classifier "R_generate_classifier"
-	;;
-    madvision)
-	generate_madvision "R_generate_madvision"
-	;;
-    result)
-	generate_results "R_generate_results"
-	;;
-    pathway)
-	generate_pathway
-	;;
-    summary)
-	write_summary_json
-	;;
-    *)
-	echo "mode [$mode] is not defined."
-	exit -1
-esac
-
-

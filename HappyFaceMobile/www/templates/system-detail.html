@@ -4,10 +4,10 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{server.name}}">
+<ion-view view-title="{{system.name}}">
   <ion-content class="padding">
-    <img ng-src="{{server.img}}" style="width: 64px; height: 64px">
-    <h2>{{server.text}}</h2>
+    <img ng-src="{{system.img}}" style="width: 64px; height: 64px">
+    <h2>{{system.text}}</h2>
 
     <div class="card">
       <div class="item item-divider">Power</div>
@@ -19,7 +19,7 @@
     <div class="card">
       <div class="item item-divider">Service</div>
       <div class="item item-text-wrap">
-	  <ion-item class="item" ng-repeat="service in server.services">
+	  <ion-item class="item" ng-repeat="service in system.services">
 	    <a class="button button-outline button-positive">{{service.name}}</a>
 	  </ion-item>
     </div>

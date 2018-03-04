@@ -7,9 +7,8 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 
 ### Structure
      HappyFaceMobile
-     ├── bin      --->  Mediators of browser analyzer
      ├── daemon   --->  Ioinic web server launcher as daemon, configuration and some cron jobs
-     ├── data     --->  A symbolic link to data location
+     ├── data     --->  A symbolic link to a data location
      ├── hooks
      ├── lib
      ├── madmask  --->  MadMask command executor as a web server and executable wrappers in a HappyFace instance
@@ -24,7 +23,7 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 ## MadModules
 * MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.
 * MadAnalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyzer.
-* bin - Analysis mediator scripts of browser views, JSON structures and HappyFace data
+* lib - Analysis mediators of browser views, JSON structures and HappyFace data
 
 
 --------------------------
@@ -42,13 +41,13 @@ A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some
 
 --------------------------
 ## MadFoxd
-A service capturing browser views (browser canvases) via Firefox using MadFox addon program. This service is extendable to download JSON and WSDL web services as files.
+A service capturing browser views (browser canvases) via Firefox using the MadFox addon. This service is extendable to download JSON and WSDL web services as files.
 
 ### Components
-* madfoxd/madfox - Main program of madfox
-* firefox_profiles/ - Default firefox profile which was already configured with MadFox addon
 * madfox-addon/ - MadFox Firefox Addon and its source
+* firefox_profiles/ - Default firefox profile which was already configured with MadFox addon
 * daemon/ - Script and configurations for daemon and CRON
+* lib - Main program and library for madfox CLI
 
 
 ### Default Firefox configuration with Madfox Addon

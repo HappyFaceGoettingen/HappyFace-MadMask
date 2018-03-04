@@ -154,24 +154,24 @@ angular.module('happyface.FacJsonContents', [])
   };
 })
 
-.factory('Servers', function(Config) {
+.factory('Systems', function(Config) {
 
 
   return {
     all: function() {
-      return servers;
+      return systems;
     },
-    get: function(serverName) {
-      for (var i = 0; i < servers.length; i++) {
-        if (servers[i].name == serverName) {
-          return servers[i];
+    get: function(systemName) {
+      for (var i = 0; i < systems.length; i++) {
+        if (systems[i].name == systemName) {
+          return systems[i];
         }
       }
       return null;
     },
     reload: function(){
-	  logger.debug("Reloading Servers ...");
-	  servers = loadJsonByConfig(Config.get(), serversJson);
+	  logger.debug("Reloading Systems ...");
+	  systems = loadJsonByConfig(Config.get(), systemsJson);
     }
   };
 })
@@ -198,7 +198,7 @@ angular.module('happyface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Visualizers ...");
-	  servers = loadJsonByConfig(Config.get(), visualizersJson);
+	  systems = loadJsonByConfig(Config.get(), visualizersJson);
 	  setLinks();
     }
   };
@@ -226,7 +226,7 @@ angular.module('happyface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Logs ...");
-	  servers = loadJsonByConfig(Config.get(), logsJson);
+	  systems = loadJsonByConfig(Config.get(), logsJson);
 	  setLinks();
     }
   };

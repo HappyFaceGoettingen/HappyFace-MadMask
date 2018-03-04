@@ -23,9 +23,9 @@ madmask_zip(){
     [ ! -e $TARDIR ] && mkdir -v $TARDIR
     
     ## HappyFace-MadMask.zip
-    rsync -avlp --delete ../../HappyFaceMobile $TARDIR/
-    rsync -avlp --delete ../../MadModules $TARDIR/
-    tar zcvf HappyFace-MadMask.zip ${TARDIR}
+    rsync -alp --delete ../../HappyFaceMobile $TARDIR/
+    rsync -alp --delete ../../MadModules $TARDIR/
+    tar zcf HappyFace-MadMask.zip ${TARDIR}
 
     popd
 }
@@ -34,7 +34,7 @@ libs_zip(){
     pushd SOURCES
 
     ## MadMask-R-libs.zip
-    tar zcvf MadMask-R-libs.zip MadMask-R-libs
+    tar zcf MadMask-R-libs.zip MadMask-R-libs
     
     popd
 }
@@ -43,8 +43,8 @@ madfoxd_zip(){
     pushd SOURCES
 
     ## MadFoxd.zip
-    rsync -avlp --delete ../../MadFoxd .
-    tar zcvf MadFoxd.zip MadFoxd
+    rsync -alp --delete ../../MadFoxd .
+    tar zcf MadFoxd.zip MadFoxd
     
     popd
 }

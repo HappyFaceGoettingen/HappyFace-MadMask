@@ -1,0 +1,197 @@
+#!/bin/bash
+
+#------------------------------------------
+# Libraries
+#------------------------------------------
+MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
+[ ! -e $MADFOX_LIB_DIR ] && MADFOX_LIB_DIR=/usr/share/madfoxd/lib
+MADANALYZER_LIB_DIR=~/var/develop/MadMask/MadModules/lib
+[ ! -e $MADANALYZER_LIB_DIR ] && MADANALYZER_LIB_DIR=/usr/share/madanalyzer/lib
+
+## Sourcing functions 
+[ -e $MADFOX_LIB_DIR ] && for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
+[ -e $MADANALYZER_LIB_DIR ] && for func in $(ls $MADANALYZER_LIB_DIR/*.sh); do source $func; done
+
+
+#------------------------------------------
+# Some system constrains
+#------------------------------------------
+## An acceptable load before starting analysis (70%)
+SYSTEM_LOAD_MAX=70
+
+## Default Parallel run (25%)
+PARALLEL=$(($(nproc) / 4 ))
+
+## According to this length, date time can be analyzed, categorized and surmmarized
+MAX_DATETIME_LENGTH=50
+
+
+#------------------------------------------
+# Algorithms 
+#  They can be overrided by 'config.json'
+#------------------------------------------
+DETECTOR_ALGORITHM="bcp"
+FORECAST_ALGORITHM="ANFIS"
+
+
+#------------------------------------------
+# For default Inputs/Outputs and Configurations
+#------------------------------------------
+DATA_HOME=.
+CAPTURE_DIR=capture
+THUMBNAIL_DIR=thumbnail
+SITE_DIR=sites/default
+CONFIG_DATA_DIR=""
+
+
+usage="$0 [options] -a [action]
+ A library to analyze a system status by the given monitoring data of a time series and the system definition. The final system stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template of 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary. 
+
+ * System parameters and constrains
+ -l:  System load limit [default: $SYSTEM_LOAD_MAX]
+ -p:  Number of Parallel runs [default: $PARALLEL]
+ -d:  Max date-time length as a time series [default: $MAX_DATETIME_LENGTH]
+ -x:  X-window display [default: :0]
+
+ * Home directory of Inputs/Outputs Data
+ -o:  data home [default: $DATA_HOME]
+   'data dir' = 'data home'/'data_dir of config.json'
+   The input data is read from 'data dir'/{'$CAPTURE_DIR'|'$THUMBNAIL_DIR'}.
+   JSON index files under 'data dir'/'index' will be generated. 
+   Analysis results under 'data dir'/'analysis' will be generated.
+
+   * Optional (Inputs): 
+   -C:  Capture dir under 'data dir' [default: $CAPTURE_DIR]
+   -T:  Thumbnail dir under 'data dir' [default: $THUMBNAIL_DIR]
+
+ * Configurations
+ -s:  Set 'site dir', then the following files are read. [default: \$DATA_HOME/$SITE_DIR]
+      (If empty, \$DATA_HOME/sites/default is used)
+
+    - config.json (Config JSON file provides variables such as data_dir, image_size, algorithms and so on)
+    - monitoring-urls.json (URLs JSON file provides URL links and 'Categories' such as 'Normal', etc.)
+    - systems.json (Systems JSON file: a definition of all system components)
+    - summary_template/ (Summary template provides some 'Category' templates such as 'Normal.json', etc.)
+
+ * Run an action
+ -a:  Set action [base_images|detector|madvision|pathway|forecast|summary|all]
+
+
+ Report Bugs to Gen Kawamura <gen.kawamura@cern.ch>"
+
+
+if [ $# -eq 0 ]; then
+    echo "$usage"
+    exit 0
+fi
+
+
+#--------------------------
+# Getopt
+#--------------------------
+while getopts "l:p:d:x:o:C:T:s:a:hv" op
+  do
+  case $op in
+      l) SYSTEM_LOAD_MAX=$OPTARG
+	  ;;
+      p) PARALLEL=$OPTARG
+	  ;;
+      d) MAX_DATETIME_LENGTH=$OPTARG
+	  ;;
+      x) echo "Mock"
+	  ;;
+      o) DATA_HOME=$OPTARG
+	  ;;
+      C) CAPTURE_DIR=$OPTARG
+	  ;;
+      T) THUMBNAIL_DIR=$OPTARG
+	  ;;
+      s) SITE_DIR=$OPTARG
+	  ;;
+      a) action=$OPTARG
+	  ;;
+      h) echo "$usage"
+	  exit 0
+	  ;;
+      v) echo "$version"
+	  exit 0
+	  ;;
+      ?) echo "$usage"
+	  exit 0
+	  ;;
+  esac
+done
+
+
+
+#---------------------------------------------------------------------------
+#
+# Main
+#
+#---------------------------------------------------------------------------
+# Check basic variables
+[ -z "$DATA_HOME" ] && ERROR "DATA_HOME is null" && exit -1
+[ ! -e "$DATA_HOME" ] && ERROR "DATA_HOME [$DATA_HOME] does not exist" && exit -1
+[ -z "$CAPTURE_DIR" ] && ERROR "CAPTURE_DIR is null" && exit -1
+[ -z "$THUMBNAIL_DIR" ] && ERROR "THUMBNAIL_DIR is null" && exit -1
+
+
+# Check system load
+! system_load_monitor $SYSTEM_LOAD_MAX && INFO "System load is high" && exit -1
+
+
+# Set Inputs/Outputs directories (DATA_HOME is overrided by 'DATA_HOME/data_dir in config.json')
+
+set_analysis_dirs $DATA_HOME
+
+
+# Checking variables again
+[ ! -e "$DATA_HOME" ] && ERROR "Input: DATA_HOME [$DATA_HOME] does not exist" && exit -1
+[ ! -e "$DATA_HOME/$CAPTURE_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_HOME/$CAPTURE_DIR] does not exist" && exit -1
+[ ! -e "$DATA_HOME/$THUMBNAIL_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_HOME/$THUMBNAIL_DIR] does not exist" && exit -1
+
+
+# Checking algorithms
+[ -z "$DETECTOR_ALGORITHM" ] && ERROR "DETECTOR_ALGORITHM is null" && exit -1
+[ -z "$FORECAST_ALGORITHM" ] && ERROR "FORECAST_ALGORITHM is null" && exit -1
+
+
+
+# Running an action
+case "$action" in
+    base_images)
+	generate_base_images "$CAPTURE_DIR" "$BASE_IMAGE_DIR"
+	;;
+    detector)
+	generate_detector "$DETECTOR_ALGORITHM"
+	;;
+    pathway)
+	generate_pathway "$DETECTOR_ALGORITHM"
+	;;
+    madvision)
+	generate_madvision "$DETECTOR_ALGORITHM"
+	;;
+    forecast)
+	generate_forecast "$FORECAST_ALGORITHM"
+	;;
+    summary)
+	generate_category "$DETECTOR_ALGORITHM"
+	generate_summary
+	;;
+    all)
+	generate_base_images "$CAPTURE_DIR" "$BASE_IMAGE_DIR"
+	generate_detector "$DETECTOR_ALGORITHM"
+	generate_pathway "$DETECTOR_ALGORITHM"
+	generate_madvision "$DETECTOR_ALGORITHM"
+	generate_forecast "$FORECAST_ALGORITHM"
+	generate_category "$DETECTOR_ALGORITHM"
+	generate_summary
+	;;
+    *)
+	ERROR "Action [$action] is not defined."
+	exit -1
+esac
+
+
+exit 0
+

@@ -21,13 +21,14 @@ import_madfox_images(){
 
     ## Loop for importing images
     INFO "Importing MadFox images from [$from_dir] ..."
-    local imgfile=
+    local img=
     local i=-1
-    for imgfile in $(ls $from_dir/* | sort -g)
+    for img in $(ls $from_dir | sort -g)
     do
-	[ $i -eq -1 ] && i=$(($i + 1)) && continue
-	[ ! -e "$imgfile" ] && ERROR "[$imgfile] does not exist! Skipping." && continue 
+	## Skipping 0.png or first file
+	[ $i -eq -1 ] && i=0 && continue
 
+	local imgfile=$from_dir/$img
 	local imported_img=$to_dir/${FILE_PREFIXES[$i]}.${PICTURE_TYPE}
 	INFO "Importing [$imgfile] --> [$imported_img]"
 	trim_madfox_image $imgfile $imported_img
@@ -54,14 +55,13 @@ generate_thumbnails(){
     [ ! -e $to_dir ] && ERROR "[$to_dir] does not exist" && return 1
 
     INFO "Generating thumbnails from [$from_dir] ..."
-    local imgfile
-    for imgfile in $(ls $from_dir/*)
+    local img
+    for img in $(ls $from_dir)
     do
-	[ ! -e "$imgfile" ] && ERROR "[$imgfile] does not exist! Skipping." && continue 
-
-	local thumbnail_img=$to_dir/$(basename $imgfile)
+	local capture_img=$from_dir/$img
+	local thumbnail_img=$to_dir/$img
 	INFO "Converting [$imgfile] ($THUMBNAIL_OPTION)  -->  [$thumbnail_img)]"
-	convert $imgfile $THUMBNAIL_OPTION $thumbnail_img
+	convert $capture_img $THUMBNAIL_OPTION $thumbnail_img
 	[ $? -ne 0 ] && rm -v $thumbnail_img
 
 	## For Debug

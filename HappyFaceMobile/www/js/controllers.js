@@ -1,11 +1,11 @@
 angular.module('happyface.controllers', [])
 
-.controller('ServersCtrl', function($scope, Servers) {
-  $scope.servers = Servers.all();
+.controller('SystemsCtrl', function($scope, Systems) {
+  $scope.systems = Systems.all();
 })
 
-.controller('ServerDetailCtrl', function($scope, $stateParams, Servers) {
-  $scope.server = Servers.get($stateParams.serverName);
+.controller('SystemDetailCtrl', function($scope, $stateParams, Systems) {
+  $scope.system = Systems.get($stateParams.systemName);
 })
 
 .controller('WebImageViewerCtrl', function($scope, $stateParams, MonitoringUrls) {

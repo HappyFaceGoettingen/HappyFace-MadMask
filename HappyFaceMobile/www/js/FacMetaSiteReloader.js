@@ -1,6 +1,6 @@
 angular.module('happyface.FacMetaSiteReloader', [])
 
-    .factory('MetaSiteReloader', function(MetaMetaSites, MobileConfig, Config, Summary, MonitoringUrls, Servers, Visualizers, Logs, Humans) {
+    .factory('MetaSiteReloader', function(MetaMetaSites, MobileConfig, Config, Summary, MonitoringUrls, Systems, Visualizers, Logs, Humans) {
 
 	var metaSite = MetaMetaSites.getSelectedSite();
 
@@ -11,7 +11,7 @@ angular.module('happyface.FacMetaSiteReloader', [])
 		Config.reload(metaSite);
 		Summary.reload();
 		MonitoringUrls.reload();
-		Servers.reload();
+		Systems.reload();
 		Visualizers.reload();
 		Logs.reload();
 		Humans.reload();

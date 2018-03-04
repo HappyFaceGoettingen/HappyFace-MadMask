@@ -42,21 +42,21 @@ angular.module('happyface', ['ionic', 'happyface.controllers', 'happyface.CtrlMo
   })
 
   // Each tab has its own nav history stack:
-  .state('tab.servers', {
-      url: '/servers',
+  .state('tab.systems', {
+      url: '/systems',
       views: {
-        'tab-servers': {
-          templateUrl: 'templates/tab-servers.html',
-          controller: 'ServersCtrl'
+        'tab-systems': {
+          templateUrl: 'templates/tab-systems.html',
+          controller: 'SystemsCtrl'
         }
       }
     })
-    .state('tab.server-detail', {
-      url: '/servers/:serverName',
+    .state('tab.system-detail', {
+      url: '/systems/:systemName',
       views: {
-        'tab-servers': {
-          templateUrl: 'templates/server-detail.html',
-          controller: 'ServerDetailCtrl'
+        'tab-systems': {
+          templateUrl: 'templates/system-detail.html',
+          controller: 'SystemDetailCtrl'
         }
       }
     })
