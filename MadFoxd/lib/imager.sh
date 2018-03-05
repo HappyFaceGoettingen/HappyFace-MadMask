@@ -51,6 +51,7 @@ import_madfox_images(){
 generate_thumbnails(){
     local from_dir=$1
     local to_dir=$2
+
     [ ! -e $from_dir ] && ERROR "[$from_dir] does not exist" && return 1
     [ ! -e $to_dir ] && ERROR "[$to_dir] does not exist" && return 1
 

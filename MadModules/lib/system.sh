@@ -7,9 +7,10 @@ system_load_monitor(){
     local top_count=$2
     [ -z "$top_count" ] && top_count=3
 
+    INFO "Checking system load ..."
     local system_load=$(top -b -n $top_count | grep Cpu | awk '{print $2 + $16}' | tail -n 1)
     system_load=$(printf "%0.0f" $system_load)
-    echo "system load = $system_load %, max = $system_load_max %"
+    INFO "System load = $system_load %, max = $system_load_max %"
 
     if [ $system_load -ge $system_load_max ]; then
         return 1

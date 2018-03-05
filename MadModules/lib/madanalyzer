@@ -7,6 +7,8 @@ MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
 [ ! -e $MADFOX_LIB_DIR ] && MADFOX_LIB_DIR=/usr/share/madfoxd/lib
 MADANALYZER_LIB_DIR=~/var/develop/MadMask/MadModules/lib
 [ ! -e $MADANALYZER_LIB_DIR ] && MADANALYZER_LIB_DIR=/usr/share/madanalyzer/lib
+MADANALYZER_RLIB=$MADANALYZER_LIB_DIR/rlib
+R_RUNTIME_LOADER="$MADANALYZER_RLIB/runtime.loader.R"
 
 ## Sourcing functions 
 [ -e $MADFOX_LIB_DIR ] && for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
@@ -27,9 +29,10 @@ MAX_DATETIME_LENGTH=50
 
 
 #------------------------------------------
-# Algorithms 
+# Basis and Algorithms 
 #  They can be overrided by 'config.json'
 #------------------------------------------
+ANALYSIS_IMAGE_SIZE="384x384"
 DETECTOR_ALGORITHM="bcp"
 FORECAST_ALGORITHM="ANFIS"
 
@@ -45,7 +48,7 @@ CONFIG_DATA_DIR=""
 
 
 usage="$0 [options] -a [action]
- A library to analyze a system status by the given monitoring data of a time series and the system definition. The final system stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template of 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary. 
+ A library to analyze a system status by the given monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template of 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary. 
 
  * System parameters and constrains
  -l:  System load limit [default: $SYSTEM_LOAD_MAX]
@@ -123,6 +126,24 @@ while getopts "l:p:d:x:o:C:T:s:a:hv" op
 done
 
 
+#---------------------------------------------------------------------------
+#
+# Functions: 
+#
+#---------------------------------------------------------------------------
+set_site_dir(){
+    CONFIG_JSON=$SITE_DIR/config.json
+    SYSTEMS_JSON=$SITE_DIR/systems.json
+    URLS_JSON=$SITE_DIR/monitoring-urls.json
+
+    ## Reading config.json --> Set DATA_DIR & Algorithms
+    INFO "Reading [$CONFIG_JSON] ..."
+    read_common_config $CONFIG_JSON || return 1
+
+    ## Set variables
+    DATA_DIR=$DATA_HOME/$CONFIG_DATA_DIR
+    ANALYSIS_IMAGE_SIZE=$CONFIG_ANALYSIS_IMAGE_SIZE
+}
 
 #---------------------------------------------------------------------------
 #
@@ -136,37 +157,47 @@ done
 [ -z "$THUMBNAIL_DIR" ] && ERROR "THUMBNAIL_DIR is null" && exit -1
 
 
-# Check system load
-! system_load_monitor $SYSTEM_LOAD_MAX && INFO "System load is high" && exit -1
+# Read site config
+SITE_DIR=$DATA_HOME/$SITE_DIR
+[ ! -e $SITE_DIR ] && ERROR "SITE_DIR [$SITE_DIR] does not exist" && return 1
+! set_site_dir && ERROR "Cannot set site_dir variables from [$DATA_HOME/SITE_DIR]" && exit -1
 
-
-# Set Inputs/Outputs directories (DATA_HOME is overrided by 'DATA_HOME/data_dir in config.json')
-
-set_analysis_dirs $DATA_HOME
 
 
 # Checking variables again
-[ ! -e "$DATA_HOME" ] && ERROR "Input: DATA_HOME [$DATA_HOME] does not exist" && exit -1
-[ ! -e "$DATA_HOME/$CAPTURE_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_HOME/$CAPTURE_DIR] does not exist" && exit -1
-[ ! -e "$DATA_HOME/$THUMBNAIL_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_HOME/$THUMBNAIL_DIR] does not exist" && exit -1
-
-
-# Checking algorithms
 [ -z "$DETECTOR_ALGORITHM" ] && ERROR "DETECTOR_ALGORITHM is null" && exit -1
 [ -z "$FORECAST_ALGORITHM" ] && ERROR "FORECAST_ALGORITHM is null" && exit -1
+[ ! -e "$DATA_DIR" ] && ERROR "Input: DATA_DIR [$DATA_DIR] does not exist" && exit -1
+[ ! -e "$DATA_DIR/$CAPTURE_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_DIR/$CAPTURE_DIR] does not exist" && exit -1
+[ ! -e "$DATA_DIR/$THUMBNAIL_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_DIR/$THUMBNAIL_DIR] does not exist" && exit -1
+[ -z "$ANALYSIS_IMAGE_SIZE" ] && ERROR "ANALYSIS_IMAGE_SIZE is null" && exit -1
 
+
+# Set Inputs/Outputs directories (DATA_HOME is overrided by 'DATA_HOME/data_dir in config.json')
+CAPTURE_DIR=$DATA_DIR/$CAPTURE_DIR
+THUMBNAIL_DIR=$DATA_DIR/$THUMBNAIL_DIR
+! set_analysis_dirs && ERROR "Cannot set ANALYSIS_DIR [$ANALYSIS_DIR] for DATA_HOME [$DATA_HOME]" && exit -1
+
+
+# Get basic information
+! set_date_ids "$CAPTURE_DIR" $MAX_DATETIME_LENGTH && ERROR "DATE_ID error [$DATE_IDs]" && exit -1 
+INFO "LATEST_DATE_ID = [$LATEST_DATE_ID], DATE_IDs = [$(echo $DATE_IDs)]"
+
+
+# Check system load
+! system_load_monitor $SYSTEM_LOAD_MAX && INFO "System load is high" && exit -1
 
 
 # Running an action
 case "$action" in
     base_images)
-	generate_base_images "$CAPTURE_DIR" "$BASE_IMAGE_DIR"
+	generate_base_images "$ANALYSIS_IMAGE_SIZE"
 	;;
     detector)
 	generate_detector "$DETECTOR_ALGORITHM"
 	;;
     pathway)
-	generate_pathway "$DETECTOR_ALGORITHM"
+	generate_pathway
 	;;
     madvision)
 	generate_madvision "$DETECTOR_ALGORITHM"
@@ -176,16 +207,17 @@ case "$action" in
 	;;
     summary)
 	generate_category "$DETECTOR_ALGORITHM"
-	generate_summary
+	generate_summary "$DETECTOR_ALGORITHM"
 	;;
     all)
-	generate_base_images "$CAPTURE_DIR" "$BASE_IMAGE_DIR"
+	generate_base_images "$ANALYSIS_IMAGE_SIZE"
 	generate_detector "$DETECTOR_ALGORITHM"
-	generate_pathway "$DETECTOR_ALGORITHM"
+	generate_pathway
 	generate_madvision "$DETECTOR_ALGORITHM"
 	generate_forecast "$FORECAST_ALGORITHM"
 	generate_category "$DETECTOR_ALGORITHM"
-	generate_summary
+	generate_summary "$DETECTOR_ALGORITHM"
+	generate_latest_symlinks
 	;;
     *)
 	ERROR "Action [$action] is not defined."

@@ -37,7 +37,7 @@ Requires: bc
 %define _logdir         /var/log/HappyFace
 %define _piddir         /var/run/HappyFace
 %define _sbindir        /usr/sbin
-
+%define _libdir         /usr/share/madanalyzer/lib
 
 %define _category_cfg   %{_prefix}/config/categories-enabled
 %define _module_cfg     %{_prefix}/config/modules-enabled
@@ -52,7 +52,7 @@ Requires: bc
 
 
 %description
-HappyFace-MadMask is wrapper modules for both HappyFace mobile application and Ionic server interface over HappyFace instance. The HappyFace system and HappyFace-MadMask modules enable user to use mobile application and meta-browsing/data analysis/smart administration for a local systemand Grid computing site.
+HappyFace-MadMask is several wrapper modules for both HappyFace mobile application and Ionic server interface over a HappyFace instance. The HappyFace system and HappyFace-MadMask modules enable HF users to use a mobile application and meta-browsing/data analysis/smart administration for a globus system and Grid computing systems.
 
 
 %prep
@@ -75,36 +75,36 @@ cd ..
 ! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
 ! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
+! [ -d $RPM_BUILD_ROOT/%{_libdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_libdir}
 
 
-# copy MadMask modules
+# Copy MadMask modules
+echo "Installing [HappyFace MadModules] ..."
 cp -vr %{_source_dir}/MadModules/modules $RPM_BUILD_ROOT/%{_prefix}
 cp -vr %{_source_dir}/MadModules/config/modules-enabled/* $RPM_BUILD_ROOT/%{_module_cfg}
 cp -vr %{_source_dir}/MadModules/config/categories-enabled/* $RPM_BUILD_ROOT/%{_category_cfg}
 
+## Into static dir such as javascript, data and so on
+echo "Generating [HappyFace MadModules static dirs] ..."
+cp -vr %{_source_dir}/MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
+ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
+ln -s %{_prefix}/MadMask/sites $RPM_BUILD_ROOT/%{_prefix}/static/sites
+
+## Into lib dir
+echo "Installing [HappyFace MadModules lib] ..."
+cp -vr %{_source_dir}/MadModules/lib/* $RPM_BUILD_ROOT/%{_libdir}
+ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 
 
-## Install MadMask (HappyFaceMobile Instance) and its service
-cp -vr %{_source_dir}/HappyFaceMobile $RPM_BUILD_ROOT/%{_prefix}/MadMask
+# Install MadMask (HappyFaceMobile Instance) and its service
+echo "Installing [HappyFaceMobile] ..."
+cp -r %{_source_dir}/HappyFaceMobile $RPM_BUILD_ROOT/%{_prefix}/MadMask
 ln -s MadMask $RPM_BUILD_ROOT/%{_prefix}/HappyFaceMobile
 ln -s %{_prefix}/MadMask/daemon/madmask.conf $RPM_BUILD_ROOT/%{_etc}/madmask.conf
 ln -s %{_prefix}/MadMask/daemon/madmaskd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d/
 ln -s %{_prefix}/MadMask/daemon/madmask-default-start $RPM_BUILD_ROOT/%{_sbindir}/
 rm -v $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
-
-
-## Into static dir such as javascript, data and so on
-cp -vr %{_source_dir}/MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
-ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
-ln -s %{_prefix}/MadMask/sites $RPM_BUILD_ROOT/%{_prefix}/static/sites
-
-
-## For development, example data dir (taken from MadFace)
-# Generating old structure
-%define _madface_dir        /usr/lib/MadFace
-! [ -d $RPM_BUILD_ROOT/%{_madface_dir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_madface_dir}
-ln -s %{_datadir} $RPM_BUILD_ROOT/%{_madface_dir}/data
 
 
 
@@ -209,6 +209,7 @@ service httpd start
 %defattr(-,root,root)
 %{_etc}/*
 %{_sbindir}/*
+%{_libdir}/*
 
 
 

@@ -1,71 +1,45 @@
-## Max outputs for summary of system elements
+## Max outputs for a summary of system elements
 MAX_SUMMARY_OUTPUTS=3
 
-input_image_convert_option="-geometry $input_image_size!"
+#---------------------------------------------------------
+# Function: set DATE_IDs by the given input dir
+#---------------------------------------------------------
+set_date_ids(){
+    local input_dir="$1"
+    local limit=$2
+
+    [ ! -e $input_dir ] && ERROR "get_date_ids: input_dir [$input_dir] does not exist" && return 1
+    DATE_IDs=$(ls -tr $input_dir | grep -v latest | tail -n $limit)
+    CDATE_IDs=$(echo "$DATE_IDs" | perl -pe "s/\n/,/g")
+    LATEST_DATE_ID=$(echo "$DATE_IDs" | tail -n 1)
+    return 0
+}
 
 
 #---------------------------------------------------------
-# Function: Picture converter
-#
+# Function: set analysis directories by the given DATA_HOME
 #---------------------------------------------------------
 set_analysis_dirs(){
-    local data_home="$1"
 
-    ##
-    analysis_dir=$OPTARG
-    plot_analysis_dir="$analysis_dir/plot_analysis"
-    plot_infogain_dir="$analysis_dir/plot_infogain"
-    plot_pathway_dir="$analysis_dir/plot_pathway"
-    robj_dir="$analysis_dir/robj"
-    base_images_dir="$analysis_dir/base_images"
-    madvision_dir="$analysis_dir/mad_vision"
-    madvision_thumbnail_dir="$analysis_dir/mad_vision_thumbnail"
-    R_output_dir="$analysis_dir/results"
-    
-    [ -z "$analysis_dir" ] && INFO "analysis_dir is empty!" && exit -1
-    [ ! -e "$analysis_dir" ] && mkdir -pv $analysis_dir
-}
+    ANALYSIS_DIR=$DATA_DIR/analysis
+    BASE_IMAGES_DIR="$ANALYSIS_DIR/base_images"
+    PLOT_ANALYSIS_DIR="$ANALYSIS_DIR/plot_analysis"
+    PLOT_PATHWAY_DIR="$ANALYSIS_DIR/plot_pathway"
+    ANALYSIS_OBJ_DIR="$ANALYSIS_DIR/analysis_obj"
+    MADVISION_DIR="$ANALYSIS_DIR/madvision"
+    MADVISION_THUMBNAIL_DIR="$ANALYSIS_DIR/madvision_thumbnail"
+    FORECAST_DIR="$ANALYSIS_DIR/forecast"
 
-
-#---------------------------------------------------------
-# Function: Picture converter
-#
-#---------------------------------------------------------
-picture_converter(){
-    local input_dir="$1"
-    local convert_option="$2"
-    local output_dir="$3"
-
-    for f in $(ls $input_dir/*)
+    local all_analysis_subdirs="$BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $FORECAST_DIR"
+    local dir
+    for dir in $all_analysis_subdirs
     do
-	if [ -e $f ]; then
-	    INFO "Converting [$f] ($convert_option)  -->  [$output_dir/$(basename ${f})]"
-	    convert "$f" $convert_option $output_dir/$(basename ${f})
-	else
-	    INFO "[$f] does not exist! Skipping."
+	if [ ! -e $dir ]; then
+	    mkdir -pv $dir || return 1
 	fi
     done
-}
 
-
-move_data_to_latest_dir(){
-    local from_dir=$1
-    local to_dir=$2
-
-    [ -e $to_dir ] && echo "[$to_dir] already exists!" && return 1
-    [ ! -e $(dirname $to_dir) ] && mkdir -vp $(dirname $to_dir)
-    rm -v $(dirname $to_dir)/latest
-    mv -v $from_dir $to_dir
-    ln -s $(basename $to_dir) $(dirname $to_dir)/latest
-}
-
-move_data_to_dir(){
-    local from_dir=$1
-    local to_dir=$2
-
-    [ ! -e $to_dir ] && mkdir -vp $to_dir
-    mv -v $from_dir/* $to_dir
-    rmdir -v $from_dir
+    return 0
 }
 
 
@@ -74,19 +48,103 @@ move_data_to_dir(){
 # Functions
 #
 #---------------------------------------------------------------------------
-make_input_images(){
-    local input_dir=$1
-    local output_dir=$2
+generate_base_images(){
+    local base_image_convert_option="-geometry $ANALYSIS_IMAGE_SIZE!"
 
-    [ ! -e "$output_dir" ] && mkdir -pv $output_dir
-
-    date_ids=$(ls $input_dir | grep -v latest | tail -n $date_IDs_limit)
-    for date_id in $date_ids
+    local date_id
+    for date_id in $DATE_IDs
     do
-	if [ ! -e "$output_dir/$date_id" ]; then
-	    output_tmpdir=$(mktemp -d)
-	    picture_converter $input_dir/$date_id "$input_image_convert_option" $output_tmpdir
-	    mv -v $output_tmpdir $output_dir/$date_id
+	[ ! -e "$CAPTURE_DIR/$date_id" ] && continue
+	[ -e "$BASE_IMAGES_DIR/$date_id" ] && continue
+
+	mkdir -v $BASE_IMAGES_DIR/$date_id
+	local f
+	for f in $(ls $CAPTURE_DIR/$date_id)
+	do
+	    INFO "Converting [$CAPTURE_DIR/$date_id/$f] ($base_image_convert_option) --> [$BASE_IMAGES_DIR/$date_id/$f]"
+	    convert "$CAPTURE_DIR/$date_id/$f" $base_image_convert_option "$BASE_IMAGES_DIR/$date_id/$f"
+	done
+    done
+    return 0
+}
+
+
+common_rcaller(){
+    local rcall="$1"
+    local plot_dir="$2"
+
+    [ -e "$plot_dir" ] && ERROR "common_rcaller\$$rcall: [$plot_dir] exists!" && return 1
+
+    ## Generating analysis plots and objs
+    local args="$URLS_JSON $SYSTEMS_JSON §CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $plot_dir $ANALYSIS_OBJ_DIR"
+    mkdir -v $plot_dir
+    load_monitoringUrls_json $URLS_JSON || return 1
+    local i
+    for i in $(seq 0 $((${#FILE_PREFIXES[*]} - 1)))
+    do
+        parallel_run R "R --slave -f $R_RUNTIME_LOADER --args $rcall ${FILE_PREFIXES[$i]} $args"
+        [ ! -z "$DEBUG" ] && [ $i -ge 0 ] && break
+    done
+    check_parallel_job "R" "final"
+    return 0
+}
+
+
+#---------------------------------------------------------------------------
+#
+#
+#
+#---------------------------------------------------------------------------
+generate_detector(){
+    common_rcaller "${1}_detector" "$PLOT_ANALYSIS_DIR/$LATEST_DATE_ID" || return 1
+}
+
+
+generate_pathway(){
+    common_rcaller "pathway" "$PLOT_PATHWAY_DIR_DIR/$LATEST_DATE_ID" || return 1
+
+    ## Generating overall pathway
+    
+}
+
+
+generate_madvision(){
+    common_rcaller "${1}_madvision" "$MADVISION_DIR/$LATEST_DATE_ID" || return 1
+
+    ## Generating thumbnails
+    mkdir -v $MADVISION_THUMBNAIL_DIR/$LATEST_DATE_ID
+    generate_madvision_thumbnails "$MADVISION_DIR/$LATEST_DATE_ID" "$MADVISION_THUMBNAIL_DIR/$LATEST_DATE_ID" "../../../$THUMBNAIL_DIR/$LATEST_DATE_ID"
+    return 0
+}
+
+
+generate_madvision_thumbnails(){
+    local input_dir=$1
+    local thumbnail_dir=$2
+    local ref_thumbnail_dir=$3
+
+    [ -z "$THUMBNAIL_OPTION" ] && THUMBNAIL_OPTION="-geometry 100x200!"
+    local f
+    for f in $(ls $input_dir)
+    do
+	if [ -L $input_dir/$f ]; then
+	    ln -vs $ref_thumbnail_dir/$f $thumbnail_dir/$f
+	else
+            INFO "Generating thumbnail: [$input_dir/$f] -->  [$thumbnail_dir/$f]"
+            convert $input_dir/$f $THUMBNAIL_OPTION $thumbnail_dir/$f
+	fi
+    done
+}
+
+
+generate_latest_symlinks(){
+    local all_analysis_subdirs="$BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $FORECAST_DIR"
+    local dir
+    for dir in $all_analysis_subdirs
+    do
+	if [ -e $dir/$LATEST_DATE_ID ]; then
+	    [ -e $dir/latest ] && rm -v $dir/latest
+	    ln -vs $LATEST_DATE_ID $dir/latest
 	fi
     done
 }
@@ -97,34 +155,6 @@ make_input_images(){
 #
 #
 #---------------------------------------------------------------------------
-generate_classifier(){
-    local R_function_name=$1
-
-
-    ## Making tmp dirs
-    local tmp_plot_infogain_dir=$(mktemp -d)
-    local tmp_plot_analysis_dir=$(mktemp -d)
-    local tmp_robj_dir=$(mktemp -d)
-    cp -v $robj_dir/*.robj $tmp_robj_dir/
-    
-
-    ## Making a list of capture directories 
-    date_ids=$(ls $input_images_dir | grep -v latest | tail -n $date_IDs_limit | perl -pe "s/\n/,/g")
-    date_id=$(ls $input_images_dir | grep -v latest | tail -n 1)
-
-    ## Calling R
-    $R_function_name $urlfile "$input_images_dir" "$date_ids" $tmp_plot_infogain_dir $tmp_plot_analysis_dir $tmp_robj_dir
-    
-
-    ## Moving temporary files
-    INFO "Moving plot files to [$plot_infogain_dir, $plot_analysis_dir], Moving robj files to [$robj_dir]"
-
-    move_data_to_latest_dir $tmp_plot_infogain_dir $plot_infogain_dir/$date_id
-    move_data_to_latest_dir $tmp_plot_analysis_dir $plot_analysis_dir/$date_id
-    move_data_to_dir $tmp_robj_dir $robj_dir
-}
-
-
 generate_results(){
     local R_function_name=$1
     [ ! -e $R_output_dir ] && mkdir -pv $R_output_dir
@@ -132,67 +162,6 @@ generate_results(){
 }
 
 
-generate_pathway(){
-    local tmp_plot_pathway_dir=$(mktemp -d)
-    date_id=$(ls $input_images_dir | grep -v latest | tail -n 1)
-
-    R --slave -f rsrc/generate_pathway.R --args $urlfile $servers_json $robj_dir $tmp_plot_pathway_dir
-
-    move_data_to_latest_dir $tmp_plot_pathway_dir $plot_pathway_dir/$date_id
-}
-
-
-generate_madvision(){
-    local R_function_name=$1
-
-    ## Making tmp dirs
-    local tmp_madvision_dir=$(mktemp -d)
-
-    ## Making a list of capture directories 
-    date_ids=$(ls $input_images_dir | grep -v latest | tail -n $date_IDs_limit | perl -pe "s/\n/,/g")
-    date_id=$(ls $input_images_dir | grep -v latest | tail -n 1)
-
-    ## Calling R
-    [ -e $madvision_dir/$date_id ] && echo "[$madvision_dir/$date_id] exists!" && return 1 
-    $R_function_name $urlfile "$PWD/$capture_dir" "$date_ids" $robj_dir $tmp_madvision_dir
-
-
-    ## Moving temporary files
-    INFO "Moving plot files to [$tmp_madvision_dir], Moving robj files to [$madvision_dir]"
-
-    move_data_to_latest_dir $tmp_madvision_dir $madvision_dir/$date_id
-
-    ## Making thumbnails
-    make_madvision_thumbnails $madvision_dir/$date_id $thumbnail_dir/$date_id $madvision_thumbnail_dir/$date_id
-}
-
-
-make_madvision_thumbnails(){
-    local input_dir=$1
-    local ref_thumbnail_dir=$2
-    local final_thumbnail_dir=$3
-    
-    thumbnail_tmpdir=$(mktemp -d)
-
-    for f in $(ls $input_dir/*)
-    do
-	if [ -L $f ]; then
-	    ln -vs $PWD/$ref_thumbnail_dir/$(basename ${f}) $thumbnail_tmpdir/$(basename ${f})
-	else
-            INFO "Converting [$f] ($THUMBNAIL_OPTION)  -->  [$thumbnail_tmpdir/$(basename ${f})]"
-            convert "$f" $THUMBNAIL_OPTION $thumbnail_tmpdir/$(basename ${f})
-	fi
-    done
-
-    move_data_to_latest_dir $thumbnail_tmpdir $final_thumbnail_dir
-}
-
-
-#---------------------------------------------------------------------------
-#
-#
-#
-#---------------------------------------------------------------------------
 make_summary_text(){
     local level=$1
     local text_template_file=$(ls $summary_template_dir/$level/* | shuf | head -n 1)
@@ -250,4 +219,32 @@ write_summary_json(){
     echo " ------------- $summary_json ------------- "
     cat $summary_json
     return 0
+}
+
+
+
+##-----------------------------------------------------
+## Moved from bcp.sh for now
+##
+##
+##-----------------------------------------------------
+
+bcp__results(){
+    local urlfile=$1
+    local max_output_list=$2
+    local robj_dir=$3
+    local R_output_dir=$4
+
+    ## Reading JSON file for each level
+    start_monitoringUrls_json $urlfile
+    for level in ${LEVELS[*]}
+    do
+	[ "$level" == "null" ] && continue
+
+	next_monitoringUrls_json $urlfile
+	
+	## Calling R
+	R --slave -f $rfile --args $robj_dir "${comma_separated_link_names[*]}" "${comma_separated_file_prefixes[*]}" "${comma_separated_captures[*]}" $BCP_THRESHOLD $max_output_list $R_output_dir/$level
+    done
+
 }

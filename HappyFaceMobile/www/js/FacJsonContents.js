@@ -78,10 +78,9 @@ angular.module('happyface.FacJsonContents', [])
       var thumbnail_dir = config.data_dir + "/thumbnail";
       var analysis_dir = config.data_dir + "/analysis";
       if (MobileConfig.get().enableMadVision){
-	  capture_dir = analysis_dir + "/mad_vision";
-	  thumbnail_dir = analysis_dir + "/mad_vision_thumbnail";
+	  capture_dir = analysis_dir + "/madvision";
+	  thumbnail_dir = analysis_dir + "/madvision_thumbnail";
       }
-      var plot_infogain_dir = analysis_dir + "/plot_infogain/latest";
       var plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
       var plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
 
@@ -96,7 +95,6 @@ angular.module('happyface.FacJsonContents', [])
 	      } else {
 		  monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + monitoringUrls[i].urls[j].file_prefix + ".jpg";
 		  monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + monitoringUrls[i].urls[j].file_prefix + ".jpg";
-		  monitoringUrls[i].urls[j].plot_infogain = remote_url + plot_infogain_dir + "/" + monitoringUrls[i].urls[j].file_prefix + ".png";
 		  monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + monitoringUrls[i].urls[j].file_prefix + ".png";
 		  monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + monitoringUrls[i].urls[j].file_prefix + ".png";
 		  monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
@@ -114,7 +112,6 @@ angular.module('happyface.FacJsonContents', [])
 	      if ((monitoringUrls[i].urls[j].file_prefix == null) || (! monitoringUrls[i].urls[j].capture)){
 		  logger.debug("nop");
 	      } else {
-		  if (plot_name == "infogain" ) monitoringUrls[i].urls[j].analysis_plot = monitoringUrls[i].urls[j].plot_infogain;
 		  if (plot_name == "analysis" ) monitoringUrls[i].urls[j].analysis_plot = monitoringUrls[i].urls[j].plot_analysis;
 		  if (plot_name == "pathway" ) monitoringUrls[i].urls[j].analysis_plot = monitoringUrls[i].urls[j].plot_pathway;
 		  if (plot_name == "overall_pathway" ) monitoringUrls[i].urls[j].analysis_plot = monitoringUrls[i].urls[j].plot_overall_pathway;

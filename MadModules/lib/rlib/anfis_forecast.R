@@ -1,4 +1,3 @@
-library(caret)
 library(forecast)
 WIDTH <- 480
 HEIGHT <- 480

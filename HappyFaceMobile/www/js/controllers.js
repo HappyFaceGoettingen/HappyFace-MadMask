@@ -159,7 +159,6 @@ angular.module('happyface.controllers', [])
   };
 
   $scope.hideMultiPlot = function(){
-      if ($scope.selectedItem == "infogain") return(false);
       if ($scope.selectedItem == "analysis") return(false);
       if ($scope.selectedItem == "pathway") return(false);
       return(true);

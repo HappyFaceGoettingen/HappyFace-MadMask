@@ -2,7 +2,6 @@ library(rimage)
 library(bcp)
 library(entropy)
 library(xts)
-DEBUG.R <- FALSE
 
 
 ##-----------------------------------------------------------
@@ -132,11 +131,9 @@ for (date.id in date.ids){
   found <- FALSE
   ## reading existing robj
   if (exists("info.gain.df")){
-    if (DEBUG.R) message("Checking info.gain.df for [", date.id, "] ...")
 
     a.value <- info.gain.df[date.id, "info.gain"]
     if ((!is.null(a.value)) && (!is.na(a.value))) {
-      if (DEBUG.R) message("Found info.gain.df for [", date.id, "] ...")
       info.gain <- append(info.gain, info.gain.df[date.id, "info.gain"])
       found <- TRUE
     }
@@ -180,10 +177,7 @@ save(file=robj.file2, bcpobj, latest.bcp.pp, bcp.posterior.prob)
 ##----------------------------------------
 ## Generating plots
 ##----------------------------------------
-## Standard plots for InfoGain and Analysis
-WIDTH <- 640
-HEIGHT <- 640
-generate.plot.infogain(info.gain.df, plot.infogain.file, WIDTH, HEIGHT)
+#generate.plot.infogain(info.gain.df, plot.infogain.file, WIDTH, HEIGHT)
 generate.plot.analysis(bcpobj, plot.analysis.file, WIDTH, HEIGHT)
 
 

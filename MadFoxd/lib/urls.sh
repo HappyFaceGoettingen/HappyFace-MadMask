@@ -12,7 +12,7 @@ FIREFOX_XDISPLAY_NAMES=()
 load_monitoringUrls_json(){
     local jsonfile=$1
 
-    [ ! -e $jsonfile ] && return 1
+    [ ! -e $jsonfile ] && ERROR "load_monitoringUrls_json: [$jsonfile] does not exist" && return 1
 
     LEVELS=(`jq ".[].level" $jsonfile | sed "s/^\"\(.*\)\"$/\1/g"`)
     LINK_NAMES==(`jq ".[].urls[].name" $jsonfile | sed "s/^\"\(.*\)\"$/\1/g"`)
