@@ -7,8 +7,8 @@ MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
 [ ! -e $MADFOX_LIB_DIR ] && MADFOX_LIB_DIR=/usr/share/madfoxd/lib
 MADANALYZER_LIB_DIR=~/var/develop/MadMask/MadModules/lib
 [ ! -e $MADANALYZER_LIB_DIR ] && MADANALYZER_LIB_DIR=/usr/share/madanalyzer/lib
-MADANALYZER_RLIB=$MADANALYZER_LIB_DIR/rlib
-R_RUNTIME_LOADER="$MADANALYZER_RLIB/runtime.loader.R"
+export MADANALYZER_LIB_DIR
+R_RUNTIME_LOADER="$MADANALYZER_LIB_DIR/rlib/runtime_loader.R"
 
 ## Sourcing functions 
 [ -e $MADFOX_LIB_DIR ] && for func in $(ls $MADFOX_LIB_DIR/*.sh); do source $func; done
@@ -18,13 +18,13 @@ R_RUNTIME_LOADER="$MADANALYZER_RLIB/runtime.loader.R"
 #------------------------------------------
 # Some system constrains
 #------------------------------------------
-## An acceptable load before starting analysis (70%)
+## An acceptable load before starting analysis (=70%)
 SYSTEM_LOAD_MAX=70
 
-## Default Parallel run (25%)
+## Default Parallel runs (=25%)
 PARALLEL=$(($(nproc) / 4 ))
 
-## According to this length, date time can be analyzed, categorized and surmmarized
+## According to this length, date-time data can be analyzed, categorized and surmmarized
 MAX_DATETIME_LENGTH=50
 
 
@@ -33,8 +33,8 @@ MAX_DATETIME_LENGTH=50
 #  They can be overrided by 'config.json'
 #------------------------------------------
 ANALYSIS_IMAGE_SIZE="384x384"
-DETECTOR_ALGORITHM="bcp"
-FORECAST_ALGORITHM="ANFIS"
+DETECTOR_ALGORITHM="BCP" ## Bayesian Change Point
+FORECAST_ALGORITHM="ANFIS" ## Artificial Neuro Fuzzy Influence System
 
 
 #------------------------------------------
@@ -48,7 +48,7 @@ CONFIG_DATA_DIR=""
 
 
 usage="$0 [options] -a [action]
- A library to analyze a system status by the given monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template of 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary. 
+ A library to analyze a system status by the given monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template in 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary.
 
  * System parameters and constrains
  -l:  System load limit [default: $SYSTEM_LOAD_MAX]
@@ -159,9 +159,8 @@ set_site_dir(){
 
 # Read site config
 SITE_DIR=$DATA_HOME/$SITE_DIR
-[ ! -e $SITE_DIR ] && ERROR "SITE_DIR [$SITE_DIR] does not exist" && return 1
+[ ! -e $SITE_DIR ] && ERROR "SITE_DIR [$SITE_DIR] does not exist" && exit -1
 ! set_site_dir && ERROR "Cannot set site_dir variables from [$DATA_HOME/SITE_DIR]" && exit -1
-
 
 
 # Checking variables again
@@ -196,18 +195,18 @@ case "$action" in
     detector)
 	generate_detector "$DETECTOR_ALGORITHM"
 	;;
-    pathway)
-	generate_pathway
-	;;
     madvision)
 	generate_madvision "$DETECTOR_ALGORITHM"
+	;;
+    pathway)
+	generate_pathway
 	;;
     forecast)
 	generate_forecast "$FORECAST_ALGORITHM"
 	;;
     summary)
-	generate_category "$DETECTOR_ALGORITHM"
 	generate_summary "$DETECTOR_ALGORITHM"
+	generate_latest_symlinks
 	;;
     all)
 	generate_base_images "$ANALYSIS_IMAGE_SIZE"
@@ -215,7 +214,6 @@ case "$action" in
 	generate_pathway
 	generate_madvision "$DETECTOR_ALGORITHM"
 	generate_forecast "$FORECAST_ALGORITHM"
-	generate_category "$DETECTOR_ALGORITHM"
 	generate_summary "$DETECTOR_ALGORITHM"
 	generate_latest_symlinks
 	;;

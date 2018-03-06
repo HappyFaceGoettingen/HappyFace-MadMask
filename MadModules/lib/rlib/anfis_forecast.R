@@ -1,7 +1,4 @@
 library(forecast)
-WIDTH <- 480
-HEIGHT <- 480
-
 
 get.sample.data <- function(){
   x <- c(1774, 1706, 1288, 1276, 2350, 1821, 1712, 1654, 1680, 1451,
@@ -39,7 +36,8 @@ get.sample.data <- function(){
 }
 
 
-my.plot.forecast <- function(plot.file, main){
+run.plot.forecast <- function(plot.dir, plot.file, main){
+  plot.file <- paste(c(plot.dir, "/", plot.file), collapse="")
   x <- get.sample.data()
   
   message("Plotting [", plot.file, "] ...")
@@ -50,10 +48,12 @@ my.plot.forecast <- function(plot.file, main){
   dev.off()
 }
 
-my.plot.forecast("images/0.png", "Forecast from ANFIS (pool_p1_12)")
-my.plot.forecast("images/1.png", "Forecast from ANFIS (pool_p1_13)")
-my.plot.forecast("images/2.png", "Forecast from ANFIS (pool_p1_14)")
-my.plot.forecast("images/3.png", "Forecast from ANFIS (pool_d1_15)")
-my.plot.forecast("images/4.png", "Forecast from ANFIS (pool_d1_16)")
+
+## Run Forecast
+run.plot.forecast(plot.output.dir, "0.png", "Forecast of ANFIS (pool_p1_12)")
+run.plot.forecast(plot.output.dir, "1.png", "Forecast of ANFIS (pool_p1_13)")
+run.plot.forecast(plot.output.dir, "2.png", "Forecast of ANFIS (pool_p1_14)")
+run.plot.forecast(plot.output.dir, "3.png", "Forecast of ANFIS (pool_d1_15)")
+run.plot.forecast(plot.output.dir, "4.png", "Forecast of ANFIS (pool_d1_16)")
 
 

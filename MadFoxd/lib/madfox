@@ -395,11 +395,12 @@ case $ACTION in
     import)
 	INFO "DATA_HOME = [$DATA_HOME]"
 	[ -z "$DATA_HOME" ] && ERROR "DATA_HOME is empty" && exit -1
-	[ ! -z "$CONFIG_DATA_DIR" ] && DATA_HOME=$DATA_HOME/$CONFIG_DATA_DIR
-	[ ! -e "$DATA_HOME" ] && ERROR "DATA_HOME [$DATA_HOME] does not exist" && exit -1
+	DATA_DIR=$DATA_HOME
+	[ ! -z "$CONFIG_DATA_DIR" ] && DATA_DIR=$DATA_HOME/$CONFIG_DATA_DIR
+	[ ! -e "$DATA_DIR" ] && ERROR "DATA_DIR [$DATA_DIR] does not exist" && exit -1
 
 	set_new_firefox_profile
-	import_images $DATA_HOME
+	import_images $DATA_DIR
 	;;
     *)
 	ERROR "Action [$ACTION] does not exist"

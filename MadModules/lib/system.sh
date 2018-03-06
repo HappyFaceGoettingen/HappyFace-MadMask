@@ -33,7 +33,7 @@ parallel_run(){
     $job_command &
     TRACE "Submitted [$!]"
 
-    check_parallel_job "$prog" ""
+    check_parallel_job "$prog" "submitting"
 }
 
 
@@ -51,7 +51,7 @@ check_parallel_job(){
         local num_of_jobs=${#jobs[*]}
         
         ## Check until 0
-        if [ "$final" == "final" ] && [ $num_of_jobs -gt 0 ]; then
+        if [ -z "$final" ] && [ $num_of_jobs -gt 0 ]; then
           sleep $WAIT_PARALLEL_JOB_CHECK
           INFO "Final: remaining jobs are [$num_of_jobs] ${jobs[*]} ..."
           continue

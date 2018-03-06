@@ -1,5 +1,4 @@
 library(rimage)
-source("rsrc/terminator_view.R")
 
 ##-----------------------------------------------------------
 ##
@@ -27,79 +26,65 @@ generate.graph <- function(graph.matrix){
 
 
 ##-----------------------------------------------------------
-##
-## Main
-##
+## Main function
 ##-----------------------------------------------------------
-## Command line analyzer
-command.args <- commandArgs(trailingOnly = TRUE)
+run.madvision <- function(bcp.threshold=0.7){
 
+  robj.file1 <- paste(c(robj.dir, "/", file.prefix, "__infogain.robj"), collapse="")
+  robj.file2 <- paste(c(robj.dir, "/", file.prefix, "__bcp.robj"), collapse="")
+  robj.file3 <- paste(c(robj.dir, "/", file.prefix, "__pathway.robj"), collapse="")
   
-capture.dir <- command.args[1]
-date.ids <- unlist(strsplit(command.args[2], ","))
-link.name <- command.args[3]
-robj.dir <-command.args[4]
-bcp.threshold <- command.args[5]
-mad.vision.dir <- command.args[6]
+  ##----------------------------------------
+  ## Generating plots
+  ##----------------------------------------
+  ## Loading data
+  if (file.exists(robj.file1)) load(file=robj.file1)
+  if (file.exists(robj.file2)) load(file=robj.file2)
+  if (file.exists(robj.file3)) load(file=robj.file3)
+  
+  
+  ## Mad Vision plot
+  latest.date.id <- date.ids[length(date.ids)]
+  latest.img.file <- paste(c(capture.dir, "/", latest.date.id, "/", file.prefix, ".jpg"), collapse="")
+  mad.vision.file <- paste(c(plot.output.dir, "/", file.prefix, ".jpg"), collapse="")
+  if (file.exists(latest.img.file)){
+    message("Latest BCP Posterior Probability of ", file.prefix, "  = ", latest.bcp.pp)
 
-robj.file1 <- paste(c(robj.dir, "/", link.name, "__infogain.robj"), collapse="")
-robj.file2 <- paste(c(robj.dir, "/", link.name, "__bcp.robj"), collapse="")
-robj.file3 <- paste(c(robj.dir, "/", link.name, "__pathway.robj"), collapse="")
+    ## Status Not Changed
+    if (latest.bcp.pp < bcp.threshold) {
+      if(file.symlink(latest.img.file, mad.vision.file)) message("Symlink: ", latest.img.file, " -> ", mad.vision.file)
+      next
+    }
 
-message("capture.dir          = ", capture.dir)
-message("date.ids             = ", paste(date.ids, collapse=", "))
-message("link.name            = ", link.name)
-message("robj.dir             = ", robj.dir)
-message("robj.file1           = ", robj.file1)
-message("robj.file2           = ", robj.file2)
-message("robj.file3           = ", robj.file3)
-message("bcp.threshold        = ", bcp.threshold)
-message("mad.vision.dir       = ", mad.vision.dir)
-
-
-
-##----------------------------------------
-## Generating plots
-##----------------------------------------
-## Loading data
-if (file.exists(robj.file1)) load(file=robj.file1)
-if (file.exists(robj.file2)) load(file=robj.file2)
-if (file.exists(robj.file3)) load(file=robj.file3)
-
-
-## Mad Vision plot
-latest.date.id <- date.ids[length(date.ids)]
-latest.img.file <- paste(c(capture.dir, "/", latest.date.id, "/", link.name, ".jpg"), collapse="")
-mad.vision.file <- paste(c(mad.vision.dir, "/", link.name, ".jpg"), collapse="")
-if (file.exists(latest.img.file)){
-  message("Latest BCP Posterior Probability of ", link.name, "  = ", latest.bcp.pp)
-  if (latest.bcp.pp >= bcp.threshold){
-    message("Generating MadVision: ", link.name, "  = ", latest.bcp.pp, " ...")
+    ## Status Changed
+    message("Generating MadVision: ", file.prefix, "  = ", latest.bcp.pp, " ...")
     img <- read.jpeg(latest.img.file)
     data1 <- as.list(NULL)
-
+    
     ## Graph 1
     data1[["graph1"]] <- generate.graph(sub.graph.matrix)
-
+    
     ## Plot 1
     data1[["plot1"]] <- bcp.posterior.prob
     data1[["plot1.title"]] <- "Bayesian Posterior Probability"
-
+    
     ## Plot 2
     data1[["plot2"]] <- info.gain.df$info.gain
     data1[["plot2.title"]] <- "Nearest Image InfoGain"
     len <- length(bcp.posterior.prob)
-
+    
     ## Text 1,2,3
     data1[["text1"]] <- bcp.posterior.prob[len:(len-8)]
     data1[["text2"]] <- "■ Status Changed"
     len <- length(info.gain.df$info.gain)
     data1[["text3"]] <- c("Mad Vision v0.21", "-------------------------", info.gain.df$info.gain[len:(len-8)])
-
+    
     ## Plotting here
     generate.terminator.vision(img, mad.vision.file, data1)
-  } else {
-    if(file.symlink(latest.img.file, mad.vision.file)) message("Symlink: ", latest.img.file, " -> ", mad.vision.file)
   }
 }
 
+
+## Run
+source(paste(c(rlib.dir, "terminator_view.R"), collapse=""))
+run.madvision()
