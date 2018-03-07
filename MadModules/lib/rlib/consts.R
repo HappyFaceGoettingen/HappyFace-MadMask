@@ -1,4 +1,7 @@
 ## Plot size
+L.WIDTH <- 2048
+L.HEIGHT <- 2048
+
 WIDTH <- 640
 HEIGHT <- 640
 

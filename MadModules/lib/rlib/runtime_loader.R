@@ -17,7 +17,7 @@ base.images.dir <- command.args[6]
 date.ids <- unlist(strsplit(command.args[7], ","))
 
 plot.output.dir <-command.args[8]
-robj.dir <-command.args[6]
+robj.dir <-command.args[9]
 
 
 message("loader               = ", loader)

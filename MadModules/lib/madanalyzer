@@ -43,6 +43,7 @@ FORECAST_ALGORITHM="ANFIS" ## Artificial Neuro Fuzzy Influence System
 DATA_HOME=.
 CAPTURE_DIR=capture
 THUMBNAIL_DIR=thumbnail
+INDEX_DIR=index
 SITE_DIR=sites/default
 CONFIG_DATA_DIR=""
 
@@ -51,7 +52,7 @@ usage="$0 [options] -a [action]
  A library to analyze a system status by the given monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template in 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary.
 
  * System parameters and constrains
- -l:  System load limit [default: $SYSTEM_LOAD_MAX]
+ -l:  System load limit [default: $SYSTEM_LOAD_MAX %]
  -p:  Number of Parallel runs [default: $PARALLEL]
  -d:  Max date-time length as a time series [default: $MAX_DATETIME_LENGTH]
  -x:  X-window display [default: :0]
@@ -77,7 +78,7 @@ usage="$0 [options] -a [action]
     - summary_template/ (Summary template provides some 'Category' templates such as 'Normal.json', etc.)
 
  * Run an action
- -a:  Set action [base_images|detector|madvision|pathway|forecast|summary|all]
+ -a:  Set action [base_images|detector|pathway|madvision|forecast|summary|all]
 
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch>"
@@ -135,6 +136,13 @@ set_site_dir(){
     CONFIG_JSON=$SITE_DIR/config.json
     SYSTEMS_JSON=$SITE_DIR/systems.json
     URLS_JSON=$SITE_DIR/monitoring-urls.json
+    SUMMARY_TEMPLATE=$SITE_DIR/summary_template
+
+    ## Check if all JSON input files exist
+    [ ! -e $CONFIG_JSON ] && ERROR "config.json [$CONFIG_JSON] does not exist" && return 1
+    [ ! -e $SYSTEMS_JSON ] && ERROR "systems.json [$SYSTEMS_JSON] does not exist" && return 1
+    [ ! -e $URLS_JSON ] && ERROR "monitoring-urls.json [$URLS_JSON] does not exist" && return 1
+    [ ! -e $SUMMARY_TEMPLATE ] && ERROR "summary_template dir [$SUMMARY_TEMPLATE] does not exist" && return 1
 
     ## Reading config.json --> Set DATA_DIR & Algorithms
     INFO "Reading [$CONFIG_JSON] ..."
@@ -143,6 +151,11 @@ set_site_dir(){
     ## Set variables
     DATA_DIR=$DATA_HOME/$CONFIG_DATA_DIR
     ANALYSIS_IMAGE_SIZE=$CONFIG_ANALYSIS_IMAGE_SIZE
+    CAPTURE_DIR=$DATA_DIR/$CAPTURE_DIR
+    THUMBNAIL_DIR=$DATA_DIR/$THUMBNAIL_DIR
+    INDEX_DIR=$DATA_DIR/$INDEX_DIR
+
+    return 0
 }
 
 #---------------------------------------------------------------------------
@@ -167,21 +180,30 @@ SITE_DIR=$DATA_HOME/$SITE_DIR
 [ -z "$DETECTOR_ALGORITHM" ] && ERROR "DETECTOR_ALGORITHM is null" && exit -1
 [ -z "$FORECAST_ALGORITHM" ] && ERROR "FORECAST_ALGORITHM is null" && exit -1
 [ ! -e "$DATA_DIR" ] && ERROR "Input: DATA_DIR [$DATA_DIR] does not exist" && exit -1
-[ ! -e "$DATA_DIR/$CAPTURE_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_DIR/$CAPTURE_DIR] does not exist" && exit -1
-[ ! -e "$DATA_DIR/$THUMBNAIL_DIR" ] && ERROR "Input: CAPTURE_DIR [$DATA_DIR/$THUMBNAIL_DIR] does not exist" && exit -1
+[ ! -e "$CAPTURE_DIR" ] && ERROR "Input: CAPTURE_DIR [$CAPTURE_DIR] does not exist" && exit -1
+[ ! -e "$THUMBNAIL_DIR" ] && ERROR "Input: CAPTURE_DIR [$THUMBNAIL_DIR] does not exist" && exit -1
+[ ! -e "$INDEX_DIR" ] && ERROR "Input: CAPTURE_DIR [$INDEX_DIR] does not exist" && exit -1
 [ -z "$ANALYSIS_IMAGE_SIZE" ] && ERROR "ANALYSIS_IMAGE_SIZE is null" && exit -1
 
 
-# Set Inputs/Outputs directories (DATA_HOME is overrided by 'DATA_HOME/data_dir in config.json')
-CAPTURE_DIR=$DATA_DIR/$CAPTURE_DIR
-THUMBNAIL_DIR=$DATA_DIR/$THUMBNAIL_DIR
-! set_analysis_dirs && ERROR "Cannot set ANALYSIS_DIR [$ANALYSIS_DIR] for DATA_HOME [$DATA_HOME]" && exit -1
+# Displaying basic information
+INFO "ANALYSIS_IMAGE_SIZE = $ANALYSIS_IMAGE_SIZE" 
+INFO "DETECTOR_ALGORITHM  = $DETECTOR_ALGORITHM" 
+INFO "FORECAST_ALGORITHM  = $FORECAST_ALGORITHM"
+INFO "DATA_HOME           = $DATA_HOME"
+INFO "DATA_DIR            = $DATA_DIR"
+INFO "CAPTURE_DIR         = $CAPTURE_DIR" 
+INFO "THUMBNAIL_DIR       = $THUMBNAIL_DIR" 
+INFO "INDEX_DIR           = $INDEX_DIR" 
 
+
+# Set Inputs/Outputs directories (DATA_DIR was configured by 'DATA_HOME/data_dir in config.json')
+! set_analysis_dirs && ERROR "Cannot set ANALYSIS_DIR [$ANALYSIS_DIR] for DATA_DIR [$DATA_DIR]" && exit -1
+INFO "ANALYSIS_DIR        = $ANALYSIS_DIR" 
 
 # Get basic information
 ! set_date_ids "$CAPTURE_DIR" $MAX_DATETIME_LENGTH && ERROR "DATE_ID error [$DATE_IDs]" && exit -1 
 INFO "LATEST_DATE_ID = [$LATEST_DATE_ID], DATE_IDs = [$(echo $DATE_IDs)]"
-
 
 # Check system load
 ! system_load_monitor $SYSTEM_LOAD_MAX && INFO "System load is high" && exit -1
@@ -195,17 +217,18 @@ case "$action" in
     detector)
 	generate_detector "$DETECTOR_ALGORITHM"
 	;;
-    madvision)
-	generate_madvision "$DETECTOR_ALGORITHM"
-	;;
     pathway)
 	generate_pathway
+	;;
+    madvision)
+	generate_madvision "$DETECTOR_ALGORITHM"
 	;;
     forecast)
 	generate_forecast "$FORECAST_ALGORITHM"
 	;;
     summary)
 	generate_summary "$DETECTOR_ALGORITHM"
+	generate_analysis_index
 	generate_latest_symlinks
 	;;
     all)
@@ -215,6 +238,7 @@ case "$action" in
 	generate_madvision "$DETECTOR_ALGORITHM"
 	generate_forecast "$FORECAST_ALGORITHM"
 	generate_summary "$DETECTOR_ALGORITHM"
+	generate_analysis_index
 	generate_latest_symlinks
 	;;
     *)

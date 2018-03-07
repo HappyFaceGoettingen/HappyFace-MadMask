@@ -1,22 +1,15 @@
 library(igraph)
 library(rjson)
 
-  ## Standard plot for Analysis
-  WIDTH <- 2048
-  HEIGHT <- 2048
-  plot.params.1 <- as.list(NULL)
-  plot.params.1[["vertex.label.cex"]] <- 1
-  plot.params.1[["vertex.size"]] <- 3 
-  
-  SUB.WIDTH <- 480
-  SUB.HEIGHT <- 480
-  plot.params.2 <- as.list(NULL)
-  plot.params.2[["vertex.label.cex"]] <- 1
-  plot.params.2[["vertex.size"]] <- 30
-  
-  
+## Standard plot for Analysis
+plot.params.1 <- as.list(NULL)
+plot.params.1[["vertex.label.cex"]] <- 1
+plot.params.1[["vertex.size"]] <- 3 
 
-
+plot.params.2 <- as.list(NULL)
+plot.params.2[["vertex.label.cex"]] <- 1
+plot.params.2[["vertex.size"]] <- 30
+  
 
 ##-----------------------------------------------------------
 ##
@@ -81,7 +74,7 @@ get.vers <- function(graph.data.matrix){
 }
 
 
-append.graph.matrix <- function(graph.matrix, url.name, services, servers){
+append.graph.matrix <- function(graph.matrix, url.name, services, systems){
   for (service.id in 1:length(services)){
     service.name <- services[[service.id]]$name
     graph.matrix <- rbind(graph.matrix, c(service.name, url.name))
@@ -126,11 +119,11 @@ plot.pathway <- function(graph.obj, layout=NULL, plot.params=plot.params.1, main
 ## Main
 ##
 ##-----------------------------------------------------------
-run.paythway <- function(){
-  message("Reading [", monitoring.urls.json, "] ...")
-  monitoring.urls <- fromJSON(file=monitoring.urls.json)
-  message("Reading [", servers.json, "] ...")
-  servers <- fromJSON(file=systems.json)
+run.pathway <- function(){
+  message("Reading [", urls.json, "] ...")
+  monitoring.urls <- fromJSON(file=urls.json)
+  message("Reading [", systems.json, "] ...")
+  systems <- fromJSON(file=systems.json)
   
   ## Loop over monitoring pages
   graph.matrix <- c()
@@ -147,23 +140,21 @@ run.paythway <- function(){
         services <- monitoring.urls[[level]]$urls[[url.id]]$services
         
         ## Setting R objects
-        robj.file2 <- paste(c(robj.dir, "/", file.prefix, "__bcp.robj"), collapse="")
         robj.file3 <- paste(c(robj.dir, "/", file.prefix, "__pathway.robj"), collapse="")
-        message("robj.file2           = ", robj.file2)
         message("robj.file3           = ", robj.file3)
         
         ## Generate from/to matrix
-        graph.matrix <- append.graph.matrix(graph.matrix, url.name, services, servers)
+        graph.matrix <- append.graph.matrix(graph.matrix, url.name, services, systems)
         
         ## Generate from/to sub matrix
-        sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, services, servers) 
+        sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, services, systems) 
         
         sub.pathway.obj <- generate.graph(sub.graph.matrix)
         layout <- generate.layout(sub.graph.matrix)
         
-        plot.file <- paste(c(plot.dir, "/", file.prefix, ".png"), collapse="")
+        plot.file <- paste(c(plot.output.dir, "/", file.prefix, ".png"), collapse="")
         message("Plotting [", plot.file, "] ...")
-        png(filename = plot.file, width = SUB.WIDTH, height = SUB.HEIGHT)
+        png(filename = plot.file, width = WIDTH, height = HEIGHT)
         plot.pathway(sub.pathway.obj, layout, plot.params=plot.params.2)
         dev.off()
         
@@ -182,9 +173,9 @@ run.paythway <- function(){
   overall.pathway.obj <- generate.graph(graph.matrix)
   
   ## Calculating probability or normalized votes ?
-  plot.file <- paste(c(plot.dir, "/overall_pathway.png"), collapse="")
+  plot.file <- paste(c(plot.output.dir, "/overall_pathway.png"), collapse="")
   message("Plotting [", plot.file, "] ...")
-  png(filename = plot.file, width = WIDTH, height = HEIGHT)
+  png(filename = plot.file, width = L.WIDTH, height = L.HEIGHT)
   main <- "Relational map of monitoring and system"
   plot.pathway(overall.pathway.obj, layout=NULL, main=main, plot.params.1)
   dev.off()

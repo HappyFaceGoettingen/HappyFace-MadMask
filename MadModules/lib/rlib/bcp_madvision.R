@@ -52,8 +52,9 @@ run.madvision <- function(bcp.threshold=0.7){
 
     ## Status Not Changed
     if (latest.bcp.pp < bcp.threshold) {
-      if(file.symlink(latest.img.file, mad.vision.file)) message("Symlink: ", latest.img.file, " -> ", mad.vision.file)
-      next
+      relative.path <- system(paste(c("realpath -m --relative-to=", plot.output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
+      system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
+      return
     }
 
     ## Status Changed
@@ -62,7 +63,7 @@ run.madvision <- function(bcp.threshold=0.7){
     data1 <- as.list(NULL)
     
     ## Graph 1
-    data1[["graph1"]] <- generate.graph(sub.graph.matrix)
+    if (exists("sub.graph.matrix")) data1[["graph1"]] <- generate.graph(sub.graph.matrix)
     
     ## Plot 1
     data1[["plot1"]] <- bcp.posterior.prob
@@ -74,10 +75,12 @@ run.madvision <- function(bcp.threshold=0.7){
     len <- length(bcp.posterior.prob)
     
     ## Text 1,2,3
-    data1[["text1"]] <- bcp.posterior.prob[len:(len-8)]
+    len.end <- 0
+    if (length(c(len:len.end)) > 8) len.end <- len-8
+    data1[["text1"]] <- bcp.posterior.prob[len:len.end]
     data1[["text2"]] <- "■ Status Changed"
     len <- length(info.gain.df$info.gain)
-    data1[["text3"]] <- c("Mad Vision v0.21", "-------------------------", info.gain.df$info.gain[len:(len-8)])
+    data1[["text3"]] <- c("Mad Vision v0.30", "-------------------------", info.gain.df$info.gain[len:len.end])
     
     ## Plotting here
     generate.terminator.vision(img, mad.vision.file, data1)

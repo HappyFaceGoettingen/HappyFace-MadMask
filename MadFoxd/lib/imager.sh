@@ -37,11 +37,6 @@ import_madfox_images(){
 	## For Debug
 	[ $LOGLEVEL -ge $DEBUG_LEVEL ] && INFO "DEBUG mode. Exiting." && break
     done
-
-    ## Making a symlink as "latest"
-    local latest=$(dirname $to_dir)/latest
-    [ -e $latest ] && rm -v $latest
-    ln -vs $(basename $to_dir) $latest
 }
 
 
@@ -68,11 +63,6 @@ generate_thumbnails(){
 	## For Debug
 	[ $LOGLEVEL -ge $DEBUG_LEVEL ] && INFO "DEBUG mode. Exiting." && break
     done
-
-    ## Making a symlink as "latest"
-    local latest=$(dirname $to_dir)/latest
-    [ -e $latest ] && rm -v $latest
-    ln -vs $(basename $to_dir) $latest
 }
 
 
@@ -125,11 +115,6 @@ write_index_html(){
 	echo "</a>" >> $html_out
     done
     echo "</body></html>" >> $html_out
-
-    ## In index
-    local latest=$(dirname $index_dir)/latest
-    [ -e $latest ] && rm -v $latest
-    ln -vs $(basename $index_dir) $latest
 }
 
 
