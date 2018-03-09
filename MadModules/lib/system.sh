@@ -12,11 +12,8 @@ system_load_monitor(){
     system_load=$(printf "%0.0f" $system_load)
     INFO "System load = $system_load %, max = $system_load_max %"
 
-    if [ $system_load -ge $system_load_max ]; then
-        return 1
-    elif [ $system_load -lt $system_load_max ]; then
-        return 0
-    fi
+    [ $system_load -ge $system_load_max ] && return 1
+    return 0
 }
 
 
@@ -61,8 +58,7 @@ check_parallel_job(){
         if [ $num_of_jobs -lt $PARALLEL ]; then
             INFO "Number of [$prog] jobs = $num_of_jobs, accepting next (${jobs[*]}) ..."
             break
-        else
-            sleep $WAIT_PARALLEL_JOB_CHECK
-        fi
+	fi
+        sleep $WAIT_PARALLEL_JOB_CHECK
     done
 }

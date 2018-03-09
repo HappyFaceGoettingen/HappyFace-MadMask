@@ -31,9 +31,8 @@ set_analysis_dirs(){
     local dir
     for dir in $all_analysis_subdirs
     do
-	if [ ! -e $dir ]; then
-	    mkdir -pv $dir || return 1
-	fi
+	[ -e $dir ] && continue
+	mkdir -pv $dir || return 1
     done
 
     return 0
@@ -64,19 +63,20 @@ common_imager(){
 	fi
     done
     check_parallel_job convert
-
+    return 0
 }
 
 
 common_rcaller(){
     local rcall="$1"
-    local plot_dir="$2"
+    local output_dir="$2"
+    local others="$3"
 
-    [ -e "$plot_dir" ] && ERROR "common_rcaller\$$rcall: [$plot_dir] exists!" && return 1
+    [ -e "$output_dir" ] && ERROR "common_rcaller\$$rcall: [$output_dir] exists!" && return 1
+    mkdir -v $output_dir
 
     ## Generating analysis plots and objs
-    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $plot_dir $ANALYSIS_OBJ_DIR"
-    mkdir -v $plot_dir
+    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
     load_monitoringUrls_json $URLS_JSON || return 1
     local i
     for i in $(seq 0 $((${#FILE_PREFIXES[*]} - 1)))
@@ -92,13 +92,15 @@ common_rcaller(){
 
 single_rcaller(){
     local rcall="$1"
-    local plot_dir="$2"
+    local output_dir="$2"
+    local others="$3"
 
-    [ -e "$plot_dir" ] && ERROR "generate_forecaset\$$rcall: [$plot_dir] exists!" && return 1    
-    
-    mkdir -v $plot_dir
-    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $plot_dir $ANALYSIS_OBJ_DIR"
-    R --slave -f $R_RUNTIME_LOADER --args $rcall forecast $args 
+    [ -e "$output_dir" ] && ERROR "single_rcaller\$$rcall: [$output_dir] exists!" && return 1    
+    mkdir -v $output_dir
+
+    ## Generating analysis plots and objs
+    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
+    R --slave -f $R_RUNTIME_LOADER --args $rcall "" $args 
 }
 
 
@@ -158,16 +160,52 @@ generate_forecast(){
 # Final Summary Generator Functions
 #  {summary}
 #---------------------------------------------------------------------------
-generate_latest_symlinks(){
-    local all_inout_subdirs="$CAPTURE_DIR $THUMBNAIL_DIR $INDEX_DIR $BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR"
-    local dir
-    for dir in $all_inout_subdirs
-    do
-	if [ -e $dir/$LATEST_DATE_ID ]; then
-	    [ -e $dir/latest ] && rm -v $dir/latest
-	    ln -vs $LATEST_DATE_ID $dir/latest
-	fi
-    done
+prepare_summary_template(){
+    local summary_template=$1
+    local index_dir=$(dirname $summary_template)
+    [ ! -e $index_dir ] && ERROR "index_dir [$index_dir] does not exist" && return 1
+
+    ## Copying SUMMARY_TEMPLATE to index_dir
+    cp -rvfL $SUMMARY_TEMPLATE $index_dir/
+    ! ls $summary_template/*.json &> /dev/null && ERROR "[$summary_template/*.json] does not exist" && return 1
+
+    #---------------------------------------------
+    # Reserved tokens in summary_tempalte/*.json
+    # are modified.
+    #---------------------------------------------
+    ## Easiest part is to get the followings
+    local __MYNAME__=$CONFIG_MYNAME
+    local __SITE__=$CONFIG_SITE
+    local __TIME__=$(date +"%l %M %p")
+    local __HISTORY__=$(echo $DATE_IDs)
+
+    ## Applying the easiest part such as __SITE__ etc..
+    sed -e "s/__MYNAME__/$__MYNAME__/g" -i $summary_template/*.json
+    sed -e "s/__SITE__/$__SITE__/g" -i $summary_template/*.json
+    sed -e "s/__TIME__/$__TIME__/g" -i $summary_template/*.json
+    sed -e "s/__HISTORY__/$__HISTORY__/g" -i $summary_template/*.json
+
+    return 0
+}
+
+
+generate_summary(){
+    local rcall="${1}_summary"
+
+    local summary_template_dir=$INDEX_DIR/$LATEST_DATE_ID/$(basename $SUMMARY_TEMPLATE)
+    local summary_json=$INDEX_DIR/$LATEST_DATE_ID/summary.json
+
+    ## Putting summary template into INDEX_DIR
+    prepare_summary_template $summary_template_dir || return 1
+
+    ## Making a link "summary.json" from a modified ${level}.json
+    INFO "Generating summary.json (Changing __LEVEL__, __SYSTEMS__ and __SCORE__ in [$summary_template_dir/*.json]) ..."
+    single_rcaller "$rcall" "$summary_template_dir" "$summary_json" || return 1
+
+    ## Displaying a final status summary
+    echo " ------------- [$summary_json] ------------- "
+    cat $summary_json
+    return 0
 }
 
 
@@ -191,63 +229,13 @@ generate_analysis_index(){
 }
 
 
-prepare_summary_template(){
-    local summary_template=$1
-    local index_dir=$(dirname $summary_template)
-    [ ! -e $index_dir ] && ERROR "index_dir [$index_dir] does not exist" && return 1
-
-    ## Copying SUMMARY_TEMPLATE to index_dir
-    cp -rvfL $SUMMARY_TEMPLATE $index_dir/
-    ! ls $summary_template/*.json &> /dev/null && ERROR "[$summary_template/*.json] does not exist" && return 1
-
-    #---------------------------------------------
-    # Reserved tokens in summary_tempalte/*.json
-    #---------------------------------------------
-    ## Easiest to get the followings
-    local __MYNAME__=$CONFIG_MYNAME
-    local __SITE__=$CONFIG_SITE
-    local __TIME__=$(date +"%l %M %p")
-    local __HISTORY__=$(echo $DATE_IDs)
-
-    ## Applying the easiest part such as __SITE__ etc..
-    sed -e "s/__MYNAME__/$__MYNAME__/g" -i $summary_template/*.json
-    sed -e "s/__SITE__/$__SITE__/g" -i $summary_template/*.json
-    sed -e "s/__TIME__/$__TIME__/g" -i $summary_template/*.json
-    sed -e "s/__HISTORY__/$__HISTORY__/g" -i $summary_template/*.json
-
-    return 0
-}
-
-
-generate_summary(){
-    local rcall="${1}_summary"
-
-    local summary_template_dir=$INDEX_DIR/$LATEST_DATE_ID/$(basename $SUMMARY_TEMPLATE)
-    local summary_json=$INDEX_DIR/$LATEST_DATE_ID/summary.json
-
-    ## Put summary template into INDEX_DIR
-    prepare_summary_template $summary_template_dir || return 1
-
-    ## Making a link "summary.json" to the final ${level}.json
-    load_monitoringUrls_json $URLS_JSON || return 1
-    local present_level="Normal"
-    for level in ${LEVELS[*]}
+generate_latest_symlinks(){
+    local all_inout_subdirs="$CAPTURE_DIR $THUMBNAIL_DIR $INDEX_DIR $BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR"
+    local dir
+    for dir in $all_inout_subdirs
     do
-	[ "$level" == "null" ] && continue
-	local template_json=$summary_template_dir/${level}.json
-	[ ! -e $template_json ] && ERROR "A template [$template_json] does not exist" && return 1
-
-	INFO "Generating a summary (Changing __LEVEL__, __SYSTEMS__ and __SCORE__ in [$template_json]) ..."
-	single_rcaller "$rcall" "$summary_template_dir" "$template_json" || return 1
-
-	local score=$(jq .score $template_json | perl -pe "s/\"//g")
-	[ $score -ge $SUMMARY_THRESHOLD ] && present_level=$level
+	[ ! -e $dir/$LATEST_DATE_ID ] && continue
+	[ -e $dir/latest ] && rm -v $dir/latest
+	ln -vs $LATEST_DATE_ID $dir/latest
     done
-    ln -vfs $(basename $SUMMARY_TEMPLATE)/${present_level}.json $summary_json
-
-    ## Displaying a final status summary
-    echo " ------------- [$summary_json] ------------- "
-    cat $summary_json
-    return 0
 }
-

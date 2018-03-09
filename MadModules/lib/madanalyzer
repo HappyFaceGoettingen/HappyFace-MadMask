@@ -49,7 +49,7 @@ CONFIG_DATA_DIR=""
 
 
 usage="$0 [options] -a [action]
- A library to analyze a system status by the given monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template in 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary.
+ Meta-monitoring Analytics Device (MAD) Analyzer: A library to analyze a system status by the given meta-monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template in 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary.
 
  * System parameters and constrains
  -l:  System load limit [default: $SYSTEM_LOAD_MAX %]
@@ -79,7 +79,6 @@ usage="$0 [options] -a [action]
 
  * Run an action
  -a:  Set action [base_images|detector|pathway|madvision|forecast|summary|all]
-
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch>"
 

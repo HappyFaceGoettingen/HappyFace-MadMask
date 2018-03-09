@@ -82,16 +82,13 @@ generate.plot.infogain <- function(info.gain.ts, filename, width, height){
 
 run.bcp.detector <- function(){
   
-  plot.analysis.file <- paste(c(plot.output.dir, "/", file.prefix, ".png"), collapse="")
-  robj.file1 <- paste(c(robj.dir, "/", file.prefix, "__infogain.robj"), collapse="")
-  robj.file2 <- paste(c(robj.dir, "/", file.prefix, "__bcp.robj"), collapse="")
-  
+  plot.analysis.file <- paste(c(output.dir, "/", file.prefix, ".png"), collapse="")
 
   ## loop over image files
-  if (file.exists(robj.file1)){
-    if (check.robj(robj.file1)) load(file=robj.file1)
+  if (file.exists(robj.infogain)){
+    if (check.robj(robj.infogain)) load(file=robj.infogain)
   } else {
-    message("[", robj.file1, "] does not exist!")
+    message("[", robj.infogain, "] does not exist!")
   }
   
   info.gain <- c()
@@ -140,10 +137,10 @@ run.bcp.detector <- function(){
   rownames(info.gain.df) <- rownames.info.gain
 
   ## saving robj
-  message("Saving [", robj.file1, "] ...")
-  message("Saving [", robj.file2, "] ...")
-  save(file=robj.file1, info.gain.df)
-  save(file=robj.file2, bcpobj, latest.bcp.pp, bcp.posterior.prob)
+  message("Saving [", robj.infogain, "] ...")
+  message("Saving [", robj.detector, "] ...")
+  save(file=robj.infogain, info.gain.df)
+  save(file=robj.detector, bcpobj, latest.bcp.pp, bcp.posterior.prob)
   
   
   ##----------------------------------------

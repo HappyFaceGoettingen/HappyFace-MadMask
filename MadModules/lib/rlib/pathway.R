@@ -116,74 +116,59 @@ plot.pathway <- function(graph.obj, layout=NULL, plot.params=plot.params.1, main
 
 ##-----------------------------------------------------------
 ##
-## Main
+## Main Functions
 ##
 ##-----------------------------------------------------------
+run.sub.pathway <- function(){
+  sub.graph.matrix <- c()
+  
+  ## Generate from/to matrix
+  message("file.prefix = [", file.prefix, "], url.name = [", url.name, "], services = [", services, "]")
+  graph.matrix <<- append.graph.matrix(graph.matrix, url.name, services, systems)
+  
+  ## Generate from/to sub matrix
+  sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, services, systems) 
+  sub.pathway.obj <- generate.graph(sub.graph.matrix)
+  layout <- generate.layout(sub.graph.matrix)
+
+  ## Plotting a sub pathway
+  plot.file <- paste(c(output.dir, "/", file.prefix, ".png"), collapse="")
+  message("Plotting [", plot.file, "] ...")
+  png(filename = plot.file, width = WIDTH, height = HEIGHT)
+  plot.pathway(sub.pathway.obj, layout, plot.params=plot.params.2)
+  dev.off()
+  
+  ## saving robj
+  message("Saving [", robj.pathway, "] ...")
+  save(file=robj.pathway, sub.pathway.obj, sub.graph.matrix)
+}
+
+
 run.pathway <- function(){
-  message("Reading [", urls.json, "] ...")
-  monitoring.urls <- fromJSON(file=urls.json)
-  message("Reading [", systems.json, "] ...")
-  systems <- fromJSON(file=systems.json)
-  
-  ## Loop over monitoring pages
-  graph.matrix <- c()
-  for (level in 1:length(monitoring.urls)){
-    ## Loop
-    for (url.id in 1:length(monitoring.urls[[level]]$urls)){
-      is.captured <- monitoring.urls[[level]]$urls[[url.id]]$capture
-      
-      ## Generating graph
-      if (is.captured){
-        sub.graph.matrix <- c()
-        file.prefix <- monitoring.urls[[level]]$urls[[url.id]]$file_prefix
-        url.name <- monitoring.urls[[level]]$urls[[url.id]]$name
-        services <- monitoring.urls[[level]]$urls[[url.id]]$services
-        
-        ## Setting R objects
-        robj.file3 <- paste(c(robj.dir, "/", file.prefix, "__pathway.robj"), collapse="")
-        message("robj.file3           = ", robj.file3)
-        
-        ## Generate from/to matrix
-        graph.matrix <- append.graph.matrix(graph.matrix, url.name, services, systems)
-        
-        ## Generate from/to sub matrix
-        sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, services, systems) 
-        
-        sub.pathway.obj <- generate.graph(sub.graph.matrix)
-        layout <- generate.layout(sub.graph.matrix)
-        
-        plot.file <- paste(c(plot.output.dir, "/", file.prefix, ".png"), collapse="")
-        message("Plotting [", plot.file, "] ...")
-        png(filename = plot.file, width = WIDTH, height = HEIGHT)
-        plot.pathway(sub.pathway.obj, layout, plot.params=plot.params.2)
-        dev.off()
-        
-        ## saving robj
-        message("Saving [", robj.file3, "] ...")
-        save(file=robj.file3, sub.pathway.obj, sub.graph.matrix)
-      }
-    }
-  }
-  
+  graph.matrix <<- c()
 
   ##----------------------------------------
-  ## Generating plots
+  ## Generating Each Pathway Plot
   ##----------------------------------------
-  robj.file.pathway <- paste(c(robj.dir, "/overall_pathway.robj"), collapse="")
+  monitoring.urls.caller("run.sub.pathway")
+
+  ##----------------------------------------
+  ## Generating An Overall Pathway Plot
+  ##----------------------------------------
+  robj.overall.pathway <- paste(c(robj.dir, "/overall_pathway.robj"), collapse="")
   overall.pathway.obj <- generate.graph(graph.matrix)
   
-  ## Calculating probability or normalized votes ?
-  plot.file <- paste(c(plot.output.dir, "/overall_pathway.png"), collapse="")
+  ## Plottting an overall pathway
+  plot.file <- paste(c(output.dir, "/overall_pathway.png"), collapse="")
   message("Plotting [", plot.file, "] ...")
   png(filename = plot.file, width = L.WIDTH, height = L.HEIGHT)
-  main <- "Relational map of monitoring and system"
+  main <- "Relational map of monitoring information and systems"
   plot.pathway(overall.pathway.obj, layout=NULL, main=main, plot.params.1)
   dev.off()
   
-  
   ## saving robj
-  message("Saving [", robj.file.pathway, "] ...")
-  save(file=robj.file.pathway, overall.pathway.obj, graph.matrix)
+  message("Saving [", robj.overall.pathway, "] ...")
+  save(file=robj.overall.pathway, overall.pathway.obj, graph.matrix)
 }
 
 

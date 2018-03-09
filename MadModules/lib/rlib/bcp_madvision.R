@@ -29,30 +29,26 @@ generate.graph <- function(graph.matrix){
 ## Main function
 ##-----------------------------------------------------------
 run.madvision <- function(bcp.threshold=0.7){
-
-  robj.file1 <- paste(c(robj.dir, "/", file.prefix, "__infogain.robj"), collapse="")
-  robj.file2 <- paste(c(robj.dir, "/", file.prefix, "__bcp.robj"), collapse="")
-  robj.file3 <- paste(c(robj.dir, "/", file.prefix, "__pathway.robj"), collapse="")
   
   ##----------------------------------------
   ## Generating plots
   ##----------------------------------------
   ## Loading data
-  if (file.exists(robj.file1)) load(file=robj.file1)
-  if (file.exists(robj.file2)) load(file=robj.file2)
-  if (file.exists(robj.file3)) load(file=robj.file3)
+  if (file.exists(robj.infogain)) load(file=robj.infogain)
+  if (file.exists(robj.detector)) load(file=robj.detector)
+  if (file.exists(robj.pathway)) load(file=robj.pathway)
   
   
   ## Mad Vision plot
   latest.date.id <- date.ids[length(date.ids)]
   latest.img.file <- paste(c(capture.dir, "/", latest.date.id, "/", file.prefix, ".jpg"), collapse="")
-  mad.vision.file <- paste(c(plot.output.dir, "/", file.prefix, ".jpg"), collapse="")
+  mad.vision.file <- paste(c(output.dir, "/", file.prefix, ".jpg"), collapse="")
   if (file.exists(latest.img.file)){
     message("Latest BCP Posterior Probability of ", file.prefix, "  = ", latest.bcp.pp)
 
     ## Status Not Changed
     if (latest.bcp.pp < bcp.threshold) {
-      relative.path <- system(paste(c("realpath -m --relative-to=", plot.output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
+      relative.path <- system(paste(c("realpath -m --relative-to=", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
       system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
       return
     }

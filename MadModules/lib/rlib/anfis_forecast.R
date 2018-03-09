@@ -50,10 +50,10 @@ run.plot.forecast <- function(plot.dir, plot.file, main){
 
 
 ## Run Forecast
-run.plot.forecast(plot.output.dir, "0.png", "Forecast of ANFIS (pool_p1_12)")
-run.plot.forecast(plot.output.dir, "1.png", "Forecast of ANFIS (pool_p1_13)")
-run.plot.forecast(plot.output.dir, "2.png", "Forecast of ANFIS (pool_p1_14)")
-run.plot.forecast(plot.output.dir, "3.png", "Forecast of ANFIS (pool_d1_15)")
-run.plot.forecast(plot.output.dir, "4.png", "Forecast of ANFIS (pool_d1_16)")
+run.plot.forecast(output.dir, "0.png", "Forecast of ANFIS (pool_p1_12)")
+run.plot.forecast(output.dir, "1.png", "Forecast of ANFIS (pool_p1_13)")
+run.plot.forecast(output.dir, "2.png", "Forecast of ANFIS (pool_p1_14)")
+run.plot.forecast(output.dir, "3.png", "Forecast of ANFIS (pool_d1_15)")
+run.plot.forecast(output.dir, "4.png", "Forecast of ANFIS (pool_d1_16)")
 
 
