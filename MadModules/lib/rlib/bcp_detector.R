@@ -70,25 +70,15 @@ generate.plot.analysis <- function(plot.df, filename, width, height){
 }
 
 
-generate.plot.infogain <- function(info.gain.ts, filename, width, height){
-  plot.df <- as.xts(read.zoo(data.frame(datetime=rownames(info.gain.ts), info.gain.ts), tz="", format="%Y%m%d-%H%M"))
-  message("Plotting [", filename, "] ...")
-  png(filename = filename, width = width, height = height)
-  plot(plot.df, main="Image InfoGain")
-  dev.off()
-}
-
-
-
 run.bcp.detector <- function(){
   
   plot.analysis.file <- paste(c(output.dir, "/", file.prefix, ".png"), collapse="")
 
   ## loop over image files
-  if (file.exists(robj.infogain)){
-    if (check.robj(robj.infogain)) load(file=robj.infogain)
+  if (file.exists(robj.detector)){
+    if (check.robj(robj.detecotr)) load(file=robj.detector)
   } else {
-    message("[", robj.infogain, "] does not exist!")
+    message("[", robj.detector, "] does not exist!")
   }
   
   info.gain <- c()
@@ -98,9 +88,8 @@ run.bcp.detector <- function(){
     if (!check.jpeg(file)) next
     
     found <- FALSE
-    ## reading existing robj
+    ## reading cached robj
     if (exists("info.gain.df")){
-      
       a.value <- info.gain.df[date.id, "info.gain"]
       if ((!is.null(a.value)) && (!is.na(a.value))) {
         info.gain <- append(info.gain, info.gain.df[date.id, "info.gain"])
@@ -137,16 +126,13 @@ run.bcp.detector <- function(){
   rownames(info.gain.df) <- rownames.info.gain
 
   ## saving robj
-  message("Saving [", robj.infogain, "] ...")
   message("Saving [", robj.detector, "] ...")
-  save(file=robj.infogain, info.gain.df)
-  save(file=robj.detector, bcpobj, latest.bcp.pp, bcp.posterior.prob)
+  save(file=robj.detector, info.gain.df, bcpobj, latest.bcp.pp, bcp.posterior.prob)
   
   
   ##----------------------------------------
   ## Generating plots
   ##----------------------------------------
-  ##generate.plot.infogain(info.gain.df, plot.infogain.file, WIDTH, HEIGHT)
   generate.plot.analysis(bcpobj, plot.analysis.file, WIDTH, HEIGHT)
   
 }

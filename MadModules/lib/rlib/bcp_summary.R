@@ -3,78 +3,93 @@
 ## Functions
 ##
 ##-----------------------------------------------------------
+run.bcp.summary <- function(detection.method="bcp.detect.one.exceeds", bcp.threshold=0.6, combined.threshold=0.6, max.url.outputs=3, max.system.outputs=3){
 
-change.template.json <- function(level.name, score, system.names, combined.threshold=0.7){
-  summary.template <<- str.concat(output.dir, "/", level.name, ".json")
-
-  ## Changing __LEVEL__, __SCORE__, __SYSTEMS__
-  system(str.concat("sed -e \"s/__LEVEL__/", level.name, "/g\" -i ", summary.template))
-  system(str.concat("sed -e \"s/__SCORE__/", score, "/g\" -i ", summary.template))
-  system(str.concat("sed -e \"s/__SYSTEMS__/", system.names, "/g\" -i ", summary.template))
-  
-  ## Making a symlink to summary.json
-  if (score >= combined.threshold) {
-    relative.path <- system(str.concat("realpath -m --relative-to=", output.dir, " ", summary.json), intern=TRUE)
-    system(str.concat("ln -svf ", relative.path, " ", summary.json))
-  }
-}
-
-
-run.bcp.summary <- function(detection.method="bcp.detect.one.exceeds", bcp.threashold=0.7, max.outputs=3){
-  present.level <- "Normal"
-
-  ## For Normal level
+  ## For Normal level (default)
   level.name <<- "Normal"
-  score <<- 1
+  present.level <<- level.name
+  url.names <<-c()
   system.names <<- c()
+  score <<- 1
+
   ## For each level in a monitorig url json file
-  monitoring.urls.caller("run.bcp.level.summary")
+  monitoring.urls.caller(detection.method, list(bcp.threshold, combined.threshold, max.url.outputs, max.system.outputs))
 
   ## Applying the final item, before exit
-  change.template.json(level.name, score, system.names)
+  change.template.json(combined.threshold)
 }
 
 
-bcp.detect.one.exceeds <- function(){
+bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.outputs, max.system.outputs){
 
   ## Init
   if (present.level != level.name){
     ## Applying level, score and systems to a level template file
-    change.template.json(level.name, score, system.names)
+    change.template.json(combined.threshold)
 
     ## Init
     present.level <<- level.name
+    url.names <<- c()
     system.names <<- c()
     score <<- 0
   }
   
   ## Checking R Object files
-  if ((!file.exists(robj.infogain)) || (!file.exists(robj.detector))){
-    message("Robj file does not exist. Skipping ...")
-    return
+  if (!file.exists(robj.detector)) {
+    message("Robj file [", file.prefix, "] does not exist. Skipping ...")
+    return(-1)
   }
 
-  if ((file.info(robj.infogain)$size == 0) || (file.info(robj.detector)$size == 0)){
-    message("Size of Robj file is zero. Skipping ...")
-    return
+  if (file.info(robj.detector)$size == 0){
+    message("Size of Robj file [", file.prefix, "] is zero. Skipping ...")
+    return(-1)
   }
     
   ## Load R Objects
-  load(file=robj.infogain)
   load(file=robj.detector)
     
   ## Check objects
   if ((is.null(latest.bcp.pp)) || (! exists("latest.bcp.pp"))){
     message("Variable [latest.bcp.pp] is not proper. Skipping ...")
-    return
+    return(-1)
   }
     
   ## Checking if the latest status is greater than score
-  if (latest.bcp.pp > score) score <- latest.bcp.pp
-    
+  if (latest.bcp.pp > score) score <<- latest.bcp.pp
+  
   ## Status changed --> Making lists and changing a summary template
-  if ((latest.bcp.pp >= bcp.threshold) && (length(system.names) < max.outputs)) {
-    system.names <- unique(append(system.names, systems))
+  if (latest.bcp.pp >= bcp.threshold) {
+    if((length(url.names) < max.url.outputs))
+      url.names <<- unique(append(url.names, url.name))
+    
+    if((length(system.names) < max.system.outputs))
+      system.names <<- unique(append(system.names, systems))
+  }
+}
+
+
+change.template.json <- function(combined.threshold){
+  summary.template <<- str.concat(output.dir, "/", present.level, ".json")
+  if (!file.exists(summary.template)){
+    message("[", summary.template, "] does not exist")
+    return(-1)
+  }
+
+  ## Changing to comma separated strings
+  c.url.names <- paste(url.names, collapse=", ")
+  c.system.names <- paste(system.names, collapse=", ")
+  
+  ## Changing __LEVEL__, __SCORE__, __URLS__, __SYSTEMS__
+  message("Applying (__LEVEL__, __SCORE, __URLS__, __SYSTEMS__) = (", level.name, ", ", score, ", \"", c.url.names, "\", \"", c.system.names, "\") to [", summary.template, "] ...")
+  system(str.concat("sed -e \"s/__LEVEL__/", level.name, "/g\" -i ", summary.template))
+  system(str.concat("sed -e \"s/__SCORE__/", score, "/g\" -i ", summary.template))
+  system(str.concat("sed -e \"s/__URLS__/", c.url.names, "/g\" -i ", summary.template))
+  system(str.concat("sed -e \"s/__SYSTEMS__/", c.system.names, "/g\" -i ", summary.template))
+  
+  ## Making a symlink to summary.json
+  if (score >= combined.threshold) {
+    relative.path <- system(str.concat("realpath -m --relative-to=", dirname(summary.json), " ", summary.template), intern=TRUE)
+    system(str.concat("ln -svf ", relative.path, " ", summary.json))
   }
 }
 
@@ -86,3 +101,4 @@ bcp.detect.one.exceeds <- function(){
 ##-----------------------------------------------------------
 summary.json <- others
 run.bcp.summary()
+

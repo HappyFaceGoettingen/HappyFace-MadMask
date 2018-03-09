@@ -1,5 +1,4 @@
 library(igraph)
-library(rjson)
 
 ## Standard plot for Analysis
 plot.params.1 <- as.list(NULL)
@@ -74,10 +73,9 @@ get.vers <- function(graph.data.matrix){
 }
 
 
-append.graph.matrix <- function(graph.matrix, url.name, services, systems){
-  for (service.id in 1:length(services)){
-    service.name <- services[[service.id]]$name
-    graph.matrix <- rbind(graph.matrix, c(service.name, url.name))
+append.graph.matrix <- function(graph.matrix, url.name, systems, all.systems){
+  for (system.name in systems){
+    graph.matrix <- rbind(graph.matrix, c(system.name, url.name))
   }
   return(graph.matrix)
 }
@@ -123,11 +121,11 @@ run.sub.pathway <- function(){
   sub.graph.matrix <- c()
   
   ## Generate from/to matrix
-  message("file.prefix = [", file.prefix, "], url.name = [", url.name, "], services = [", services, "]")
-  graph.matrix <<- append.graph.matrix(graph.matrix, url.name, services, systems)
+  message("file.prefix = [", file.prefix, "], url.name = [", url.name, "], systems = [", paste(systems, collapse=","), "]")
+  graph.matrix <<- append.graph.matrix(graph.matrix, url.name, systems, all.systems)
   
   ## Generate from/to sub matrix
-  sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, services, systems) 
+  sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, systems, all.systems)
   sub.pathway.obj <- generate.graph(sub.graph.matrix)
   layout <- generate.layout(sub.graph.matrix)
 

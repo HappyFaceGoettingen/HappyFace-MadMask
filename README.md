@@ -20,7 +20,7 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 
 
 --------------------------
-## MadModules
+## MadModules (Meta-monitoring Analytics Device for HappyFace Modules)
 * MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.
 * MadAnalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyzer.
 * lib - Analysis mediators of browser views, JSON structures and HappyFace data
@@ -40,8 +40,8 @@ A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some
 
 
 --------------------------
-## MadFoxd
-A service capturing browser views (browser canvases) via Firefox using the MadFox addon. This service is extendable to download JSON and WSDL web services as files.
+## MadFoxd (Meta-monitoring Analytics Device for Firefox daemon)
+A Meta-Browser service capturing browser canvases via Firefox using the MadFox addon. This service is extendable to download JSON and WSDL web services as files.
 
 ### Components
 * madfox-addon/ - MadFox Firefox Addon and its source

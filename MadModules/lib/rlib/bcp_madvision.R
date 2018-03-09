@@ -34,7 +34,6 @@ run.madvision <- function(bcp.threshold=0.7){
   ## Generating plots
   ##----------------------------------------
   ## Loading data
-  if (file.exists(robj.infogain)) load(file=robj.infogain)
   if (file.exists(robj.detector)) load(file=robj.detector)
   if (file.exists(robj.pathway)) load(file=robj.pathway)
   
@@ -50,7 +49,7 @@ run.madvision <- function(bcp.threshold=0.7){
     if (latest.bcp.pp < bcp.threshold) {
       relative.path <- system(paste(c("realpath -m --relative-to=", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
       system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
-      return
+      return(0)
     }
 
     ## Status Changed

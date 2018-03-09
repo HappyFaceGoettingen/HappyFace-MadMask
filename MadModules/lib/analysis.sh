@@ -95,8 +95,7 @@ single_rcaller(){
     local output_dir="$2"
     local others="$3"
 
-    [ -e "$output_dir" ] && ERROR "single_rcaller\$$rcall: [$output_dir] exists!" && return 1    
-    mkdir -v $output_dir
+    [ ! -e "$output_dir" ] && mkdir -v $output_dir
 
     ## Generating analysis plots and objs
     local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
@@ -199,7 +198,7 @@ generate_summary(){
     prepare_summary_template $summary_template_dir || return 1
 
     ## Making a link "summary.json" from a modified ${level}.json
-    INFO "Generating summary.json (Changing __LEVEL__, __SYSTEMS__ and __SCORE__ in [$summary_template_dir/*.json]) ..."
+    INFO "Generating summary.json (Changing __LEVEL__, __URLS__, __SYSTEMS__ and __SCORE__ in [$summary_template_dir/*.json]) ..."
     single_rcaller "$rcall" "$summary_template_dir" "$summary_json" || return 1
 
     ## Displaying a final status summary

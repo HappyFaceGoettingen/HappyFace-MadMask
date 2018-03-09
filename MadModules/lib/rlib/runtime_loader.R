@@ -4,7 +4,7 @@
 ##
 ##-----------------------------------------------------------
 library(futile.logger)
-
+library(rjson)
 
 ##-----------------------------------------------------------
 ## Useful Common Functions
@@ -18,20 +18,25 @@ monitoring.urls.caller <- function(func=NULL, func.vars=list()){
   message("Reading [", urls.json, "] ...")
   monitoring.urls <- fromJSON(file=urls.json)
   message("Reading [", systems.json, "] ...")
-  systems <- fromJSON(file=systems.json)
+  all.systems <- fromJSON(file=systems.json)
   
   ## Loop over Levels
-  for (level in 1:length(monitoring.urls)){
-    level.name <<- level
+  for (level in length(monitoring.urls):1){
+    urls <- monitoring.urls[[level]]$urls
+    level.name <<- monitoring.urls[[level]]$level
+    if (is.null(level.name)){
+      message("Level is null. Skipping ..")
+      next
+    }
+    message("Level = [", level.name, "]")
 
     ## Loop over monitoring pages
-    urls <- monitoring.urls[[level]]$urls
     for (url.id in 1:length(urls)){
       ## If capture = true, then call a function
       if (urls[[url.id]]$capture){
         file.prefix <<- urls[[url.id]]$file
         url.name <<- urls[[url.id]]$name
-        services <<- urls[[url.id]]$services
+        systems <<- urls[[url.id]]$systems
 
         ## Definitions of R Object files
         robj.infogain <<- str.concat(robj.dir, "/", file.prefix, "__infogain.robj")
@@ -53,7 +58,7 @@ monitoring.urls.caller <- function(func=NULL, func.vars=list()){
 ## Command line analyzer
 command.args <- commandArgs(trailingOnly = TRUE)
 
-## args="$URLS_JSON $SYSTEMS_JSON §CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $PLOT_ANALYSIS_DIR/$LATEST_DATE_ID $ANALYSIS_OBJ_DIR"
+## args="$URLS_JSON $SYSTEMS_JSON §CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
 loader <- command.args[1]
 file.prefix <- command.args[2]
 
@@ -87,7 +92,6 @@ loader.code <- paste(c(rlib.dir, tolower(loader), ".R"), collapse="")
 
 
 ## Definitions of R-Object files
-robj.infogain <- str.concat(robj.dir, "/", file.prefix, "__infogain.robj")
 robj.detector <- str.concat(robj.dir, "/", file.prefix, "__detector.robj")
 robj.pathway <- str.concat(robj.dir, "/", file.prefix, "__pathway.robj")
 
