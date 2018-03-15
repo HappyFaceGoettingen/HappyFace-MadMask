@@ -56,7 +56,7 @@ generate_thumbnails(){
     do
 	local capture_img=$from_dir/$img
 	local thumbnail_img=$to_dir/$img
-	INFO "Converting [$imgfile] ($THUMBNAIL_OPTION)  -->  [$thumbnail_img)]"
+	INFO "Converting [$capture_img] ($THUMBNAIL_OPTION)  -->  [$thumbnail_img)]"
 	convert $capture_img $THUMBNAIL_OPTION $thumbnail_img
 	[ $? -ne 0 ] && rm -v $thumbnail_img
 

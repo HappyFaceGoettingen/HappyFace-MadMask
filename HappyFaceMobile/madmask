@@ -22,9 +22,8 @@ program
   .option('-i, --ionic', 'Start ionic server')
   .option('-l, --logdir [LogDir]', 'Log dir [default: /tmp]', '/tmp')
   .option('-p, --piddir [PidDir]', 'Pid dir [default: /tmp]', '/tmp')
-  .option('-B, --Browser', 'Call MadBrowser (action = {reload|capture|import})')
-  .option('-A, --Analyzer', 'Call MadAnalyzer (action = {base_images|detector|pathway|madvision|forecast|summary|all})')
-  .option('-a, --action [action]', 'Select an action of MadBrowser or MadAnalyzer', '')
+  .option('-B, --Browser [action]', 'Call MadBrowser (action = {status|reload|capture|import})', '')
+  .option('-A, --Analyzer [action]', 'Call MadAnalyzer (action = {base_images|detector|pathway|madvision|forecast|summary|all})', '')
   .option('-b, --build', 'Build Android application')
   .option('-w, --wipe', 'Wipe old files/dirs in data dir')
   .parse(process.argv);
@@ -53,7 +52,6 @@ if(program.rawArgs.length <= 2) {
 
    console.log('Call MadBrowser: %s', program.Browser);
    console.log('Call MadAnalyzer: %s', program.Analyzer);
-   console.log('Action is: %s', program.action);
    console.log('Build is: %s', program.build);
    console.log('Wipe is: %s', program.wipe);
 
@@ -64,9 +62,9 @@ if(program.rawArgs.length <= 2) {
    *********************************/
    if (program.ionic) madface.ionic(program.config, config, program.logdir, program.piddir);
 
-   if (program.Browser) madface.call_madbrowser(program.config, config, program.action);
+   if (program.Browser) madface.call_madbrowser(program.config, config, program.Browser);
 
-   if (program.Analyzer) madface.call_madanalyzer(program.config, config, program.action);
+   if (program.Analyzer) madface.call_madanalyzer(program.config, config, program.Analyzer);
 
    if (program.build) madface.build_android_apk(program.config, config);
 

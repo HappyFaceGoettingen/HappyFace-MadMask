@@ -1,0 +1,3 @@
+0,15,30,45 * * * * happyface3 /var/lib/HappyFace/MadMask/madmask -B import; /var/lib/HappyFace/MadMask/madmask -A all
+5,20,35,50 * * * * happyface3 /var/lib/HappyFace/MadMask/madmask -B reload
+10,25,40,55 * * * * happyface3 /var/lib/HappyFace/MadMask/madmask -B capture

@@ -105,7 +105,8 @@ module.exports = {
           process.exit(-1);
         }
 
-        if ((action != 'reload') && (action != 'capture') && (action != 'import')) {
+        if ((action!= 'status') && (action != 'reload') &&
+            (action != 'capture') && (action != 'import')) {
 	  console.error("Error: Action [" + action + "] is not defined!");
           process.exit(-1);
         }

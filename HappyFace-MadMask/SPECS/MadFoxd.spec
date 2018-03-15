@@ -73,7 +73,7 @@ cp -vr %{_source_dir}/daemon $RPM_BUILD_ROOT/%{_prefix}
 ln -sv %{_prefix}/lib/madfox $RPM_BUILD_ROOT/%{_sbindir}
 ln -sv %{_prefix}/daemon/madfoxd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 ln -sv %{_prefix}/daemon/madfoxd.conf $RPM_BUILD_ROOT/%{_etc}
-ln -sv %{_prefix}/daemon/madfoxd.cron $RPM_BUILD_ROOT/%{_etc}/cron.d
+#ln -sv %{_prefix}/daemon/madfox.cron $RPM_BUILD_ROOT/%{_etc}/cron.d
 
 
 %clean
