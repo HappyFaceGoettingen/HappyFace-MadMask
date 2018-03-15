@@ -202,10 +202,6 @@ service httpd start
 %{_logdir}
 %{_piddir}
 
-## Old structure
-%{_madface_dir}/data
-
-
 %defattr(-,root,root)
 %{_etc}/*
 %{_sbindir}/*
