@@ -56,7 +56,7 @@ check_parallel_job(){
         
         ## Check until less than PARALLEL
         if [ $num_of_jobs -lt $PARALLEL ]; then
-            INFO "Number of [$prog] jobs = $num_of_jobs, accepting next (${jobs[*]}) ..."
+            INFO "Number of [$prog] jobs = $num_of_jobs / [$PARALLEL], accepting next (${jobs[*]}) ..."
             break
 	fi
         sleep $WAIT_PARALLEL_JOB_CHECK

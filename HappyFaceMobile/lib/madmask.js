@@ -4,7 +4,7 @@
 
 
 **********************************************/
-var sys = require('sys');
+//var sys = require('sys');
 var fs = require('fs');
 var request = require('sync-request');
 var exec = require('child_process').exec;
@@ -69,7 +69,6 @@ function loadJson(host, port, json){
 
 function makeDefaultSite(dir){
   // default site_dir dir or meta-meta.json does not, so make them
-  console.log("dir = " + dir.split('/').reverse()[0] + " " + fileExists("sites/default"));
   if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
   if (!fileExists("sites/meta-meta.json")) my_exec("ln -vs default/meta-meta.json sites/meta-meta.json");
 };
@@ -98,38 +97,47 @@ module.exports = {
 	my_exec(commandLine);
     },
 
-    capture_browser: function (dir, config) {
-	console.log("Capturing browser");
+    call_madbrowser: function (dir, config, action) {
+	console.log("Calling MadBrowser ...");
         makeDefaultSite(dir);
+        if (!action){
+	  console.error("Error: Action is not defined!");
+          process.exit(-1);
+        }
 
-	// Capturing URLs
+        if ((action != 'reload') && (action != 'capture') && (action != 'import')) {
+	  console.error("Error: Action [" + action + "] is not defined!");
+          process.exit(-1);
+        }
+
+        // madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
+	// Calling madfox exec
 	var commandLine = "madfox"
         + " -L " + config.log_level
-	+ " -u " + dir + "/" + monitoringUrlsJson
-	+ " -o " + config.data_dir
-	+ " -p " + config.firefox_profile
 	+ " -x :1000"
-        + " -a import";
+	+ " -c " + dir + "/" + configJson
+	+ " -u " + dir + "/" + monitoringUrlsJson
+	+ " -f " + config.firefox_profile
+	+ " -o ."
+        + " -a " + action;
 
 	console.log("Executing ... [" + commandLine + "]");
 	my_exec(commandLine);
     },
 
-    start_analysis: function (dir, config) {
-	console.log("Starting analysis");
+    call_madanalyzer: function (dir, config, action) {
+	console.log("Calling MadAnalyzer ...");
+        makeDefaultSite(dir);
+        if (!action){
+	  console.error("Error: Action is not defined!");
+          process.exit(-1);
+        }
 
-	summaryTemplateDir = dir + "/" + summaryTemplate;
-
-	// Using Bayesian Change Point analyser
-	// In the future, various methods should be included
-	var commandLine = "madanalyzer -m all"
-	+ " -j " + getJsonUrl("localhost", "", dir + "/" + configJson)
-	+ " -s " + getJsonUrl("localhost", "", dir + "/" + systemsJson)
-	+ " -u " + getJsonUrl("localhost", "", dir + "/" + monitoringUrlsJson) +  " -o " + getJsonUrl("localhost", "", config.summary_json)
-	+ " -c " + config.capture + " -a " + config.analysis + " -t " + summaryTemplateDir
-	+ " -r " + config.analysis_image_size + " -e " + config.thumbnail
-	+ " -n " + config.parallel_analysis
-	+ " -x ";
+	// Calling madanalyzer mediator
+	var commandLine = "madanalyzer"
+        + " -o ."
+        + " -s " + dir
+        + " -a " + action
 
 	console.log("Executing ... [" + commandLine + "]");
 	my_exec(commandLine);

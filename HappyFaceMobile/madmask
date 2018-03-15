@@ -6,6 +6,11 @@ process.title = 'madmask';
 // Libraries
 var program = require('commander');
 var fs = require('fs');
+var path = require('path');
+
+// Changing to the program directory
+var progDir = path.dirname(fs.realpathSync(__filename));
+process.chdir(progDir);
 
 // module and config
 var madface = require('./lib/madmask');
@@ -17,8 +22,9 @@ program
   .option('-i, --ionic', 'Start ionic server')
   .option('-l, --logdir [LogDir]', 'Log dir [default: /tmp]', '/tmp')
   .option('-p, --piddir [PidDir]', 'Pid dir [default: /tmp]', '/tmp')
-  .option('-f, --firefox', 'Import browser views from MadFoxd')
-  .option('-a, --analysis', 'Analyze data')
+  .option('-B, --Browser', 'Call MadBrowser (action = {reload|capture|import})')
+  .option('-A, --Analyzer', 'Call MadAnalyzer (action = {base_images|detector|pathway|madvision|forecast|summary|all})')
+  .option('-a, --action [action]', 'Select an action of MadBrowser or MadAnalyzer', '')
   .option('-b, --build', 'Build Android application')
   .option('-w, --wipe', 'Wipe old files/dirs in data dir')
   .parse(process.argv);
@@ -28,7 +34,7 @@ program
 if(program.rawArgs.length <= 2) {
    program.help();
    process.exit(0);
-} else { 
+} else {
    /*******************************
 	Read config file
    *********************************/
@@ -43,10 +49,12 @@ if(program.rawArgs.length <= 2) {
    console.log('Start Ionic server: %s', program.ionic);
    console.log('Ionic logdir: %s', program.logdir);
    console.log('Ionic piddir: %s', program.piddir);
-
-   console.log('Start firefox: %s', program.firefox);
-   console.log('Start analysis: %s', program.analysis);
    console.log('Port is: %s', config.port);
+
+   console.log('Call MadBrowser: %s', program.Browser);
+   console.log('Call MadAnalyzer: %s', program.Analyzer);
+   console.log('Action is: %s', program.action);
+   console.log('Build is: %s', program.build);
    console.log('Wipe is: %s', program.wipe);
 
 
@@ -56,13 +64,11 @@ if(program.rawArgs.length <= 2) {
    *********************************/
    if (program.ionic) madface.ionic(program.config, config, program.logdir, program.piddir);
 
-   if (program.firefox) madface.capture_browser(program.config, config);
+   if (program.Browser) madface.call_madbrowser(program.config, config, program.action);
 
-   if (program.analysis) madface.start_analysis(program.config, config);
+   if (program.Analyzer) madface.call_madanalyzer(program.config, config, program.action);
 
    if (program.build) madface.build_android_apk(program.config, config);
 
    if (program.wipe) madface.wipe_data(program.config, config);
 }
-
-

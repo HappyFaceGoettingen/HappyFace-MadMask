@@ -20,7 +20,7 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 
 
 --------------------------
-## MadModules (Meta-monitoring Analytics Device for HappyFace Modules)
+## MadModules (Mobile/Meta-monitoring Analytics Device for HappyFace Modules)
 * MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.
 * MadAnalyzer - This module allows the HappyFace core system to use extra analysis methods such as ANFIS, many machine learning libraries and Bayesian changepoint analyzer.
 * lib - Analysis mediators of browser views, JSON structures and HappyFace data
@@ -28,19 +28,19 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 
 --------------------------
 ## HappyFace-MadMask (RPM builder)
-A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-R-libs and MadFoxd RPMs.
+A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-R-libs and MadFoxd RPM packages under RPMS directory.
 
 ### How to build RPMs
      $ ./rebuild.sh build madmask
      $ ./rebuild.sh build libs
      $ ./rebuild.sh build madfoxd
 
-### Test packages (removing and installing them indeed)
+### Testing packages (removing and installing them indeed)
      $ ./rebuild.sh test
 
 
 --------------------------
-## MadFoxd (Meta-monitoring Analytics Device for Firefox daemon)
+## MadFoxd (Mobile/Meta-monitoring Analytics Device for Firefox daemon)
 A Meta-Browser service capturing browser canvases via Firefox using the MadFox addon. This service is extendable to download JSON and WSDL web services as files.
 
 ### Components

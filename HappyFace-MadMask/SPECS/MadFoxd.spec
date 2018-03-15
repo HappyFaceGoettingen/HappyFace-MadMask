@@ -15,6 +15,7 @@ Requires: ImageMagick
 Requires: xdotool
 Requires: jq
 Requires: bc
+Requires: cronie
 
 
 
@@ -53,6 +54,7 @@ cd ..
 # make directories
 ! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -vp $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
+[ ! -d $RPM_BUILD_ROOT/%{_etc}/cron.d ] && mkdir -vp $RPM_BUILD_ROOT/%{_etc}/cron.d
 ! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
 ! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
@@ -71,7 +73,7 @@ cp -vr %{_source_dir}/daemon $RPM_BUILD_ROOT/%{_prefix}
 ln -sv %{_prefix}/lib/madfox $RPM_BUILD_ROOT/%{_sbindir}
 ln -sv %{_prefix}/daemon/madfoxd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 ln -sv %{_prefix}/daemon/madfoxd.conf $RPM_BUILD_ROOT/%{_etc}
-
+ln -sv %{_prefix}/daemon/madfoxd.cron $RPM_BUILD_ROOT/%{_etc}/cron.d
 
 
 %clean

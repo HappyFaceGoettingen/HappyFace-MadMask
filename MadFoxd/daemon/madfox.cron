@@ -1,0 +1,3 @@
+0,15,30,45 * * * * root /sbin/service madfoxd import
+5,20,35,50 * * * * root /sbin/service madfoxd reload
+10,25,40,55 * * * * root /sbin/service madfoxd capture

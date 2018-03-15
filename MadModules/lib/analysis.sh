@@ -129,7 +129,9 @@ generate_detector(){
 
 
 generate_pathway(){
-    single_rcaller "pathway" "$PLOT_PATHWAY_DIR/$LATEST_DATE_ID" || return 1
+    local output_dir="$PLOT_PATHWAY_DIR/$LATEST_DATE_ID"
+    [ -e "$output_dir" ] && ERROR "generate_patyway: [$output_dir] exists!" && return 1
+    single_rcaller "pathway" "$output_dir" || return 1
     return 0
 }
 
@@ -150,7 +152,10 @@ generate_madvision_thumbnails(){
 
 
 generate_forecast(){
-    single_rcaller "${1}_forecast" "$PLOT_FORECAST_DIR/$LATEST_DATE_ID" || return 1
+    local output_dir="$PLOT_FORECAST_DIR/$LATEST_DATE_ID"
+    [ -e "$output_dir" ] && ERROR "generate_forecast: [$output_dir] exists!" && return 1
+
+    single_rcaller "${1}_forecast" "$output_dir" || return 1
     return 0
 }
 
@@ -191,7 +196,10 @@ prepare_summary_template(){
 generate_summary(){
     local rcall="${1}_summary"
 
-    local summary_template_dir=$INDEX_DIR/$LATEST_DATE_ID/$(basename $SUMMARY_TEMPLATE)
+    local output_dir=$INDEX_DIR/$LATEST_DATE_ID
+    [ -e "$output_dir" ] && ERROR "generate_summary: [$output_dir] exists!" && return 1
+
+    local summary_template_dir=$output_dir/$(basename $SUMMARY_TEMPLATE)
     local summary_json=$INDEX_DIR/$LATEST_DATE_ID/summary.json
 
     ## Putting summary template into INDEX_DIR
