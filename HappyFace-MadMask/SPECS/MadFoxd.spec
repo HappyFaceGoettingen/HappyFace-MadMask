@@ -1,7 +1,7 @@
 Summary: MadFoxd
 Name: MadFoxd
 Version: 1.0.0
-Release: 20180129
+Release: 20180316
 License: Apache License Version 2.0
 Group: System Environment/Daemons
 URL: http://nagios-goegrid.gwdg.de/category
@@ -89,5 +89,7 @@ ln -sv %{_prefix}/daemon/madfoxd.conf $RPM_BUILD_ROOT/%{_etc}
 
 
 %changelog
+* Fri Mar 16 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 0.2.0-20180316
+- Upgraded a builder. The all build processes are faster.
 * Mon Jan 29 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180129
-- initial packaging
+- Initial packaging

@@ -1,12 +1,12 @@
 Summary: MadMask-R-libs
 Name: MadMask-R-libs
-Version: 0.1.0
-Release: 1
-License: GPL
+Version: 0.2.0
+Release: 20180316
+License: Apache License Version 2.0
 Group: Applications/Engineering
 URL: http://goegrid-controller.ph2.physik.uni-goettingen.de:8111
 #Source0: ftp://rpm.org/%{name}_%{version}.source.tar.gz
-Source0: %{name}.zip
+Source0: rpackages.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
@@ -33,20 +33,19 @@ MadMask R libraries
 
 
 %prep
-%setup -q -b 0 -n %{name}
+%setup -q -n rpackages -b 0
 
 %build
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 [ ! -d $RPM_BUILD_ROOT/%{_Rlibdir} ] && mkdir -p $RPM_BUILD_ROOT/%{_Rlibdir}
-cd ..
 
 ## R library
-for p in $(cat MadMask-R-libs/packages/packages.txt)
+for p in $(cat packages.txt)
 do
 	echo "Compiling [$p] ..."
-	/usr/bin/R CMD INSTALL -c -l $RPM_BUILD_ROOT/%{_Rlibdir} MadMask-R-libs/packages/$p
+	/usr/bin/R CMD INSTALL -c -l $RPM_BUILD_ROOT/%{_Rlibdir} $p
 done
 
 
@@ -61,6 +60,8 @@ done
 %{_Rlibdir}/*
 
 %changelog
+* Fri Mar 16 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 0.2.0-20180316
+- Upgraded a builder. The all build processes are faster.
 * Wed Jan 24 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 0.1.0-1
-- initial packaging
+- Initial packaging
 

@@ -1,11 +1,12 @@
 Summary: HappyFace-MadMask
 Name: HappyFace-MadMask
 Version: 1.0.0
-Release: 20180227
+Release: 20180316
 License: Apache License Version 2.0
 Group: System Environment/Daemons
 URL: http://nagios-goegrid.gwdg.de/category
-Source0: HappyFace-MadMask.zip
+Source0: HappyFaceMobile.zip
+Source1: MadModules.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
@@ -26,9 +27,6 @@ Requires: bc
 #
 # Preamble
 #
-# Macro definitions
-%define _source_dir     HappyFace-MadMask
-
 # Macro definitions
 %define _prefix         /var/lib/HappyFace3
 %define _etc            /etc
@@ -56,7 +54,8 @@ HappyFace-MadMask is several wrapper modules for both HappyFace mobile applicati
 
 
 %prep
-%setup -q -n %{_source_dir} -b 0
+%setup -q -n HappyFaceMobile -b 0
+%setup -q -n MadModules -b 1
 
 
 %build
@@ -81,25 +80,25 @@ cd ..
 
 # Copy MadMask modules
 echo "Installing [HappyFace MadModules] ..."
-cp -vr %{_source_dir}/MadModules/modules $RPM_BUILD_ROOT/%{_prefix}
-cp -vr %{_source_dir}/MadModules/config/modules-enabled/* $RPM_BUILD_ROOT/%{_module_cfg}
-cp -vr %{_source_dir}/MadModules/config/categories-enabled/* $RPM_BUILD_ROOT/%{_category_cfg}
+cp -vr MadModules/modules $RPM_BUILD_ROOT/%{_prefix}
+cp -vr MadModules/config/modules-enabled/* $RPM_BUILD_ROOT/%{_module_cfg}
+cp -vr MadModules/config/categories-enabled/* $RPM_BUILD_ROOT/%{_category_cfg}
 
 ## Into static dir such as javascript, data and so on
 echo "Generating [HappyFace MadModules static dirs] ..."
-cp -vr %{_source_dir}/MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
+cp -vr MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
 ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
 ln -s %{_prefix}/MadMask/sites $RPM_BUILD_ROOT/%{_prefix}/static/sites
 
 ## Into lib dir
 echo "Installing [HappyFace MadModules lib] ..."
-cp -vr %{_source_dir}/MadModules/lib/* $RPM_BUILD_ROOT/%{_libdir}
+cp -vr MadModules/lib/* $RPM_BUILD_ROOT/%{_libdir}
 ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 
 
 # Install MadMask (HappyFaceMobile Instance) and its service
 echo "Installing [HappyFaceMobile] ..."
-cp -r %{_source_dir}/HappyFaceMobile $RPM_BUILD_ROOT/%{_prefix}/MadMask
+cp -r HappyFaceMobile $RPM_BUILD_ROOT/%{_prefix}/MadMask
 ln -s MadMask $RPM_BUILD_ROOT/%{_prefix}/HappyFaceMobile
 ln -s %{_prefix}/MadMask/daemon/madmask.cron $RPM_BUILD_ROOT/%{_etc}/cron.d/madmask.cron
 ln -s %{_prefix}/MadMask/daemon/madmask.conf $RPM_BUILD_ROOT/%{_etc}/madmask.conf
@@ -212,6 +211,8 @@ service httpd start
 
 
 %changelog
+* Fri Mar 16 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180316
+- Upgraded a builder. The all build processes are faster.
 * Tue Feb 27 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180227
 - disabled a strict HappyFace dependency
 * Mon Jan 15 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180115
