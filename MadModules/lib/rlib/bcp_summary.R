@@ -91,7 +91,7 @@ change.template.json <- function(combined.threshold){
   
   ## Making a symlink to summary.json
   if (combined.score >= combined.threshold) {
-    relative.path <- system(str.concat("realpath -m --relative-to=", dirname(summary.json), " ", summary.template), intern=TRUE)
+    relative.path <- system(str.concat("prealpath ", dirname(summary.json), " ", summary.template), intern=TRUE)
     system(str.concat("ln -svf ", relative.path, " ", summary.json))
   }
 }

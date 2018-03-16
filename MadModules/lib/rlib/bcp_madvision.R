@@ -47,7 +47,7 @@ run.madvision <- function(bcp.threshold=0.7){
 
     ## Status Not Changed
     if (latest.bcp.pp < bcp.threshold) {
-      relative.path <- system(paste(c("realpath -m --relative-to=", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
+      relative.path <- system(paste(c("prealpath ", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
       system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
       return(0)
     }

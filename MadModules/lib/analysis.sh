@@ -44,6 +44,16 @@ set_analysis_dirs(){
 # Common Functions used by Generator Functions
 #
 #---------------------------------------------------------------------------
+## Calling Python realpath. The realpath commands in EL6 and El7 are different.
+##  Originally, 'realpath -m --relative-to=$path1 $path2' was used.
+prealpath(){
+    local path1=$1
+    local path2=$2
+    python -c "import os.path; print os.path.relpath('$path2', '$path1')"
+}
+export -f prealpath
+
+
 common_imager(){
     local input_dir="$1"
     local convert_option="$2"
@@ -55,7 +65,7 @@ common_imager(){
     do
 	[ ! -e $output_dir ] && mkdir -v $output_dir
 	if [ ! -z "$ref_dir" ] && [ -L $input_dir/$f ]; then
-	    local relative_path=$(realpath -m --relative-to=$output_dir $ref_dir/$f)
+	    local relative_path=$(prealpath $output_dir $ref_dir/$f)
 	    ln -vs $relative_path $output_dir/$f
 	else
             INFO "Converting: [$input_dir/$f] -->  [$output_dir/$f]"
