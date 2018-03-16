@@ -1,5 +1,5 @@
 SHELL=/bin/bash
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-0,15,30,45 * * * * happyface3 /var/lib/HappyFace/MadMask/madmask -B import -A all &> /tmp/madmask.cron.log
-5,20,35,50 * * * * happyface3 /var/lib/HappyFace/MadMask/madmask -B reload
-10,25,40,55 * * * * happyface3 /var/lib/HappyFace/MadMask/madmask -B capture
+0,15,30,45 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -B import -A all &> /tmp/madmask.cron.log
+5,20,35,50 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -B reload
+10,25,40,55 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -B capture

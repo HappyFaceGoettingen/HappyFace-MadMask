@@ -19,6 +19,7 @@ Requires: ImageMagick
 Requires: jq
 Requires: sysstat
 Requires: bc
+Requires: coreutils
 
 
 

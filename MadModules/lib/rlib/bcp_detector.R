@@ -76,7 +76,7 @@ run.bcp.detector <- function(){
 
   ## loop over image files
   if (file.exists(robj.detector)){
-    if (check.robj(robj.detecotr)) load(file=robj.detector)
+    if (check.robj(robj.detector)) load(file=robj.detector)
   } else {
     message("[", robj.detector, "] does not exist!")
   }
