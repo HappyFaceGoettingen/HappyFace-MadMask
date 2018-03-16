@@ -99,8 +99,9 @@ ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 # Install MadMask (HappyFaceMobile Instance) and its service
 echo "Installing [HappyFaceMobile] ..."
 cp -r HappyFaceMobile $RPM_BUILD_ROOT/%{_prefix}/MadMask
+cp -v HappyFaceMobile/daemon/madmask.cron $RPM_BUILD_ROOT/%{_etc}/cron.d/madmask.cron
 ln -s MadMask $RPM_BUILD_ROOT/%{_prefix}/HappyFaceMobile
-cp -v %{_prefix}/MadMask/daemon/madmask.cron $RPM_BUILD_ROOT/%{_etc}/cron.d/madmask.cron
+
 ln -s %{_prefix}/MadMask/daemon/madmask.conf $RPM_BUILD_ROOT/%{_etc}/madmask.conf
 ln -s %{_prefix}/MadMask/daemon/madmaskd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d/
 ln -s %{_prefix}/MadMask/daemon/madmask-default-start $RPM_BUILD_ROOT/%{_sbindir}/
