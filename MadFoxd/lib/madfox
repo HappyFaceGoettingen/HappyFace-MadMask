@@ -202,13 +202,17 @@ start_browser(){
     ## Copying Firefox profile
     copy_firefox_profile
 
+    ## Waiting ...
+    INFO "Waiting [$WAIT_FIREFOX_BOOT] Sec (Before start_firefox) ..."
+    sleep $WAIT_FIREFOX_BOOT
+
     ## Starting Firefox
     local pid=$(start_firefox "https://www.google.com")
     write_lock firefox $pid
     ! check_lock firefox && ERROR "Starting firefox failed" && remove_lock firefox && return 1
 
     ## Waiting ...
-    INFO "Waiting [$WAIT_FIREFOX_BOOT] ..."
+    INFO "Waiting [$WAIT_FIREFOX_BOOT] Sec (After start_firefox) ..."
     sleep $WAIT_FIREFOX_BOOT
 
     ## Fitting Window (for Xvfb screen)
@@ -322,7 +326,8 @@ clean_madfox(){
 ## If common config is set, the priority is high
 if [ ! -z "$CONFIG_JSON" ]; then
     [ ! -e "$CONFIG_JSON" ] && ERROR "Common config [$CONFIG_JSON] does not exist" && exit -1
-    read_common_config $CONFIG_JSON 
+    read_common_config $CONFIG_JSON
+    [ -z "$FIREFOX_PROFILE" ] && FIREFOX_PROFILE="$CONFIG_FIREFOX_PROFILE"
 fi
 
 

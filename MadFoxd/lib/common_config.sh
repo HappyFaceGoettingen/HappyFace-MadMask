@@ -13,6 +13,7 @@ read_common_config(){
     CONFIG_SITE=$(jq ".site" $config_json | sed "s/^\"\(.*\)\"$/\1/g")
     CONFIG_DATA_DIR=$(jq ".data_dir" $config_json | sed "s/^\"\(.*\)\"$/\1/g")
     CONFIG_ANALYSIS_IMAGE_SIZE=$(jq ".analysis_image_size" $config_json | sed "s/^\"\(.*\)\"$/\1/g")
+    CONFIG_FIREFOX_PROFILE=$(jq ".firefox_profile" $config_json | sed "s/^\"\(.*\)\"$/\1/g")
 
     ## For X-displays
     X_DISPLAY_NAMES=(`jq ".xdisplay[].name" $config_json | sed "s/^\"\(.*\)\"$/\1/g"`)
