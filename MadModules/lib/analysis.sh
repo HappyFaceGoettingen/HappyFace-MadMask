@@ -206,11 +206,10 @@ prepare_summary_template(){
 generate_summary(){
     local rcall="${1}_summary"
 
+    ## Set index dir
     local output_dir=$INDEX_DIR/$LATEST_DATE_ID
-    [ -e "$output_dir" ] && ERROR "generate_summary: [$output_dir] exists!" && return 1
-
     local summary_template_dir=$output_dir/$(basename $SUMMARY_TEMPLATE)
-    local summary_json=$INDEX_DIR/$LATEST_DATE_ID/summary.json
+    local summary_json=$output_dir/summary.json
 
     ## Putting summary template into INDEX_DIR
     prepare_summary_template $summary_template_dir || return 1
