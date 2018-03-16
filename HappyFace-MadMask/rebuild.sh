@@ -82,7 +82,6 @@ madfoxd_zip(){
 build_packages(){
     local package=$1
 
-
     case "$package" in 
 	madmask)
 	    madmask_zip

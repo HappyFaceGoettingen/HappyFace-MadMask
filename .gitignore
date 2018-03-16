@@ -1,10 +1,8 @@
 TODO.md
 HappyFaceMobile-Ionic*/*
-MadMaskExampleData
 HappyFace-MadMask/RPMS/*/*.rpm
 HappyFace-MadMask/SRPMS/*.rpm
 HappyFace-MadMask/BUILD/*
 HappyFace-MadMask/BUILDROOT/*
-HappyFace-MadMask/SOURCES/HappyFace-MadMask
-HappyFace-MadMask/SOURCES/MadFoxd
-HappyFace-MadMask/SOURCES/*.zip
+HappyFace-MadMask/SOURCES/*
+

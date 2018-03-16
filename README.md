@@ -2,7 +2,7 @@
 
 --------------------------
 ## HappyFaceMobile
-HappyFace mobile application and its web server based on the Ionic framework. The Ionic builder can generate the HappyFace mobile phone application. To avoid confusion, this Ionic web server in HappyFace instance is called 'MadMask' and a symbolic link of 'HappyFaceMobile' is created. The 'madmask' command is called by the 'madmask daemon (= daemon/madmaskd)'.
+HappyFace mobile application and its web server based on the Ionic framework. The Ionic builder can generate the HappyFace mobile phone application. To avoid confusion, this Ionic web server in HappyFace instance is called '*MadMask*' and a symbolic link of '*HappyFaceMobile*' is created. The '*madmask*' command is called , for example, by the '*madmask daemon* (= daemon/madmaskd)' and cron jobs (= daemon/madmask.cron).
 
 
 ### Structure
@@ -11,7 +11,7 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
      ├── data     --->  A symbolic link to a data location
      ├── hooks
      ├── lib
-     ├── madmask  --->  MadMask command executor as a web server and executable wrappers in a HappyFace instance
+     ├── madmask  --->  MadMask command executor as a web server and executable wrappers in HappyFace instance
      ├── node_modules  ---> Local npm libraries
      ├── resources     ---> Resources of native Android and iPhone applications
      ├── scss
@@ -31,12 +31,12 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 A RPM builder for HappyFace-MadMask modules, Mobile compnents, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-R-libs and MadFoxd RPM packages under RPMS directory.
 
 ### How to build RPMs
-     $ ./rebuild.sh build madmask
-     $ ./rebuild.sh build libs
-     $ ./rebuild.sh build madfoxd
+     $ ./rebuild.sh -b madmask
+     $ ./rebuild.sh -b libs
+     $ ./rebuild.sh -b madfoxd
 
 ### Testing packages (removing and installing them indeed)
-     $ ./rebuild.sh test
+     $ ./rebuild.sh -t
 
 
 --------------------------
