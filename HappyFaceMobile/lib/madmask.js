@@ -70,7 +70,6 @@ function loadJson(host, port, json){
 function makeDefaultSite(dir){
   // default site_dir dir or meta-meta.json does not, so make them
   if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
-  if (!fileExists("sites/meta-meta.json")) my_exec("ln -vs default/meta-meta.json sites/meta-meta.json");
 };
 
 

@@ -50,7 +50,7 @@ bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.ou
     
   ## Check objects
   if ((is.null(latest.bcp.pp)) || (! exists("latest.bcp.pp")) || (length(latest.bcp.pp) == 0)){
-    message("Variable [latest.bcp.pp] is not proper. Skipping ...")
+    message("Variable [latest.bcp.pp] of [", file.prefix, "] is not appropriate. Skipping ...")
     return(-1)
   }
     

@@ -7,7 +7,11 @@ set_date_ids(){
 
     [ ! -e $input_dir ] && ERROR "get_date_ids: input_dir [$input_dir] does not exist" && return 1
     DATE_IDs=$(ls -tr $input_dir | grep -v latest | tail -n $limit)
+    RDATE_IDs=$(ls -t $input_dir | grep -v latest | head -n $limit)
+
     CDATE_IDs=$(echo "$DATE_IDs" | perl -pe "s/\n/,/g")
+    RCDATE_IDs=$(echo "$RDATE_IDs" | perl -pe "s/\n/,/g")
+
     LATEST_DATE_ID=$(echo "$DATE_IDs" | tail -n 1)
     return 0
 }
@@ -191,7 +195,7 @@ prepare_summary_template(){
     local __MYNAME__=$CONFIG_MYNAME
     local __SITE__=$CONFIG_SITE
     local __TIME__=$(date +"%l %M %p")
-    local __HISTORY__=$(echo $DATE_IDs)
+    local __HISTORY__=$(echo $RDATE_IDs)
 
     ## Applying the easiest part such as __SITE__ etc..
     sed -e "s/__MYNAME__/$__MYNAME__/g" -i $summary_template/*.json
