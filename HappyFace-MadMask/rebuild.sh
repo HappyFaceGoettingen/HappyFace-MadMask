@@ -2,14 +2,14 @@
 
 cd $(dirname $0)
 BUILDER_DIR=$PWD
-WORK_DIR=$PWD
+WORK_DIR=/tmp/MadMask.$USER
 PRJ_DIR=$PWD/..
 
 usage="./rebuild.sh [options]
 
    -b:    build {madmask|rlibs|madfoxd|all}
    -t:    test installation
-   -w:    workdir [default: .]
+   -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
 
 
@@ -121,11 +121,11 @@ build_packages(){
 
 
 set_workdir(){
-    local workdir=$1
-    WORK_DIR=$workdir
-    [ ! -e $workdir ] && mkdir -pv $workdir 
-    cd $workdir
+    [ ! -e $WORK_DIR ] && mkdir -pv $WORK_DIR
+    echo "Entering $WORK_DIR"
+    cd $WORK_DIR
     make_rpmdirs
+    make_rpmmacros
 }
 
 test_install(){
@@ -146,14 +146,16 @@ clean_packages(){
 while getopts "b:w:tChv" op
   do
   case $op in
-      b)  make_rpmmacros
+      b)  set_workdir
 	  build_packages $OPTARG
           ;;
-      w) set_workdir $OPTARG
+      w) WORK_DIR=$OPTARG
           ;;
-      t) test_install
+      t) set_workdir
+	  test_install
 	  ;;
-      C) clean_packages
+      C) set_workdir
+	  clean_packages
 	  ;;
       h) echo "$usage"
           exit 0

@@ -66,7 +66,7 @@ angular.module('happyface', ['ionic', 'happyface.controllers', 'happyface.CtrlMo
        views: {
 	  'tab-humans': {
 	   templateUrl: 'templates/tab-humans.html',
-	   controller: 'AccountCtrl'
+	   controller: 'HumansCtrl'
 	 }
        }
     })
@@ -121,12 +121,12 @@ angular.module('happyface', ['ionic', 'happyface.controllers', 'happyface.CtrlMo
        }
     })
 
-    .state('tab.diagram', {
-       url: '/diagram',
+    .state('tab.visualizer', {
+       url: '/visualizer',
        views: {
-	  'tab-diagram': {
-	   templateUrl: 'templates/tab-diagram.html',
-	   controller: 'DiagramCtrl'
+	  'tab-visualizer': {
+	   templateUrl: 'templates/tab-visualizer.html',
+	   controller: 'VisualizerCtrl'
 	 }
        }
     })

@@ -189,7 +189,7 @@ angular.module('happyface.controllers', [])
   };
 })
 
-.controller('DiagramCtrl', function($scope, Visualizers) {
+.controller('VisualizerCtrl', function($scope, Visualizers) {
   $scope.visualizers = Visualizers.all();
   $scope.selectedItem = $scope.visualizers[0];
   $scope.diagram = $scope.selectedItem.file;
@@ -206,6 +206,6 @@ angular.module('happyface.controllers', [])
 
 })
 
-.controller('AccountCtrl', function($scope, Humans) {
-  $scope.emails = Humans.all();
+.controller('HumansCtrl', function($scope, Humans) {
+  $scope.humans = Humans.all();
 });
