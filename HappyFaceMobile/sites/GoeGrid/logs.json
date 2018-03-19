@@ -1,10 +1,16 @@
 [{ 
-    "name": "Cron log",
-    "file": "data/GoeGrid/log/cron.log"
+    "name": "HappyFace Cron Log",
+    "file": "/var/log/HappyFace/HappyFace.cron.log"
 }, {
-    "name": "Firefox log",
-    "file": "data/GoeGrid/log/firefox.log"
+    "name": "MadMask Cron Log [Import & Analysis]",
+    "file": "/tmp/madmask.cron.log"
 }, {
-    "name": "Analysis log",
-    "file": "data/GoeGrid/log/analysis.log"
+    "name": "MadMask Ionic Server Log",
+    "file": "/var/log/HappyFace/ionic-server.8111.log"
+}, {
+    "name": "MadFoxd Log",
+    "file": "/var/tmp/MadFoxd/log/madfoxd.log"
+}, {
+    "name": "Firefox Log",
+    "file": "/var/tmp/MadFoxd/log/firefox__pre-configured_firefox_profile_with_MadFox.default.1000__1280x1024.log"
 }]

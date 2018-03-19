@@ -195,7 +195,7 @@ angular.module('happyface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Visualizers ...");
-	  systems = loadJsonByConfig(Config.get(), visualizersJson);
+	  visualizers = loadJsonByConfig(Config.get(), visualizersJson);
 	  setLinks();
     }
   };
@@ -203,15 +203,20 @@ angular.module('happyface.FacJsonContents', [])
 
 
 .factory('Logs', function(Config) {
-  //var logs = config.logs;
   setLinks();
 
   function setLinks(){
-      for (var i = 0; i < logs.length; i++) {
-	  var remote_url = getMobileUrl();
-	  if (isHttpUrl(logs[i].file)) remote_url= "";
-	  logs[i].file = remote_url + logs[i].file;
+    var log_dir = config.data_dir + "/log";
+    var remote_url = getMobileUrl();
+    for (var i = 0; i < logs.length; i++) {
+      // If it does not begin with 'http', then basename of log name is set
+      // For example, /tmp/cron.log --> cron.log --> remote_url + data_dir + '/log/' + cron.log
+      if (!isHttpUrl(logs[i].file)){
+        var logname = logs[i].file;
+        var base_logfile = logname.split('/').reverse()[0];
+	logs[i].file = remote_url + "/" + log_dir + "/" + base_logfile;
       }
+    }
   }
 
   return {
@@ -223,7 +228,7 @@ angular.module('happyface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Logs ...");
-	  systems = loadJsonByConfig(Config.get(), logsJson);
+	  logss = loadJsonByConfig(Config.get(), logsJson);
 	  setLinks();
     }
   };

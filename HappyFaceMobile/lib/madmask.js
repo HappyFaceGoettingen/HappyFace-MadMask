@@ -16,7 +16,7 @@ var exec = require('child_process').exec;
 var configJson = "config.json";
 var systemsJson = "systems.json";
 var monitoringUrlsJson = "monitoring-urls.json";
-
+var logsJson = "logs.json";
 var summaryTemplate = "summary_template";
 
 
@@ -143,15 +143,28 @@ module.exports = {
 	my_exec(commandLine);
     },
 
+    run_log_collector: function (dir, config) {
+      console.log("Collecting Log files ... ");
+      var logs = JSON.parse(fs.readFileSync(dir + "/" + logsJson));
+      for (var i = 0; i < logs.length; i++){
+        var src_logfile = logs[i].file;
+        var dst_logfile = config.data_dir + "/log/" + src_logfile.split('/').reverse()[0];
+        var commandLine = "tail -n 10000 " + src_logfile + " > " + dst_logfile;
+        console.log("LogCollector: " + commandLine);
+        if (fileExists(src_logfile))
+          my_exec("tail -n 10000 " + src_logfile + " > " + dst_logfile);
+      }
+    },
+
     build_android_apk: function (dir, config) {
-	console.log("Building Android Application");
-	my_exec("rm -v www/data; ionic build; ln -s ../data www/data");
+      console.log("Building Android Application");
+      my_exec("rm -v www/data; ionic build; ln -s ../data www/data");
     },
 
     wipe_data: function(dir, config) {
-	console.log("Wiping old data in [" + config.capture + ", " + config.thumbnail + ", " + config.analysis + "] ...");
-	my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.capture);
-	my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.thumbnail);
-	my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.analysis);
+      console.log("Wiping old data in [" + config.capture + ", " + config.thumbnail + ", " + config.analysis + "] ...");
+      my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.capture);
+      my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.thumbnail);
+      my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.analysis);
     }
 };
