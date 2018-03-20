@@ -43,9 +43,10 @@ function loadJson(host, port, dir, json){
 
 
 function loadJsonByConfig(config, json){
-    var host = config.host;
+    var host = location.hostname;
+    var port = location.port;
     if (!isMobilePlatform()) host = "localhost";
-    return loadJson(host, config.port, config.dir, json);
+    return loadJson(host, port, config.dir, json);
 };
 
 
@@ -74,7 +75,7 @@ function isMobilePlatform(){
 
 function getMobileUrl(){
     if (!isMobilePlatform()) return "";
-    return "http://" + config.host + ":" + config.port + "/";
+    return "http://" + location.hostname + ":" + config.port + "/";
 }
 
 

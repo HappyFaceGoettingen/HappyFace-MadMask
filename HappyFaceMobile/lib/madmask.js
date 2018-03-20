@@ -18,7 +18,7 @@ var systemsJson = "systems.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 var logsJson = "logs.json";
 var summaryTemplate = "summary_template";
-
+var LIMIT_LOG_LINES = 3000;
 
 /*
   Some useful functions
@@ -150,9 +150,12 @@ module.exports = {
         var src_logfile = logs[i].file;
         var dst_logfile = config.data_dir + "/log/" + src_logfile.split('/').reverse()[0];
         var commandLine = "tail -n 10000 " + src_logfile + " > " + dst_logfile;
-        console.log("LogCollector: " + commandLine);
-        if (fileExists(src_logfile))
-          my_exec("tail -n 10000 " + src_logfile + " > " + dst_logfile);
+        if (! fileExists(src_logfile)) {
+          console.log("LogCollector: [" + src_logfile + "] does not exist");
+        } else {
+          console.log("LogCollector: " + commandLine);
+          my_exec("tail -n " + LIMIT_LOG_LINES + " "  + src_logfile + " > " + dst_logfile);
+        }
       }
     },
 

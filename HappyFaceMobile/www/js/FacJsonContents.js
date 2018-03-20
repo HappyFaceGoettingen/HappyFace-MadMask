@@ -57,7 +57,7 @@ angular.module('happyface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading summary ...");
-	  summary = loadJson(Config.get().host, Config.get().port, "", summaryJson);
+	  summary = loadJson(location.hostname, location.port, "", summaryJson);
     },
     say: function() {
 	  if (MobileConfig.get().enableTextSpeech) window.TTS.speak(summary.text);
