@@ -102,7 +102,7 @@ ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 
 ## R library
 cd rpackages
-for p in $(cat packages.txt | head -n 1)
+for p in $(cat packages.txt)
 do
 	echo "Compiling [$p] ..."
 	/usr/bin/R CMD INSTALL -c -l $RPM_BUILD_ROOT/%{_Rlibdir} $p
