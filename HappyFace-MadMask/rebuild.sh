@@ -134,14 +134,13 @@ set_workdir(){
 }
 
 test_install(){
-    yum -y remove HappyFace-MadMask MadFoxd
+    yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
     yum -y install RPMS/x86_64/MadFoxd-*.rpm
-    yum -y install RPMS/x86_64/HappyFace-MadMask-*.rpm RPMS/x86_64/MadMask-R-libs-*.rpm
+    yum -y install RPMS/x86_64/HappyFace-*.rpm
 }
 
 clean_packages(){
     rm -vf RPMS/*/*.rpm
-    rm -vf SRPMS/*.rpm
 }
 
 
