@@ -6,11 +6,10 @@ License: Apache License Version 2.0
 Group: System Environment/Daemons
 URL: http://nagios-goegrid.gwdg.de/category
 Source0: HappyFaceMobile.zip
-Source1: MadModules.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
-#Requires: HappyFaceCore = 3.0.0-3
+Requires: MadFoxd
 
 Requires: nodejs
 Requires: npm
@@ -20,7 +19,7 @@ Requires: jq
 Requires: sysstat
 Requires: bc
 Requires: coreutils
-
+Requires: cronie
 
 
 ######################################################################
@@ -36,12 +35,6 @@ Requires: coreutils
 %define _logdir         /var/log/HappyFace
 %define _piddir         /var/run/HappyFace
 %define _sbindir        /usr/sbin
-%define _libdir         /usr/share/madanalyzer/lib
-
-%define _category_cfg   %{_prefix}/config/categories-enabled
-%define _module_cfg     %{_prefix}/config/modules-enabled
-%define _category_dis_cfg   %{_prefix}/config/categories-disabled
-%define _module_dis_cfg     %{_prefix}/config/modules-disabled
 
 
 %define happyface_uid	373
@@ -56,7 +49,6 @@ HappyFace-MadMask is several wrapper modules for both HappyFace mobile applicati
 
 %prep
 %setup -q -n HappyFaceMobile -b 0
-%setup -q -n MadModules -b 1
 
 
 %build
@@ -68,33 +60,12 @@ cd ..
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 # make directories
-! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix} $RPM_BUILD_ROOT/%{_prefix}/static
-! [ -d $RPM_BUILD_ROOT/%{_module_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_module_cfg}
-! [ -d $RPM_BUILD_ROOT/%{_category_cfg} ] && mkdir -vp $RPM_BUILD_ROOT/%{_category_cfg}
+! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/cron.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/cron.d
 ! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
 ! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
-! [ -d $RPM_BUILD_ROOT/%{_libdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_libdir}
-
-
-# Copy MadMask modules
-echo "Installing [HappyFace MadModules] ..."
-cp -vr MadModules/modules $RPM_BUILD_ROOT/%{_prefix}
-cp -vr MadModules/config/modules-enabled/* $RPM_BUILD_ROOT/%{_module_cfg}
-cp -vr MadModules/config/categories-enabled/* $RPM_BUILD_ROOT/%{_category_cfg}
-
-## Into static dir such as javascript, data and so on
-echo "Generating [HappyFace MadModules static dirs] ..."
-cp -vr MadModules/js/* $RPM_BUILD_ROOT/%{_prefix}/static
-ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/static/data
-ln -s %{_prefix}/MadMask/sites $RPM_BUILD_ROOT/%{_prefix}/static/sites
-
-## Into lib dir
-echo "Installing [HappyFace MadModules lib] ..."
-cp -vr MadModules/lib/* $RPM_BUILD_ROOT/%{_libdir}
-ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 
 
 # Install MadMask (HappyFaceMobile Instance) and its service
@@ -113,10 +84,6 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
-
-
-%pre
-service httpd stop
 
 
 %post
@@ -150,47 +117,11 @@ fi
 [ ! -d %{_datadir} ] && mkdir -vp %{_datadir}
 
 
-## Disabling some development modules and updating HF-DB
-if rpm -q HappyFaceCore; then
-    ## making default categories disabled
-    ! [ -e %{_module_dis_cfg} ] && mkdir -v %{_module_dis_cfg}
-    ! [ -e %{_category_dis_cfg} ] && mkdir -v %{_category_dis_cfg}
-    
-    ## disabling default categories
-    [ -e %{_category_cfg}/batch_system.cfg ] && mv -v %{_category_cfg}/batch_system.cfg %{_category_dis_cfg}
-    [ -e %{_category_cfg}/infrastructure.cfg ] && mv -v %{_category_cfg}/infrastructure.cfg %{_category_dis_cfg}
-    [ -e %{_category_cfg}/phedex_prod.cfg ] && mv -v %{_category_cfg}/phedex_prod.cfg %{_category_dis_cfg}
-    
-    ## disabling default modules
-    [ -e %{_module_cfg}/batch_system.cfg ] && mv -v %{_module_cfg}/batch_system.cfg %{_module_dis_cfg}
-    [ -e %{_module_cfg}/phedex_prod.cfg ] && mv -v %{_module_cfg}/phedex_prod.cfg %{_module_dis_cfg}
-    [ -e %{_module_cfg}/uschi_basic_dcap.cfg ] && mv -v %{_module_cfg}/uschi_*.cfg %{_module_dis_cfg}
-    
-    
-    ##----------------------------------
-    ## Disabling outdated ones
-    ##----------------------------------
-    [ -e %{_category_cfg}/panda.cfg ] && mv -v %{_category_cfg}/panda*.cfg %{_category_dis_cfg}
-    [ -e %{_category_cfg}/site_services.cfg ] && sed -e "s/,g__stat//g" -i %{_category_cfg}/site_services.cfg
-    
-
-    ## Making database
-    echo "------------------------------------"
-    echo "Populating default Happy Face database ..."
-    cd %{_prefix}
-    su %{happyface_user} -c "python acquire.py"
-    echo "------------------------------------"
-fi
-
-
-service httpd start
 service crond start
 
 %preun
-service httpd stop
+service madmaskd stop
 
-%postun
-service httpd start
 
 
 
@@ -198,17 +129,13 @@ service httpd start
 %defattr(-,%{happyface_user},%{happyface_group})
 %{_prefix}/HappyFaceMobile
 %{_prefix}/MadMask
-%{_prefix}/static/*
-%{_prefix}/modules/*
-%{_module_cfg}/*
-%{_category_cfg}/*
 %{_logdir}
 %{_piddir}
+
 
 %defattr(-,root,root)
 %{_etc}/*
 %{_sbindir}/*
-%{_libdir}/*
 
 
 

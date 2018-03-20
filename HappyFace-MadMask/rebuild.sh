@@ -7,7 +7,7 @@ PRJ_DIR=$PWD/..
 
 usage="./rebuild.sh [options]
 
-   -b:    build {madmask|rlibs|madfoxd|all}
+   -b:    build {madmask|madmodules|madfoxd|all}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -56,25 +56,30 @@ madmask_zip(){
     pushd $PRJ_DIR
     echo "Archiving $WORK_DIR/SOURCES/HappyFaceMobile.zip <-- HappyFaceMobile"
     tar zcf $WORK_DIR/SOURCES/HappyFaceMobile.zip HappyFaceMobile
-    echo "Archiving $WORK_DIR/SOURCES/MadModules.zip <-- MadModules"
-    tar zcf $WORK_DIR/SOURCES/MadModules.zip MadModules
     popd
 }
 
-rlibs_zip(){
-
-    ## MadMask-R-libs.zip
-    pushd $BUILDER_DIR
-    echo "Archiving $WORK_DIR/SOURCES/rpackages.zip <-- rpackages"
-    tar zcf $WORK_DIR/SOURCES/rpackages.zip rpackages
-    popd
-}
 
 madfoxd_zip(){
     ## MadFoxd.zip
     pushd $PRJ_DIR
     echo "Archiving $WORK_DIR/SOURCES/MadFoxd.zip <-- MadFoxd"
     tar zcf $WORK_DIR/SOURCES/MadFoxd.zip MadFoxd
+    popd
+}
+
+
+madmodules_zip(){
+    ## MadModules.zip
+    pushd $PRJ_DIR
+    echo "Archiving $WORK_DIR/SOURCES/MadModules.zip <-- MadModules"
+    tar zcf $WORK_DIR/SOURCES/MadModules.zip MadModules
+    popd
+
+    ## MadMask-R-libs.zip
+    pushd $BUILDER_DIR
+    echo "Archiving $WORK_DIR/SOURCES/rpackages.zip <-- rpackages"
+    tar zcf $WORK_DIR/SOURCES/rpackages.zip rpackages
     popd
 }
 
@@ -91,11 +96,11 @@ build_packages(){
 	    madfoxd_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/MadFoxd.spec
 	    ;;
-	rlibs)
-	    rlibs_zip
+	madmodules)
+	    madmodules_zip
 	    ## Skipping check-buildroot
 	    export QA_SKIP_BUILD_ROOT=1
-	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/MadMask-R-libs.spec
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules.spec
 	    ;;
 	all)
 	    ## MadMask
@@ -106,11 +111,11 @@ build_packages(){
 	    madfoxd_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/MadFoxd.spec
 
-	    ## Rlibs
-	    rlibs_zip
+	    ## MadModules
+	    madmodules_zip
 	    ## Skipping check-buildroot
 	    export QA_SKIP_BUILD_ROOT=1
-	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/MadMask-R-libs.spec
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules.spec
 	    ;;
 	*)
 	    echo "-b [$package] does not exist"
