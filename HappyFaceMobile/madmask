@@ -13,7 +13,7 @@ var progDir = path.dirname(fs.realpathSync(__filename));
 process.chdir(progDir);
 
 // module and config
-var madface = require('./lib/madmask');
+var madmask = require('./lib/madmask');
 
 
 program
@@ -25,8 +25,8 @@ program
   .option('-B, --Browser [action]', 'Call MadBrowser (action = {status|reload|capture|import})', '')
   .option('-A, --Analyzer [action]', 'Call MadAnalyzer (action = {base_images|detector|pathway|madvision|forecast|summary|all})', '')
   .option('-L, --LogCollector', 'Log Collector')
+  .option('-W, --Wipe', 'Wipe old files/dirs in data dir')
   .option('-b, --build', 'Build Android application')
-  .option('-w, --wipe', 'Wipe old files/dirs in data dir')
   .parse(process.argv);
 
 //console.log(program);
@@ -54,23 +54,22 @@ if(program.rawArgs.length <= 2) {
    console.log('Call MadBrowser: %s', program.Browser);
    console.log('Call MadAnalyzer: %s', program.Analyzer);
    console.log('Log Collector: %s', program.LogCollector);
+   console.log('Wipe is: %s', program.Wipe);
    console.log('Build is: %s', program.build);
-   console.log('Wipe is: %s', program.wipe);
-
 
 
    /*******************************
 	Execute actions
    *********************************/
-   if (program.ionic) madface.ionic(program.config, config, program.logdir, program.piddir);
+   if (program.ionic) madmask.ionic(program.config, config, program.logdir, program.piddir);
 
-   if (program.Browser) madface.call_madbrowser(program.config, config, program.Browser);
+   if (program.Browser) madmask.call_madbrowser(program.config, config, program.Browser);
 
-   if (program.Analyzer) madface.call_madanalyzer(program.config, config, program.Analyzer);
+   if (program.Analyzer) madmask.call_madanalyzer(program.config, config, program.Analyzer);
 
-   if (program.LogCollector) madface.run_log_collector(program.config, config);
+   if (program.LogCollector) madmask.run_log_collector(program.config, config);
 
-   if (program.build) madface.build_android_apk(program.config, config);
+   if (program.Wipe) madmask.wipe_data(program.config, config);
 
-   if (program.wipe) madface.wipe_data(program.config, config);
+   if (program.build) madmask.build_android_apk(program.config, config);
 }

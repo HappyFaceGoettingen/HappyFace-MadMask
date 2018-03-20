@@ -236,14 +236,22 @@ generate_analysis_index(){
     
     ## Outputting index_dir/analysis.json
     local items=(capture thumbnail base_image analysis pathway madvision madvision_thumbnail forecast)
-    local all_analysis_index_subdirs=($CAPTURE_DIR $THUMBNAIL_DIR $BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR)
-    echo "" > $analysis_json
+    local all_analysis_subdirs=($CAPTURE_DIR $THUMBNAIL_DIR $BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR)
+    echo "[{" > $analysis_json
+    echo "   \"datetime\": \"$LATEST_DATE_ID\"," >> $analysis_json
     local i
-    for i in $(seq 0 $((${#all_analysis_index_subdirs[*]} - 1)))
+    for i in $(seq 0 $((${#all_analysis_subdirs[*]} - 1)))
     do
-	echo "   ${items[$i]}: \"\"" >> $analysis_json
+	local dir=${all_analysis_subdirs[$i]}/$LATEST_DATE_ID
+	INFO "Collecting index data [${items[$i]}] from [$dir] --> [$analysis_json]"
+
+	## Outputting contents
+	echo -n "   \"${items[$i]}\": [" >> $analysis_json
+	ls $dir/* &> /dev/null && echo -n $(ls $dir/*) | perl -pe "s/ /\", \"/g"  | perl -pe "s/^(.*)$/\"\1\"/g" >> $analysis_json
+	[ $i -ne $((${#all_analysis_subdirs[*]} - 1)) ] && echo "]," >> $analysis_json
+	[ $i -eq $((${#all_analysis_subdirs[*]} - 1)) ] && echo "]" >> $analysis_json
     done
-    echo "" >> $analysis_json
+    echo "}]" >> $analysis_json
 
     return 0
 }

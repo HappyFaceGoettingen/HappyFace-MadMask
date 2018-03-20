@@ -5,6 +5,9 @@
     "name": "MadMask Cron Log [Import & Analysis]",
     "file": "/tmp/madmask.cron.log"
 }, {
+    "name": "MadMask Cron Log [Wipe]",
+    "file": "/tmp/madmask.cron.wipe.log"
+}, {
     "name": "MadMask Ionic Server Log",
     "file": "/var/log/HappyFace/ionic-server.8111.log"
 }, {

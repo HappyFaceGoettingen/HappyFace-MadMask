@@ -4,7 +4,6 @@
 
 
 **********************************************/
-//var sys = require('sys');
 var fs = require('fs');
 var request = require('sync-request');
 var exec = require('child_process').exec;
@@ -17,8 +16,10 @@ var configJson = "config.json";
 var systemsJson = "systems.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 var logsJson = "logs.json";
-var summaryTemplate = "summary_template";
+var humansJson = "humans.json";
+
 var LIMIT_LOG_LINES = 3000;
+var COMMAND_MAXBUFFER = 2000 * 1024;
 
 /*
   Some useful functions
@@ -26,7 +27,6 @@ var LIMIT_LOG_LINES = 3000;
 
 function fileExists(filePath){
     try {
-	//return fs.statSync(filePath).isFile();
       return fs.existsSync(filePath);
     } catch (err) {
 	return false;
@@ -34,7 +34,7 @@ function fileExists(filePath){
 }
 
 function my_exec(commandLine){
-    a = exec(commandLine, {maxBuffer: 2000 * 1024});
+    a = exec(commandLine, {maxBuffer: COMMAND_MAXBUFFER});
     a.stdout.pipe(process.stdout);
     a.stderr.pipe(process.stderr);
 }
@@ -68,7 +68,7 @@ function loadJson(host, port, json){
 
 
 function makeDefaultSite(dir){
-  // default site_dir dir or meta-meta.json does not, so make them
+  // default site_dir dir does not exist, so make it
   if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
 };
 
@@ -80,7 +80,6 @@ function makeDefaultSite(dir){
 ***********************************************/
 module.exports = {
     ionic: function (dir, config, logdir, piddir) {
-        // default site_dir dir or meta-meta.json does not, so make them
         makeDefaultSite(dir);
 
 	// whatever
@@ -99,6 +98,7 @@ module.exports = {
     call_madbrowser: function (dir, config, action) {
 	console.log("Calling MadBrowser ...");
         makeDefaultSite(dir);
+
         if (!action){
 	  console.error("Error: Action is not defined!");
           process.exit(-1);
@@ -128,6 +128,7 @@ module.exports = {
     call_madanalyzer: function (dir, config, action) {
 	console.log("Calling MadAnalyzer ...");
         makeDefaultSite(dir);
+
         if (!action){
 	  console.error("Error: Action is not defined!");
           process.exit(-1);
@@ -145,29 +146,30 @@ module.exports = {
 
     run_log_collector: function (dir, config) {
       console.log("Collecting Log files ... ");
+      makeDefaultSite(dir);
+
       var logs = JSON.parse(fs.readFileSync(dir + "/" + logsJson));
       for (var i = 0; i < logs.length; i++){
         var src_logfile = logs[i].file;
         var dst_logfile = config.data_dir + "/log/" + src_logfile.split('/').reverse()[0];
-        var commandLine = "tail -n 10000 " + src_logfile + " > " + dst_logfile;
+        var commandLine = "tail -n " + LIMIT_LOG_LINES + " " + src_logfile + " > " + dst_logfile;
         if (! fileExists(src_logfile)) {
           console.log("LogCollector: [" + src_logfile + "] does not exist");
         } else {
           console.log("LogCollector: " + commandLine);
-          my_exec("tail -n " + LIMIT_LOG_LINES + " "  + src_logfile + " > " + dst_logfile);
+          my_exec(commandLine);
         }
       }
     },
 
     build_android_apk: function (dir, config) {
-      console.log("Building Android Application");
-      my_exec("rm -v www/data; ionic build; ln -s ../data www/data");
+      console.log("Building Android Application ...");
+      my_exec("rm -v www/data; ionic build; ln -vs ../data www/data");
     },
 
     wipe_data: function(dir, config) {
-      console.log("Wiping old data in [" + config.capture + ", " + config.thumbnail + ", " + config.analysis + "] ...");
-      my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.capture);
-      my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.thumbnail);
-      my_exec("/usr/bin/tmpwatch -v -umc " + config.keep_data_days + "d " + config.analysis);
+      var commandLine = "tmpwatch -v -umc " + config.keep_data_days + "d " + config.data_dir;
+      console.log("Wiping old data in [" + config.data_dir + "]: " + commandLine);
+      my_exec(commandLine);
     }
 };
