@@ -179,7 +179,6 @@
 		    "name": "DDM Tier0 data export to Grid last 12 hours",
 		    "file_prefix": "DDM_Tier0_Data_Export_to_Grid_last_12h", 
 		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Export%29&date.interval=720&dst.tier=%280,1,2%29&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6&src.tier=%280,1,2%29&tab=transfer_plots",
-		    "capture_wait": 5,
 		    "capture": true,
                     "systems": ["DDM transfer service", "CERN Tier0"]
 		},
@@ -209,7 +208,6 @@
 		    "name": "DDM Transfer Plots last 4 hours",
 		    "file_prefix": "DDM_Transfer_Plots_last_4h", 
 		    "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29&tab=transfer_plots",
-		    "capture_wait": 5,
 		    "capture": true,
 		    "systems": ["DDM transfer service"]
 		},

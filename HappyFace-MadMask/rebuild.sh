@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 BUILDER_DIR=$PWD
-WORK_DIR=/tmp/MadMask.$USER
+WORK_DIR=/tmp/MadMask.$(whoami)
 PRJ_DIR=$PWD/..
 
 usage="./rebuild.sh [options]

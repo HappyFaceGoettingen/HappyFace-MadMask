@@ -166,7 +166,9 @@ module.exports = {
 
     build_android_apk: function (dir, config) {
       console.log("Building Android Application ...");
-      my_exec("rm -v www/data; ionic build; ln -vs ../data www/data");
+      var commandLine = "rm -v www/data; ionic build android; ln -vs ../data www/data";
+      console.log("Builder: " + commandLine);
+      my_exec(commandLine);
     },
 
     wipe_data: function(dir, config) {
