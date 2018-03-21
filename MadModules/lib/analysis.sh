@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------
-# Function: set DATE_IDs by the given input dir
+# Basic Function: set DATE_IDs by the given input dir
 #---------------------------------------------------------------------------
 set_date_ids(){
     local input_dir="$1"
@@ -18,12 +18,12 @@ set_date_ids(){
 
 
 #---------------------------------------------------------------------------
-# Function: set analysis directories by the given DATA_HOME
+# Basic Function: set analysis directories by the given DATA_HOME
 #---------------------------------------------------------------------------
 set_analysis_dirs(){
 
     ANALYSIS_DIR=$DATA_DIR/analysis
-    BASE_IMAGES_DIR="$ANALYSIS_DIR/base_images"
+    BASE_IMAGE_DIR="$ANALYSIS_DIR/base_image"
     PLOT_ANALYSIS_DIR="$ANALYSIS_DIR/plot_analysis"
     PLOT_PATHWAY_DIR="$ANALYSIS_DIR/plot_pathway"
     MADVISION_DIR="$ANALYSIS_DIR/madvision"
@@ -31,7 +31,7 @@ set_analysis_dirs(){
     PLOT_FORECAST_DIR="$ANALYSIS_DIR/plot_forecast"
     ANALYSIS_OBJ_DIR="$ANALYSIS_DIR/analysis_obj"
 
-    local all_analysis_subdirs="$BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR $ANALYSIS_OBJ_DIR"
+    local all_analysis_subdirs="$BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR $ANALYSIS_OBJ_DIR"
     local dir
     for dir in $all_analysis_subdirs
     do
@@ -48,6 +48,7 @@ set_analysis_dirs(){
 # Common Functions used by Generator Functions
 #
 #---------------------------------------------------------------------------
+
 ## Calling Python realpath. The realpath commands in EL6 and El7 are different.
 ##  Originally, 'realpath -m --relative-to=$path1 $path2' was used.
 prealpath(){
@@ -58,6 +59,7 @@ prealpath(){
 export -f prealpath
 
 
+## Image size/format converter. This can run in parallel.
 common_imager(){
     local input_dir="$1"
     local convert_option="$2"
@@ -81,6 +83,7 @@ common_imager(){
 }
 
 
+## R runtime caller. This can run in parallel.
 common_rcaller(){
     local rcall="$1"
     local output_dir="$2"
@@ -90,7 +93,7 @@ common_rcaller(){
     mkdir -v $output_dir
 
     ## Generating analysis plots and objs
-    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
+    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGE_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
     load_monitoringUrls_json $URLS_JSON || return 1
     local i
     for i in $(seq 0 $((${#FILE_PREFIXES[*]} - 1)))
@@ -104,6 +107,7 @@ common_rcaller(){
 }
 
 
+## R runtime caller, but this does not run in parallel
 single_rcaller(){
     local rcall="$1"
     local output_dir="$2"
@@ -112,7 +116,7 @@ single_rcaller(){
     [ ! -e "$output_dir" ] && mkdir -v $output_dir
 
     ## Generating analysis plots and objs
-    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGES_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
+    local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGE_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
     R --slave -f $R_RUNTIME_LOADER --args $rcall "" $args 
 }
 
@@ -122,6 +126,7 @@ single_rcaller(){
 # Generator Functions
 #  {base_images|detector|madvision|pathway}
 #---------------------------------------------------------------------------
+## Generating common image file. The base_image size is defined in config.json (analysis_image_size)
 generate_base_images(){
     local base_image_option="-geometry $ANALYSIS_IMAGE_SIZE!"
 
@@ -129,19 +134,19 @@ generate_base_images(){
     for date_id in $DATE_IDs
     do
 	[ ! -e "$CAPTURE_DIR/$date_id" ] && continue
-	[ -e "$BASE_IMAGES_DIR/$date_id" ] && continue
-	common_imager "$CAPTURE_DIR/$date_id" "$base_image_option" "$BASE_IMAGES_DIR/$date_id"
+	[ -e "$BASE_IMAGE_DIR/$date_id" ] && continue
+	common_imager "$CAPTURE_DIR/$date_id" "$base_image_option" "$BASE_IMAGE_DIR/$date_id"
     done
     return 0
 }
 
-
+## Generating a basic detector to identify a status change point
 generate_detector(){
     common_rcaller "${1}_detector" "$PLOT_ANALYSIS_DIR/$LATEST_DATE_ID" || return 1
     return 0
 }
 
-
+## Generating system pathways (relations), according to monitoring-urls.json and systems.json
 generate_pathway(){
     local output_dir="$PLOT_PATHWAY_DIR/$LATEST_DATE_ID"
     [ -e "$output_dir" ] && ERROR "generate_patyway: [$output_dir] exists!" && return 1
@@ -149,7 +154,7 @@ generate_pathway(){
     return 0
 }
 
-
+## Generating red-vision (madvision) like a terminator view. This view can emphasize the browser view/thumbnails which have a status change point.
 generate_madvision(){
     common_rcaller "${1}_madvision" "$MADVISION_DIR/$LATEST_DATE_ID" || return 1
 
@@ -158,13 +163,13 @@ generate_madvision(){
     return 0
 }
 
-
+## The above generated madvision is changed to thumbnail views
 generate_madvision_thumbnails(){
     [ -z "$THUMBNAIL_OPTION" ] && THUMBNAIL_OPTION="-geometry 100x200!"
     common_imager "$1" "$THUMBNAIL_OPTION" "$2" "$3" 
 }
 
-
+## Generating forecasts according to systems.json definition. HappyFace DB will be used in future
 generate_forecast(){
     local output_dir="$PLOT_FORECAST_DIR/$LATEST_DATE_ID"
     [ -e "$output_dir" ] && ERROR "generate_forecast: [$output_dir] exists!" && return 1
@@ -177,7 +182,11 @@ generate_forecast(){
 #---------------------------------------------------------------------------
 # Final Summary Generator Functions
 #  {summary}
+#  Summarization process runs by the following order
+#   "prepare_summary" --> "generate_summary" --> "index" --> "generate_symlink"
 #---------------------------------------------------------------------------
+
+## Copying summary_template to INDEX_DIR and applying basic properties such as SITE_NAME, TIME and so on
 prepare_summary_template(){
     local summary_template=$1
     local index_dir=$(dirname $summary_template)
@@ -207,6 +216,7 @@ prepare_summary_template(){
 }
 
 
+## Generating a summary json 'summary.json' in INDEX_DIR
 generate_summary(){
     local rcall="${1}_summary"
 
@@ -229,6 +239,7 @@ generate_summary(){
 }
 
 
+## Generating an index file 'analysis.json' in INDEX_DIR
 generate_analysis_index(){
     local index_dir=$INDEX_DIR/$LATEST_DATE_ID
     [ ! -e $index_dir ] && ERROR "index_dir [$index_dir] does not exist" && return 1
@@ -236,7 +247,7 @@ generate_analysis_index(){
     
     ## Outputting index_dir/analysis.json
     local items=(capture thumbnail base_image analysis pathway madvision madvision_thumbnail forecast)
-    local all_analysis_subdirs=($CAPTURE_DIR $THUMBNAIL_DIR $BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR)
+    local all_analysis_subdirs=($CAPTURE_DIR $THUMBNAIL_DIR $BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR)
     echo "[{" > $analysis_json
     echo "   \"datetime\": \"$LATEST_DATE_ID\"," >> $analysis_json
     local i
@@ -257,8 +268,9 @@ generate_analysis_index(){
 }
 
 
+## Genelating "latest" symlinks in each LATEST_DATE_ID directory (e.g. 20180101-2300)
 generate_latest_symlinks(){
-    local all_inout_subdirs="$CAPTURE_DIR $THUMBNAIL_DIR $INDEX_DIR $BASE_IMAGES_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR"
+    local all_inout_subdirs="$CAPTURE_DIR $THUMBNAIL_DIR $INDEX_DIR $BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR"
     local dir
     for dir in $all_inout_subdirs
     do

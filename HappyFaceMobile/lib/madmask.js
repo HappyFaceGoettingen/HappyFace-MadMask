@@ -149,9 +149,11 @@ module.exports = {
       makeDefaultSite(dir);
 
       var logs = JSON.parse(fs.readFileSync(dir + "/" + logsJson));
+      var log_dir = config.data_dir + "/log";
+      if (!fileExists(log_dir)) my_exec("mkdir -pv " + log_dir);
       for (var i = 0; i < logs.length; i++){
         var src_logfile = logs[i].file;
-        var dst_logfile = config.data_dir + "/log/" + src_logfile.split('/').reverse()[0];
+        var dst_logfile = log_dir + "/" + src_logfile.split('/').reverse()[0];
         var commandLine = "tail -n " + LIMIT_LOG_LINES + " " + src_logfile + " > " + dst_logfile;
         if (! fileExists(src_logfile)) {
           console.log("LogCollector: [" + src_logfile + "] does not exist");

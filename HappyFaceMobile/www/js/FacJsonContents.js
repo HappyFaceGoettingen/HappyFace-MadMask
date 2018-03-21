@@ -228,7 +228,7 @@ angular.module('happyface.FacJsonContents', [])
     },
     reload: function(){
 	  logger.debug("Reloading Logs ...");
-	  logss = loadJsonByConfig(Config.get(), logsJson);
+	  logs = loadJsonByConfig(Config.get(), logsJson);
 	  setLinks();
     }
   };

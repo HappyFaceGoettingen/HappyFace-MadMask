@@ -1,9 +1,9 @@
 {
       "myname": "HappyFace",
-	"site": "GoeGrid ATLAS Tier2",
-        "site_name": "GoeGrid",
-	"port": "8111",
-        "data_dir": "data/GoeGrid",
+	"site": "World wide Atlas Distributed Computing System",
+        "site_name": "ADC",
+	"port": "8112",
+        "data_dir": "data/ADC",
 	"analysis_image_size": "384x384",
 	"keep_data_days": 7,
         "log_level": "INFO",
@@ -12,6 +12,14 @@
 		"name": "Normal",
 		"color": "item-calm",
 		"file": "http://i.ytimg.com/vi/hEJnMQG9ev8/maxresdefault.jpg"
+            },{
+		"name": "Notification",
+		"color": "item-calm",
+		"file": "https://mysterybabalon.files.wordpress.com/2011/07/madmax2.jpg?w=284&h=196"
+            },{
+		"name": "Validation",
+		"color": "item-balanced",
+		"file": "http://images.techtimes.com/data/images/full/65853/mad-max-desert-drifter.jpg?w=600"
             },{
 		"name": "Warning",
 		"color": "item-balanced",

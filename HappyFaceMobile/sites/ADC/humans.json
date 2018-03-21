@@ -1,0 +1,148 @@
+[{
+    "name": "PanDA Servers",
+    "email": "atlas-adc-panda-support@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "PanDA Pilot Factories",
+    "email": "atlas-project-adc-operations-pilot-factory@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "Rucio",
+    "email": "atlas-adc-ddm-support@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS AMI",
+    "email": "atlas-tagcollector@lpsc.in2p3.fr",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://lpsc.in2p3.fr/congres/nstar2004/images/logLPSC.jpg"
+ }, {
+    "name": "EventIndex",
+    "email": "atlas-db-eventindex-ops@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS Frontier",
+    "email": "atlas-adc-frontier@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "AGIS",
+    "email": "atlas-adc-agis@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "CVMFS",
+    "email": "atlas-adc-cvmfs@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS CA Cloud",
+    "email": "atlas-adc-cloud-ca@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS DE Cloud",
+    "email": "atlas-adc-cloud-de@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS ES Cloud",
+    "email": "atlas-adc-cloud-es@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS FR Cloud",
+    "email": "atlas-adc-cloud-fr@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS IT Cloud",
+    "email": "atlas-adc-cloud-it@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS ND Cloud",
+    "email": "atlas-adc-cloud-nd@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS NL Cloud",
+    "email": "atlas-adc-cloud-nl@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS RU Cloud",
+    "email": "atlas-adc-cloud-ru@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS TW Cloud",
+    "email": "atlas-adc-cloud-tw@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS UK Cloud",
+    "email": "atlas-adc-cloud-uk@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS US Cloud",
+    "email": "atlas-adc-cloud-us@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS Distributed Computing operation Shift (ADCoS)",
+    "email": "atlas-adc-adcos@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+ }, {
+    "name": "ATLAS Distributed Computing operation Shift (ADCoS) Expert",
+    "email": "atlas-adc-adcos-experts@cern.ch",
+    "notification": false,
+    "display": true,
+    "text": "",
+    "img": "http://2.bp.blogspot.com/-gmSLIZgdzjs/VP99Ci-JWzI/AAAAAAAAmoU/Zcdg4B-jnbo/s1600/200px-CERN_logo.svg.png"
+}]

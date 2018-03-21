@@ -1,0 +1,13 @@
+[{
+   "name": "DE",
+   "host": "141.5.108.30",
+   "web_port": "10110",
+   "mobile_port": "20110",
+   "dir": "sites/DE" 
+},{
+   "name": "FR",
+   "host": "141.5.108.30",
+   "web_port": "10111",
+   "mobile_port": "20111",
+   "dir": "sites/FR" 
+}]

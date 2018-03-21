@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Panda Servers",
+    "text": "ATLAS job management system",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt3 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "Panda Pilot Factories",
+    "text": "ATLAS job management system",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt4 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "Rucio",
+    "text": "Rucio Distributed Data Management system",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt5 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "ATLAS AMI",
+    "text": "ATLAS Metadata Information",
+    "img": "img/dell-server.png",
+    "services": [{
+	  "name": "Restart libvirtd",
+	  "command": "ssh virt6 'service libvirtd restart'"
+	  }
+	]
+  }, {
+    "name": "EventIndex",
+    "text": "ATLAS Physics Event Index",
+    "img": "img/apel.png",
+    "services": [{
+	  "name": "Run apel publisher",
+	  "command": "ssh apel 'hostname'"
+	  }
+	]
+  }, {
+    "name": "ATLAS Frontier",
+    "text": "ATLAS Squid Frontier Server",
+    "img": "img/apel.png",
+    "services": [{
+	  "name": "Run apel publisher",
+	  "command": "ssh apel 'hostname'"
+	  }
+	]
+  }
+]

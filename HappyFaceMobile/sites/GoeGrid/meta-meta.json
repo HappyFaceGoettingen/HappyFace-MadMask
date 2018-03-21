@@ -1,7 +1,2 @@
 [{
-	"name": "GoeGrid",
-	"host": "goegrid-controller.ph2.physik.uni-goettingen.de",
-	"web_port": "80",
-	"mobile_port": "8111",
-	"dir": "sites/GoeGrid"
 }]
