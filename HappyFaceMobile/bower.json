@@ -2,7 +2,6 @@
   "name": "HappyFace2",
   "private": "true",
   "devDependencies": {
-    "ionic": "ionic-team/ionic-bower#1.3.4",
-    "platform.js": "platform#^1.3.5"
+    "ionic": "ionic-team/ionic-bower#1.3.4"
   }
 }

@@ -13,12 +13,12 @@ var exec = require('child_process').exec;
   Const variables
 */
 var configJson = "config.json";
-var systemsJson = "systems.json";
 var monitoringUrlsJson = "monitoring-urls.json";
+var systemsJson = "systems.json";
 var logsJson = "logs.json";
 var humansJson = "humans.json";
 
-var LIMIT_LOG_LINES = 3000;
+var LIMIT_LOG_LINES = 1000;
 var COMMAND_MAXBUFFER = 2000 * 1024;
 
 /*
@@ -134,7 +134,7 @@ module.exports = {
           process.exit(-1);
         }
 
-	// Calling madanalyzer mediator
+	// Calling madanalyzer analytics mediator
 	var commandLine = "madanalyzer"
         + " -o ."
         + " -s " + dir
@@ -151,6 +151,8 @@ module.exports = {
       var logs = JSON.parse(fs.readFileSync(dir + "/" + logsJson));
       var log_dir = config.data_dir + "/log";
       if (!fileExists(log_dir)) my_exec("mkdir -pv " + log_dir);
+
+      // Collecting log files into log_dir
       for (var i = 0; i < logs.length; i++){
         var src_logfile = logs[i].file;
         var dst_logfile = log_dir + "/" + src_logfile.split('/').reverse()[0];
@@ -166,14 +168,14 @@ module.exports = {
 
     build_android_apk: function (dir, config) {
       console.log("Building Android Application ...");
-      var commandLine = "rm -v www/data; ionic build android; ln -vs ../data www/data";
-      console.log("Builder: " + commandLine);
+      var commandLine = "rm -v www/data; ionic build android && ionic build android --prod --release; ln -vs ../data www/data";
+      console.log("Debug & Release Apks Builder: " + commandLine);
       my_exec(commandLine);
     },
 
     wipe_data: function(dir, config) {
-      var commandLine = "tmpwatch -v -umc " + config.keep_data_days + "d " + config.data_dir;
-      console.log("Wiping old data in [" + config.data_dir + "]: " + commandLine);
+      var commandLine = "tmpwatch -v -a -m " + config.keep_data_days + "d " + config.data_dir;
+      console.log("Wiping out old data in [" + config.data_dir + "]: " + commandLine);
       my_exec(commandLine);
     }
 };
