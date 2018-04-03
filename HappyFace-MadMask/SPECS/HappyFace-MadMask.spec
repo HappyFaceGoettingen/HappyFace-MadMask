@@ -93,7 +93,7 @@ npm config set ca ""
 
 ## Reinstalling node-sass to HFMobile again, due to a native hardware or vender issue 
 echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
-su - %{happyface_user} -c "cd %{_prefix}/MadMask && npm install node-sass@4.2.0" &> /dev/null
+su - %{happyface_user} -c "npm config set ca \"\"; cd %{_prefix}/MadMask && npm install node-sass@4.2.0 && npm rebuild node-sass --force"
 
 
 ## Installing Basic packages for Ionic and Cordova

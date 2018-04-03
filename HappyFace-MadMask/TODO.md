@@ -1,4 +1,39 @@
 # ToDo
+## Implement Mad-Gantry site builder
+ --> Done: first step
+ --> Parallel site builder --> Doing --> Done
+
+## MadFoxd data importer
+ --> Doing --> Done
+
+
+## GWDG Cloud and Ionic Framework updates
+* GWDG
+ --> Open GWDG ports --> OK
+
+* Ionic 2.0 --> OK
+ 
+  node-sass@4.2.0 --> Installing it in SPEC file again
+
+  3.7.0 downgraded --> gulp-clean-css@3.0.0
+
+
+## Implement data analyzer (+ indexer & new summary generator)
+ * Upgrading analyzezr --> Done
+
+ * CRON jobs (reload, capture, import, analysis) --> Doing --> Done
+
+ * Remove X-window configs in config.json --> Done
+ * Log collector --> Done
+ * Wiper --> Done
+
+ * Indexer (analysis) --> Doing --> Done
+
+
+## Specifications of a standard container
+   --> Done?
+
+ 
 ## Mad-Gantry site builder second step
  * Cloud Host selector
  * Connecting to AGIS, more sites with configs (level0, level1, level2, Goettingen Internal)
