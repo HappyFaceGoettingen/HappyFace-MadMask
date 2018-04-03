@@ -88,6 +88,9 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 %post
 
+## SSL error? Why on 03.04.2018? 
+npm config set ca ""
+
 ## Reinstalling node-sass to HFMobile again, due to a native hardware or vender issue 
 echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
 su - %{happyface_user} -c "cd %{_prefix}/MadMask && npm install node-sass@4.2.0" &> /dev/null
@@ -95,14 +98,15 @@ su - %{happyface_user} -c "cd %{_prefix}/MadMask && npm install node-sass@4.2.0"
 
 ## Installing Basic packages for Ionic and Cordova
 if ! which ionic; then
+    ## Installing
     echo "Installing Ionic and Cordova modules ..."
     npm install -g cordova@6.0.0 bplist-parser@0.1.1 &> /dev/null
     npm install -g ionic@2.0.0 &> /dev/null
-fi
 
-echo "Installing JPM and Forever ..."
-which jpm || npm install -g jpm@1.0.7 &> /dev/null
-which forever || npm install -g forever@0.15.2 &> /dev/null
+    echo "Installing JPM and Forever ..."
+    which jpm || npm install -g jpm@1.0.7 &> /dev/null
+    which forever || npm install -g forever@0.15.2 &> /dev/null
+fi
 
 
 
