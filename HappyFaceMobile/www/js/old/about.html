@@ -1,0 +1,63 @@
+<div class="modal" ng-controller="CtrlModalImpressum">
+    <ion-header-bar class="bar-secondary">
+        <button class="button icon-left ion-ios7-arrow-back button-clear button-positive" ng-click="closeThisModal()">
+            Settings
+        </button>
+        <h1 class="title">About</h1>
+    </ion-header-bar>
+    <ion-content class="ios7-grey-bg">
+        <div class="app-logo">
+            <img width="40%" src="img/iTunesArtwork@2x.png"/>
+        </div>
+        <div class="settings-explanation credits">
+            <div>
+                <b>HappyFace Meta-Monitoring-Tool</b><br>
+                <b>Mobile Application</b>, version 0.0.1
+            </div>
+            <div class="row" style="text-align: left;">
+                <div class="col col-top">Developed by</div>
+                <div class="col col-67">
+                    Fabian Kukuck<br>
+                    Dr. Gen Kawamura<br>
+                    Erekle Magradze<br>
+                    Haykuhi Musheghyan<br>
+                    Dr. Jordi Nadal Serrano<br>
+                    Prof. Dr. Arnulf Quadt<br>
+                </div>
+            </div>
+            <div class="row" style="text-align: left;">
+                <div class="col col-top">Coded by</div>
+                <div class="col col-67">
+                    Fabian Kukuck<br>
+                    Haykuhi Musheghyan
+                </div>
+            </div>
+        </div>
+        <div class="uni-logo" ng-click="openSite('goe')">
+            <img width="80%" src="img/logoGoe.png"/>
+        </div>
+        <div class="settings-explanation">
+            <b>Georg-August-Universität Göttingen</b><br>
+            Wilhelmsplatz 1<br>
+            37073 Göttingen<br>
+            Germany<br>
+            Tel. +49 551 39-0<br>
+            Fax +49 551 39-9612<br>
+            pressestelle@uni-goettingen.de
+        </div>
+        <div class="settings-explanation padding-top">
+            <b>Responsible for content:</b><br>
+            Prof. Dr. Arnulf Quadt<br>
+            II. Physikalisches Institut<br>
+            Friedrich-Hund-Platz 1<br>
+            37077 Göttingen<br>
+            Germany<br>
+            aquadt@uni-goettingen.de
+        </div>
+        <div class="padding-top padding-bottom settings-explanation">
+            Portions of the app are <span class="item-button" ng-click="openSite('apache')">Apache 2.0 licensed</span>.
+            <br>
+            Portions of the app are <span class="item-button" ng-click="openSite('mit')">MIT licensed</span>.
+        </div>
+    </ion-content>
+</div>

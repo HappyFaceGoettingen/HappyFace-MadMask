@@ -67,6 +67,11 @@ function loadJson(host, port, json){
 };
 
 
+function readJSON(jsonFile) {
+  return JSON.parse(fs.readFileSync(jsonFile));
+};
+
+
 function makeDefaultSite(dir){
   // default site_dir dir does not exist, so make it
   if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
@@ -80,75 +85,88 @@ function makeDefaultSite(dir){
 ***********************************************/
 module.exports = {
     ionic: function (dir, config, logdir, piddir) {
-        makeDefaultSite(dir);
+      makeDefaultSite(dir);
 
-	// whatever
-	console.log("Starting madmask server: port = " + config.port);
-	var pidfile = piddir + "/ionic-server." + config.port;
-	if (fileExists(pidfile)){
-	    console.log("pidfile exists! [" + pidfile + "]");
-	    process.exit(-1);
-	}
-	var logfile = logdir + "/ionic-server." + config.port + ".log";
-	var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + config.port;
-	console.log("Executing ... [" + commandLine + "]");
-	my_exec(commandLine);
+      // whatever
+      console.log("Starting madmask server: port = " + config.port);
+      var pidfile = piddir + "/ionic-server." + config.port;
+      if (fileExists(pidfile)){
+	console.log("pidfile exists! [" + pidfile + "]");
+	process.exit(-1);
+      }
+      var logfile = logdir + "/ionic-server." + config.port + ".log";
+      var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + config.port;
+      console.log("Executing ... [" + commandLine + "]");
+      my_exec(commandLine);
+    },
+
+    generate_systems_json: function (dir, config) {
+      console.log("Generating [", systemsJson, "] ...");
+      makeDefaultSite(dir);
+
+      // Reading all system compnents from monitoring-urls.json
+      var urls = readJSON(dir + "/" + monitoringUrlsJson);
+      var systems = [];
+
+      // Outputting a [system.json] template
+
+
     },
 
     call_madbrowser: function (dir, config, action) {
-	console.log("Calling MadBrowser ...");
-        makeDefaultSite(dir);
+      console.log("Calling MadBrowser ...");
+      makeDefaultSite(dir);
 
-        if (!action){
-	  console.error("Error: Action is not defined!");
-          process.exit(-1);
-        }
+      if (!action){
+	console.error("Error: Action is not defined!");
+        process.exit(-1);
+      }
 
-        if ((action!= 'status') && (action != 'reload') &&
-            (action != 'capture') && (action != 'import')) {
-	  console.error("Error: Action [" + action + "] is not defined!");
-          process.exit(-1);
-        }
+      if ((action!= 'status') && (action != 'reload') &&
+          (action != 'capture') && (action != 'import')) {
+	console.error("Error: Action [" + action + "] is not defined!");
+        process.exit(-1);
+      }
 
-        // madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
-	// Calling madfox exec
-	var commandLine = "madfox"
-        + " -L " + config.log_level
-	+ " -x :1000"
-	+ " -c " + dir + "/" + configJson
-	+ " -u " + dir + "/" + monitoringUrlsJson
-	+ " -f " + config.firefox_profile
-	+ " -o ."
-        + " -a " + action;
+      // madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
+      // Calling madfox exec
+      var commandLine = "madfox"
+                      + " -L " + config.log_level
+	              + " -x :1000"
+	              + " -c " + dir + "/" + configJson
+	              + " -u " + dir + "/" + monitoringUrlsJson
+	              + " -f " + config.firefox_profile
+	              + " -o ."
+                      + " -a " + action;
 
-	console.log("Executing ... [" + commandLine + "]");
-	my_exec(commandLine);
+      console.log("Executing ... [" + commandLine + "]");
+      my_exec(commandLine);
     },
 
     call_madanalyzer: function (dir, config, action) {
-	console.log("Calling MadAnalyzer ...");
-        makeDefaultSite(dir);
+      console.log("Calling MadAnalyzer ...");
+      makeDefaultSite(dir);
 
-        if (!action){
-	  console.error("Error: Action is not defined!");
-          process.exit(-1);
-        }
+      if (!action){
+	console.error("Error: Action is not defined!");
+        process.exit(-1);
+      }
 
-	// Calling madanalyzer analytics mediator
-	var commandLine = "madanalyzer"
-        + " -o ."
-        + " -s " + dir
-        + " -a " + action
+      // Calling madanalyzer analytics mediator
+      var commandLine = "madanalyzer"
+                      + " -o ."
+                      + " -s " + dir
+                      + " -a " + action
 
-	console.log("Executing ... [" + commandLine + "]");
-	my_exec(commandLine);
+      console.log("Executing ... [" + commandLine + "]");
+      my_exec(commandLine);
     },
 
     run_log_collector: function (dir, config) {
       console.log("Collecting Log files ... ");
       makeDefaultSite(dir);
 
-      var logs = JSON.parse(fs.readFileSync(dir + "/" + logsJson));
+      var logs = readJSON(dir + "/" + logsJson);
       var log_dir = config.data_dir + "/log";
       if (!fileExists(log_dir)) my_exec("mkdir -pv " + log_dir);
 
@@ -167,6 +185,11 @@ module.exports = {
     },
 
     build_android_apk: function (dir, config) {
+      if (!fileExists("platforms")) {
+        console.log("[platforms] directory does not exist!");
+	process.exit(-1);
+      }
+
       console.log("Building Android Application ...");
       var commandLine = "rm -v www/data; ionic build android && ionic build android --prod --release; ln -vs ../data www/data";
       console.log("Debug & Release Apks Builder: " + commandLine);
