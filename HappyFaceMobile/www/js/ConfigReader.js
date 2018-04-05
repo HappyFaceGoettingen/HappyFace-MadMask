@@ -3,12 +3,12 @@
 */
 // Some debug switches
 var FORCE_LOAD_LOCAL_META_META_FILE = false; // load meta-meta.json from local
-var FORCE_MOBILE = false; // Completely behaves like a mobile phone (even in a web browser)
+var FORCE_MOBILE = true; // Completely behaves like a mobile phone (even in a web browser)
 
 // Seed node (= for mobile app. This node must always run, otherwise the app does not start at all)
-var SEED_META_META_HOST = "goegrid-controller.ph2.physik.uni-goettingen.de";
-var SEED_META_META_MOBILE_PORT = "8111";
-var SEED_META_META_WEB_PORT = "80";
+var SEED_META_META_HOST = "141.5.108.30";
+var SEED_META_META_MOBILE_PORT = "20100";
+var SEED_META_META_WEB_PORT = "10100";
 var SEED_META_META_DIR = "sites/default";
 var SEED_META_META_JSON = "meta-meta.json";
 
@@ -108,9 +108,14 @@ if (FORCE_LOAD_LOCAL_META_META_FILE){
 
     // Normal meta-meta.json exists under "http://SEED_HOST:SEED_PORT/SEED_DIR/meta-meta.json"
     metaMetaSites = loadJson(SEED_META_META_HOST, SEED_META_META_MOBILE_PORT, SEED_META_META_DIR, SEED_META_META_JSON);
+  /*
     host = metaMetaSites[0].host;
     port = metaMetaSites[0].mobile_port;
     dir = metaMetaSites[0].dir;
+   */
+   host = SEED_META_META_HOST;
+   port = SEED_META_META_MOBILE_PORT;
+   dir  = SEED_META_META_DIR;
 
 } else {
     logger.setLevel(LoggerLevel.INFO);

@@ -102,6 +102,9 @@ build_packages(){
 	    export QA_SKIP_BUILD_ROOT=1
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules.spec
 	    ;;
+	android-sdk)
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/android-sdk.spec
+	    ;;
 	all)
 	    ## MadMask
 	    madmask_zip
