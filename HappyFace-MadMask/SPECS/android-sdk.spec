@@ -45,12 +45,19 @@ export ANDROID_HOME=%{_prefix}/android/sdk
 export ANT_HOME=%{_prefix}/apache-ant
 
 export PATH=\$ANDROID_HOME/platforms:\$ANDROID_HOME/platform-tools:\$ANDROID_HOME/tools:\$ANT_HOME:$ANT_HOME/bin:\$PATH
-"
+" > $RPM_BUILD_ROOT/%{_profile_dir}/android-sdk.sh
 
+## Ant
 ANT="http://apache.lauf-forum.at//ant/binaries/apache-ant-1.9.10-bin.zip"
+if [ ! -e /tmp/$(basename $ANT) ]; then
+    wget "$ANT" -O /tmp/$(basename $ANT) || rm -v /tmp/$(basename $ANT)
+fi
+
+## Android SDK
 ADT="https://dl.google.com/android/adt/adt-bundle-linux-x86_64-20140702.zip"
-[ ! -e /tmp/$(basename $ANT) ] && wget "$ANT" -O /tmp/$(basename $ANT)
-[ ! -e /tmp/$(basename $ADT) ] && wget "$ADT" -O /tmp/$(basename $ADT)
+if [ ! -e /tmp/$(basename $ADT) ]; then
+    wget "$ADT" -O /tmp/$(basename $ADT) || rm -v /tmp/$(basename $ADT)
+fi
 
 [ ! -e %{_prefix}/apache-ant ] && unzip /tmp/$(basename $ANT) -d $RPM_BUILD_ROOT/%{_prefix} && ln -s %{_prefix}/apache-ant-1.9.10 $RPM_BUILD_ROOT/%{_prefix}/apache-ant
 [ ! -e %{_prefix}/android ] && unzip /tmp/$(basename $ADT) -d $RPM_BUILD_ROOT/%{_prefix} && ln -s %{_prefix}/adt-bundle-linux-x86_64-20140702 $RPM_BUILD_ROOT/%{_prefix}/android
