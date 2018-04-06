@@ -9,9 +9,11 @@ var request = require('sync-request');
 var exec = require('child_process').exec;
 
 
-/*
+/**********************************************
+
   Const variables
-*/
+
+***********************************************/
 var configJson = "config.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 var systemsJson = "systems.json";
@@ -21,10 +23,12 @@ var humansJson = "humans.json";
 var LIMIT_LOG_LINES = 1000;
 var COMMAND_MAXBUFFER = 2000 * 1024;
 
-/*
-  Some useful functions
-*/
 
+/**********************************************
+
+  Some useful functions (sehr bequem)
+
+***********************************************/
 function fileExists(filePath){
     try {
       return fs.existsSync(filePath);
@@ -33,38 +37,12 @@ function fileExists(filePath){
     }
 }
 
+
 function my_exec(commandLine){
     a = exec(commandLine, {maxBuffer: COMMAND_MAXBUFFER});
     a.stdout.pipe(process.stdout);
     a.stderr.pipe(process.stderr);
 }
-
-
-
-function getJsonUrl(host, port, json){
-    var url = null;
-    if ( host == "localhost" ) {
-	url = json;
-    } else {
-	url = "http://" + host + ":" + port + "/" + json;
-    }
-    return url;
-}
-
-
-function loadJson(host, port, json){
-
-    // Set Json
-    var url = getJsonUrl(host, port, json);
-    var content = null;
-    if ( host == "localhost" ) {
-	content = fs.readFileSync(url);
-    } else {
-	content = request('GET', url).body.toString('utf-8');
-    }
-    console.log("Reading [" + url + "] ...");
-    return JSON.parse(content);
-};
 
 
 function readJSON(jsonFile) {
@@ -80,26 +58,42 @@ function makeDefaultSite(dir){
 
 /**********************************************
 
-  Module madface
+  Madmask functions exported from this library
+   Note: generally speaking, the followings are only mediators and some useful wrapper commands.
 
 ***********************************************/
 module.exports = {
+
+    /*
+     * An Ionic server starter. The given port in 'config.json' is used to start and control the Ionic server.
+     *  Note: to stop the ionic server, run 'forever stopall'.
+     */
     ionic: function (dir, config, logdir, piddir) {
       makeDefaultSite(dir);
 
-      // whatever
       console.log("Starting madmask server: port = " + config.port);
+
+      // Setting up LOG and PID files
       var pidfile = piddir + "/ionic-server." + config.port;
       if (fileExists(pidfile)){
 	console.log("pidfile exists! [" + pidfile + "]");
 	process.exit(-1);
       }
       var logfile = logdir + "/ionic-server." + config.port + ".log";
+
+      // Starting an Ionic server by the "forever" library. The "forever" command is calling lib/ionic-server.js
       var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + config.port;
       console.log("Executing ... [" + commandLine + "]");
+      console.log(" * To list the running Ionic servers:  forever list");
+      console.log(" * To stop the running Ionic servers:  forever stopall");
       my_exec(commandLine);
     },
 
+
+    /*
+     * The "systems.json" tempate generator
+     *  The systems giving monitoring information are defined by an array "systems" in monitoring-urls.json
+     */
     generate_systems_json: function (dir, config) {
       console.log("Generating [", systemsJson, "] ...");
       makeDefaultSite(dir);
@@ -113,6 +107,9 @@ module.exports = {
 
     },
 
+    /*
+     * MadBrowser mediator using the 'madfox' command
+     */
     call_madbrowser: function (dir, config, action) {
       console.log("Calling MadBrowser ...");
       makeDefaultSite(dir);
@@ -128,7 +125,7 @@ module.exports = {
         process.exit(-1);
       }
 
-      // madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
+      // Command: madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
       // Calling madfox exec
       var commandLine = "madfox"
                       + " -L " + config.log_level
@@ -143,6 +140,10 @@ module.exports = {
       my_exec(commandLine);
     },
 
+
+    /*
+     * MadAnalyzer mediator using the 'madanalyzer' command
+     */
     call_madanalyzer: function (dir, config, action) {
       console.log("Calling MadAnalyzer ...");
       makeDefaultSite(dir);
@@ -162,15 +163,25 @@ module.exports = {
       my_exec(commandLine);
     },
 
+
+    /*
+     * Log Collector. The original log files are defined by "logs.json".
+     * The log files are coped into config.data_dir + "/logs" directory.
+     */
     run_log_collector: function (dir, config) {
       console.log("Collecting Log files ... ");
       makeDefaultSite(dir);
 
-      var logs = readJSON(dir + "/" + logsJson);
+      // Checking and making log_dir
+      if (!fileExists(config.data_dir)) {
+        console.log("["+ config.data_dir + "] directory does not exist!");
+	process.exit(-1);
+      }
       var log_dir = config.data_dir + "/log";
-      if (!fileExists(log_dir)) my_exec("mkdir -pv " + log_dir);
+      if (!fileExists(log_dir)) my_exec("mkdir -v " + log_dir);
 
       // Collecting log files into log_dir
+      var logs = readJSON(dir + "/" + logsJson);
       for (var i = 0; i < logs.length; i++){
         var src_logfile = logs[i].file;
         var dst_logfile = log_dir + "/" + src_logfile.split('/').reverse()[0];
@@ -184,18 +195,28 @@ module.exports = {
       }
     },
 
+
+    /*
+     * Android Application APK builder.
+     */
     build_android_apk: function (dir, config) {
+      console.log("Building Android Application ...");
+
       if (!fileExists("platforms")) {
         console.log("[platforms] directory does not exist!");
 	process.exit(-1);
       }
 
-      console.log("Building Android Application ...");
+      // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
       var commandLine = "rm -v www/data; ionic build android && ionic build android --prod --release; ln -vs ../data www/data";
       console.log("Debug & Release Apks Builder: " + commandLine);
       my_exec(commandLine);
     },
 
+
+    /*
+     * Outdated data wiper using 'tmpwatch'. This command can periodically wipe out data which is older than 'config.keep_data_days' days
+     */
     wipe_data: function(dir, config) {
       var commandLine = "tmpwatch -v -a -m " + config.keep_data_days + "d " + config.data_dir;
       console.log("Wiping out old data in [" + config.data_dir + "]: " + commandLine);

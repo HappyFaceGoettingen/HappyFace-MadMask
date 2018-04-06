@@ -1,7 +1,6 @@
 HappyFaceMobile/platforms/*
 HappyFaceMobile-Ionic*/*
 HappyFace-MadMask/rpmmacros_HappyFace-MadMask
-HappyFace-MadMask/RPMS/*/*.rpm
 HappyFace-MadMask/SRPMS/*.rpm
 HappyFace-MadMask/BUILD/*
 HappyFace-MadMask/BUILDROOT/*

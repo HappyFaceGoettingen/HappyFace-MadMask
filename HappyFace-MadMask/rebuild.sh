@@ -7,7 +7,7 @@ PRJ_DIR=$PWD/..
 
 usage="./rebuild.sh [options]
 
-   -b:    build {madmask|madmodules|madfoxd|all}
+   -b:    build {madmask|madmodules|madfoxd|android-sdk|all}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -140,6 +140,7 @@ test_install(){
     yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
     yum -y install RPMS/x86_64/MadFoxd-*.rpm
     yum -y install RPMS/x86_64/HappyFace-*.rpm
+    ls RPMS/x86_64/android-sdk-*.rpm && yum -y install RPMS/x86_64/android-sdk-*.rpm
 }
 
 clean_packages(){
