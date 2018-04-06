@@ -26,6 +26,9 @@ fi
 # Functions
 #-----------------------------------------
 make_rpmdirs(){
+    ## create .rpmmacros
+    echo "%_topdir        $PWD" > rpmmacros_HappyFace-MadMask
+    ln -sf $PWD/rpmmacros_HappyFace-MadMask ~/.rpmmacros
     
     ## Making required dirs for rpmbuild
     local dirs="BUILD BUILDROOT RPMS SOURCES SPECS SRPMS"
@@ -43,13 +46,9 @@ make_rpmdirs(){
 
     ## Copying SPEC files
     cp -v $BUILDER_DIR/SPECS/* SPECS
+
 }
 
-make_rpmmacros(){
-    ## create .rpmmacros
-    echo "%_topdir        $PWD" > rpmmacros_HappyFace-MadMask
-    ln -sf $PWD/rpmmacros_HappyFace-MadMask ~/.rpmmacros
-}
 
 madmask_zip(){
     ## HappyFace-MadMask.zip
@@ -77,7 +76,7 @@ madmodules_zip(){
     popd
 
     ## MadMask-R-libs.zip
-    pushd $BUILDER_DIR
+    pushd $BUILDER_DIR/SOURCES
     echo "Archiving $WORK_DIR/SOURCES/rpackages.zip <-- rpackages"
     tar zcf $WORK_DIR/SOURCES/rpackages.zip rpackages
     popd
@@ -127,13 +126,16 @@ build_packages(){
     esac
 }
 
+copy_prebuilt_packages(){
+    ## Copying pre-built packages
+    cp -rv $BUILDER_DIR/RPMS .
+}
+
 
 set_workdir(){
     [ ! -e $WORK_DIR ] && mkdir -pv $WORK_DIR
     echo "Entering $WORK_DIR"
     cd $WORK_DIR
-    make_rpmdirs
-    make_rpmmacros
 }
 
 test_install(){
@@ -155,11 +157,13 @@ while getopts "b:w:tChv" op
   do
   case $op in
       b)  set_workdir
+	  make_rpmdirs
 	  build_packages $OPTARG
           ;;
       w) WORK_DIR=$OPTARG
           ;;
       t) set_workdir
+	  copy_prebuilt_packages
 	  test_install
 	  ;;
       C) set_workdir
