@@ -3,7 +3,7 @@
 */
 // Some debug switches
 var FORCE_LOAD_LOCAL_META_META_FILE = false; // load meta-meta.json from local
-var FORCE_MOBILE = true; // Completely behaves like a mobile phone (even in a web browser)
+var FORCE_MOBILE = false; // Completely behaves like a mobile phone (even in a web browser)
 
 // Seed node (= for mobile app. This node must always run, otherwise the app does not start at all)
 var SEED_META_META_HOST = "141.5.108.30";
