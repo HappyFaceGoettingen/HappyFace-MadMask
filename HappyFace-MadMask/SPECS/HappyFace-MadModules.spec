@@ -1,24 +1,17 @@
 Summary: HappyFace-MadModules
 Name: HappyFace-MadModules
 Version: 1.0.0
-Release: 20180316
+Release: 20180408
 License: Apache License Version 2.0
 Group: System Environment/Daemons
 URL: http://nagios-goegrid.gwdg.de/category
 Source0: MadModules.zip
-Source1: rpackages.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
 Requires: R >= 3.3.0
-BuildRequires: R-core >= 3.3.0
-BuildRequires: fftw-devel
-BuildRequires: fftw2-devel
-BuildRequires: libjpeg-turbo
-BuildRequires: libjpeg-turbo-devel
-
-
 Requires: HappyFaceCore = 3.0.0-3
+Requires: HappyFace-MadModules-Rlibs
 Requires: jq
 Requires: sysstat
 Requires: bc
@@ -32,8 +25,6 @@ Requires: coreutils
 # Preamble
 #
 # Macro definitions
-%define _Rlibdir        /usr/lib64/R/library
-
 %define _prefix         /var/lib/HappyFace3
 %define _etc            /etc
 %define _profile_dir    /etc/profile.d
@@ -59,7 +50,6 @@ HappyFace-MadMask is several wrapper modules for both HappyFace mobile applicati
 
 %prep
 %setup -q -n MadModules -b 0
-%setup -q -n rpackages -b 1
 
 
 %build
@@ -78,7 +68,6 @@ cd ..
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/cron.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/cron.d
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
 ! [ -d $RPM_BUILD_ROOT/%{_libdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_libdir}
-! [ -d $RPM_BUILD_ROOT/%{_Rlibdir} ] && mkdir -p $RPM_BUILD_ROOT/%{_Rlibdir}
 
 
 # Copy MadMask modules
@@ -99,14 +88,6 @@ cp -vr MadModules/lib/* $RPM_BUILD_ROOT/%{_libdir}
 ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 
 
-
-## R library
-cd rpackages
-for p in $(cat packages.txt)
-do
-	echo "Compiling [$p] ..."
-	/usr/bin/R CMD INSTALL -c -l $RPM_BUILD_ROOT/%{_Rlibdir} $p
-done
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -184,10 +165,12 @@ service httpd start
 %{_etc}/*
 %{_sbindir}/*
 %{_libdir}/*
-%{_Rlibdir}/*
+
 
 
 %changelog
+* Sun Apr 08 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180408
+- Only R libraries used by HappyFace-MadModues is writted here
 * Fri Mar 16 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180316
 - Upgraded a builder. The all build processes are faster.
 * Tue Feb 27 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180227

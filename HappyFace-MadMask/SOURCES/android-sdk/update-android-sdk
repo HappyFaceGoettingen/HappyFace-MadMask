@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for i in $(seq 1 5)
+do
+  list=$(android list sdk --no-ui | grep -e 'SDK Tools' -e 'SDK Platform' -e 'Google API' | awk '{print $1}')
+  [ -z "$list" ] && exit 0
+
+  list=$(echo $list | perl -pe 's/-/,/g' | perl -pe 's/ //g' | perl -pe 's/,$//g')
+  echo "Updating SDK [$list] ..."
+  (while sleep 3; do echo y; done) | android update sdk --no-ui --filter $list
+done

@@ -5,6 +5,7 @@ Release: 20180405
 License: Apache License Version 2.0
 Group: System Environment/Daemons
 URL: https://dl.google.com
+Source0: android-sdk.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Requires: java-1.7.0-openjdk-devel
 Requires: ant-apache-regexp
@@ -26,13 +27,12 @@ Requires: glibc
 Android SDK which is used to develop Android native application. 
 
 %prep
-#%setup -q -n %{_source_dir}
+%setup -q -n android-sdk -b 0
 
 %build
 #make
 
 %install
-cd ..
 
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
@@ -52,11 +52,7 @@ export PATH=\$ANDROID_HOME/platforms:\$ANDROID_HOME/platform-tools:\$ANDROID_HOM
 
 
 ## A script installing the latest SDK packages
-echo "#!/bin/bash
-source %{_profile_dir}/android-sdk.sh
-(while sleep 3; do echo y; done) | android update sdk --no-ui --all
-" > $RPM_BUILD_ROOT/%{_bin_dir}/update-android-sdk
-chmod 755 $RPM_BUILD_ROOT/%{_bin_dir}/update-android-sdk
+cp -v update-android-sdk $RPM_BUILD_ROOT/%{_bin_dir}/
 
 
 %post
@@ -69,18 +65,13 @@ if [ ! -e %{_prefix}/android ]; then
 
     ## Ant
     ANT="http://apache.lauf-forum.at//ant/binaries/apache-ant-1.9.10-bin.zip"
-    if [ ! -e /tmp/$(basename $ANT) ]; then
-	wget "$ANT" -O /tmp/$(basename $ANT) || rm -v /tmp/$(basename $ANT)
-    fi
+    wget -q "$ANT" -O /tmp/$(basename $ANT) || rm -v /tmp/$(basename $ANT)
+    unzip /tmp/$(basename $ANT) -d %{_prefix} && rm -v /tmp/$(basename $ANT)
     
     ## Android SDK
     ADT="https://dl.google.com/android/adt/adt-bundle-linux-x86_64-20140702.zip"
-    if [ ! -e /tmp/$(basename $ADT) ]; then
-	wget "$ADT" -O /tmp/$(basename $ADT) || rm -v /tmp/$(basename $ADT)
-    fi
-    
-    unzip /tmp/$(basename $ANT) -d %{_prefix} && 
-    [ ! -e %{_prefix}/android ] && unzip /tmp/$(basename $ADT) -d %{_prefix}
+    wget -q "$ADT" -O /tmp/$(basename $ADT) || rm -v /tmp/$(basename $ADT)
+    unzip /tmp/$(basename $ADT) -d %{_prefix} && rm -v /tmp/$(basename $ADT)
 fi
 
 

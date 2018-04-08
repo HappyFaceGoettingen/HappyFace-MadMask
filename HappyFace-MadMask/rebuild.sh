@@ -7,7 +7,8 @@ PRJ_DIR=$PWD/..
 
 usage="./rebuild.sh [options]
 
-   -b:    build {madmask|madmodules|madfoxd|android-sdk|all}
+   -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
+   -b:    build {madmask|madmodules|rlibs|madfoxd|android-sdk|all}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -74,11 +75,23 @@ madmodules_zip(){
     echo "Archiving $WORK_DIR/SOURCES/MadModules.zip <-- MadModules"
     tar zcf $WORK_DIR/SOURCES/MadModules.zip MadModules
     popd
+}
 
-    ## MadMask-R-libs.zip
+
+rlibs_zip(){
+    ## rpackages.zip
     pushd $BUILDER_DIR/SOURCES
     echo "Archiving $WORK_DIR/SOURCES/rpackages.zip <-- rpackages"
     tar zcf $WORK_DIR/SOURCES/rpackages.zip rpackages
+    popd
+}
+
+
+android_sdk_zip(){
+    ## android-sdk.zip
+    pushd $BUILDER_DIR/SOURCES
+    echo "Archiving $WORK_DIR/SOURCES/android-sdk.zip <-- android-sdk"
+    tar zcf $WORK_DIR/SOURCES/android-sdk.zip android-sdk
     popd
 }
 
@@ -97,11 +110,17 @@ build_packages(){
 	    ;;
 	madmodules)
 	    madmodules_zip
-	    ## Skipping check-buildroot
-	    export QA_SKIP_BUILD_ROOT=1
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules.spec
 	    ;;
+	rlibs)
+	    ls /tmp/MadMask.$(whoami)/RPMS/*/HappyFace-MadModules-Rlibs-*.rpm && echo "A RPM for R libraries exists" && return 0
+	    rlibs_zip
+	    ## Skipping check-buildroot
+	    export QA_SKIP_BUILD_ROOT=1
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules-Rlibs.spec
+	    ;;
 	android-sdk)
+	    android_sdk_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/android-sdk.spec
 	    ;;
 	all)
@@ -115,8 +134,6 @@ build_packages(){
 
 	    ## MadModules
 	    madmodules_zip
-	    ## Skipping check-buildroot
-	    export QA_SKIP_BUILD_ROOT=1
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules.spec
 	    ;;
 	*)
@@ -153,9 +170,13 @@ clean_packages(){
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "b:w:tChv" op
+while getopts "pb:w:tChv" op
   do
   case $op in
+      p) set_workdir
+	  make_rpmdirs
+	  copy_prebuilt_packages
+	  ;;
       b)  set_workdir
 	  make_rpmdirs
 	  build_packages $OPTARG
@@ -163,7 +184,6 @@ while getopts "b:w:tChv" op
       w) WORK_DIR=$OPTARG
           ;;
       t) set_workdir
-	  copy_prebuilt_packages
 	  test_install
 	  ;;
       C) set_workdir
