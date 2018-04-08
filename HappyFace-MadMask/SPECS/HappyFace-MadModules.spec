@@ -143,7 +143,7 @@ echo "------------------------------------"
 
 
 service httpd start
-service crond start
+
 
 %preun
 service httpd stop

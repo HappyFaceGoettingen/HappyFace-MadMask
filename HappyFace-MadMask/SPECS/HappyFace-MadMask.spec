@@ -121,7 +121,6 @@ fi
 [ ! -d %{_datadir} ] && mkdir -vp %{_datadir}
 
 
-service crond start
 
 %preun
 service madmaskd stop
