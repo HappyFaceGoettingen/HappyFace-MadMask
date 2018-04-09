@@ -1,0 +1,82 @@
+a {
+    color: #376797;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover {
+    color: #3d7dbd;
+}
+.atlas-logo {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    border-style: none;
+}
+.content {
+    padding: 0.35em;
+}
+.group {
+    background: #e4e2e5;
+    display: inline;
+    margin: 0.35em;
+    padding: 0.35em;
+    //width: 100%
+}
+.group, .group-title, .launchpad {
+    //border: 1px solid #aaaaaa;
+    /* rounded corners */
+    //-moz-border-radius: 0.3em; -webkit-border-radius: 0.3em; border-radius: 0.3em;
+}
+.group-title {
+    text-align:center;
+    border-color: #376797;
+    background: #3d7dbd;
+    color: #ffffff;
+    font-weight: bold;
+    //max-width: 10em; max-height: 3em;
+}
+.launchpad {
+    background: #ffffff;
+    width: 11em;
+    min-height: 8em;
+    float: left;
+    margin: 0.35em;
+    padding: 0.35em;
+}
+.launchpad:hover {
+    border-color: #3d7dbd;
+}
+.launchpad img {
+    width: 100%
+}
+.logo {
+    height: 8em;
+    border-style: none;
+    text-align:center;
+}
+.logo img {
+    max-width: 10em; max-height: 8em;
+    min-width: 10em; min-height: 8em;
+    border-style: none;
+}
+.caption {
+    min-height: 5em;
+    margin-top: 0.35em;
+    text-align:center;
+}
+
+.label-ios {
+    margin-right: 0;
+}
+
+.label-md {
+    margin-right: 0;
+}
+
+.card-ios {
+    width: 100%;
+}
+
+.card-md {
+    width: 100%;
+}

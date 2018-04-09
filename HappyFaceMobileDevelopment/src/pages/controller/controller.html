@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Controller</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div text-center padding [hidden]="!isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-list no-padding [hidden]="isLoading">
+        <ion-item *ngFor="let system of systems" text-wrap no-padding (click)="openPage(system)">
+            <ion-avatar item-left>
+                <img src="assets/{{system.img}}"/>
+            </ion-avatar>
+            <h2>{{system.name}}</h2>
+            <p>{{system.text}}</p>
+            <ion-icon class="icon-accessory" name="ion-chevron-right"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>

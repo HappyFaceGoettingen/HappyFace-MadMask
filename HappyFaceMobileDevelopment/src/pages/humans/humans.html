@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Ticket, E-mail & Contact</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list no-padding>
+        <ion-item *ngFor="let human of humans" text-wrap (click)="openHuman(human)">
+            <ion-avatar item-left>
+                <img src="{{human.img}}"/>
+            </ion-avatar>
+            E-mail: <a href="mailto:{{human.email}}" target="_blank">{{human.email}}</a> <br/>
+            Tel: {{human.tel}}
+            <p>{{human.text}}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

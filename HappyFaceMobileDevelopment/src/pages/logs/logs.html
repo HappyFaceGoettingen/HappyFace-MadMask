@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Logs Viewer</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item no-padding>
+        <ion-label>Log:</ion-label>
+        <ion-select (ionChange)="logSelected($event)" interface="action-sheet" style="max-width: 85% !important;">
+            <ion-option *ngFor="let l of logs" [selected]="l == selectedLog" [value]="l">{{l.name}}</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <div no-padding text-wrap>
+        <br/>
+        {{logText}}
+    </div>
+</ion-content>
