@@ -42,14 +42,8 @@ Android SDK which is used to develop Android native application.
 ! [ -d $RPM_BUILD_ROOT/%{_profile_dir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_profile_dir}
 
 
-# Generating environments
-echo "## Android SDK Environments
-export ANDROID_HOME=%{_prefix}/android/sdk
-export ANT_HOME=%{_prefix}/apache-ant
-
-export PATH=\$ANDROID_HOME/platforms:\$ANDROID_HOME/platform-tools:\$ANDROID_HOME/tools:\$ANT_HOME:$ANT_HOME/bin:\$PATH
-" > $RPM_BUILD_ROOT/%{_profile_dir}/android-sdk.sh
-
+# Environments
+cp -v android-sdk.sh $RPM_BUILD_ROOT/%{_profile_dir}/android-sdk.sh
 
 ## A script installing the latest SDK packages
 cp -v update-android-sdk $RPM_BUILD_ROOT/%{_bin_dir}/
