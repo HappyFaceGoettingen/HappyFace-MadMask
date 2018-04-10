@@ -8,7 +8,7 @@ PRJ_DIR=$PWD/..
 usage="./rebuild.sh [options]
 
    -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
-   -b:    build {madmask|madmodules|rlibs|madfoxd|android-sdk|all}
+   -b:    build {madmask|devel|madmodules|rlibs|madfoxd|android-sdk|all}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -52,10 +52,19 @@ make_rpmdirs(){
 
 
 madmask_zip(){
-    ## HappyFace-MadMask.zip
+    ## HappyFaceMobile.zip
     pushd $PRJ_DIR
     echo "Archiving $WORK_DIR/SOURCES/HappyFaceMobile.zip <-- HappyFaceMobile"
     tar zcf $WORK_DIR/SOURCES/HappyFaceMobile.zip HappyFaceMobile
+    popd
+}
+
+
+madmask_devel_zip(){
+    ## HappyFaceMobileDevelopment.zip
+    pushd $PRJ_DIR
+    echo "Archiving $WORK_DIR/SOURCES/HappyFaceMobileDevelopment.zip <-- HappyFaceMobileDevelopment"
+    tar zcf $WORK_DIR/SOURCES/HappyFaceMobileDevelopment.zip HappyFaceMobileDevelopment
     popd
 }
 
@@ -103,6 +112,11 @@ build_packages(){
 	madmask)
 	    madmask_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadMask.spec
+	    ;;
+	devel)
+	    madmask_zip
+	    madmask_devel_zip
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadMask-devel.spec
 	    ;;
 	madfoxd)
 	    madfoxd_zip
