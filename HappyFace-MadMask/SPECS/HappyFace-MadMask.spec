@@ -125,6 +125,9 @@ fi
 %preun
 service madmaskd stop
 
+## Changing a symlink of sites dir
+[ -L %{_prefix}/MadMask/sites ] && rm -v %{_prefix}/MadMask/sites
+[ -e %{_prefix}/MadMask/sites.org ] && mv -v %{_prefix}/MadMask/sites.org %{_prefix}/MadMask/sites
 
 
 

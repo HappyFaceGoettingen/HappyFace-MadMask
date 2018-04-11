@@ -101,7 +101,7 @@ ln -s ../sites $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/sites
 
 ## Installing Basic packages for Ionic and Cordova
 echo "Installing Ionic and Cordova modules ..."
-#npm install -g cordova@6.0.0 &> /dev/null
+npm install -g cordova@8.0.0 &> /dev/null
 npm install -g ionic@3.20.0 &> /dev/null
 
 echo "Installing JPM and Forever ..."
@@ -119,12 +119,20 @@ fi
 ## Making data dir
 [ ! -d %{_datadir} ] && mkdir -vp %{_datadir}
 
+## Making a symlink
+[ -e /sites ] && mv -v %{_prefix}/MadMask/sites %{_prefix}/MadMask/sites.org && ln -sv /sites %{_prefix}/MadMask/sites
+
+## Installing sync-request for madmask command
+cd %{_prefix}/MadMask
+npm install sync-request
 
 
 %preun
 service madmaskd stop
 
-
+## Changing a symlink of sites dir
+[ -L %{_prefix}/MadMask/sites ] && rm -v %{_prefix}/MadMask/sites
+[ -e %{_prefix}/MadMask/sites.org ] && mv -v %{_prefix}/MadMask/sites.org %{_prefix}/MadMask/sites
 
 
 %files
