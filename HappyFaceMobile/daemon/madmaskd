@@ -34,6 +34,9 @@ if [ ! -e $config ]; then
 fi
 . $config
 
+[ -z "$TERM" ] && export TERM=xterm
+
+
 read_ports(){
     site_defs=$(find $MADMASK_HOME/sites/*/config.json)
     jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
@@ -57,6 +60,9 @@ start() {
 
     forever_status && return 0
     check_pidfiles || return 1
+
+    ## In case PID dir does not exist
+    [ ! -e ${pidfile_base} ] && mkdir -pv ${pidfile_base} && chown $user:$group ${pidfile_base}
 
     echo -n "Starting $prog server: "
 

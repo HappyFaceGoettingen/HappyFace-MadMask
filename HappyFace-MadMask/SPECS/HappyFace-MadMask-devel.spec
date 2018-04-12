@@ -62,12 +62,10 @@ cd ..
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 # make directories
-! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
+[ ! -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/cron.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/cron.d
-! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
-! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
-! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
+[ ! -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
 
 
 # Install MadMask (HappyFaceMobile Instance) and its service
@@ -100,12 +98,17 @@ ln -s ../sites $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/sites
 
 ## Installing Basic packages for Ionic and Cordova
 echo "Installing Ionic and Cordova modules ..."
-npm install -g cordova@7.0.0
-npm install -g ionic@2.0.0
+npm install -g cordova@8.0.0
+npm install -g ionic@3.20.0
 
 echo "Installing JPM and Forever ..."
 which jpm || npm install -g jpm@1.0.7 &> /dev/null
 which forever || npm install -g forever@0.15.2 &> /dev/null
+
+## Installing sync-request for madmask command
+pushd %{_prefix}/MadMask
+npm install sync-request@2.0.1
+popd
 
 
 ## If HappyFace user does not exist, the create it
@@ -118,13 +121,14 @@ fi
 ## Making data dir
 [ ! -d %{_datadir} ] && mkdir -vp %{_datadir}
 
+
+## PID dir and Log dir
+[ ! -e %{_logdir} ] && mkdir -pv %{_logdir} && chown %{happyface_user}:%{happyface_group} %{_logdir}
+[ ! -e %{_piddir} ] && mkdir -pv %{_piddir} && chown %{happyface_user}:%{happyface_group} %{_piddir}
+
+
 ## Making a symlink
 [ -e /sites ] && mv -v %{_prefix}/MadMask/sites %{_prefix}/MadMask/sites.org && ln -sv /sites %{_prefix}/MadMask/sites
-
-## Installing sync-request for madmask command
-pushd %{_prefix}/MadMask
-npm install sync-request@2.0.1
-popd
 
 
 %preun
@@ -139,8 +143,6 @@ service madmaskd stop
 %defattr(-,%{happyface_user},%{happyface_group})
 %{_prefix}/HappyFaceMobile
 %{_prefix}/MadMask
-%{_logdir}
-%{_piddir}
 
 
 %defattr(-,root,root)

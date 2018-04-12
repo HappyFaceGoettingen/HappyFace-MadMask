@@ -42,11 +42,31 @@
 ## For CentOS 7
  * Solve the D-Bus issue in mad-gantry CentOS 7 --> Done
  * Upgrading mad-gantry --> Done
- * Upgrade SPECs and daemon scripts accordingly --> Doing
+ * Upgrade SPECs and daemon scripts accordingly --> Doing --> Needs a default PID file
 
     madfoxd --> Reboot --> PID file error
 
-    madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC
+    madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC --> Done
+---------------------------------------------------------------------
+[root@3fd5422be4f4 MadMask]# systemctl status madmaskd.service
+● madmaskd.service - LSB: Start and stop the madmask server
+   Loaded: loaded (/etc/rc.d/init.d/madmaskd; bad; vendor preset: disabled)
+   Active: failed (Result: resources) since Thu 2018-04-12 19:09:02 UTC; 1min 47s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 11640 ExecStart=/etc/rc.d/init.d/madmaskd start (code=exited, status=0/SUCCESS)
+
+Apr 12 19:09:01 3fd5422be4f4 su[11644]: (to happyface3) root on none
+Apr 12 19:09:02 3fd5422be4f4 madmaskd[11640]: info:    No forever processes running
+Apr 12 19:09:02 3fd5422be4f4 su[11651]: (to happyface3) root on none
+Apr 12 19:09:02 3fd5422be4f4 su[11662]: (to happyface3) root on none
+Apr 12 19:09:02 3fd5422be4f4 su[11685]: (to happyface3) root on none
+Apr 12 19:09:02 3fd5422be4f4 madmaskd[11640]: Starting madmaskd server:         [OK]
+Apr 12 19:09:02 3fd5422be4f4 systemd[1]: PID file /var/run/madmask.pid not readable (yet?) after start.
+Apr 12 19:09:02 3fd5422be4f4 systemd[1]: Failed to start LSB: Start and stop the madmask server.
+Apr 12 19:09:02 3fd5422be4f4 systemd[1]: Unit madmaskd.service entered failed state.
+Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
+----------------------------------------------------------------------
+
 
 
 ## Upgrade data analyzer (with systems.json)

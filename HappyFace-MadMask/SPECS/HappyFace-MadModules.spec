@@ -93,10 +93,18 @@ ln -s %{_libdir}/madanalyzer $RPM_BUILD_ROOT/%{_sbindir}/
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 
+## -------------------------------------
+##  Pre Install
+## -------------------------------------
 %pre
-service httpd stop
+%if 0%{rhel} == 6
+  service httpd stop
+%endif
 
 
+## -------------------------------------
+##  Post Install
+## -------------------------------------
 %post
 
 
@@ -141,16 +149,24 @@ cd %{_prefix}
 su %{happyface_user} -c "python acquire.py"
 echo "------------------------------------"
 
+%if 0%{rhel} == 6
+  service httpd start
+%endif
 
-service httpd start
 
-
+## -------------------------------------
+##  Pre Uninstall
+## -------------------------------------
 %preun
-service httpd stop
+
+%if 0%{rhel} == 6
+  service httpd stop
+%endif
 
 %postun
-service httpd start
-
+%if 0%{rhel} == 6
+  service httpd start
+%endif
 
 
 %files

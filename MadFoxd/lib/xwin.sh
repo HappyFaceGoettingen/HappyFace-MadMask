@@ -13,9 +13,20 @@ fit_window(){
     local width=$(echo $resolution | sed "s/x.*$//g")
     local height=$(echo $resolution | sed "s/^.*x//g")
 
-    local windowid=$(xdotool search --onlyvisible $app 2>&1 | tail -n 1) 
-    xdotool windowmove $windowid 0 0
-    xdotool windowsize $windowid $width $height
+    local try=
+    for try in $(seq 0 $WAIT_CLOUD_BOOT)
+    do
+	local windowid=$(xdotool search --onlyvisible $app 2>&1 | grep "^[0-9]" | tail -n 1)
+	if [ -z "$windowid" ]; then
+	    INFO "[$try]: Waiting [$app] to get a Window ID"
+	    sleep 60
+	else
+	    ## Fitting Window by xdotool
+	    xdotool windowmove $windowid 0 0
+	    xdotool windowsize $windowid $width $height
+	    break
+	fi
+    done
 
     ## Moving mouse pointer (to an unvisible point)
     xdotool mousemove 10000 10000

@@ -63,8 +63,6 @@ cd ..
 ! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 [ ! -d $RPM_BUILD_ROOT/%{_etc}/cron.d ] && mkdir -p $RPM_BUILD_ROOT/%{_etc}/cron.d
-! [ -d $RPM_BUILD_ROOT/%{_logdir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_logdir}
-! [ -d $RPM_BUILD_ROOT/%{_piddir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_piddir}
 ! [ -d $RPM_BUILD_ROOT/%{_sbindir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_sbindir}
 
 
@@ -115,8 +113,6 @@ fi
 
 
 
-
-
 ## If HappyFace user does not exist, the create it
 if ! id $happyface_user; then
     echo "Creating new user [%happyface_user] ..."
@@ -128,9 +124,15 @@ fi
 [ ! -d %{_datadir} ] && mkdir -vp %{_datadir}
 
 
+## PID dir and Log dir
+[ ! -e %{_logdir} ] && mkdir -pv %{_logdir} && chown %{happyface_user}:%{happyface_group} %{_logdir}
+[ ! -e %{_piddir} ] && mkdir -pv %{_piddir} && chown %{happyface_user}:%{happyface_group} %{_piddir}
+
 
 %preun
-service madmaskd stop
+%if 0%{rhel} == 6
+  service madmaskd stop
+%endif
 
 ## Changing a symlink of sites dir
 [ -L %{_prefix}/MadMask/sites ] && rm -v %{_prefix}/MadMask/sites
@@ -142,8 +144,7 @@ service madmaskd stop
 %defattr(-,%{happyface_user},%{happyface_group})
 %{_prefix}/HappyFaceMobile
 %{_prefix}/MadMask
-%{_logdir}
-%{_piddir}
+
 
 
 %defattr(-,root,root)
