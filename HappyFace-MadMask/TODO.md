@@ -39,6 +39,16 @@
  * Connecting to AGIS, more sites with configs (level0, level1, level2, Goettingen Internal)
 
 
+## For CentOS 7
+ * Solve the D-Bus issue in mad-gantry CentOS 7 --> Done
+ * Upgrading mad-gantry --> Done
+ * Upgrade SPECs and daemon scripts accordingly --> Doing
+
+    madfoxd --> Reboot --> PID file error
+
+    madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC
+
+
 ## Upgrade data analyzer (with systems.json)
  * Think of systems.json definition and remove errors (A simple template builder by using monitoring-urls.json?) --> Doing
 

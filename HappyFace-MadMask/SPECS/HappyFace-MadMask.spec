@@ -88,12 +88,17 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 %post
 
-## SSL error? Why on 03.04.2018? 
-npm config set ca ""
 
-## Reinstalling node-sass to HFMobile again, due to a native hardware or vender issue 
-echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
-su - %{happyface_user} -c "npm config set ca \"\"; cd %{_prefix}/MadMask && npm install node-sass@4.2.0 && npm rebuild node-sass --force"
+%if 0%{rhel} == 6
+  echo "This package should be build only for RHEL5"
+  exit 1
+  ## SSL error? Why on 03.04.2018? 
+  npm config set ca ""
+  
+  ## Reinstalling node-sass to HFMobile again, due to a native hardware or vender issue 
+  echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
+  su - %{happyface_user} -c "npm config set ca \"\"; cd %{_prefix}/MadMask && npm install node-sass@4.2.0 && npm rebuild node-sass --force"
+%endif
 
 
 ## Installing Basic packages for Ionic and Cordova
@@ -107,6 +112,8 @@ if ! which ionic; then
     which jpm || npm install -g jpm@1.0.7 &> /dev/null
     which forever || npm install -g forever@0.15.2 &> /dev/null
 fi
+
+
 
 
 

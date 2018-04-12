@@ -98,11 +98,10 @@ ln -s ../sites $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/sites
 
 %post
 
-
 ## Installing Basic packages for Ionic and Cordova
 echo "Installing Ionic and Cordova modules ..."
-npm install -g cordova@8.0.0 &> /dev/null
-npm install -g ionic@3.20.0 &> /dev/null
+npm install -g cordova@7.0.0
+npm install -g ionic@2.0.0
 
 echo "Installing JPM and Forever ..."
 which jpm || npm install -g jpm@1.0.7 &> /dev/null
@@ -123,8 +122,9 @@ fi
 [ -e /sites ] && mv -v %{_prefix}/MadMask/sites %{_prefix}/MadMask/sites.org && ln -sv /sites %{_prefix}/MadMask/sites
 
 ## Installing sync-request for madmask command
-cd %{_prefix}/MadMask
-npm install sync-request
+pushd %{_prefix}/MadMask
+npm install sync-request@2.0.1
+popd
 
 
 %preun
