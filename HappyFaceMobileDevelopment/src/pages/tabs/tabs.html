@@ -3,11 +3,11 @@
     <ion-tab [root]="tabMonitoring" tabTitle="Monitoring" tabIcon="ios-speedometer"></ion-tab>
     <ion-tab [root]="tabAnalyzer" tabTitle="Analyzer" tabIcon="ios-analytics"></ion-tab>
     <ion-tab [root]="tabSystems" tabTitle="Controller" tabIcon="ios-game-controller-b"></ion-tab>
-    <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="logo-snapchat"></ion-tab>
+    <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="ios-desktop"></ion-tab>
     <ion-tab [root]="tabLogs" tabTitle="Logs" tabIcon="ios-recording"></ion-tab>
     <ion-tab [root]="tabHumans" tabTitle="Humans" tabIcon="ios-people"></ion-tab>
-    <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings"></ion-tab>
-    <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear"></ion-tab>
+    <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings" *ngIf="false"></ion-tab>
+    <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear" *ngIf="true"></ion-tab>
   </ion-tabs>
 
 </ion-content>

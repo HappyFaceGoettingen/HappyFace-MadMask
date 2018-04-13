@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">
+        <ion-title style="padding-top: 15px">Choose Instance</ion-title>
+    </ion-navbar>
+    <ion-navbar *ngIf="!isIOS">
+        <ion-title>Choose Instance</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+  <ion-list-header>
+    Favorites
+  </ion-list-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let fav of favorites">
+      <button ion-item detail-none (click)="choose(fav)">
+        {{fav.name}}
+      </button>
+      <ion-item-options side="left">
+        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+    <br/>
+  <ion-list-header>
+      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">
+          <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+      {{label}}
+  </ion-list-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let loc of locations">
+      <button ion-item detail-none (click)="choose(loc);">
+        {{loc.name}}
+        <div item-end text-center>
+          <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </button>
+        </div>
+      </button>
+      <ion-item-options side="left">
+        <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <!--<span [innerHtml]="label"></span>-->
+</ion-content>

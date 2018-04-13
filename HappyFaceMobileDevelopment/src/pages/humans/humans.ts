@@ -10,17 +10,20 @@ export class HumansPage
 {
     humans:any[] = [];
 
-    constructor() {}
+    constructor(private model:DataModel) {}
 
     ngOnInit()
     {
-        DataModel.getInstance().addLoadingFinishedCallback(this.reloadingFinishedCallback.bind(this));
-        if(!DataModel.getInstance().isLoading()) this.reloadingFinishedCallback();
+        //DataModel.getInstance().addLoadingFinishedCallback(this.reloadingFinishedCallback.bind(this));
+        //if(!DataModel.getInstance().isLoading()) this.reloadingFinishedCallback();
+        this.model.addLoadingFinishedCallback(this.reloadingFinishedCallback.bind(this));
+        if(!this.model.isLoading()) this.reloadingFinishedCallback();
     }
 
     reloadingFinishedCallback()
     {
-        this.humans = DataModel.getInstance().humans;
+        //this.humans = DataModel.getInstance().humans;
+        this.humans = this.model.humans;
         if(this.humans == null || this.humans == undefined)
         {
             this.humans = [{ "name" : "Commander John Shepard", "img" : "https://yt3.ggpht.com/a-/AJLlDp22ITbg7LJa22ARdZVTVnouLreNJE6M60QYjA=s900-mo-c-c0xffffffff-rj-k-no",

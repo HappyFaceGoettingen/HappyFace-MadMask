@@ -20,7 +20,7 @@
 
 # GWDG Cloud server
 ## Connecting to a VM via ssh
-      ssh 141.5.108.29
+      ssh cloud@141.5.108.29
       
       # Go to 'mad-gantry' directory or open screen by 'screen -x'
       cd mad-gantry
@@ -29,7 +29,7 @@
       ./mad-gantry -a build
       
       # Before running a Docker VM, syncronise local copy with Git repository
-      ./mad-gantry -b
+      ./mad-gantry -d
       
       # Start the ADC Docker server (Change ADC to the VM name, e.g. DE, GoeGrid, accordingly)
       ./mad-gantry -s ADC -a up
@@ -45,24 +45,35 @@
       
 * See URL list (=ship/ship.html) 
 
-For example, <a href="http://141.5.108.29:20100">HappyFace Mobile: ADC</a></br>      
+For example, <a href="http://141.5.108.29:20100">HappyFace Mobile: ADC</a></br>
 
 
 # Timon TODO (03.04.2018 - )
 ## Timon: Reload functions, SSL client, HF connectors and so on
- * Meta-Meta monitoring configurations (for many sites)
- * Reloading tabs appropriately
+ * Meta-Meta monitoring configurations (for many sites)  --> Done
+ * Reloading tabs appropriately --> Done
 
- * Does not work with browser in a mobile phone (location.host?)
+ * Automatic reloading --> Done
+ * Automatic fetching (Notification)? --> Done, notification not implemented (yet), needs WebSever/MobilePhone configuration
+
+ * Does not work with browser in a mobile phone (location.host?) --> Done
  * Merging this TypeScript development environments with the original master branch
 
- * HappyFace Connector (can take it from HFMobileV1)
- * HappyFace Connector for data/sites configs (without using the Ionic server)
-    --> A configuration switch (For example, 'Use Only HappyFace Web')
+ * HappyFace Connector (can take it from HFMobileV1) --> Ongoing
+
+ * HappyFace Instance for data/sites configs (without using the Ionic server) --> Done
+    --> A configuration switch (For example, a switch 'Use Only HappyFace Web') --> Done
     --> The port is "web_port", dir is under "static/sites" and "static/data"
 
- * Automatic fetching (Notification)?
- * Openssl client? + Definition of systems.json (or template generator)
+  [Mobile Application] -----> [Ionic server or Ionic contents (e.g. port 20100, 'data/GoeGrid')]
+                 +----[HF connector] ----> [HappyFace Web Instance (e.g. port 10100)]
+
+  When 'Use Only HappyFace Web' is enabled
+  [Mobile Application] -----> [HappyFace Web Instance (e.g. port 10100, and dir is 'static/data/GoeGrid')]
+                 +----[HF connector] ----> [HappyFace Web Instance (e.g. port 10100)]
+
+
+ * Openssl client? + Definition of systems.json (or template generator) --> Check libraries
 
 
 ## RPM mobile apk builder (With Timon)

@@ -1,6 +1,9 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Controller</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -16,7 +19,7 @@
             </ion-avatar>
             <h2>{{system.name}}</h2>
             <p>{{system.text}}</p>
-            <ion-icon class="icon-accessory" name="ion-chevron-right"></ion-icon>
+            <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>
         </ion-item>
     </ion-list>
 </ion-content>

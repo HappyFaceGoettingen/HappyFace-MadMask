@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
-import {MobileConfig} from "../../data/MobileConfig";
-import {AlertController, NavController} from "ionic-angular";
+import {AlertController, ModalController, NavController} from "ionic-angular";
 import {MonitoringWebviewPage} from "./monitoring-webview";
+import {ModalPage} from "../config/modal";
 
 
 @Component({
@@ -28,12 +28,16 @@ export class MonitoringPage {
     private plot_name:string = "analysis";
 
 
-    constructor(private navControl : NavController, private alertCtrl : AlertController) {}
+    constructor(private model: DataModel, private navControl : NavController, private alertCtrl : AlertController, private modalCtrl : ModalController) {}
 
     ngOnInit()
     {
-        DataModel.getInstance().addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
-        if(!DataModel.getInstance().isLoading()) this.onReloadFinishedListener();
+        //DataModel.getInstance().addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
+        //DataModel.getInstance().addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
+        //if(!DataModel.getInstance().isLoading()) this.onReloadFinishedListener();
+        this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
+        this.model.addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
+        if(!this.model.isLoading()) this.onReloadFinishedListener();
     }
 
     onReloadFinishedListener()
@@ -46,14 +50,19 @@ export class MonitoringPage {
         }
     }
 
+    onLoadingStartedListener()
+    {
+        this.isLoading = true;
+    }
+
     connectionErrorPopup()
     {
-        let model:DataModel = DataModel.getInstance();
-        if(!(model.summary == null || model.summary == undefined))
+        //let model:DataModel = DataModel.getInstance();
+        if(!(this.model.summary == null || this.model.summary == undefined))
         {
-            if(!(model.config == null || model.config == undefined))
+            if(!(this.model.config == null || this.model.config == undefined))
             {
-                if(!(model.config.status == null || model.config.status == undefined))
+                if(!(this.model.config.status == null || this.model.config.status == undefined))
                 {
                     return false;
                 }
@@ -62,7 +71,7 @@ export class MonitoringPage {
 
         const alert = this.alertCtrl.create({
             title: '<b>Connection error</b>',
-            subTitle: 'Unable to  connect to given instance<br\>Host: ' + model.currentlyActive.host + '<br\>Port: ' + model.currentlyActive.mobile_port,
+            subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
             buttons: ['OK']
         });
         alert.present();
@@ -72,7 +81,17 @@ export class MonitoringPage {
 
     openModalConfig()
     {
+        const modal = this.modalCtrl.create(ModalPage);
+        modal.present();
+    }
 
+    reload()
+    {
+        console.log("ISLOADING: " + this.isLoading);
+        if(this.isLoading) return;
+        this.isLoading = true;
+        // DataModel.getInstance().reload();
+        this.model.reload();
     }
 
     historyChanged(event:any)
@@ -82,26 +101,34 @@ export class MonitoringPage {
 
     setStatusCard()
     {
-        this.statusText  = DataModel.getInstance().summary.text;
-        this.statusLevel = DataModel.getInstance().summary.level;
+        //this.statusText  = DataModel.getInstance().summary.text;
+        //this.statusLevel = DataModel.getInstance().summary.level;
+        this.statusText = this.model.summary.text;
+        this.statusLevel = this.model.summary.level;
 
-        let model:DataModel = DataModel.getInstance();
-        for (let i = 0; i < model.config.status.length; i++) {
-            if (model.config.status[i].name === this.statusLevel) {
-                this.statusImg = model.config.status[i].file;
+        //let model:DataModel = DataModel.getInstance();
+        for (let i = 0; i < this.model.config.status.length; i++) {
+            if (this.model.config.status[i].name === this.statusLevel) {
+                this.statusImg = this.model.config.status[i].file;
             }
         }
 
-        for (let i = 0; i < model.config.status.length; i++) {
-            if (model.config.status[i].name === this.statusLevel) {
-                this.statusColor = model.config.status[i].color;
+        for (let i = 0; i < this.model.config.status.length; i++) {
+            if (this.model.config.status[i].name === this.statusLevel) {
+                this.statusColor = this.model.config.status[i].color;
             }
         }
     }
 
+    openHappyFaceCore()
+    {
+        window.open("http://" + this.model.currentlyActive.host + ":" + this.model.currentlyActive.web_port, "_blank");
+    }
+
     setHistory()
     {
-        let str:string     = DataModel.getInstance().summary.history;
+        //let str:string     = DataModel.getInstance().summary.history;
+        let str:string     = this.model.summary.history;
         let array:string[] = str.split(" ");
         this.history       = [];
         for(let i:number = 0; i < array.length; i++) this.history.push({"name" : array[i], "datetime" : array[i]});
@@ -118,57 +145,53 @@ export class MonitoringPage {
     {
         this.setStatusCard();
 
-        if (MobileConfig.get().enableTextSpeech) {
-            let u = new SpeechSynthesisUtterance();
-            u.text = DataModel.getInstance().summary.text;
-            u.lang = 'en-GB';
-            speechSynthesis.speak(u);
-        }
+        //DataModel.getInstance().speakSummary();
+        this.model.speakSummary();
     }
 
     // Helper functions
     setLinks(datetime_dir) {
-        let model:DataModel = DataModel.getInstance();
-        let remote_url:string = model.getRemoteURL();
-        let config:any = model.config;
+        //let model:DataModel = DataModel.getInstance();
+        let remote_url:string = this.model.getRemoteURL();
+        let config:any = this.model.config;
 
         let capture_dir:string = config.data_dir + "/capture";
         let thumbnail_dir:string = config.data_dir + "/thumbnail";
         let analysis_dir:string = config.data_dir + "/analysis";
-        if (MobileConfig.get().enableMadVision) {
+        if (this.model.configuration.get().enableMadVision) {
             capture_dir = analysis_dir + "/madvision";
             thumbnail_dir = analysis_dir + "/madvision_thumbnail";
         }
         let plot_analysis_dir:string = analysis_dir + "/plot_analysis/latest";
         let plot_pathway_dir:string = analysis_dir + "/plot_pathway/latest";
 
-        for (let i: number = 0; i < model.monitoringUrls.length; i++) {
-            for (let j: number = 0; j < model.monitoringUrls[i].urls.length; j++) {
-                if ((model.monitoringUrls[i].urls[j].file_prefix == null) || (!model.monitoringUrls[i].urls[j].capture)) {
-                    model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
-                    model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
-                    model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
-                    model.monitoringUrls[i].urls[j].plot_pathway = remote_url + "img/not_captured.png";
-                    model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "img/not_captured.png";
+        for (let i: number = 0; i < this.model.monitoringUrls.length; i++) {
+            for (let j: number = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
+                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
+                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "img/not_captured.png";
                 } else {
-                    model.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
-                    model.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
-                    model.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + model.monitoringUrls[i].urls[j].file_prefix + ".png";
-                    model.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + model.monitoringUrls[i].urls[j].file_prefix + ".png";
-                    model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
+                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.model.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.model.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
 
-                    MonitoringPage.setPlots(this.plot_name);
+                    this.setPlots(this.plot_name);
                 }
             }
         }
-        console.log(JSON.stringify(model.monitoringUrls));
-        this.monitoringURLs = model.monitoringUrls;
+        //console.log(JSON.stringify(this.model.monitoringUrls));
+        this.monitoringURLs = this.model.monitoringUrls;
     }
 
-    static setPlots(plot_name:string){
+    /*static setPlots(plot_name:string){
         let model:DataModel = DataModel.getInstance();
-        for (let i:number = 0; i < model.monitoringUrls.length; i++) {
-            for (let j:number = 0; j < model.monitoringUrls[i].urls.length; j++){
+        for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
+            for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
                 if ((model.monitoringUrls[i].urls[j].file_prefix == null) || (! model.monitoringUrls[i].urls[j].capture)){
                     //logger.debug("nop");
                     console.log("DEBUG: nop");
@@ -176,6 +199,22 @@ export class MonitoringPage {
                     if (plot_name == "analysis" ) model.monitoringUrls[i].urls[j].analysis_plot = model.monitoringUrls[i].urls[j].plot_analysis;
                     if (plot_name == "pathway" ) model.monitoringUrls[i].urls[j].analysis_plot = model.monitoringUrls[i].urls[j].plot_pathway;
                     if (plot_name == "overall_pathway" ) model.monitoringUrls[i].urls[j].analysis_plot = model.monitoringUrls[i].urls[j].plot_overall_pathway;
+                }
+            }
+        }
+    }*/
+
+    setPlots(plot_name:string){
+        //let model:DataModel = DataModel.getInstance();
+        for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
+            for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
+                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (! this.model.monitoringUrls[i].urls[j].capture)){
+                    //logger.debug("nop");
+                    console.log("DEBUG: nop");
+                } else {
+                    if (plot_name == "analysis" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
+                    if (plot_name == "pathway" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
+                    if (plot_name == "overall_pathway" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_overall_pathway;
                 }
             }
         }

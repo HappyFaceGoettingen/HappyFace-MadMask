@@ -3,8 +3,6 @@ import {AlertController, NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
 import {MonitoringPage} from "../monitoring/monitoring";
 import {AnalyzerDetailPage} from "./analyzer-detail";
-import {MobileConfig} from "../../data/MobileConfig";
-
 
 @Component({
     selector: 'page-monitoring',
@@ -32,12 +30,16 @@ export class AnalyzerPage
     monitoringURLs:any[];
 
 
-    constructor(private navControl: NavController, private alertCtrl: AlertController) {}
+    constructor(private model: DataModel, private navControl: NavController, private alertCtrl: AlertController) {}
 
     ngOnInit()
     {
-        DataModel.getInstance().addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
-        if(!DataModel.getInstance().isLoading()) this.onReloadFinishedListener();
+        //DataModel.getInstance().addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
+        //DataModel.getInstance().addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
+        //if(!DataModel.getInstance().isLoading()) this.onReloadFinishedListener();
+        this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
+        this.model.addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
+        if(!this.model.isLoading()) this.onReloadFinishedListener();
     }
 
     onReloadFinishedListener()
@@ -46,22 +48,28 @@ export class AnalyzerPage
         {
             this.isLoading = false;
             this.setStatusCard();
-            MonitoringPage.setPlots(this.selectedViewer.id);
-            this.monitoringURLs = DataModel.getInstance().monitoringUrls;
+            this.setPlots(this.selectedViewer.id);
+            //this.monitoringURLs = DataModel.getInstance().monitoringUrls;
+            this.monitoringURLs = this.model.monitoringUrls;
             this.viewers.find(v => v.id === "overall_pathway").spsrc = this.monitoringURLs[0].urls[0].plot_overall_pathway;
         }
     }
 
+    onLoadingStartedListener()
+    {
+        this.isLoading = true;
+    }
+
     connectionErrorPopup()
     {
-        let model:DataModel = DataModel.getInstance();
-        if(!(model.summary == null || model.summary == undefined))
+        //let model:DataModel = DataModel.getInstance();
+        if(!(this.model.summary == null || this.model.summary == undefined))
         {
-            if(!(model.config == null || model.config == undefined))
+            if(!(this.model.config == null || this.model.config == undefined))
             {
-                if(!(model.config.status == null || model.config.status == undefined))
+                if(!(this.model.config.status == null || this.model.config.status == undefined))
                 {
-                    if(!(model.monitoringUrls == null || model.monitoringUrls == undefined))
+                    if(!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined))
                     {
                         return false;
                     }
@@ -71,7 +79,7 @@ export class AnalyzerPage
 
         const alert = this.alertCtrl.create({
             title: '<b>Connection error</b>',
-            subTitle: 'Unable to  connect to given instance<br\>Host: ' + model.currentlyActive.host + '<br\>Port: ' + model.currentlyActive.mobile_port,
+            subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
             buttons: ['OK']
         });
         alert.present();
@@ -81,21 +89,31 @@ export class AnalyzerPage
 
     setStatusCard()
     {
-        this.statusText  = DataModel.getInstance().summary.text;
-        this.statusLevel = DataModel.getInstance().summary.level;
+        //this.statusText  = DataModel.getInstance().summary.text;
+        //this.statusLevel = DataModel.getInstance().summary.level;
+        this.statusText = this.model.summary.text;
+        this.statusLevel = this.model.summary.level;
 
-        let model:DataModel = DataModel.getInstance();
-        for (let i = 0; i < model.config.status.length; i++) {
-            if (model.config.status[i].name === this.statusLevel) {
-                this.statusImg = model.config.status[i].file;
+        //let model:DataModel = DataModel.getInstance();
+        for (let i = 0; i < this.model.config.status.length; i++) {
+            if (this.model.config.status[i].name === this.statusLevel) {
+                this.statusImg = this.model.config.status[i].file;
             }
         }
 
-        for (let i = 0; i < model.config.status.length; i++) {
-            if (model.config.status[i].name === this.statusLevel) {
-                this.statusColor = model.config.status[i].color;
+        for (let i = 0; i < this.model.config.status.length; i++) {
+            if (this.model.config.status[i].name === this.statusLevel) {
+                this.statusColor = this.model.config.status[i].color;
             }
         }
+    }
+
+    reload()
+    {
+        if(this.isLoading) return;
+        this.isLoading = true;
+        //DataModel.getInstance().reload();
+        this.model.reload();
     }
 
     viewerChanged(event:any)
@@ -108,16 +126,28 @@ export class AnalyzerPage
     {
         this.setStatusCard();
 
-        if (MobileConfig.get().enableTextSpeech) {
-            let u = new SpeechSynthesisUtterance();
-            u.text = DataModel.getInstance().summary.text;
-            u.lang = 'en-GB';
-            speechSynthesis.speak(u);
-        }
+        //DataModel.getInstance().speakSummary();
+        this.model.speakSummary();
     }
 
     openPage(url:any)
     {
         this.navControl.push(AnalyzerDetailPage, { 'url' : url });
+    }
+
+    setPlots(plot_name:string){
+        //let model:DataModel = DataModel.getInstance();
+        for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
+            for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
+                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (! this.model.monitoringUrls[i].urls[j].capture)){
+                    //logger.debug("nop");
+                    console.log("DEBUG: nop");
+                } else {
+                    if (plot_name == "analysis" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
+                    if (plot_name == "pathway" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
+                    if (plot_name == "overall_pathway" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_overall_pathway;
+                }
+            }
+        }
     }
 }

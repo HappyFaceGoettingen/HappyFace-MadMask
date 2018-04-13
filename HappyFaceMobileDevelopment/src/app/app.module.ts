@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HappyFaceApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import {TabsPage} from "../pages/tabs/tabs";
 import {MonitoringPage} from "../pages/monitoring/monitoring";
 import {MonitoringWebviewPage} from "../pages/monitoring/monitoring-webview";
@@ -18,6 +17,10 @@ import {LogsPage} from "../pages/logs/logs";
 import {HumansPage} from "../pages/humans/humans";
 import {WorkingPage} from "../pages/working/working";
 import {ConfigPage} from "../pages/config/config";
+import {InstancesComponent} from "../pages/config/instances.component";
+import {ModalPage} from "../pages/config/modal";
+import {DataModel} from "../data/DataModel";
+import {IonicStorageModule} from "@ionic/storage";
 
 @NgModule({
     declarations: [
@@ -33,11 +36,14 @@ import {ConfigPage} from "../pages/config/config";
         LogsPage,
         HumansPage,
         ConfigPage,
+        ModalPage,
+        InstancesComponent,
         WorkingPage
     ],
     imports: [
         BrowserModule,
-        IonicModule.forRoot(HappyFaceApp)
+        IonicModule.forRoot(HappyFaceApp),
+        IonicStorageModule.forRoot()
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -53,12 +59,15 @@ import {ConfigPage} from "../pages/config/config";
         LogsPage,
         HumansPage,
         ConfigPage,
+        ModalPage,
+        InstancesComponent,
         WorkingPage
     ],
     providers: [
         StatusBar,
         SplashScreen,
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        DataModel
     ]
 })
 export class AppModule {}

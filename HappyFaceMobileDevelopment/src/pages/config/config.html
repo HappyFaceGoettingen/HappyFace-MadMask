@@ -1,6 +1,9 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Configuration</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -10,6 +13,61 @@
             <!-- Move to Instance selection page -->
             <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>
             <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Automatic rotation</ion-label>
+            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Automatic fetch</ion-label>
+            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>
+        </ion-item>
+
+        <ion-list-header *ngIf="automaticFetch">
+            Reload Interval:
+            <ion-badge item-end>{{interval}} min</ion-badge>
+        </ion-list-header>
+        <ion-item *ngIf="automaticFetch">
+            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">
+                <ion-icon range-left name="time"></ion-icon>
+            </ion-range>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Detect only change</ion-label>
+            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Enable Mad Vision</ion-label>
+            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Enable Text speech</ion-label>
+            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Enable automatic voice readout</ion-label>
+            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>
+        </ion-item>
+
+        <ion-list-header *ngIf="enableAutoReadout">
+            Readout Interval:
+            <ion-badge item-end>{{speakInterval}} min</ion-badge>
+        </ion-list-header>
+        <ion-item *ngIf="enableAutoReadout">
+            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">
+                <ion-icon range-left name="time"></ion-icon>
+            </ion-range>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>HappyFace compatible</ion-label>
+            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -13,32 +13,42 @@ export class LogsPage
     selectedLog:any = null;
     logText:string = "";
 
-    constructor(private alertCtrl: AlertController) {}
+    isLoading:boolean = false;
+
+    constructor(private model: DataModel, private alertCtrl: AlertController) {}
 
     ngOnInit()
     {
-        DataModel.getInstance().addLoadingFinishedCallback(this.reloadingFinishedListener.bind(this));
-        if(!DataModel.getInstance().isLoading()) this.reloadingFinishedListener();
+        //DataModel.getInstance().addLoadingFinishedCallback(this.reloadingFinishedListener.bind(this));
+        //if(!DataModel.getInstance().isLoading()) this.reloadingFinishedListener();
+        this.model.addLoadingFinishedCallback(this.reloadingFinishedListener.bind(this));
+        if(!this.model.isLoading()) this.reloadingFinishedListener();
     }
 
     reloadingFinishedListener()
     {
-        let model:DataModel = DataModel.getInstance();
-        if(model.logs == null || model.logs == undefined || model.config == null || model.config == undefined)
+        //let model:DataModel = DataModel.getInstance();
+        if(this.model.logs == null || this.model.logs == undefined || this.model.config == null || this.model.config == undefined)
         {
             const alert = this.alertCtrl.create({
                 title: '<b>Connection error</b>',
-                subTitle: 'Unable to  connect to given instance<br\>Host: ' + model.currentlyActive.host + '<br\>Port: ' + model.currentlyActive.mobile_port,
+                subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
                 buttons: ['OK']
             });
             alert.present();
         }
         else {
             this.modifyURLs();
-            this.logs = model.logs;
+            this.logs = this.model.logs;
             this.selectedLog = this.logs[0];
             this.loadSelectedLog();
         }
+    }
+
+    reload()
+    {
+        if(this.isLoading) return;
+        this.loadSelectedLog();
     }
 
     logSelected($event)
@@ -49,22 +59,24 @@ export class LogsPage
 
     loadSelectedLog()
     {
-        DataModel.getInstance().asyncLoadFile(this.selectedLog.file, this.logLoaded.bind(this))
+        this.isLoading = true;
+        //DataModel.getInstance().asyncLoadFile(this.selectedLog.file, this.logLoaded.bind(this))
+        this.model.asyncLoadFile(this.selectedLog.file, this.logLoaded.bind(this));
     }
 
     modifyURLs()
     {
-        let model:DataModel = DataModel.getInstance();
-        let log_dir = model.config.data_dir + "/log";
-        let remote_url = model.getRemoteURL();
-        for (let i = 0; i < model.logs.length; i++) {
+        // let model:DataModel = DataModel.getInstance();
+        let log_dir = this.model.config.data_dir + "/log";
+        let remote_url = this.model.getRemoteURL();
+        for (let i = 0; i < this.model.logs.length; i++) {
             // If it does not begin with 'http', then basename of log name is set
             // For example, /tmp/cron.log --> cron.log --> remote_url + data_dir + '/log/' + cron.log
 
-            if (!model.isHttpURL(model.logs[i].file)){
-                let logname = model.logs[i].file;
+            if (!this.model.isHttpURL(this.model.logs[i].file)){
+                let logname = this.model.logs[i].file;
                 let base_logfile = logname.split('/').reverse()[0];
-                model.logs[i].file = remote_url + "/" + log_dir + "/" + base_logfile;
+                this.model.logs[i].file = remote_url + "/" + log_dir + "/" + base_logfile;
             }
         }
     }
@@ -73,5 +85,6 @@ export class LogsPage
     {
         if(statusCode == 200) this.logText = log;
         else this.logText = "ERROR: Log could not be loaded";
+        this.isLoading = false;
     }
 }

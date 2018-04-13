@@ -1,6 +1,9 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Logs Viewer</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -12,7 +15,11 @@
         </ion-select>
     </ion-item>
 
-    <div no-padding text-wrap>
+    <div text-center padding [hidden]="!isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div no-padding text-wrap [hidden]="isLoading">
         <br/>
         {{logText}}
     </div>

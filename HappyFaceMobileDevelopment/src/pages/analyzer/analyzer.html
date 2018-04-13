@@ -1,6 +1,9 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Happy Monitoring Analyzer</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 

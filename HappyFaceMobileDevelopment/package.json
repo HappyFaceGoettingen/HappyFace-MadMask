@@ -1,6 +1,6 @@
 {
-  "name": "HappyFaceMobile2",
-  "version": "0.0.1",
+  "name": "HappyFaceMobile3",
+  "version": "3.0.2",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -35,5 +35,5 @@
     "@ionic/app-scripts": "3.1.8",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project"
+  "description": "Viewer/Controller of the HappyFace Meta Monitoring System in the WLCG"
 }
