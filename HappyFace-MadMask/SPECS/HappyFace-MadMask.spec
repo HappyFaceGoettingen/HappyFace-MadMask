@@ -88,8 +88,6 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 
 %if 0%{rhel} == 6
-  echo "This package should be build only for RHEL5"
-  exit 1
   ## SSL error? Why on 03.04.2018? 
   npm config set ca ""
   
