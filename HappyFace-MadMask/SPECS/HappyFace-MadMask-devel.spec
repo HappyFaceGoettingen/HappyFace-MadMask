@@ -1,7 +1,7 @@
 Summary: HappyFace-MadMask-devel
 Name: HappyFace-MadMask-devel
 Version: 1.0.0
-Release: 20180316
+Release: 20180412
 License: Apache License Version 2.0
 Group: System Environment/Daemons
 URL: http://nagios-goegrid.gwdg.de/category
@@ -152,6 +152,8 @@ service madmaskd stop
 
 
 %changelog
+* Thu Apr 12 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180412
+- Both RHEL6 and RHEL7 are supported
 * Fri Mar 16 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180316
 - Upgraded a builder. The all build processes are faster.
 * Tue Feb 27 2018 Gen Kawamura <Gen.Kawamura@cern.ch> 1.0.0-20180227
