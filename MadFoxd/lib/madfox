@@ -10,7 +10,7 @@ MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
 WAIT_FIREFOX_BOOT=10
 WAIT_FIREFOX_OPEN_TAB=0.5
 
-## Wait 60 x WAIT_CLOUD_BOOT sec (= until firefox starts)
+## Wait maximum 60 x WAIT_CLOUD_BOOT sec (= until firefox starts)
 WAIT_CLOUD_BOOT=20
 
 ## Common config by a JSON file

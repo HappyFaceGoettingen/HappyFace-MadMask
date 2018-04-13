@@ -98,16 +98,13 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 
 ## Installing Basic packages for Ionic and Cordova
-if ! which ionic; then
-    ## Installing
-    echo "Installing Ionic and Cordova modules ..."
-    npm install -g cordova@6.0.0 bplist-parser@0.1.1 &> /dev/null
-    npm install -g ionic@2.0.0 &> /dev/null
+echo "Installing Ionic and Cordova modules ..."
+npm install -g cordova@6.0.0 bplist-parser@0.1.1 &> /dev/null
+npm install -g ionic@2.0.0 &> /dev/null
 
-    echo "Installing JPM and Forever ..."
-    which jpm || npm install -g jpm@1.0.7 &> /dev/null
-    which forever || npm install -g forever@0.15.2 &> /dev/null
-fi
+echo "Installing JPM and Forever ..."
+which jpm || npm install -g jpm@1.0.7 &> /dev/null
+which forever || npm install -g forever@0.15.2 &> /dev/null
 
 
 
