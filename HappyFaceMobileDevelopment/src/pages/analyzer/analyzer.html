@@ -36,13 +36,20 @@
             </ion-select>
         </ion-item>
 
+        <!-- HappyFace Version1 Connector -->
+        <ion-item [hidden]="!selectedViewer.id === 'happyface'">
+            <ion-tabs>
+                <ion-tab [root]="HFClassical"></ion-tab>
+            </ion-tabs>
+        </ion-item>
+
         <!-- Single Plots, i.e. pictures -->
-        <ion-item [hidden]="selectedViewer.multiplots">
+        <ion-item [hidden]="selectedViewer.multiplots  || (selectedViewer.id === 'happyface' )">
             <img src="{{selectedViewer.spsrc}}"/>
         </ion-item>
 
         <!-- Multi Plots -->
-        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap [hidden]="!selectedViewer.multiplots">
+        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap [hidden]="!selectedViewer.multiplots || (selectedViewer.id === 'happyface')">
             <ion-card no-padding no-margin>
                 <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>
                 <ion-card-content no-padding>

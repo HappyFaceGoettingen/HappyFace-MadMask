@@ -21,6 +21,9 @@ import {InstancesComponent} from "../pages/config/instances.component";
 import {ModalPage} from "../pages/config/modal";
 import {DataModel} from "../data/DataModel";
 import {IonicStorageModule} from "@ionic/storage";
+import {ClassicalDataModel} from "../pages/hf-classical/ClassicalDataModel";
+import {HFCategoriesPage} from "../pages/hf-classical/hf-categories";
+import {HFModulesPage} from "../pages/hf-classical/hf-modules";
 
 @NgModule({
     declarations: [
@@ -38,7 +41,9 @@ import {IonicStorageModule} from "@ionic/storage";
         ConfigPage,
         ModalPage,
         InstancesComponent,
-        WorkingPage
+        WorkingPage,
+        HFCategoriesPage,
+        HFModulesPage
     ],
     imports: [
         BrowserModule,
@@ -61,13 +66,16 @@ import {IonicStorageModule} from "@ionic/storage";
         ConfigPage,
         ModalPage,
         InstancesComponent,
-        WorkingPage
+        WorkingPage,
+        HFCategoriesPage,
+        HFModulesPage
     ],
     providers: [
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-        DataModel
+        DataModel,
+        ClassicalDataModel
     ]
 })
 export class AppModule {}

@@ -8,6 +8,7 @@ import {VisualizersPage} from "../visualizers/visualizers";
 import {HumansPage} from "../humans/humans";
 import {WorkingPage} from "../working/working";
 import {ConfigPage} from "../config/config";
+import {HFCategoriesPage} from "../hf-classical/hf-categories";
 
 /**
  * Generated class for the TabsPage page.
