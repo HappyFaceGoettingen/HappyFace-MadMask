@@ -224,7 +224,8 @@ module.exports = {
      * Outdated data wiper using 'tmpwatch'. This command can periodically wipe out data which is older than 'config.keep_data_days' days
      */
     wipe_data: function(dir, config) {
-      var commandLine = "tmpwatch -v -a -m " + config.keep_data_days + "d " + config.data_dir;
+      var count = 10; // Running tmpwatch 10 times
+      var commandLine = "seq 1 " + count + " | xargs -I {} tmpwatch -v -a -m " + config.keep_data_days + "d " + config.data_dir;
       console.log("Wiping out old data in [" + config.data_dir + "]: " + commandLine);
       my_exec(commandLine);
     }
