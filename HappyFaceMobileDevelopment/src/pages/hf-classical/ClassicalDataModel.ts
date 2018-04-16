@@ -19,7 +19,6 @@ export class ClassicalDataModel
     {
         this.loading = true;
         let url:string = "http://" + this.model.currentlyActive.host + ":" + this.model.currentlyActive.web_port + "/category?action=getxml";
-        console.log("Load: " + url);
         this.asyncReadFile(url, this.parseXMLResult.bind(this));
     }
 
@@ -42,7 +41,6 @@ export class ClassicalDataModel
         if(statusCode == 200)
         {
             response = response.replace("\\n", "");
-            console.log("RAW: " + response);
             let cat:any = XML2JSON.xmlStringToJSON(response);
             HFTree = cat.happyface;
         }

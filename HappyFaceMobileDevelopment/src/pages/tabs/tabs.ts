@@ -9,6 +9,7 @@ import {HumansPage} from "../humans/humans";
 import {WorkingPage} from "../working/working";
 import {ConfigPage} from "../config/config";
 import {HFCategoriesPage} from "../hf-classical/hf-categories";
+import {AnalyzerPage2} from "../analyzer/analyzer2";
 
 /**
  * Generated class for the TabsPage page.
@@ -17,7 +18,7 @@ import {HFCategoriesPage} from "../hf-classical/hf-categories";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',
@@ -25,7 +26,7 @@ import {HFCategoriesPage} from "../hf-classical/hf-categories";
 export class TabsPage {
 
   tabMonitoring: any = MonitoringPage;
-  tabAnalyzer  : any = AnalyzerPage;
+  tabAnalyzer  : any = AnalyzerPage2;
   tabSystems   : any = ControllerPage;
   tabVisualizer: any = VisualizersPage;
   tabLogs      : any = LogsPage;

@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {AlertController, NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
-import {MonitoringPage} from "../monitoring/monitoring";
 import {AnalyzerDetailPage} from "./analyzer-detail";
 import {HFCategoriesPage} from "../hf-classical/hf-categories";
 
@@ -123,6 +122,10 @@ export class AnalyzerPage
     {
         console.log("VIEWER CHANGED TO: " + JSON.stringify(event));
         this.selectedViewer = event;
+        if(this.selectedViewer.multiplots) {
+            this.setPlots(this.selectedViewer.id);
+            this.monitoringURLs = this.model.monitoringUrls;
+        }
     }
 
     speakSummary()

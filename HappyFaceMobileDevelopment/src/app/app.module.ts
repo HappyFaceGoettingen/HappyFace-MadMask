@@ -24,6 +24,8 @@ import {IonicStorageModule} from "@ionic/storage";
 import {ClassicalDataModel} from "../pages/hf-classical/ClassicalDataModel";
 import {HFCategoriesPage} from "../pages/hf-classical/hf-categories";
 import {HFModulesPage} from "../pages/hf-classical/hf-modules";
+import {AnalyzerPage2} from "../pages/analyzer/analyzer2";
+import {ConnectionErrorPage} from "../pages/error/connection-error";
 
 @NgModule({
     declarations: [
@@ -32,6 +34,7 @@ import {HFModulesPage} from "../pages/hf-classical/hf-modules";
         MonitoringPage,
         MonitoringWebviewPage,
         AnalyzerPage,
+        AnalyzerPage2,
         AnalyzerDetailPage,
         ControllerPage,
         ControllerDetailPage,
@@ -42,6 +45,7 @@ import {HFModulesPage} from "../pages/hf-classical/hf-modules";
         ModalPage,
         InstancesComponent,
         WorkingPage,
+        ConnectionErrorPage,
         HFCategoriesPage,
         HFModulesPage
     ],
@@ -57,6 +61,7 @@ import {HFModulesPage} from "../pages/hf-classical/hf-modules";
         MonitoringPage,
         MonitoringWebviewPage,
         AnalyzerPage,
+        AnalyzerPage2,
         AnalyzerDetailPage,
         ControllerPage,
         ControllerDetailPage,
@@ -67,6 +72,7 @@ import {HFModulesPage} from "../pages/hf-classical/hf-modules";
         ModalPage,
         InstancesComponent,
         WorkingPage,
+        ConnectionErrorPage,
         HFCategoriesPage,
         HFModulesPage
     ],

@@ -18,9 +18,6 @@ export class VisualizersPage
 
     ngOnInit()
     {
-        //DataModel.getInstance().addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
-        //DataModel.getInstance().addLoadingFinishedCallback(this.reloadingFinishedListener.bind(this));
-        //if(!DataModel.getInstance().isLoading()) this.reloadingFinishedListener();
         this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
         this.model.addLoadingFinishedCallback(this.reloadingFinishedListener.bind(this));
         if(!this.model.isLoading()) this.reloadingFinishedListener();
@@ -28,13 +25,10 @@ export class VisualizersPage
 
     reloadingFinishedListener()
     {
-        //this.visualizers = DataModel.getInstance().visualizers;
-        this.visualizers = this.model.visualizers;
-        if(this.visualizers == null || this.visualizers == undefined)
+        this.visualizers = [];
+        if(!(this.model.visualizers == null || this.model.visualizers == undefined))
         {
-            this.createErrorLoadingPopup();
-        }
-        else {
+            this.visualizers = this.model.visualizers;
             this.isLoading = false;
             this.modifyLinks();
             this.selectedVisualizer = this.visualizers[0];
@@ -46,6 +40,7 @@ export class VisualizersPage
         this.isLoading = true;
     }
 
+    /* Deprecated
     createErrorLoadingPopup()
     {
         //let model:DataModel = DataModel.getInstance();
@@ -55,7 +50,7 @@ export class VisualizersPage
             buttons: ['OK']
         });
         alert.present();
-    }
+    }*/
 
     reload()
     {

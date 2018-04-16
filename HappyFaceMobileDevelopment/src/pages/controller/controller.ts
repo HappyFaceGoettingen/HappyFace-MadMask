@@ -32,16 +32,18 @@ export class ControllerPage
 
     reloadingFinishedCallback()
     {
-        //this.systems = DataModel.getInstance().systems;
-        this.systems = this.model.systems;
-        this.isLoading = false;
+        this.systems = [];
+        if(!(this.model.systems == null || this.model.systems == undefined))
+        {
+            this.systems = this.model.systems;
+            this.isLoading = false;
+        }
     }
 
     reload()
     {
         if(this.isLoading) return;
         this.isLoading = true;
-        //DataModel.getInstance().reload();
         this.model.reload();
     }
 

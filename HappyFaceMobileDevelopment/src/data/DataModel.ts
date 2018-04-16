@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
-import {Platform} from "ionic-angular";
+import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
+import {ConnectionErrorPage} from "../pages/error/connection-error";
 
 export var modelCounter:number = 0;
 
@@ -54,11 +55,10 @@ export class DataModel
 
     configuration   :ConfigurationObject = new ConfigurationObject();
 
-    constructor(private plt:Platform, private storage:Storage) {
+    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController) {
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
         this.findInitialConfiguration();
-        this.reload();
         this.initLoop();
     }
 
@@ -112,10 +112,14 @@ export class DataModel
     }
 
     addLoadingStartedCallback(callback: () => void ) { this.loadingStartedCallbacks.push(callback); }
+    removeLoadingStartedCallback(callback: () => void) {
+        this.loadingStartedCallbacks = this.loadingStartedCallbacks.filter(obj => obj !== callback);
+    }
 
     isLoading() { return this.loading; }
 
-    reload()
+    /* Deprecated
+    reload2()
     {
         this.loading = true;
         for(let i:number = 0; i < this.loadingStartedCallbacks.length; i++)
@@ -138,6 +142,38 @@ export class DataModel
                 (i == urls.length -1 ? summary_data_dir : this.currentlyActive.dir) + "/" + urls[i];
         }
 
+        this.readFileListAsync(urls, this.finishingCallback.bind(this));
+    }*/
+
+    errors:any[] = [];
+
+    reload()
+    {
+        this.loading = true;
+        this.errors = [];
+        for(let i:number = 0; i < this.loadingStartedCallbacks.length; i++)
+        {
+            console.log("Started start callback");
+            this.loadingStartedCallbacks[i]();
+        }
+        this.asyncLoadFile(this.getRemoteURL() + this.currentlyActive.dir + "/" + DataModel.configJson, this.reload_next.bind(this));
+    }
+
+    reload_next(content:any, statusCode:number)
+    {
+        if(statusCode == 200) this.config = JSON.parse(content);
+        else {
+            this.errors.push({"url" : this.getRemoteURL() + this.currentlyActive.dir + "/" + DataModel.configJson, "code" : statusCode});
+            this.initError();
+            return;
+        }
+        let urls:string[] = [ DataModel.monitoringUrlsJson, DataModel.systemsJson, DataModel.visualizersJson,
+            DataModel.logsJson, DataModel.humansJson, DataModel.meta_meta_json, DataModel.summaryJson ];
+        for(let i:number = 0; i < urls.length; i++)
+        {
+            if(this.currentlyActive.host == "localhost") urls[i] = this.currentlyActive.dir + "/" + urls[i];
+            else urls[i] = this.getRemoteURL() + (i == urls.length -1 ? this.config.data_dir : this.currentlyActive.dir) + "/" + urls[i];
+        }
         this.readFileListAsync(urls, this.finishingCallback.bind(this));
     }
 
@@ -173,29 +209,27 @@ export class DataModel
         //else this.config = null;
 
         if(statusCodes[0] == 200) this.monitoringUrls = JSON.parse(responses[0]);
-        else this.monitoringUrls = null;
+        else { this.monitoringUrls = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[0]); }
 
         if(statusCodes[1] == 200) this.systems = JSON.parse(responses[1]);
-        else this.systems = null;
+        else { this.systems = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[1]); }
 
         if(statusCodes[2] == 200) this.visualizers = JSON.parse(responses[2]);
-        else this.visualizers = null;
+        else { this.visualizers = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[2]); }
 
         if(statusCodes[3] == 200) this.logs = JSON.parse(responses[3]);
-        else this.logs = null;
+        else { this.logs = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[3]); }
 
         if(statusCodes[4] == 200) this.humans = JSON.parse(responses[4]);
-        else this.humans = null;
+        else { this.humans = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[4]); }
 
         if(statusCodes[5] == 200) this.metaMetaSites = JSON.parse(responses[5]);
-        else this.metaMetaSites = null;
+        else { this.metaMetaSites = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[5]); }
 
         if(statusCodes[6] == 200) this.summary = JSON.parse(responses[6]);
-        else this.summary = null;
+        else { this.summary = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[6]); }
 
         this.loading = false;
-
-        //console.log(JSON.stringify(this));
 
         for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
         {
@@ -204,9 +238,8 @@ export class DataModel
         }
     }
 
-
-    // Asynchronous load JSON file
-    asyncLoadFile(url:string, callback: (jsonContent:any, statusCode:number) => void)
+    // Asynchronous load file
+    asyncLoadFile(url:string, callback: (content:any, statusCode:number) => void)
     {
         console.log("READING: " + url);
         let req = new XMLHttpRequest();
@@ -238,7 +271,25 @@ export class DataModel
         return result;
     }
 
-    // Getters
+    initError()
+    {
+        let preset:boolean = this.configuration.get().automaticFetch;
+        this.configuration.setAutomaticFetch(false);
+        console.log("ERROR initialized");
+        const modal = this.modalCtrl.create(ConnectionErrorPage,
+            {"host": this.currentlyActive.host, "port": this.currentlyActive.mobile_port, "errors" : this.errors});
+        modal.onDidDismiss(data => {
+            if(data.retry) {
+                this.currentlyActive.host = data.host;
+                this.currentlyActive.mobile_port = data.port;
+                this.reload();
+                this.configuration.setAutomaticFetch(preset);
+            }
+        });
+        modal.present();
+    }
+
+    // Helpers
     getRemoteURL()
     {
         return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port + "/";
@@ -248,6 +299,12 @@ export class DataModel
     {
         return new RegExp('^(http|https)(:\\/\\/)').test(url);
     }
+
+    pushError(website:string, code:number)
+    {
+        this.errors.push({"url" : this.getRemoteURL() + this.currentlyActive.dir + "/" + website, "code" : code})
+    }
+
 
     speakSummary()
     {
@@ -276,7 +333,7 @@ export class DataModel
                 if(this.configuration.get().automaticFetch && (this.loopCounter % this.configuration.get().reloadInterval == 0))
                     this.reload();
 
-                if(this.configuration.get().enableTextSpeech && (this.loopCounter % this.configuration.get().speakInterval == 0))
+                if(this.configuration.get().enableAutoReadout && (this.loopCounter % this.configuration.get().speakInterval == 0))
                     this.speakSummary();
 
             }, 60000);
@@ -303,6 +360,7 @@ export class DataModel
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
             /*this.loadConfig();
             this.currentlyActive.name = this.config.site_name;*/
+            this.reload();
         }
         // App running on a clients device
         else {
@@ -316,6 +374,8 @@ export class DataModel
                 if(!(value == null || value == undefined))
                     this.currentlyActive = value;
                 console.log("Saved Instance is: " + JSON.stringify(value));
+                //this.currentlyActive.host = "141.5.108.31";
+                this.reload();
             });
         }
     }
@@ -335,7 +395,8 @@ export class DataModel
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost()
     {
-        return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
+        //return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
+        return false;
     }
 
     /* Deprecated

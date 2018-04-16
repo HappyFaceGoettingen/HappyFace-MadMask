@@ -28,16 +28,9 @@ export class LogsPage
     reloadingFinishedListener()
     {
         //let model:DataModel = DataModel.getInstance();
-        if(this.model.logs == null || this.model.logs == undefined || this.model.config == null || this.model.config == undefined)
+        this.logs = [];
+        if(!(this.model.logs == null || this.model.logs == undefined || this.model.config == null || this.model.config == undefined))
         {
-            const alert = this.alertCtrl.create({
-                title: '<b>Connection error</b>',
-                subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
-                buttons: ['OK']
-            });
-            alert.present();
-        }
-        else {
             this.modifyURLs();
             this.logs = this.model.logs;
             this.selectedLog = this.logs[0];
@@ -66,7 +59,6 @@ export class LogsPage
 
     modifyURLs()
     {
-        // let model:DataModel = DataModel.getInstance();
         let log_dir = this.model.config.data_dir + "/log";
         let remote_url = this.model.getRemoteURL();
         for (let i = 0; i < this.model.logs.length; i++) {

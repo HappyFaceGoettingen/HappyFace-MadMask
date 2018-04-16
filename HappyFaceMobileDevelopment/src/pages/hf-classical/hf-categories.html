@@ -1,13 +1,17 @@
-<ion-header>
+<!--<ion-header>
     <ion-navbar>
         <ion-title>Categories</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="reload()"><ion-icon name="refresh"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
-</ion-header>
+</ion-header>-->
 
-<ion-content no-padding>
+<style>.scroll-content {
+    padding: 0 !important;
+}</style>
+
+<ion-content>
     <div text-center padding *ngIf="isLoading">
         <ion-spinner></ion-spinner>
     </div>

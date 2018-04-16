@@ -24,7 +24,6 @@ export class HFModulesPage
     constructor(private classicModel:ClassicalDataModel, private navParams:NavParams, private navCtrl: NavController)
     {
         this.category = this.navParams.get('category');
-        console.log("TITLE: " + this.category.title);
         if(this.category == null || this.category == undefined)
         {
             this.modulesExisting = false;
@@ -61,7 +60,6 @@ export class HFModulesPage
 
     moduleSelected(mod:any)
     {
-        console.log("OPENING: " + mod.link);
         window.open(mod.link, "_blank");
     }
 }
