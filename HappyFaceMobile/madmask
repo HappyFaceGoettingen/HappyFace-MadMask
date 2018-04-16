@@ -54,7 +54,7 @@ if(program.rawArgs.length <= 2) {
 
    console.log('Call MadBrowser: %s', program.Browser);
    console.log('Call MadAnalyzer: %s', program.Analyzer);
-   console.log('Generate system.json: %s', program.Systems);
+   console.log('Generate system.json: %s', program.SystemsTemplate);
    console.log('Log Collector: %s', program.LogCollector);
    console.log('Wipe is: %s', program.Wipe);
    console.log('Build is: %s', program.build);
@@ -65,7 +65,7 @@ if(program.rawArgs.length <= 2) {
    *********************************/
    if (program.ionic) madmask.ionic(program.config, config, program.logdir, program.piddir);
 
-   if (program.Systems) madmask.generate_systems_json(program.config, config);
+   if (program.SystemsTemplate) madmask.generate_systems_json(program.config, config);
 
    if (program.Browser) madmask.call_madbrowser(program.config, config, program.Browser);
 

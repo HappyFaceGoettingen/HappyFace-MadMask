@@ -100,10 +100,39 @@ module.exports = {
 
       // Reading all system compnents from monitoring-urls.json
       var urls = readJSON(dir + "/" + monitoringUrlsJson);
-      var systems = [];
+      var overall_systems = [];
+
+      for (var i = 0; i < urls.length; i++){
+        for (var j = 0; j < urls[i].urls.length; j++){
+          var systems = urls[i].urls[j].systems;
+          if (systems.length != 0)
+            overall_systems = overall_systems.concat(systems);
+        }
+      }
+
+      // Take unique system components
+      var unique_systems = overall_systems.filter(function (x, i, self) {
+            return self.indexOf(x) === i; });
 
       // Outputting a [system.json] template
+      console.log("Number of the basic system components = " + unique_systems.length);
+      for (var k = 0; k < unique_systems.length; k++){
+        console.log(unique_systems[k]);
 
+        // Output the following basic element
+        /*
+         *  {
+         *     "name": "",
+         *     "text": "System node []",
+         *     "img": "img/default_machine.png",
+         *     "services": [{
+         *           "name": "Restart",
+         *           "command": "restart"
+         *           }
+         *         ]
+         *   }
+         */
+      }
 
     },
 
