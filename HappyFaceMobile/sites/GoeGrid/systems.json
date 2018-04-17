@@ -1,300 +1,317 @@
-[
-  {
-    "name": "virt3",
-    "text": "Virtual machine provider",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt3 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "virt4",
-    "text": "Virtual machine provider",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt4 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "virt5",
-    "text": "Virtual machine provider",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt5 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "virt6",
-    "text": "Virtual machine provider",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt6 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "apel",
-    "text": "Apel accounting provider",
-    "img": "img/apel.png",
-    "services": [{
-	  "name": "Run apel publisher",
-	  "command": "ssh apel 'hostname'"
-	  }
-	]
-  }, {
-    "name": "bdii",
-    "text": "BDII site information provider",
-    "img": "img/bdii.png",
-    "services": [{
-	  "name": "Restart BDII",
-	  "command": "ssh bdii 'service bdii restart'"
-	  }
-	]
-  }, {
-    "name": "creamce2",
-    "text": "2nd Computing element",
-    "img": "img/ce.png",
-    "services": [{
-	  "name": "Restart BDII",
-	  "command": "ssh creamce2 'service bdii restart'"
-	  }, {
-	  "name": "Restart gLite CREAMCE",
-	  "command": "ssh creamce2 'service gLite restart'"
-	  }
-	]
-  }, {
-    "name": "creamce3",
-    "text": "3rd Computing element",
-    "img": "img/ce.png",
-    "services": [{
-	  "name": "Restart BDII",
-	  "command": "ssh creamce3 'service bdii restart'"
-	}, {
-	  "name": "Restart gLite CREAMCE",
-	  "command": "ssh creamce3 'service gLite restart'"
-	  }
-	]
-  }, {
-    "name": "pbs",
-    "text": "PBS batch server",
-    "img": "img/pbs.png",
-    "services": [{
-	  "name": "Restart PBS",
-	  "command": "ssh creamce2 'service pbs_server restart'"
-	  }, {
-	  "name": "Restart MAUI",
-	  "command": "ssh pbs 'service maui restart'"
-	  }
-	]
-  }, {
-    "name": "nagios",
-    "text": "Internal Nagios monitoring",
-    "img": "img/nagios.png",
-    "services": [{
-	  "name": "Restart Nagios",
-	  "command": "ssh nagios 'service nagios restart'"
-	  }
-	]
-  }, {
-    "name": "perfsonar01",
-    "text": "Perfsonar node = !!old SE4!!",
-    "img": "img/perfsonar.png",
-    "services": [{
-	  "name": "Restart Perfsonar",
-	  "command": "ssh perfsonar01 'service perfsonar restart'"
-	  }
-	]
-  }, {
-    "name": "se-xrootd",
-    "text": "FAX Xrootd proxy",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart xrootd service",
-	  "command": "ssh se-xrootd '/etc/init.d/cmsd stop; /etc/init.d/xrootd stop; /etc/init.d/xrootd start; /etc/init.d/cmsd start'"
-	  }
-	]
-  }, {
-    "name": "se",
-    "text": "dCache head node",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se 'service dcache restart'"
-	  }, {
-	  "name": "Restart PostgreSQL",
-	  "command": "ssh se 'service postgresql-9.2 restart'"
-	  }
-	]
-  }, {
-    "name": "se5",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se5 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se5 'service dcache restart se5-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se5 'service dcache restart dcap-se5-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache Xrootd service",
-	  "command": "ssh se5 'service dcache restart xrootd-se5-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se7",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se7 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se7 'service dcache restart se7-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se7 'service dcache restart dcap-se7-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se8",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se8 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se8 'service dcache restart se8-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se8 'service dcache restart dcap-se8-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se9",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se9 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se9 'service dcache restart se9-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se9 'service dcache restart dcap-se9-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se10",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se10 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se10 'service dcache restart se10-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se10 'service dcache restart dcap-se10-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se11",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se11 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se11 'service dcache restart se11-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se11 'service dcache restart dcap-se11-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se12",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se12 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se12 'service dcache restart se12-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se12 'service dcache restart dcap-se12-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se13",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se13 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se13 'service dcache restart se13-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se13 'service dcache restart dcap-se13-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se14",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se14 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se14 'service dcache restart se14-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se14 'service dcache restart dcap-se14-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se15",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se15 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se15 'service dcache restart se15-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se15 'service dcache restart dcap-se15-goegridDomain'"
-	  }
-	]
-  }, {
-    "name": "se16",
-    "text": "dCache disk pool",
-    "img": "img/se.png",
-    "services": [{
-	  "name": "Restart all dCache services",
-	  "command": "ssh se16 'service dcache restart'"
-	  }, {
-	  "name": "Restart dCache Pool service",
-	  "command": "ssh se16 'service dcache restart se16-goegridDomain'"
-	  }, {
-	  "name": "Restart dCache dCap service",
-	  "command": "ssh se16 'service dcache restart dcap-se16-goegridDomain'"
-	  }
-	]
-  }
-]
+[{
+	"name": "se",
+	"text": "System [se]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se restart"
+		}]
+  },{
+	"name": "bdii",
+	"text": "System [bdii]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "bdii restart"
+		}]
+  },{
+	"name": "creamce",
+	"text": "System [creamce]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "creamce restart"
+		}]
+  },{
+	"name": "pbs",
+	"text": "System [pbs]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "pbs restart"
+		}]
+  },{
+	"name": "creamce2",
+	"text": "System [creamce2]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "creamce2 restart"
+		}]
+  },{
+	"name": "creamce3",
+	"text": "System [creamce3]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "creamce3 restart"
+		}]
+  },{
+	"name": "apel",
+	"text": "System [apel]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "apel restart"
+		}]
+  },{
+	"name": "FAX",
+	"text": "System [FAX]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "FAX restart"
+		}]
+  },{
+	"name": "Squid",
+	"text": "System [Squid]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "Squid restart"
+		}]
+  },{
+	"name": "ALL",
+	"text": "System [ALL]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "ALL restart"
+		}]
+  },{
+	"name": "nagios",
+	"text": "System [nagios]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "nagios restart"
+		}]
+  },{
+	"name": "ganglia",
+	"text": "System [ganglia]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "ganglia restart"
+		}]
+  },{
+	"name": "virt1",
+	"text": "System [virt1]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "virt1 restart"
+		}]
+  },{
+	"name": "virt2",
+	"text": "System [virt2]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "virt2 restart"
+		}]
+  },{
+	"name": "virt3",
+	"text": "System [virt3]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "virt3 restart"
+		}]
+  },{
+	"name": "virt4",
+	"text": "System [virt4]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "virt4 restart"
+		}]
+  },{
+	"name": "virt5",
+	"text": "System [virt5]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "virt5 restart"
+		}]
+  },{
+	"name": "virt6",
+	"text": "System [virt6]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "virt6 restart"
+		}]
+  },{
+	"name": "rocks",
+	"text": "System [rocks]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "rocks restart"
+		}]
+  },{
+	"name": "se2",
+	"text": "System [se2]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se2 restart"
+		}]
+  },{
+	"name": "se3",
+	"text": "System [se3]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se3 restart"
+		}]
+  },{
+	"name": "se4",
+	"text": "System [se4]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se4 restart"
+		}]
+  },{
+	"name": "se5",
+	"text": "System [se5]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se5 restart"
+		}]
+  },{
+	"name": "se6",
+	"text": "System [se6]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se6 restart"
+		}]
+  },{
+	"name": "se7",
+	"text": "System [se7]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se7 restart"
+		}]
+  },{
+	"name": "se8",
+	"text": "System [se8]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se8 restart"
+		}]
+  },{
+	"name": "se9",
+	"text": "System [se9]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se9 restart"
+		}]
+  },{
+	"name": "se10",
+	"text": "System [se10]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se10 restart"
+		}]
+  },{
+	"name": "se11",
+	"text": "System [se11]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se11 restart"
+		}]
+  },{
+	"name": "se12",
+	"text": "System [se12]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se12 restart"
+		}]
+  },{
+	"name": "se13",
+	"text": "System [se13]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se13 restart"
+		}]
+  },{
+	"name": "se14",
+	"text": "System [se14]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se14 restart"
+		}]
+  },{
+	"name": "se15",
+	"text": "System [se15]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se15 restart"
+		}]
+  },{
+	"name": "se16",
+	"text": "System [se16]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "se16 restart"
+		}]
+  },{
+	"name": "dcache",
+	"text": "System [dcache]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"name": "Restart",
+		"command": "dcache restart"
+		}]
+
+}]

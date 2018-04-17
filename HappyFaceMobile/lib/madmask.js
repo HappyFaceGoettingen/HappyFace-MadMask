@@ -95,7 +95,8 @@ module.exports = {
      *  The systems giving monitoring information are defined by an array "systems" in monitoring-urls.json
      */
     generate_systems_json: function (dir, config) {
-      console.log("Generating [", systemsJson, "] ...");
+      var newSystemsJson = dir + "/" + systemsJson;
+      console.log("Generating [", newSystemsJson, "] ...");
       makeDefaultSite(dir);
 
       // Reading all system compnents from monitoring-urls.json
@@ -114,26 +115,30 @@ module.exports = {
       var unique_systems = overall_systems.filter(function (x, i, self) {
             return self.indexOf(x) === i; });
 
-      // Outputting a [system.json] template
+      // Generating a [system.json] template
       console.log("Number of the basic system components = " + unique_systems.length);
+      var template = "[{\n";
       for (var k = 0; k < unique_systems.length; k++){
-        console.log(unique_systems[k]);
-
+        //console.log(unique_systems[k]);
         // Output the following basic element
-        /*
-         *  {
-         *     "name": "",
-         *     "text": "System node []",
-         *     "img": "img/default_machine.png",
-         *     "services": [{
-         *           "name": "Restart",
-         *           "command": "restart"
-         *           }
-         *         ]
-         *   }
-         */
-      }
+        template = template
+                 + "\t\"name\": \"" + unique_systems[k] + "\",\n"
+                 + "\t\"text\": \"System [" + unique_systems[k] + "]\",\n"
+                 + "\t\"img\":  \"img/default_server.png\",\n"
+                 + "\t\"dependent\":  [],\n"
+                 + "\t\"services\": [{\n"
+                 + "\t\t\"name\": \"Restart\",\n"
+                 + "\t\t\"command\": \"" + unique_systems[k] + " restart\"\n"
+                 + "\t\t}]\n";
 
+
+        if (k < unique_systems.length - 1) template = template + "  },{\n";
+      }
+      template = template + "\n}]\n";
+
+      // Output a [system.json] template
+      console.log("Writing into new [" + newSystemsJson + "] template ...");
+      fs.writeFile(newSystemsJson, template)
     },
 
     /*
