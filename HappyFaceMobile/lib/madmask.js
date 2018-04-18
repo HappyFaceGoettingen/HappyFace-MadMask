@@ -245,7 +245,6 @@ module.exports = {
                         + "if ! which android; then"
                         + " echo '[android] command does not exist';"
                         + "else"
-                        + " df -h; du -s -h platforms"
                         + " rm -v www/data;"
                         + " ionic build android && ionic build android --prod --release;"
                         + " ln -vs ../data www/data;"
