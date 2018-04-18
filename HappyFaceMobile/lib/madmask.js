@@ -127,6 +127,7 @@ module.exports = {
                  + "\t\"img\":  \"img/default_server.png\",\n"
                  + "\t\"dependent\":  [],\n"
                  + "\t\"services\": [{\n"
+                 + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Restart\",\n"
                  + "\t\t\"command\": \"" + unique_systems[k] + " restart\"\n"
                  + "\t\t}]\n";
