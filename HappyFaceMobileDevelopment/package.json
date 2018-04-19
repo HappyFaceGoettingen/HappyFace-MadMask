@@ -12,19 +12,19 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
-    "@angular/animations": "5.2.9",
-    "@angular/common": "5.2.9",
-    "@angular/compiler": "5.2.9",
-    "@angular/compiler-cli": "5.2.9",
-    "@angular/core": "5.2.9",
-    "@angular/forms": "5.2.9",
-    "@angular/http": "5.2.9",
-    "@angular/platform-browser": "5.2.9",
-    "@angular/platform-browser-dynamic": "5.2.9",
     "@ionic-native/core": "4.6.0",
     "@ionic-native/splash-screen": "4.6.0",
     "@ionic-native/status-bar": "4.6.0",
     "@ionic/storage": "2.1.3",
+    "angular": "^1.6.10",
+    "cordova-android": "7.1.0",
+    "cordova-ios": "4.5.4",
+    "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-plugin-ionic-webview": "^1.2.0",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-sshclient": "git+https://github.com/R3nPi2/cordova-plugin-sshclient.git",
+    "cordova-plugin-whitelist": "^1.3.3",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "rxjs": "5.5.8",
@@ -32,8 +32,32 @@
     "zone.js": "0.8.20"
   },
   "devDependencies": {
+    "@angular/animations": "^5.2.10",
+    "@angular/common": "^5.2.10",
+    "@angular/compiler": "^5.2.10",
+    "@angular/compiler-cli": "^5.2.10",
+    "@angular/core": "^5.2.10",
+    "@angular/forms": "^5.2.10",
+    "@angular/http": "^5.2.10",
+    "@angular/platform-browser": "^5.2.10",
+    "@angular/platform-browser-dynamic": "^5.2.10",
     "@ionic/app-scripts": "3.1.8",
+    "@types/ssh2": "0.5.35",
     "typescript": "~2.6.2"
   },
-  "description": "Viewer/Controller of the HappyFace Meta Monitoring System in the WLCG"
+  "description": "Viewer/Controller of the HappyFace Meta Monitoring System in the WLCG",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-sshclient": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {}
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
 }

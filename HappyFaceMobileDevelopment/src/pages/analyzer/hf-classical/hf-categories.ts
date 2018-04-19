@@ -28,7 +28,7 @@ export class HFCategoriesPage
     {
         this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
         if(!this.classicModel.isLoading()) this.loadingFinishedListener();
-        this.outdateHandler = setInterval(() => { this.outdated = true; }, 1200000);
+        this.outdateHandler = window.setInterval(() => { this.outdated = true; }, 1200000);
     }
 
     loadingFinishedListener()
@@ -41,7 +41,7 @@ export class HFCategoriesPage
     reload()
     {
         clearInterval(this.outdateHandler);
-        this.outdateHandler = setInterval(() => { this.outdated = true; }, 1200000);
+        this.outdateHandler = window.setInterval(() => { this.outdated = true; }, 1200000);
         this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
         if(!this.classicModel.isLoading()) this.loadingFinishedListener();
         this.classicModel.reload();

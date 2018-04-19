@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {AlertController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
 
 @Component({
@@ -15,7 +14,7 @@ export class LogsPage
 
     isLoading:boolean = false;
 
-    constructor(private model: DataModel, private alertCtrl: AlertController) {}
+    constructor(private model: DataModel) {}
 
     ngOnInit()
     {

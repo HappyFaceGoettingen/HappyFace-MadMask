@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {ClassicalDataModel} from "./ClassicalDataModel";
-import {NavController, NavParams} from "ionic-angular";
+import {NavParams} from "ionic-angular";
 
 @Component({
     selector: "page-hf-modules",
@@ -21,7 +21,7 @@ export class HFModulesPage
     outdated:boolean = false;
     outdateHandler:number = 0;
 
-    constructor(private classicModel:ClassicalDataModel, private navParams:NavParams, private navCtrl: NavController)
+    constructor(private classicModel:ClassicalDataModel, private navParams:NavParams)
     {
         this.category = this.navParams.get('category');
         if(this.category == null || this.category == undefined)
@@ -36,7 +36,7 @@ export class HFModulesPage
     {
         this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
         if(!this.classicModel.isLoading()) this.loadingFinishedListener();
-        this.outdateHandler = setInterval(() => { this.outdated = true; }, 1200000);
+        this.outdateHandler = window.setInterval(() => { this.outdated = true; }, 1200000);
     }
 
     loadingFinishedListener()
@@ -47,7 +47,7 @@ export class HFModulesPage
     reload()
     {
         clearInterval(this.outdateHandler);
-        this.outdateHandler = setInterval(() => { this.outdated = true; }, 1200000);
+        this.outdateHandler = window.setInterval(() => { this.outdated = true; }, 1200000);
         this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
         if(!this.classicModel.isLoading()) this.loadingFinishedListener();
         this.classicModel.reload();

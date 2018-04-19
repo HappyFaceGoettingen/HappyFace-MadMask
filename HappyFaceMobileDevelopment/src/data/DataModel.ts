@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
-import {ConnectionErrorPage} from "../pages/error/connection-error";
+import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 
 export var modelCounter:number = 0;
 
@@ -326,7 +326,7 @@ export class DataModel
     {
         if(this.configuration.get().automaticFetch && this.configuration.get().enableTextSpeech) // List all loop content with &&
         {
-            this.loopHandler = setInterval(() =>
+            this.loopHandler = window.setInterval(() =>
             {
                 this.loopCounter++;
                 // List all loop dependent configurations as if (like in automaticFetch below)
@@ -395,8 +395,18 @@ export class DataModel
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost()
     {
-        //return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
-        return false;
+        return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
+        //return false;
+    }
+
+    isAndroid()
+    {
+        return this.plt.is('android');
+    }
+
+    isiOS()
+    {
+        return this.plt.is('ios');
     }
 
     /* Deprecated

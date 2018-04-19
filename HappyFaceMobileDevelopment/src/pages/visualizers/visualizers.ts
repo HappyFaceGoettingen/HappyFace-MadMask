@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
-import {AlertController} from "ionic-angular";
 
 @Component({
     selector: 'page-visualizers',
@@ -14,7 +13,7 @@ export class VisualizersPage
 
     isLoading:boolean = true;
 
-    constructor(private model:DataModel, private alertCtrl: AlertController) {}
+    constructor(private model:DataModel) {}
 
     ngOnInit()
     {

@@ -1,6 +1,6 @@
-import {AlertController, NavController} from "ionic-angular";
+import {NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
-import {HFCategoriesPage} from "../hf-classical/hf-categories";
+import {HFCategoriesPage} from "./hf-classical/hf-categories";
 import {Component, ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef} from "@angular/core";
 import {AnalyzerDetailPage} from "./analyzer-detail";
 
@@ -34,7 +34,7 @@ export class AnalyzerPage2
 
     monitoringURLs:any[];
 
-    constructor(private model: DataModel, private navControl: NavController, private alertCtrl: AlertController,
+    constructor(private model: DataModel, private navControl: NavController,
                 private componentFactoryResolver: ComponentFactoryResolver) {}
 
     ngOnInit()

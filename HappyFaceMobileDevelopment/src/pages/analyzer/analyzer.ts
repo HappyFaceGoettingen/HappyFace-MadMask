@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {AlertController, NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
 import {AnalyzerDetailPage} from "./analyzer-detail";
-import {HFCategoriesPage} from "../hf-classical/hf-categories";
+import {HFCategoriesPage} from "./hf-classical/hf-categories";
 
 @Component({
     selector: 'page-analyzer',

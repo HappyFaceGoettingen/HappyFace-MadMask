@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams } from 'ionic-angular';
 import {MonitoringPage} from "../monitoring/monitoring";
-import {AnalyzerPage} from "../analyzer/analyzer";
 import {ControllerPage} from "../controller/controller";
 import {LogsPage} from "../logs/logs";
 import {VisualizersPage} from "../visualizers/visualizers";
 import {HumansPage} from "../humans/humans";
 import {WorkingPage} from "../working/working";
-import {ConfigPage} from "../config/config";
-import {HFCategoriesPage} from "../hf-classical/hf-categories";
+import {ConfigPage} from "../modals/config/config";
 import {AnalyzerPage2} from "../analyzer/analyzer2";
 
 /**

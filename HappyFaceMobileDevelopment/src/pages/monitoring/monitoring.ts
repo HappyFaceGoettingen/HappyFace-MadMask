@@ -2,8 +2,8 @@ import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
 import {AlertController, ModalController, NavController} from "ionic-angular";
 import {MonitoringWebviewPage} from "./monitoring-webview";
-import {ModalPage} from "../config/modal";
-import {ConnectionErrorPage} from "../error/connection-error";
+import {ModalPage} from "../modals/config/modal";
+import {SSHTerminalPage} from "../modals/ssh/ssh-terminal";
 
 
 @Component({
@@ -29,7 +29,7 @@ export class MonitoringPage {
     private plot_name:string = "analysis";
 
 
-    constructor(private model: DataModel, private navControl : NavController, private alertCtrl : AlertController, private modalCtrl : ModalController) {}
+    constructor(private model: DataModel, private navControl : NavController, private modalCtrl : ModalController, private alertCtrl: AlertController) {}
 
     ngOnInit()
     {

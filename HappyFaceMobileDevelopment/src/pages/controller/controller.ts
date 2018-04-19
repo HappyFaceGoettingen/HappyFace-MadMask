@@ -1,7 +1,8 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
-import {NavController} from "ionic-angular";
+import {ModalController, NavController} from "ionic-angular";
 import {ControllerDetailPage} from "./controller-detail";
+import {SSHTerminalPage} from "../modals/ssh/ssh-terminal";
 
 @Component({
     selector: 'page-controller',
@@ -13,7 +14,7 @@ export class ControllerPage
     isLoading:boolean = true;
     systems:any[] = [];
 
-    constructor(private model: DataModel, private navCtrl : NavController) {}
+    constructor(private model: DataModel, private navCtrl : NavController, private modalCtrl:ModalController) {}
 
     ngOnInit()
     {
@@ -50,5 +51,11 @@ export class ControllerPage
     openPage(system:any)
     {
         this.navCtrl.push(ControllerDetailPage, { "system": system});
+    }
+
+    openSSH()
+    {
+        console.log("SSH");
+        this.modalCtrl.create(SSHTerminalPage).present();
     }
 }

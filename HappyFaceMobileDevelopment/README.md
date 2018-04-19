@@ -57,9 +57,9 @@ For example, <a href="http://141.5.108.29:20100">HappyFace Mobile: ADC</a></br>
  * Automatic fetching (Notification)? --> Done, notification not implemented (yet), needs WebSever/MobilePhone configuration
 
  * Does not work with browser in a mobile phone (location.host?) --> Done
- * Merging this TypeScript development environments with the original master branch
+ * Merging this TypeScript development environments with the original master branch --> Done
 
- * HappyFace Connector (can take it from HFMobileV1) --> Ongoing
+ * HappyFace Connector (can take it from HFMobileV1) --> Done
 
  * HappyFace Instance for data/sites configs (without using the Ionic server) --> Done
     --> A configuration switch (For example, a switch 'Use Only HappyFace Web') --> Done
@@ -73,7 +73,7 @@ For example, <a href="http://141.5.108.29:20100">HappyFace Mobile: ADC</a></br>
                  +----[HF connector] ----> [HappyFace Web Instance (e.g. port 10100)]
 
 
- * Openssl client? + Definition of systems.json (or template generator) --> Check libraries
+ * Openssl client? + Definition of systems.json (or template generator) --> Done
 
 
 ## RPM mobile apk builder (With Timon)

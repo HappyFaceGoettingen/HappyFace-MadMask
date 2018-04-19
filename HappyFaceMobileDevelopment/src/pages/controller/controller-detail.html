@@ -8,17 +8,17 @@
     <img src="assets/{{system.img}}" style="width: 64px; height: 64px">
     <h2>{{system.text}}</h2>
 
-    <ion-card>
+    <!--<ion-card>
         <ion-item-divider>Power</ion-item-divider>
         <ion-item text-wrap>
             <button ion-button class="button-outline">Cold reboot</button>
             <button ion-button class="button-outline">Warm reboot</button>
         </ion-item>
-    </ion-card>
+    </ion-card>-->
     <ion-card>
         <ion-item-divider>Service</ion-item-divider>
         <ion-item *ngFor="let service of system.services" text-wrap>
-            <button ion-button class="button-outline">{{service.name}}</button>
+            <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>
         </ion-item>
     </ion-card>
 

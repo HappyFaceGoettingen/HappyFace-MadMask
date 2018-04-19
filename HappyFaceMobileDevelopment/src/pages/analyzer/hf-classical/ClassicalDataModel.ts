@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {DataModel} from "../../data/DataModel";
+import {DataModel} from "../../../data/DataModel";
 
 @Injectable()
 export class ClassicalDataModel
