@@ -96,6 +96,11 @@ ln -s ../sites $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/sites
 
 %post
 
+## Rebuilding node-sass to HFMobile again, due to a native hardware or vender issue 
+echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
+su - %{happyface_user} -c "cd %{_prefix}/MadMask && npm rebuild node-sass --force"
+
+
 ## Installing Basic packages for Ionic and Cordova
 echo "Installing Ionic and Cordova modules ..."
 npm install -g cordova@8.0.0
