@@ -2,6 +2,7 @@
     <ion-navbar>
         <ion-title>Controller</ion-title>
         <ion-buttons end>
+            <button ion-button (click)="openSSH()" class="ssh-button">SSH</button>
             <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>

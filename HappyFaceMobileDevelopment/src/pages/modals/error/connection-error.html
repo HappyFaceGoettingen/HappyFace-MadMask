@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Connection Error</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div text-center><h1>Connection Error</h1></div>
+    <p>Unable to connect to given instance.</p>
+    <p *ngIf="onlyOneCode">Errorcode: {{statusCode}}</p>
+    <p *ngIf="!onlyOneCode">Recieved various Errorcodes (shown below)</p>
+
+    <ion-item>
+        <ion-label color="primary" fixed>Host: </ion-label>
+        <ion-input placeholder="{{host}}" [(ngModel)]="host"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary" fixed>Port: </ion-label>
+        <ion-input placeholder="{{port}}" [(ngModel)]="port"></ion-input>
+    </ion-item>
+    <br/>
+    <!--Data: {{host}} + {{port}} <br/>-->
+
+    Files with errors: <br/>
+    <code>
+        <span *ngFor="let m of missingFiles">{{m.url}} --> code: {{m.code}}<br/></span>
+    </code>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons end>
+            <button ion-button type="submit" (click)="retry()" item-end>Retry</button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

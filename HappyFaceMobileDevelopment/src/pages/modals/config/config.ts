@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {ConfigurationObject, DataModel} from "../../data/DataModel";
+import {DataModel} from "../../../data/DataModel";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {InstancesComponent} from "./instances.component";
 

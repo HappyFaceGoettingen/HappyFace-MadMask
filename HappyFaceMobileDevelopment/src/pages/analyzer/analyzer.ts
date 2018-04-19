@@ -1,11 +1,11 @@
 import {Component} from "@angular/core";
 import {AlertController, NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
-import {MonitoringPage} from "../monitoring/monitoring";
 import {AnalyzerDetailPage} from "./analyzer-detail";
+import {HFCategoriesPage} from "./hf-classical/hf-categories";
 
 @Component({
-    selector: 'page-monitoring',
+    selector: 'page-analyzer',
     templateUrl: 'analyzer.html'
 })
 
@@ -18,11 +18,13 @@ export class AnalyzerPage
     statusColor:string = "item-calm";
     statusText :string = "World wide Atlas Distributed Computing System";
 
+    HFClassical:any = HFCategoriesPage;
+
     viewers:any[] = [
         {"id": "analysis", "name": "Status Analysis", "multiplots": true, "spsrc": ""},
         {"id": "pathway", "name": "Info Pathway", "multiplots": true, "spsrc": ""},
         {"id": "overall_pathway", "name": "Overall Info Pathway", "multiplots": false, "spsrc": ""},
-        {"id": "happyface", "name": "HappyFace Classical Rating", "multiplots": false, "spsrc": "assets/img/happyface_classical.png"},
+        {"id": "happyface", "name": "HappyFace Classical Rating", "multiplots": false, "spsrc": ""},
         {"id": "forecast", "name": "Happy Forecast", "multiplots": false, "spsrc": "assets/img/forecast.png"}
     ];
     selectedViewer:any = this.viewers.find( v => v.id === "overall_pathway");
@@ -120,6 +122,10 @@ export class AnalyzerPage
     {
         console.log("VIEWER CHANGED TO: " + JSON.stringify(event));
         this.selectedViewer = event;
+        if(this.selectedViewer.multiplots) {
+            this.setPlots(this.selectedViewer.id);
+            this.monitoringURLs = this.model.monitoringUrls;
+        }
     }
 
     speakSummary()

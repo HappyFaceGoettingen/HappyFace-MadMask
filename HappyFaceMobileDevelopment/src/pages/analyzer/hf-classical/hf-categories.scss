@@ -1,0 +1,37 @@
+.complete-overlay {
+    position: absolute;
+    background-color: #FCFCFF;
+    opacity: 0.8;
+    -moz-opacity: 0.80;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 0;
+    left: 0;
+}
+
+.outdated {
+    text-align: center;
+    line-height: 350px;
+    color: #2C2C2C;
+}
+
+.no-active-instance {
+    text-align: center;
+    line-height: 140px;
+    color: #2C2C2C;
+}
+
+.cat-title {
+    font-size: 11px;
+    text-align: center;
+    word-break: break-all;
+}
+
+.no-modules {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 16px;
+}

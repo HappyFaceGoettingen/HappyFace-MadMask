@@ -16,11 +16,18 @@ import {VisualizersPage} from "../pages/visualizers/visualizers";
 import {LogsPage} from "../pages/logs/logs";
 import {HumansPage} from "../pages/humans/humans";
 import {WorkingPage} from "../pages/working/working";
-import {ConfigPage} from "../pages/config/config";
-import {InstancesComponent} from "../pages/config/instances.component";
-import {ModalPage} from "../pages/config/modal";
+import {ConfigPage} from "../pages/modals/config/config";
+import {InstancesComponent} from "../pages/modals/config/instances.component";
+import {ModalPage} from "../pages/modals/config/modal";
 import {DataModel} from "../data/DataModel";
 import {IonicStorageModule} from "@ionic/storage";
+import {ClassicalDataModel} from "../pages/analyzer/hf-classical/ClassicalDataModel";
+import {HFCategoriesPage} from "../pages/analyzer/hf-classical/hf-categories";
+import {HFModulesPage} from "../pages/analyzer/hf-classical/hf-modules";
+import {AnalyzerPage2} from "../pages/analyzer/analyzer2";
+import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
+import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
+import {PassModal} from "../pages/modals/ssh/pass-modal";
 
 @NgModule({
     declarations: [
@@ -29,6 +36,7 @@ import {IonicStorageModule} from "@ionic/storage";
         MonitoringPage,
         MonitoringWebviewPage,
         AnalyzerPage,
+        AnalyzerPage2,
         AnalyzerDetailPage,
         ControllerPage,
         ControllerDetailPage,
@@ -38,7 +46,12 @@ import {IonicStorageModule} from "@ionic/storage";
         ConfigPage,
         ModalPage,
         InstancesComponent,
-        WorkingPage
+        WorkingPage,
+        ConnectionErrorPage,
+        SSHTerminalPage,
+        PassModal,
+        HFCategoriesPage,
+        HFModulesPage
     ],
     imports: [
         BrowserModule,
@@ -52,6 +65,7 @@ import {IonicStorageModule} from "@ionic/storage";
         MonitoringPage,
         MonitoringWebviewPage,
         AnalyzerPage,
+        AnalyzerPage2,
         AnalyzerDetailPage,
         ControllerPage,
         ControllerDetailPage,
@@ -61,13 +75,19 @@ import {IonicStorageModule} from "@ionic/storage";
         ConfigPage,
         ModalPage,
         InstancesComponent,
-        WorkingPage
+        WorkingPage,
+        ConnectionErrorPage,
+        SSHTerminalPage,
+        PassModal,
+        HFCategoriesPage,
+        HFModulesPage
     ],
     providers: [
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-        DataModel
+        DataModel,
+        ClassicalDataModel
     ]
 })
 export class AppModule {}

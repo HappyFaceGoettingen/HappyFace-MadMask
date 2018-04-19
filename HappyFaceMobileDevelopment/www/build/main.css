@@ -2,6 +2,13 @@ ion-select {
   max-width: 50% !important;
 }
 
+.arrow-thumbnail {
+  min-width: 30px;
+  min-height: 30px;
+  width: 30px;
+  height: 30px;
+}
+
 .ion-ios-add:before {
   content: "\f102";
 }
@@ -36448,9 +36455,194 @@ ion-navbar.toolbar {
   max-width: 100%;
 }
 
+.complete-overlay {
+  position: absolute;
+  background-color: #FCFCFF;
+  opacity: 0.8;
+  -moz-opacity: 0.80;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 0;
+  left: 0;
+}
+
+.outdated {
+  text-align: center;
+  line-height: 350px;
+  color: #2C2C2C;
+}
+
+.no-active-instance {
+  text-align: center;
+  line-height: 140px;
+  color: #2C2C2C;
+}
+
+.cat-title {
+  font-size: 11px;
+  text-align: center;
+  word-break: break-all;
+}
+
+.no-modules {
+  padding-top: 50px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.complete-overlay {
+  position: absolute;
+  background-color: #FCFCFF;
+  opacity: 0.8;
+  -moz-opacity: 0.80;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 0;
+  left: 0;
+}
+
+.outdated {
+  text-align: center;
+  line-height: 350px;
+  color: #2C2C2C;
+}
+
+.no-active-instance {
+  text-align: center;
+  line-height: 140px;
+  color: #2C2C2C;
+}
+
+.cat-title {
+  font-size: 11px;
+  text-align: center;
+  word-break: break-all;
+}
+
+.no-modules {
+  padding-top: 50px;
+  text-align: center;
+  font-size: 16px;
+}
+
 .scroll-content {
   padding-left: 0;
   padding-right: 0;
+}
+
+.ssh-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Arial Black", sans-serif;
+  font-weight: bold;
+  font-style: italic;
+}
+
+::-moz-selection {
+  background: #FF5E99;
+}
+
+::selection {
+  background: #FF5E99;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-size: 11pt;
+  font-family: Inconsolata, monospace;
+  color: white;
+  background-color: black;
+}
+
+#terminal-container {
+  background-color: #2f4f4f;
+}
+
+#container {
+  padding: .1em 1.5em 1em 1em;
+  color: #AAC78A;
+  font: 100% Inconsolata, monospace;
+}
+
+#container output {
+  clear: both;
+  width: 100%;
+}
+
+#container output h3 {
+  margin: 0;
+}
+
+#container output pre {
+  margin: 0;
+}
+
+.input-line {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  clear: both;
+}
+
+.input-line > div:nth-child(2) {
+  -webkit-box-flex: 1;
+  box-flex: 1;
+}
+
+.prompt {
+  white-space: nowrap;
+  color: #AAC78A;
+  font: 100% Inconsolata, monospace;
+  margin-right: 7px;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-box-pack: center;
+  display: box;
+  box-pack: center;
+  box-orient: vertical;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.cmdline {
+  outline: none;
+  background-color: transparent;
+  color: #AAC78A;
+  font: 100% Inconsolata, monospace;
+  margin: 0;
+  width: 100%;
+  border: none;
+}
+
+.ls-files {
+  height: 45px;
+  -webkit-column-width: 100px;
+  -o-column-width: 100px;
+  column-width: 100px;
+}
+
+.alertText {
+  color: #000000;
 }
 
 a {
@@ -36544,4 +36736,8 @@ a:hover {
 
 .card-md {
   width: 100%;
+}
+
+.alertText {
+  color: #000000;
 }

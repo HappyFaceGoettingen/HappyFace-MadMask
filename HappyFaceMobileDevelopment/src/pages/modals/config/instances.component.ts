@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, Platform} from "ionic-angular";
-import {DataModel, InstanceObject} from "../../data/DataModel";
+import {DataModel, InstanceObject} from "../../../data/DataModel";
 import {Storage} from "@ionic/storage";
 
 @Component({

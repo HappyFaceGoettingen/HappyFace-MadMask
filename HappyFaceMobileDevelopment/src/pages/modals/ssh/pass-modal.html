@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Login</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <p>Please provide login information:</p>
+
+    <ion-item>
+        <ion-label fixed>Host: </ion-label>
+        <ion-input [(ngModel)]="host"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>Port: </ion-label>
+        <ion-input type="number" [(ngModel)]="port"></ion-input>
+    </ion-item>
+    <p></p>
+    <ion-item>
+        <ion-label fixed>Username: </ion-label>
+        <ion-input [(ngModel)]="user"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>Password: </ion-label>
+        <ion-input type="password" [(ngModel)]="pass"></ion-input>
+    </ion-item>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons end>
+            <button ion-button (click)="enter()">Enter</button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

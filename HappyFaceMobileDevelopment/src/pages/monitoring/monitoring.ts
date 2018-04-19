@@ -2,7 +2,8 @@ import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
 import {AlertController, ModalController, NavController} from "ionic-angular";
 import {MonitoringWebviewPage} from "./monitoring-webview";
-import {ModalPage} from "../config/modal";
+import {ModalPage} from "../modals/config/modal";
+import {SSHTerminalPage} from "../modals/ssh/ssh-terminal";
 
 
 @Component({
@@ -28,7 +29,7 @@ export class MonitoringPage {
     private plot_name:string = "analysis";
 
 
-    constructor(private model: DataModel, private navControl : NavController, private alertCtrl : AlertController, private modalCtrl : ModalController) {}
+    constructor(private model: DataModel, private navControl : NavController, private modalCtrl : ModalController, private alertCtrl: AlertController) {}
 
     ngOnInit()
     {
@@ -42,7 +43,7 @@ export class MonitoringPage {
 
     onReloadFinishedListener()
     {
-        if(!this.connectionErrorPopup()) {
+        if(this.dataExists()) {
             this.isLoading = false;
             this.setHistory();
             this.setStatusCard();
@@ -55,28 +56,19 @@ export class MonitoringPage {
         this.isLoading = true;
     }
 
-    connectionErrorPopup()
+    dataExists()
     {
-        //let model:DataModel = DataModel.getInstance();
-        if(!(this.model.summary == null || this.model.summary == undefined))
+       if(!(this.model.summary == null || this.model.summary == undefined))
         {
             if(!(this.model.config == null || this.model.config == undefined))
             {
                 if(!(this.model.config.status == null || this.model.config.status == undefined))
                 {
-                    return false;
+                    return true;
                 }
             }
         }
-
-        const alert = this.alertCtrl.create({
-            title: '<b>Connection error</b>',
-            subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
-            buttons: ['OK']
-        });
-        alert.present();
-
-        return true;
+        return false;
     }
 
     openModalConfig()

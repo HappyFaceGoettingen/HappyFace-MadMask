@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams } from 'ionic-angular';
 import {MonitoringPage} from "../monitoring/monitoring";
-import {AnalyzerPage} from "../analyzer/analyzer";
 import {ControllerPage} from "../controller/controller";
 import {LogsPage} from "../logs/logs";
 import {VisualizersPage} from "../visualizers/visualizers";
 import {HumansPage} from "../humans/humans";
 import {WorkingPage} from "../working/working";
-import {ConfigPage} from "../config/config";
+import {ConfigPage} from "../modals/config/config";
+import {AnalyzerPage2} from "../analyzer/analyzer2";
 
 /**
  * Generated class for the TabsPage page.
@@ -16,7 +16,7 @@ import {ConfigPage} from "../config/config";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',
@@ -24,7 +24,7 @@ import {ConfigPage} from "../config/config";
 export class TabsPage {
 
   tabMonitoring: any = MonitoringPage;
-  tabAnalyzer  : any = AnalyzerPage;
+  tabAnalyzer  : any = AnalyzerPage2;
   tabSystems   : any = ControllerPage;
   tabVisualizer: any = VisualizersPage;
   tabLogs      : any = LogsPage;

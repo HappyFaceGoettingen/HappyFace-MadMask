@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>SSH-Terminal</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content id="terminal-container">
+    <div id="container">
+        <output></output>
+        <div id="input-line" class="input-line">
+            <div class="prompt" [innerHtml]="promt"></div>
+            <div><input id="cmdline" class="cmdline" autofocus/></div>
+        </div>
+    </div>
+</ion-content>
