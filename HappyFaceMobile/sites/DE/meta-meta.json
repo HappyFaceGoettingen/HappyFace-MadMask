@@ -1,0 +1,19 @@
+[{
+   "name": "GoeGrid",
+   "host": "141.5.108.30",
+   "web_port": "10200",
+   "mobile_port": "20200",
+   "dir": "sites/GoeGrid" 
+},{
+   "name": "DESY-HH",
+   "host": "141.5.108.30",
+   "web_port": "10201",
+   "mobile_port": "20201",
+   "dir": "sites/DESY-HH" 
+},{
+   "name": "MPPMU",
+   "host": "141.5.108.30",
+   "web_port": "10202",
+   "mobile_port": "20202",
+   "dir": "sites/MPPMU" 
+}]
