@@ -87,6 +87,10 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 %post
 
 
+## Making a symlink (for a Docker node)
+[ -e /sites ] && mv -v %{_prefix}/MadMask/sites %{_prefix}/MadMask/sites.org && ln -sv /sites %{_prefix}/MadMask/sites
+
+
 %if 0%{rhel} == 6
   ## SSL error? Why on 03.04.2018? 
   npm config set ca ""

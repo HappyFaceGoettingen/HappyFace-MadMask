@@ -237,16 +237,24 @@ module.exports = {
     build_android_apk: function (dir, config) {
       console.log("Building Android Application ...");
 
+      // Creating apk dir in data dir (typically data/site_name/application/*apk)
+      var apk_dir = config.data_dir + "/application";
+      if (!fileExists(apk_dir)) my_exec("mkdir -v " + apk_dir);
+
       // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
       var apks = "platforms/android/build/outputs/apk/*.apk";
-      var commandLine = "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
-                        +"test -e platforms || ionic cordova platform add android;"
+      var cordova_android_ver = "6.1.0";
+      var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
+                        + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
                         + "if ! which android; then"
                         + " echo '[android] command does not exist';"
                         + "else"
+                        + " ionic cordova platform remove android;"
+                        + " ionic cordova platform add android@" + cordova_android_ver + ";"
                         + " rm -v www/data;"
                         + " ionic cordova build android && ionic cordova build android --prod --release;"
                         + " ln -vs ../data www/data;"
+                        + " cp -v " + apks + " " + apk_dir + ";"
                         + "fi";
       console.log("Debug & Release Apks Builder: " + commandLine);
       my_exec(commandLine);
