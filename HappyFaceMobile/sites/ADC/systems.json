@@ -1,57 +1,602 @@
-[
-  {
-    "name": "Panda Servers",
-    "text": "ATLAS job management system",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt3 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "Panda Pilot Factories",
-    "text": "ATLAS job management system",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt4 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "Rucio",
-    "text": "Rucio Distributed Data Management system",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt5 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "ATLAS AMI",
-    "text": "ATLAS Metadata Information",
-    "img": "img/dell-server.png",
-    "services": [{
-	  "name": "Restart libvirtd",
-	  "command": "ssh virt6 'service libvirtd restart'"
-	  }
-	]
-  }, {
-    "name": "EventIndex",
-    "text": "ATLAS Physics Event Index",
-    "img": "img/apel.png",
-    "services": [{
-	  "name": "Run apel publisher",
-	  "command": "ssh apel 'hostname'"
-	  }
-	]
-  }, {
-    "name": "ATLAS Frontier",
-    "text": "ATLAS Squid Frontier Server",
-    "img": "img/apel.png",
-    "services": [{
-	  "name": "Run apel publisher",
-	  "command": "ssh apel 'hostname'"
-	  }
-	]
-  }
-]
+[{
+	"name": "Kibana",
+	"text": "System [Kibana]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Kibana restart"
+		}]
+  },{
+	"name": "AGIS",
+	"text": "System [AGIS]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "AGIS restart"
+		}]
+  },{
+	"name": "AMI",
+	"text": "System [AMI]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "AMI restart"
+		}]
+  },{
+	"name": "Event Index Consumer",
+	"text": "System [Event Index Consumer]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Event Index Consumer restart"
+		}]
+  },{
+	"name": "Event Index Hadoop Cluster",
+	"text": "System [Event Index Hadoop Cluster]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Event Index Hadoop Cluster restart"
+		}]
+  },{
+	"name": "Event Index Web",
+	"text": "System [Event Index Web]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Event Index Web restart"
+		}]
+  },{
+	"name": "Frontier",
+	"text": "System [Frontier]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Frontier restart"
+		}]
+  },{
+	"name": "CVMFS ATLAS CONDB",
+	"text": "System [CVMFS ATLAS CONDB]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CVMFS ATLAS CONDB restart"
+		}]
+  },{
+	"name": "CVMFS Stratum1 ATLAS",
+	"text": "System [CVMFS Stratum1 ATLAS]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CVMFS Stratum1 ATLAS restart"
+		}]
+  },{
+	"name": "Panda Proxy",
+	"text": "System [Panda Proxy]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Proxy restart"
+		}]
+  },{
+	"name": "Panda",
+	"text": "System [Panda]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda restart"
+		}]
+  },{
+	"name": "JEDI",
+	"text": "System [JEDI]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "JEDI restart"
+		}]
+  },{
+	"name": "Panda Pilot Factory",
+	"text": "System [Panda Pilot Factory]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Pilot Factory restart"
+		}]
+  },{
+	"name": "Rucio",
+	"text": "System [Rucio]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio restart"
+		}]
+  },{
+	"name": "Rucio Kronos",
+	"text": "System [Rucio Kronos]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio Kronos restart"
+		}]
+  },{
+	"name": "Rucio Reaper",
+	"text": "System [Rucio Reaper]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio Reaper restart"
+		}]
+  },{
+	"name": "Rucio Undertaker",
+	"text": "System [Rucio Undertaker]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio Undertaker restart"
+		}]
+  },{
+	"name": "Rucio httpd",
+	"text": "System [Rucio httpd]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio httpd restart"
+		}]
+  },{
+	"name": "Rucio Load Balancer",
+	"text": "System [Rucio Load Balancer]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio Load Balancer restart"
+		}]
+  },{
+	"name": "Central databases",
+	"text": "System [Central databases]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Central databases restart"
+		}]
+  },{
+	"name": "DDM transfer service",
+	"text": "System [DDM transfer service]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DDM transfer service restart"
+		}]
+  },{
+	"name": "CERN Tier0 disk",
+	"text": "System [CERN Tier0 disk]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CERN Tier0 disk restart"
+		}]
+  },{
+	"name": "CERN Tier0 tape",
+	"text": "System [CERN Tier0 tape]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CERN Tier0 tape restart"
+		}]
+  },{
+	"name": "Rucio UI",
+	"text": "System [Rucio UI]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Rucio UI restart"
+		}]
+  },{
+	"name": "CERN Tier0",
+	"text": "System [CERN Tier0]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CERN Tier0 restart"
+		}]
+  },{
+	"name": "DDM functional tests",
+	"text": "System [DDM functional tests]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DDM functional tests restart"
+		}]
+  },{
+	"name": "CA Cloud",
+	"text": "System [CA Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CA Cloud restart"
+		}]
+  },{
+	"name": "CERN",
+	"text": "System [CERN]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "CERN restart"
+		}]
+  },{
+	"name": "DE Cloud",
+	"text": "System [DE Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DE Cloud restart"
+		}]
+  },{
+	"name": "ES Cloud",
+	"text": "System [ES Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "ES Cloud restart"
+		}]
+  },{
+	"name": "FR Cloud",
+	"text": "System [FR Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "FR Cloud restart"
+		}]
+  },{
+	"name": "IT Cloud",
+	"text": "System [IT Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "IT Cloud restart"
+		}]
+  },{
+	"name": "ND Cloud",
+	"text": "System [ND Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "ND Cloud restart"
+		}]
+  },{
+	"name": "NL Cloud",
+	"text": "System [NL Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "NL Cloud restart"
+		}]
+  },{
+	"name": "RU Cloud",
+	"text": "System [RU Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "RU Cloud restart"
+		}]
+  },{
+	"name": "TW Cloud",
+	"text": "System [TW Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "TW Cloud restart"
+		}]
+  },{
+	"name": "UK Cloud",
+	"text": "System [UK Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "UK Cloud restart"
+		}]
+  },{
+	"name": "US Cloud",
+	"text": "System [US Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "US Cloud restart"
+		}]
+  },{
+	"name": "DDM deletion service",
+	"text": "System [DDM deletion service]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DDM deletion service restart"
+		}]
+  },{
+	"name": "Squid service",
+	"text": "System [Squid service]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Squid service restart"
+		}]
+  },{
+	"name": "Panda Production Job",
+	"text": "System [Panda Production Job]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Production Job restart"
+		}]
+  },{
+	"name": "Panda Queues in CA Cloud",
+	"text": "System [Panda Queues in CA Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in CA Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in CERN",
+	"text": "System [Panda Queues in CERN]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in CERN restart"
+		}]
+  },{
+	"name": "Panda Queues in DE Cloud",
+	"text": "System [Panda Queues in DE Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in DE Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in ES Cloud",
+	"text": "System [Panda Queues in ES Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in ES Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in FR Cloud",
+	"text": "System [Panda Queues in FR Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in FR Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in IT Cloud",
+	"text": "System [Panda Queues in IT Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in IT Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in ND Cloud",
+	"text": "System [Panda Queues in ND Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in ND Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in NL Cloud",
+	"text": "System [Panda Queues in NL Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in NL Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in RU Cloud",
+	"text": "System [Panda Queues in RU Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in RU Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in TW Cloud",
+	"text": "System [Panda Queues in TW Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in TW Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in UK Cloud",
+	"text": "System [Panda Queues in UK Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in UK Cloud restart"
+		}]
+  },{
+	"name": "Panda Queues in US Cloud",
+	"text": "System [Panda Queues in US Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in US Cloud restart"
+		}]
+  },{
+	"name": "Site Status Board",
+	"text": "System [Site Status Board]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Site Status Board restart"
+		}]
+  },{
+	"name": "Panglia",
+	"text": "System [Panglia]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panglia restart"
+		}]
+  },{
+	"name": "Production Tasks",
+	"text": "System [Production Tasks]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Production Tasks restart"
+		}]
+  },{
+	"name": "Jira",
+	"text": "System [Jira]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Jira restart"
+		}]
+  },{
+	"name": "eLog",
+	"text": "System [eLog]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "eLog restart"
+		}]
+  },{
+	"name": "Twiki",
+	"text": "System [Twiki]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Twiki restart"
+		}]
+  },{
+	"name": "GGUS",
+	"text": "System [GGUS]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "GGUS restart"
+		}]
+
+}]

@@ -75,8 +75,11 @@ ln -sv %{_prefix}/daemon/madfoxd $RPM_BUILD_ROOT/%{_etc}/rc.d/init.d
 ln -sv %{_prefix}/daemon/madfoxd.conf $RPM_BUILD_ROOT/%{_etc}
 #ln -sv %{_prefix}/daemon/madfox.cron $RPM_BUILD_ROOT/%{_etc}/cron.d
 
+
 %preun
-service madfoxd stop
+%if 0%{rhel} == 6
+   service madfoxd stop
+%endif
 
 
 %clean

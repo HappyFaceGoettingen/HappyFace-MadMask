@@ -19,6 +19,14 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
      └── www      --->  Main source codes of mobile application
 
 
+     HappyFaceMobileDevelopment
+     ├── node_modules  ---> Local npm libraries
+     ├── resources     ---> Resources of native Android and iPhone applications
+     ├── src      --->  TypeScript source
+     ├── sites    --->  Site configurations for HappyFace MadMask instances
+     └── www      --->  Main source codes of mobile application
+
+
 --------------------------
 ## MadModules (Mobile/Meta-Monitoring Analytics Device for HappyFace)
 * MadBrowser - This module consists of 2 sub components. One is Meta-Browser and the other is Meta-JSON/WSDL downloader. They are called MadBrowser and MadJsonin respectivelly.

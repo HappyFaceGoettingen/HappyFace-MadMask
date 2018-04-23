@@ -20,6 +20,7 @@ Requires: glibc
 #
 # Macro definitions
 %define _prefix         /usr/local/android-tools
+%define _ant_dir        /opt
 %define _bin_dir        /usr/bin
 %define _profile_dir    /etc/profile.d
 
@@ -38,6 +39,7 @@ Android SDK which is used to develop Android native application.
 
 # make directories
 ! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -vp $RPM_BUILD_ROOT/%{_prefix}
+! [ -d $RPM_BUILD_ROOT/%{_ant_dir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_ant_dir}
 ! [ -d $RPM_BUILD_ROOT/%{_bin_dir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_bin_dir}
 ! [ -d $RPM_BUILD_ROOT/%{_profile_dir} ] && mkdir -vp $RPM_BUILD_ROOT/%{_profile_dir}
 
@@ -49,23 +51,23 @@ cp -v android-sdk.sh $RPM_BUILD_ROOT/%{_profile_dir}/android-sdk.sh
 cp -v update-android-sdk $RPM_BUILD_ROOT/%{_bin_dir}/
 
 
+## Ant
+ln -vs apache-ant-1.9.11 $RPM_BUILD_ROOT/%{_ant_dir}/apache-ant
+unzip -q apache-ant-1.9.11-bin.zip -d $RPM_BUILD_ROOT/%{_ant_dir}
+
+
+
 %post
 
 ## Installing Android SDK Tools
 if [ ! -e %{_prefix}/android ]; then
     ## Making symlinks
-    ln -vs apache-ant-1.9.10 %{_prefix}/apache-ant
     ln -vs adt-bundle-linux-x86_64-20140702 %{_prefix}/android
-
-    ## Ant
-    ANT="http://apache.lauf-forum.at//ant/binaries/apache-ant-1.9.10-bin.zip"
-    wget -q "$ANT" -O /tmp/$(basename $ANT) || rm -v /tmp/$(basename $ANT)
-    unzip /tmp/$(basename $ANT) -d %{_prefix} && rm -v /tmp/$(basename $ANT)
     
     ## Android SDK
     ADT="https://dl.google.com/android/adt/adt-bundle-linux-x86_64-20140702.zip"
     wget -q "$ADT" -O /tmp/$(basename $ADT) || rm -v /tmp/$(basename $ADT)
-    unzip /tmp/$(basename $ADT) -d %{_prefix} && rm -v /tmp/$(basename $ADT)
+    unzip -q /tmp/$(basename $ADT) -d %{_prefix} && rm -v /tmp/$(basename $ADT)
 fi
 
 
@@ -78,6 +80,7 @@ fi
 %files
 %defattr(-,root,root)
 %{_prefix}
+%{_ant_dir}/*
 %{_bin_dir}/*
 %{_profile_dir}/*
 

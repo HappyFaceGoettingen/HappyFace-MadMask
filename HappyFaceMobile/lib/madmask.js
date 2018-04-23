@@ -95,16 +95,51 @@ module.exports = {
      *  The systems giving monitoring information are defined by an array "systems" in monitoring-urls.json
      */
     generate_systems_json: function (dir, config) {
-      console.log("Generating [", systemsJson, "] ...");
+      var newSystemsJson = dir + "/" + systemsJson;
+      console.log("Generating [", newSystemsJson, "] ...");
       makeDefaultSite(dir);
 
       // Reading all system compnents from monitoring-urls.json
       var urls = readJSON(dir + "/" + monitoringUrlsJson);
-      var systems = [];
+      var overall_systems = [];
 
-      // Outputting a [system.json] template
+      for (var i = 0; i < urls.length; i++){
+        for (var j = 0; j < urls[i].urls.length; j++){
+          var systems = urls[i].urls[j].systems;
+          if (systems.length != 0)
+            overall_systems = overall_systems.concat(systems);
+        }
+      }
+
+      // Take unique system components
+      var unique_systems = overall_systems.filter(function (x, i, self) {
+            return self.indexOf(x) === i; });
+
+      // Generating a [system.json] template
+      console.log("Number of the basic system components = " + unique_systems.length);
+      var template = "[{\n";
+      for (var k = 0; k < unique_systems.length; k++){
+        //console.log(unique_systems[k]);
+        // Output the following basic element
+        template = template
+                 + "\t\"name\": \"" + unique_systems[k] + "\",\n"
+                 + "\t\"text\": \"System [" + unique_systems[k] + "]\",\n"
+                 + "\t\"img\":  \"img/default_server.png\",\n"
+                 + "\t\"dependent\":  [],\n"
+                 + "\t\"services\": [{\n"
+                 + "\t\t\"type\": \"ssh\",\n"
+                 + "\t\t\"name\": \"Restart\",\n"
+                 + "\t\t\"command\": \"" + unique_systems[k] + " restart\"\n"
+                 + "\t\t}]\n";
 
 
+        if (k < unique_systems.length - 1) template = template + "  },{\n";
+      }
+      template = template + "\n}]\n";
+
+      // Output a [system.json] template
+      console.log("Writing into new [" + newSystemsJson + "] template ...");
+      fs.writeFile(newSystemsJson, template)
     },
 
     /*
@@ -201,19 +236,25 @@ module.exports = {
      */
     build_android_apk: function (dir, config) {
       console.log("Building Android Application ...");
-      var apk_dir = config.data_dir + "/apk";
+
+      // Creating apk dir in data dir (typically data/site_name/application/*apk)
+      var apk_dir = config.data_dir + "/application";
       if (!fileExists(apk_dir)) my_exec("mkdir -v " + apk_dir);
 
       // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
-      var commandLine = "rm -v " + apk_dir + "/*.apk;"
-                        +"test -e platforms || ionic platform add android;"
+      var apks = "platforms/android/build/outputs/apk/*.apk";
+      var cordova_android_ver = "6.1.0";
+      var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
+                        + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
                         + "if ! which android; then"
                         + " echo '[android] command does not exist';"
                         + "else"
+                        + " ionic cordova platform remove android;"
+                        + " ionic cordova platform add android@" + cordova_android_ver + ";"
                         + " rm -v www/data;"
-                        + " ionic build android && ionic build android --prod --release;"
+                        + " ionic cordova build android && ionic cordova build android --prod --release;"
                         + " ln -vs ../data www/data;"
-                        + " cp -v platforms/android/build/outputs/apk/*.apk " + apk_dir + ";"
+                        + " cp -v " + apks + " " + apk_dir + ";"
                         + "fi";
       console.log("Debug & Release Apks Builder: " + commandLine);
       my_exec(commandLine);
@@ -224,7 +265,8 @@ module.exports = {
      * Outdated data wiper using 'tmpwatch'. This command can periodically wipe out data which is older than 'config.keep_data_days' days
      */
     wipe_data: function(dir, config) {
-      var commandLine = "tmpwatch -v -a -m " + config.keep_data_days + "d " + config.data_dir;
+      var count = 10; // Running tmpwatch 10 times
+      var commandLine = "seq 1 " + count + " | xargs -I {} tmpwatch -v -a -m " + config.keep_data_days + "d " + config.data_dir;
       console.log("Wiping out old data in [" + config.data_dir + "]: " + commandLine);
       my_exec(commandLine);
     }

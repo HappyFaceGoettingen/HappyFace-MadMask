@@ -1,0 +1,132 @@
+[{
+	"name": "DDM transfer service",
+	"text": "System [DDM transfer service]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DDM transfer service restart"
+		}]
+  },{
+	"name": "DE Cloud",
+	"text": "System [DE Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DE Cloud restart"
+		}]
+  },{
+	"name": "DDM deletion service",
+	"text": "System [DDM deletion service]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "DDM deletion service restart"
+		}]
+  },{
+	"name": "AGIS",
+	"text": "System [AGIS]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "AGIS restart"
+		}]
+  },{
+	"name": "Panda Queues in DE Cloud",
+	"text": "System [Panda Queues in DE Cloud]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Queues in DE Cloud restart"
+		}]
+  },{
+	"name": "Site Status Board",
+	"text": "System [Site Status Board]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Site Status Board restart"
+		}]
+  },{
+	"name": "Panglia",
+	"text": "System [Panglia]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panglia restart"
+		}]
+  },{
+	"name": "Panda Production Job",
+	"text": "System [Panda Production Job]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Panda Production Job restart"
+		}]
+  },{
+	"name": "eLog",
+	"text": "System [eLog]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "eLog restart"
+		}]
+  },{
+	"name": "ADC",
+	"text": "System [ADC]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "ADC restart"
+		}]
+  },{
+	"name": "Twiki",
+	"text": "System [Twiki]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Twiki restart"
+		}]
+  },{
+	"name": "GGUS",
+	"text": "System [GGUS]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "GGUS restart"
+		}]
+  },{
+	"name": "Jira",
+	"text": "System [Jira]",
+	"img":  "img/default_server.png",
+	"dependent":  [],
+	"services": [{
+		"type": "ssh",
+		"name": "Restart",
+		"command": "Jira restart"
+		}]
+
+}]

@@ -1,0 +1,29 @@
+[{
+    "name": "The Computing centre",
+    "file": "http://atlas.cern/sites/atlas-public.web.cern.ch/files/computing-header.jpg"
+},{
+    "name": "Worldwide ATLAS Grid Jobs",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=All%20Sites&sitesCat=All%20Countries&resourcetype=All&sitesSort=0&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=t"
+},{
+    "name": "Worldwide ATLAS Grid Jobs - Pie Chart",
+    "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/jobnumbers_individual?sites=All%20Sites&sitesCat=All%20Countries&resourcetype=All&sitesSort=0&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=tp"
+    
+},{
+    "name": "ATLAS Live Physics Event",
+    "file": "http://atlas-live.cern.ch/live.png"
+},{
+    "name": "LHC Dashboard",
+    "file": "https://lhcdashboard-images.web.cern.ch/lhcdashboard-images/images/lhc/prod/dashboard.png"
+},{
+    "name": "LHC Status 1",
+    "file": "http://vistar-capture.web.cern.ch/vistar-capture/lhc1.png"
+},{
+    "name": "LHC Beam Dump",
+    "file": "https://vistar-capture.web.cern.ch/vistar-capture/lhcbds.png"
+},{
+    "name": "LHC Luminosity",
+    "file": "https://vistar-capture.web.cern.ch/vistar-capture/lhclumi.png"
+},{
+    "name": "LHC Exp Magnets",
+    "file": "https://vistar-capture.web.cern.ch/vistar-capture/lhcexpmag.png"
+}]

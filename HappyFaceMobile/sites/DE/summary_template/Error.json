@@ -1,0 +1,6 @@
+{
+        "text": "Hello, __MYNAME__ checked status of __SITE__ at __TIME__. Status level is __LEVEL__. Please have a look at __SYSTEMS__",
+        "level": "__LEVEL__",
+        "score": "__SCORE__",
+        "history": "__HISTORY__"
+}

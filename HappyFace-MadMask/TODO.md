@@ -35,7 +35,7 @@
 
  
 ## Mad-Gantry site builder second step
- * Cloud Host selector
+ * Cloud Host selector --> Done
  * Connecting to AGIS, more sites with configs (level0, level1, level2, Goettingen Internal)
 
 
@@ -44,7 +44,7 @@
  * Upgrading mad-gantry --> Done
  * Upgrade SPECs and daemon scripts accordingly --> Doing --> Needs a default PID file
 
-    madfoxd --> Reboot --> PID file error
+    madfoxd --> Reboot --> PID file error --> Doing
 
     madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC --> Done
 ---------------------------------------------------------------------

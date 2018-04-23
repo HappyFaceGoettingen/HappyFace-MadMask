@@ -87,9 +87,11 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 %post
 
 
+## Making a symlink (for a Docker node)
+[ -e /sites ] && mv -v %{_prefix}/MadMask/sites %{_prefix}/MadMask/sites.org && ln -sv /sites %{_prefix}/MadMask/sites
+
+
 %if 0%{rhel} == 6
-  echo "This package should be build only for RHEL5"
-  exit 1
   ## SSL error? Why on 03.04.2018? 
   npm config set ca ""
   
@@ -100,16 +102,13 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 
 
 ## Installing Basic packages for Ionic and Cordova
-if ! which ionic; then
-    ## Installing
-    echo "Installing Ionic and Cordova modules ..."
-    npm install -g cordova@6.0.0 bplist-parser@0.1.1 &> /dev/null
-    npm install -g ionic@2.0.0 &> /dev/null
+echo "Installing Ionic and Cordova modules ..."
+npm install -g cordova@6.0.0 bplist-parser@0.1.1 &> /dev/null
+npm install -g ionic@2.0.0 &> /dev/null
 
-    echo "Installing JPM and Forever ..."
-    which jpm || npm install -g jpm@1.0.7 &> /dev/null
-    which forever || npm install -g forever@0.15.2 &> /dev/null
-fi
+echo "Installing JPM and Forever ..."
+which jpm || npm install -g jpm@1.0.7 &> /dev/null
+which forever || npm install -g forever@0.15.2 &> /dev/null
 
 
 
