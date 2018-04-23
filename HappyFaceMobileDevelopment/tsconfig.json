@@ -21,7 +21,7 @@
     "src/**/*.spec.ts",
     "src/**/__tests__/*.ts",
       "src/data/Config*",
-      "src/data/Current.ts"
+      "src/data/_old/Current.ts"
   ],
   "compileOnSave": false,
   "atom": {

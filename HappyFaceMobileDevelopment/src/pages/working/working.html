@@ -2,8 +2,27 @@
     <ion-navbar>
         <ion-title>Working</ion-title>
     </ion-navbar>
+    <!--<ion-toolbar>
+        <ion-searchbar placeholder="Search" (ionInput)="searchData($event)"></ion-searchbar>
+    </ion-toolbar>-->
 </ion-header>
 
 <ion-content>
+    <div text-center padding [hidden]="!isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
 
+    <!--<ion-list [hidden]="isLoading">
+        <ion-item *ngFor="let item of data">
+            {{ item.name }}
+        </ion-item>
+    </ion-list>-->
+
+    <!-- Widgets -->
+    <ion-card no-padding>
+        <ion-card-header>{{data[0].name}}</ion-card-header>
+        <ion-card-content>
+            <div style="border-style: none; text-align:center"><img src="{{data[0].thumbnail}}"/></div>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
