@@ -44,9 +44,12 @@
  * Upgrading mad-gantry --> Done
  * Upgrade SPECs and daemon scripts accordingly --> Doing --> Needs a default PID file
 
-    madfoxd --> Reboot --> PID file error --> Doing
-
     madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC --> Done
+
+    madmaskd --> Reboot --> PID file error --> Doing --> Done
+    madfoxd  --> Reboot --> PID file error --> Doing
+
+
 ---------------------------------------------------------------------
 [root@3fd5422be4f4 MadMask]# systemctl status madmaskd.service
 ● madmaskd.service - LSB: Start and stop the madmask server
@@ -68,6 +71,10 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 ----------------------------------------------------------------------
 
 
+## iPhone build
+ * TestFlight: https://developer.apple.com/testflight/
+
+
 
 ## Upgrade data analyzer (with systems.json)
  * Think of systems.json definition and remove errors (A simple template builder by using monitoring-urls.json?) --> Doing
@@ -79,6 +86,7 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 
 ## Implement new data importer for HF database
+   * MadAnalyzer lib should be re-written in Python
    * In MadBrowser
    * In MadAnalyzer
 

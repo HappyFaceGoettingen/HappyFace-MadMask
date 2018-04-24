@@ -21,7 +21,7 @@
 RETVAL=0
 
 prog=madfox
-lockfile=/var/lock/subsys/madfoxd
+pidfile=/var/run/madfoxd.pid
 
 config=/etc/madfoxd.conf
 
@@ -35,7 +35,7 @@ user=$MADFOXD_USER
 group=$MADFOXD_GROUP
 pidfile_base=$MADFOXD_PIDDIR
 logfile_base=$MADFOXD_LOGDIR
-
+[ -z "$TERM" ] && export TERM=xterm
 
 read_displays(){
     local displays=$(find $MADFOXD_CONFIG)
@@ -57,7 +57,7 @@ check_pidfiles(){
 
 run_madfox(){
     local action=$1
-    su $user -c "madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -w $MADFOXD_WAIT_FIREFOX_BOOT -t $MADFOXD_WAIT_FIREFOX_OPEN_TAB -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action"
+    su $user -c "$prog -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -w $MADFOXD_WAIT_FIREFOX_BOOT -t $MADFOXD_WAIT_FIREFOX_OPEN_TAB -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action"
     return $?
 }
 
@@ -103,8 +103,14 @@ start() {
     run_madfox start 2>&1 >> $logfile_base/madfoxd.log &
     RETVAL=$?
 
+    ## Waiting pidfiles
+    for i in $(seq 1 60)
+    do
+	ls $pidfile_base/madfox.firefox.*.lock &> /dev/null && cat $pidfile_base/*.lock > $pidfile && break
+	sleep 5
+    done
+    
     if [ $RETVAL -eq 0 ]; then
-	touch $lockfile
 	echo -e "\t[OK]"
     else
 	echo -e "\t[ERROR]"
@@ -118,7 +124,7 @@ stop() {
     RETVAL=$?
 
     if [ $RETVAL -eq 0 ]; then
-	rm -f $lockfile
+	[ -e $pidfile ] && rm -f $pidfile
 	echo "[OK]"
     else
 	echo "[ERROR]"
