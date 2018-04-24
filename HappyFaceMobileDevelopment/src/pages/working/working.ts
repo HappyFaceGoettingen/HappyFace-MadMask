@@ -10,7 +10,7 @@ import {DataSearch} from "../../data/DataSearch";
 export class WorkingPage
 {
     search:DataSearch = null;
-    data:any[] = [];
+    data:any[] = [{name: "Hallo"}];
     searchContent:string = "";
 
     isLoading:boolean = true;

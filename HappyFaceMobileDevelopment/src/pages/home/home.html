@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Widgets</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-card *ngFor="let wid of widgets">
+        <ion-card-header>
+            {{wid.header}}
+        </ion-card-header>
+        <ion-card-content>
+            {{wid.content}}
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

@@ -8,6 +8,7 @@ import {HumansPage} from "../humans/humans";
 import {WorkingPage} from "../working/working";
 import {ConfigPage} from "../modals/config/config";
 import {AnalyzerPage2} from "../analyzer/analyzer2";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the TabsPage page.
@@ -23,6 +24,7 @@ import {AnalyzerPage2} from "../analyzer/analyzer2";
 })
 export class TabsPage {
 
+  tabHome      : any = HomePage;
   tabMonitoring: any = MonitoringPage;
   tabAnalyzer  : any = AnalyzerPage2;
   tabSystems   : any = ControllerPage;

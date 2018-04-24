@@ -28,6 +28,7 @@ import {AnalyzerPage2} from "../pages/analyzer/analyzer2";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
+import {HomePage} from "../pages/home/home";
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {PassModal} from "../pages/modals/ssh/pass-modal";
         SSHTerminalPage,
         PassModal,
         HFCategoriesPage,
-        HFModulesPage
+        HFModulesPage,
+        HomePage
     ],
     imports: [
         BrowserModule,
@@ -80,7 +82,8 @@ import {PassModal} from "../pages/modals/ssh/pass-modal";
         SSHTerminalPage,
         PassModal,
         HFCategoriesPage,
-        HFModulesPage
+        HFModulesPage,
+        HomePage
     ],
     providers: [
         StatusBar,
