@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
-import {DataSearch} from "../../data/DataSearch";
+//import {DataSearch} from "../../data/DataSearch";
 
 @Component({
     selector: 'page-working',
@@ -9,38 +9,38 @@ import {DataSearch} from "../../data/DataSearch";
 
 export class WorkingPage
 {
-    search:DataSearch = null;
-    data:any[] = [];
-    searchContent:string = "";
+    //search:DataSearch = null;
+    //data:any[] = [];
+    //searchContent:string = "";
 
-    isLoading:boolean = true;
+    //isLoading:boolean = true;
 
     constructor(private model:DataModel) {}
 
     ngOnInit()
     {
-        this.model.addLoadingFinishedCallback(this.loadingFinished.bind(this));
-        if(!this.model.isLoading()) this.loadingFinished();
+        //this.model.addLoadingFinishedCallback(this.loadingFinished.bind(this));
+        //if(!this.model.isLoading()) this.loadingFinished();
     }
 
     loadingFinished()
     {
-        this.isLoading = false;
-        this.search = new DataSearch(this.model);
-        console.log("PROD: " + JSON.stringify(this.search.searchData));
-        this.data = this.search.searchData;
-        if(this.searchContent !== "") this.data = this.search.search(this.searchContent);
+        //this.isLoading = false;
+        //this.search = new DataSearch(this.model);
+        //console.log("PROD: " + JSON.stringify(this.search.searchData));
+        //this.data = this.search.searchData;
+        //if(this.searchContent !== "") this.data = this.search.search(this.searchContent);
     }
 
     searchData(event:any)
     {
-        this.data = this.search.searchData;
-        let val:string = event.target.value;
-        if(val && val.trim() !== '')
-        {
-            this.data = this.search.search(val);
-        }
-        this.searchContent = val;
+        //this.data = this.search.searchData;
+        //let val:string = event.target.value;
+        //if(val && val.trim() !== '')
+        //{
+        //    this.data = this.search.search(val);
+        //}
+        //this.searchContent = val;
     }
 
 }
