@@ -1,19 +1,19 @@
-import {Widget} from "./Widget";
+import {HFWidget} from "./HFWidget";
 
 export function instance()
 {
     return new TestWidget();
 }
 
-export class TestWidget extends Widget
+export class TestWidget extends HFWidget
 {
-    header:string = "";
-    content:string = "";
+    headerText:string = "";
+    contentText:string = "";
 
     constructor()
     {
         super();
-        this.header = "Hello World";
-        this.content = "Hello World from inside a Widget";
+        this.headerText = "Hello World";
+        this.contentText = "<img src='https://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg' alt='No Image inside the widget' />";
     }
 }

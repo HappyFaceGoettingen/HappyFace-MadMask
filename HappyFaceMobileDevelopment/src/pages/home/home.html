@@ -8,10 +8,10 @@
 
     <ion-card *ngFor="let wid of widgets">
         <ion-card-header>
-            {{wid.header}}
+            <div [innerHTML]="wid.headerHTML"></div>
         </ion-card-header>
         <ion-card-content>
-            {{wid.content}}
+            <div [innerHTML]="wid.contentHTML"></div>
         </ion-card-content>
     </ion-card>
 

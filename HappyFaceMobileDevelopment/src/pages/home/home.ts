@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Widget} from "./widgets/Widget";
+import {HFWidget} from "./widgets/HFWidget";
 
 @Component({
     selector: 'page-home',
@@ -8,19 +8,27 @@ import {Widget} from "./widgets/Widget";
 
 export class HomePage
 {
-    widgets:Widget[] = [];
+    widgets:HFWidget[] = [];
 
     constructor() {}
 
     ngOnInit()
     {
         //this.widgets.push(new TestWidget());
-        this.loadWidget().then((widget) => { this.widgets.push(widget); console.log("Pushed")});
+        HomePage.loadWidget().then((widget) => { this.buildWidget(widget); } );
     }
 
-    async loadWidget():Promise<Widget>
+    static async loadWidget():Promise<HFWidget>
     {
         const widget = await import("./widgets/TestWidget");
         return widget.instance();
+    }
+
+    buildWidget(widget:HFWidget)
+    {
+
+
+
+        this.widgets.push(widget); console.log("Pushed");
     }
 }
