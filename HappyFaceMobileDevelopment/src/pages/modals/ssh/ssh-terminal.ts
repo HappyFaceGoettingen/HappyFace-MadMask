@@ -20,7 +20,7 @@ export class SSHTerminalPage
     ngOnInit()
     {
         // #input-line cmdline
-        console.log("cmdLine: " + JSON.stringify(document.querySelector(".cmdline")));
+        //console.log("cmdLine: " + JSON.stringify(document.querySelector(".cmdline")));
         this.term = new Terminal2('.cmdline', '#container output',
             this.alertCtrl, this.model, this.modalCtrl, this.viewCtrl);
         this.term.setPromtChange(this.promtChange.bind(this));

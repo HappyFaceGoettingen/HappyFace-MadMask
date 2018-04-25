@@ -38,9 +38,9 @@ export class DataModel
 
     // Data
     metaMetaSites:any;
-    host:string = "141.5.108.30"; // HOST and PORT have initial values due to the third option in constructor
-    port:string = "20200";        // NOTE: This might get fixed (=removed) in the future
-    dir :string = "sites/default";
+    //host:string = "141.5.108.30"; // HOST and PORT have initial values due to the third option in constructor
+    //port:string = "20200";        // NOTE: This might get fixed (=removed) in the future
+    //dir :string = "sites/default";
 
     config         :any = null;
     monitoringUrls :any = null;
@@ -279,10 +279,13 @@ export class DataModel
         const modal = this.modalCtrl.create(ConnectionErrorPage,
             {"host": this.currentlyActive.host, "port": this.currentlyActive.mobile_port, "errors" : this.errors});
         modal.onDidDismiss(data => {
-            if(data.retry) {
+            if(!(data == null || data == undefined || data.retry == null || data.retry == undefined) && data.retry) {
                 this.currentlyActive.host = data.host;
                 this.currentlyActive.mobile_port = data.port;
                 this.reload();
+                this.configuration.setAutomaticFetch(preset);
+            }
+            else {
                 this.configuration.setAutomaticFetch(preset);
             }
         });
@@ -364,6 +367,7 @@ export class DataModel
         }
         // App running on a clients device
         else {
+            // Initial configuration
             this.currentlyActive.name = "GoeGrid";
             this.currentlyActive.host = "141.5.108.30";
             this.currentlyActive.mobile_port = "20200";
@@ -374,7 +378,6 @@ export class DataModel
                 if(!(value == null || value == undefined))
                     this.currentlyActive = value;
                 console.log("Saved Instance is: " + JSON.stringify(value));
-                //this.currentlyActive.host = "141.5.108.31";
                 this.reload();
             });
         }
@@ -464,11 +467,11 @@ export class StatusObject
 
 export class InstanceObject
 {
-    name:string = "GoeGrid";
-    host:string = "141.5.108.30";
-    web_port:string = "10200";
-    mobile_port:string = "20200";
-    dir:string = "sites/default"; // sites/GoeGrid
+    name:string = ""; //"GoeGrid";
+    host:string = ""; //"141.5.108.30";
+    web_port:string = ""; //"10200";
+    mobile_port:string = ""; //"20200";
+    dir:string = ""; //"sites/default"; // sites/GoeGrid
 
     /*changeActive(name:string, host:string, web_port:string, mobile_port:string, dir:string)
     {
