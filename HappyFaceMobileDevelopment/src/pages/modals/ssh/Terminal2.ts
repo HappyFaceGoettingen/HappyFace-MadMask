@@ -88,12 +88,22 @@ export class Terminal2
 
     valueHandler(e)
     {
+        /* Deprecated
         if(!this.outlet)
         {
             if((e.keyCode > 31 && e.keyCode < 127) || (e.keyCode > 127 && e.keyCode < 255)) // Recognize only printable characters
             {
                 this.value = this.value + String.fromCharCode(e.keyCode);
             }
+        }*/
+
+        if(!this.outlet)
+        {
+            if(e.key.length != null || e.key.length != undefined)
+            {
+                if(e.key.length == 1) this.value = this.value + e.key;
+            }
+            //console.log("KEY WAS: " + e.key + "  AND VALUE IS: " + this.value);
         }
     }
 
