@@ -1,4 +1,4 @@
-webpackJsonp([1],{
+webpackJsonp([0],{
 
 /***/ 102:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -880,7 +880,7 @@ let TabsPage = class TabsPage {
 };
 TabsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/'<ion-content padding>\n\n  <ion-tabs [selectedIndex]="7">\n\n      <ion-tab [root]="tabHome" tabTitle="Home" tabIcon="ios-home" *ngIf="true"></ion-tab>\n\n      <ion-tab [root]="tabMonitoring" tabTitle="Monitoring" tabIcon="ios-speedometer"></ion-tab>\n\n      <ion-tab [root]="tabAnalyzer" tabTitle="Analyzer" tabIcon="ios-analytics"></ion-tab>\n\n      <ion-tab [root]="tabSystems" tabTitle="Controller" tabIcon="ios-game-controller-b"></ion-tab>\n\n      <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="ios-desktop"></ion-tab>\n\n      <ion-tab [root]="tabLogs" tabTitle="Logs" tabIcon="ios-recording"></ion-tab>\n\n      <ion-tab [root]="tabHumans" tabTitle="Humans" tabIcon="ios-people"></ion-tab>\n\n      <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings" *ngIf="false"></ion-tab>\n\n      <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear" *ngIf="true"></ion-tab>\n\n  </ion-tabs>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/,
+        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/'<ion-content padding>\n  <ion-tabs [selectedIndex]="6">\n      <ion-tab [root]="tabHome" tabTitle="Home" tabIcon="ios-home" *ngIf="true"></ion-tab>\n      <ion-tab [root]="tabMonitoring" tabTitle="Monitoring" tabIcon="ios-speedometer"></ion-tab>\n      <ion-tab [root]="tabAnalyzer" tabTitle="Analyzer" tabIcon="ios-analytics"></ion-tab>\n      <ion-tab [root]="tabSystems" tabTitle="Controller" tabIcon="ios-game-controller-b"></ion-tab>\n      <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="ios-desktop"></ion-tab>\n      <ion-tab [root]="tabLogs" tabTitle="Logs" tabIcon="ios-recording"></ion-tab>\n      <ion-tab [root]="tabHumans" tabTitle="Humans" tabIcon="ios-people"></ion-tab>\n      <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings" *ngIf="false"></ion-tab>\n      <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear" *ngIf="true"></ion-tab>\n  </ion-tabs>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
 ], TabsPage);
@@ -2121,6 +2121,7 @@ HFModulesPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2131,28 +2132,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 let HomePage = HomePage_1 = class HomePage {
-    constructor() {
+    constructor(model) {
+        this.model = model;
         this.widgets = [];
+        this.widgetsDATA = ["C:\\Users\\atopi\\Codes\\bachelor\\HappyFace-MadMask\\HappyFaceMobileDevelopment\\src\\pages\\home\\widgets\\TestWidget"];
     }
     ngOnInit() {
-        //this.widgets.push(new TestWidget());
-        HomePage_1.loadWidget().then((widget) => { });
+        for (let i = 0; i < this.widgetsDATA.length; i++) {
+            let a = this.widgetsDATA[i];
+            console.log("MODULE: " + a);
+            HomePage_1.loadWidget(a).then((widget) => { this.buildWidget(widget); });
+        }
     }
-    static async loadWidget() {
-        const widget = await __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 298));
+    static async loadWidget(name) {
+        let s = "http://141.5.108.29:19000/widgets/TestWidget.js";
+        for (let i = 0; i < s.length; i++)
+            console.log("NUMBER: " + s.charCodeAt(i));
+        const widget = await __webpack_require__(297)(s); // "./widgets/TestWidget");
         return widget.instance();
     }
     buildWidget(widget) {
-        this.widgets.push(widget);
+        widget.config = this.model.config;
+        widget.humans = this.model.humans;
+        widget.logs = this.model.logs;
+        widget.systems = this.model.systems;
+        widget.summary = this.model.summary;
+        widget.visualizers = this.model.visualizers;
+        widget.monitoringURLS = this.model.monitoringUrls;
+        let htmlHeader = widget.headerHTML !== null;
+        let textHeader = widget.headerText !== null;
+        let htmlContent = widget.contentHTML !== null;
+        let textContent = widget.contentText !== null;
+        this.widgets.push({ widget: widget, htmlHeader: htmlHeader, textHeader: textHeader, htmlContent: htmlContent,
+            textContent: textContent });
         console.log("Pushed");
     }
 };
 HomePage = HomePage_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <ion-card *ngFor="let wid of widgets">\n        <ion-card-header>\n            <div [innerHTML]="wid.headerHTML"></div>\n        </ion-card-header>\n        <ion-card-content>\n            <div [innerHTML]="wid.contentHTML"></div>\n        </ion-card-content>\n    </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <ion-card *ngFor="let wid of widgets">\n\n        <!-- Headers -->\n        <ion-card-header *ngIf="wid.textHeader">\n            {{wid.widget.headerText}}\n        </ion-card-header>\n        <ion-card-header *ngIf="wid.htmlHeader">\n            <div [innerHTML]="wid.widget.headerHTML"></div>\n        </ion-card-header>\n\n        <!-- Content -->\n        <ion-card-content *ngIf="wid.textHeader">\n            {{wid.widget.contentText}}\n        </ion-card-content>\n        <ion-card-content *ngIf="wid.htmlContent">\n            <div [innerHTML]="wid.widget.contentHTML"></div>\n        </ion-card-content>\n\n    </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]])
 ], HomePage);
 
 var HomePage_1;
@@ -2188,7 +2210,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_analyzer_analyzer_detail__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__ = __webpack_require__(206);
@@ -2440,10 +2462,23 @@ class Terminal2 {
         }
     }
     valueHandler(e) {
-        if (!this.outlet) {
-            if ((e.keyCode > 31 && e.keyCode < 127) || (e.keyCode > 127 && e.keyCode < 255)) {
+        /* Deprecated
+        console.log("OUTLET: " + this.outlet + "  KEYCODE: " + e.key);
+
+        if(!this.outlet)
+        {
+            if((e.keyCode > 31 && e.keyCode < 127) || (e.keyCode > 127 && e.keyCode < 255)) // Recognize only printable characters
+            {
                 this.value = this.value + String.fromCharCode(e.keyCode);
+                console.log("NEW VALUE: " + this.value);
             }
+        }*/
+        if (!this.outlet) {
+            if (e.key.length != null || e.key.length != undefined) {
+                if (e.key.length == 1)
+                    this.value = this.value + e.key;
+            }
+            console.log("KEY WAS: " + e.key + "  AND VALUE IS: " + this.value);
         }
     }
     historyHandler_(e) {
@@ -2476,9 +2511,11 @@ class Terminal2 {
         }
     }
     processNewCommand_(e) {
+        console.log("KEYCODE: " + this.ssh);
         if (e.keyCode == 9)
             e.preventDefault();
         else if (e.keyCode == 13) {
+            console.log("ENTER");
             // Save shell history.
             if (this.value) {
                 this.history_[this.history_.length] = this.value;
@@ -2500,6 +2537,7 @@ class Terminal2 {
                     args = args.splice(1); // Remove cmd from arg list.
                 }
                 cmd = cmd.replace(/[^\x20-\x7F]/g, "");
+                console.log("CMD: " + this.value);
                 switch (cmd) {
                     case 'cat':
                         let url = args.join(' ');
@@ -2795,6 +2833,23 @@ class DataSearch {
 /***/ }),
 
 /***/ 297:
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = 297;
+
+/***/ }),
+
+/***/ 298:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
