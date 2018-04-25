@@ -19,7 +19,7 @@ export class Terminal2
     output_ = null;
     value = "";
 
-    promt:string = "[usr@html5] # ";
+    promt:string = "[usr@happy] # ";
     promtChangeCallback: (p:string) => void = null;
 
     CMDS_ = [
@@ -28,6 +28,7 @@ export class Terminal2
 
     constructor(cmdLineContainer, outputContainer, alertC, private model:DataModel,
                 modalCtrl: ModalController, viewCtrl: ViewController) {
+
         //window.URL = window.URL || window.webkitURL;
         //window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
 
@@ -141,8 +142,12 @@ export class Terminal2
             if(this.ssh)
             {
                 let cmd:string = this.value + "\n";
-                let ret:string = this.ssh_mocfunc(cmd);
-                this.output(ret);
+                //let ret:string = this.ssh_mocfunc(cmd);
+                //this.output(ret);
+                if(this.sshWrapper == null || this.sshWrapper == undefined) this.output("");
+                else {
+                    this.sshWrapper.write(cmd);
+                }
             }
             else {
                 let cmd = "";
@@ -160,7 +165,10 @@ export class Terminal2
                     case 'cat':
                         let url = args.join(' ');
                         if (!url) {
-                            this.output('Usage: ' + cmd + ' https://s.codepen.io/...\nExample: ' + cmd + ' https://s.codepen.io/AndrewBarfield/pen/LEbPJx.js');
+                            //this.output('Usage: ' + cmd + ' https://s.codepen.io/...\nExample: ' + cmd + ' https://s.codepen.io/AndrewBarfield/pen/LEbPJx.js');
+                            this.output("Usage: " + cmd + " < url >\n Example: " + cmd +
+                                " https://github.com/HappyFaceGoettingen/HappyFace-MadMask/blob/timon_development/HappyFaceMobileDevelopment/README.md");
+
                             break;
                         }
                         let _this = this;
@@ -202,6 +210,7 @@ export class Terminal2
                             this.viewCtrl.dismiss();
                             break;
                         }
+                        else break;
                     default:
                         if (cmd) {
                             this.output(cmd + ': command not found');
@@ -239,21 +248,6 @@ export class Terminal2
 
     moveToSSH()
     {
-        this.outlet = true;
-        let modal = this.modalCtrl.create(PassModal);
-        modal.onDidDismiss(this.gotSSHPass.bind(this));
-        modal.present();
-    }
-
-
-    gotSSHPass(data:any)
-    {
-        this.outlet = false;
-        if(data == null || data.enter == undefined || !data.enter){
-            this.output("");
-            return;
-        }
-
         if(this.sshWrapper == null || this.sshWrapper == undefined)
         {
             try { this.sshWrapper = new SSH2Wrapper(); }
@@ -297,9 +291,25 @@ export class Terminal2
                 else {
                     console.log("ERROR: SSH plugin is missing.");
                 }
+                this.sshWrapper = null;
                 this.output("");
                 return;
             }
+        }
+
+        this.outlet = true;
+        let modal = this.modalCtrl.create(PassModal);
+        modal.onDidDismiss(this.gotSSHPass.bind(this));
+        modal.present();
+    }
+
+
+    gotSSHPass(data:any)
+    {
+        this.outlet = false;
+        if(data == null || data.enter == undefined || !data.enter){
+            this.output("");
+            return;
         }
 
         this.ssh = true;
@@ -324,8 +334,7 @@ export class Terminal2
     }
 
 
-
-    ssh_mocfunc(cmd:string)
+    /*ssh_mocfunc(cmd:string)
     {
         if(cmd.charCodeAt(cmd.length -1) == 10) cmd = cmd.substring(0, cmd.length -1);
         switch(cmd)
@@ -342,5 +351,5 @@ export class Terminal2
             default:
                 return cmd + ': Command not found'
         }
-    }
+    }*/
 }
