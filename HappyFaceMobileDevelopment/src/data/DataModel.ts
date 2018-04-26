@@ -322,10 +322,25 @@ export class DataModel
         if(this.configuration == null || this.summary == null || this.summary.text == null) return;
         if(this.configuration == undefined || this.summary == undefined || this.summary.text == undefined) return;
         if (this.configuration.get().enableTextSpeech) {
-            let u = new SpeechSynthesisUtterance();
-            u.text = this.summary.text;
-            u.lang = 'en-GB';
-            speechSynthesis.speak(u);
+
+            if(this.isiOS() || this.isAndroid())
+            {
+                if((<any>window).tts != null || (<any>window).tts != undefined)
+                {
+                    (<any>window).tts.speak({
+                        text: this.summary.text,
+                        locale: "en-GB",
+                        rate: 0.75
+                    })
+                }
+                else console.log("PLUGIN ERROR: TTS not found in window");
+            }
+            else {
+                let u = new SpeechSynthesisUtterance();
+                u.text = this.summary.text;
+                u.lang = 'en-GB';
+                speechSynthesis.speak(u);
+            }
         }
     }
 
