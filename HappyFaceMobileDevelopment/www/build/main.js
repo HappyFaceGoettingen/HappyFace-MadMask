@@ -603,7 +603,12 @@ var DataModel = /** @class */ (function () {
         modal.onDidDismiss(function (data) {
             if (!(data == null || data == undefined || data.retry == null || data.retry == undefined) && data.retry) {
                 _this.currentlyActive.host = data.host;
-                _this.currentlyActive.mobile_port = data.port;
+                console.log("FROM ERROR: HF: " + _this.configuration.get().happyFaceCompatible + " PORT: " + data.port);
+                if (_this.configuration.get().happyFaceCompatible)
+                    _this.currentlyActive.web_port = data.port;
+                else
+                    _this.currentlyActive.mobile_port = data.port;
+                console.log("ERROR: NEW WEB_PORT: " + _this.currentlyActive.web_port);
                 _this.reload();
                 _this.configuration.setAutomaticFetch(preset);
             }
@@ -615,7 +620,10 @@ var DataModel = /** @class */ (function () {
     };
     // Helpers
     DataModel.prototype.getRemoteURL = function () {
-        return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port + "/";
+        if (this.configuration.get().happyFaceCompatible)
+            return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.web_port + "/" + "static/";
+        else
+            return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port + "/";
     };
     DataModel.prototype.isHttpURL = function (url) {
         return new RegExp('^(http|https)(:\\/\\/)').test(url);
@@ -661,6 +669,7 @@ var DataModel = /** @class */ (function () {
         if (this.isHost()) {
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
+            this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
             /*this.loadConfig();
@@ -693,7 +702,7 @@ var DataModel = /** @class */ (function () {
     // Determine whether this instance should show content hosted by itself or should connect to a remote host
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     DataModel.prototype.isHost = function () {
-        return DataModel_1.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
+        return DataModel_1.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb');
         //return false;
     };
     DataModel.prototype.isAndroid = function () {
@@ -790,7 +799,7 @@ var ConfigurationObject = /** @class */ (function () {
         this._enableTextSpeech = true;
         this._enableAutoReadout = false;
         this._speakInterval = 1;
-        this._happyFaceCompatible = false;
+        this._happyFaceCompatible = true;
     }
     ConfigurationObject.prototype.get = function () {
         return {
@@ -897,7 +906,7 @@ var TabsPage = /** @class */ (function () {
     };
     TabsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/'<ion-content padding>\n\n  <ion-tabs [selectedIndex]="7">\n\n    <ion-tab [root]="tabMonitoring" tabTitle="Monitoring" tabIcon="ios-speedometer"></ion-tab>\n\n    <ion-tab [root]="tabAnalyzer" tabTitle="Analyzer" tabIcon="ios-analytics"></ion-tab>\n\n    <ion-tab [root]="tabSystems" tabTitle="Controller" tabIcon="ios-game-controller-b"></ion-tab>\n\n    <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="ios-desktop"></ion-tab>\n\n    <ion-tab [root]="tabLogs" tabTitle="Logs" tabIcon="ios-recording"></ion-tab>\n\n    <ion-tab [root]="tabHumans" tabTitle="Humans" tabIcon="ios-people"></ion-tab>\n\n    <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings" *ngIf="false"></ion-tab>\n\n    <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear" *ngIf="true"></ion-tab>\n\n  </ion-tabs>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/,
+            selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/'<ion-content padding>\n\n  <ion-tabs [selectedIndex]="7">\n\n    <ion-tab [root]="tabMonitoring" tabTitle="Monitoring" tabIcon="ios-speedometer"></ion-tab>\n\n    <ion-tab [root]="tabAnalyzer" tabTitle="Analyzer" tabIcon="ios-analytics"></ion-tab>\n\n    <ion-tab [root]="tabSystems" tabTitle="Controller" tabIcon="ios-game-controller-b"></ion-tab>\n\n    <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="ios-desktop"></ion-tab>\n\n    <ion-tab [root]="tabLogs" tabTitle="Logs" tabIcon="ios-recording"></ion-tab>\n\n    <ion-tab [root]="tabHumans" tabTitle="Humans" tabIcon="ios-people"></ion-tab>\n\n    <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings" *ngIf="false"></ion-tab>\n\n    <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear" *ngIf="false"></ion-tab>\n\n  </ion-tabs>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
     ], TabsPage);
@@ -1276,7 +1285,7 @@ var InstancesComponent = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.plt = plt;
         this.storage = storage;
-        this.headURL = "http://141.5.108.30:20100/sites/default/meta-meta.json";
+        this.headURL = ""; //http://141.5.108.30:20100/sites/default/meta-meta.json";
         this.label = "";
         this.locations = [];
         this.favorites = [];
@@ -1296,6 +1305,10 @@ var InstancesComponent = /** @class */ (function () {
                 _this.favorites = [];
             console.log("FAVORITES: " + JSON.stringify(value));
         });
+        if (this.model.configuration.get().happyFaceCompatible)
+            this.headURL = "http://141.5.108.29:10100/static/sites/default/meta-meta.json";
+        else
+            this.headURL = "http://141.5.108.29:20100/sites/default/meta-meta.json";
         var req = new XMLHttpRequest();
         req.addEventListener("load", function () {
             _this.updateList(req.responseText);
@@ -1321,14 +1334,26 @@ var InstancesComponent = /** @class */ (function () {
             loc = this.backstack.pop();
         this.current = loc;
         var url = "";
-        if (this.level <= 0) {
-            this.level = 0;
-            url = this.headURL;
+        if (this.model.configuration.get().happyFaceCompatible) {
+            if (this.level <= 0) {
+                this.level = 0;
+                url = this.headURL;
+            }
+            else if (this.level == 1)
+                url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+            else if (this.level >= 2)
+                url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
         }
-        else if (this.level == 1)
-            url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
-        else if (this.level >= 2)
-            url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+        else {
+            if (this.level <= 0) {
+                this.level = 0;
+                url = this.headURL;
+            }
+            else if (this.level == 1)
+                url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+            else if (this.level >= 2)
+                url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+        }
         var req = new XMLHttpRequest();
         req.addEventListener("load", function () { _this.updateList(req.responseText); });
         req.open("GET", url);
@@ -1879,7 +1904,7 @@ var WorkingPage = /** @class */ (function () {
     };
     WorkingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-working',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Working</ion-title>\n    </ion-navbar>\n    <!--<ion-toolbar>\n        <ion-searchbar placeholder="Search" (ionInput)="searchData($event)"></ion-searchbar>\n    </ion-toolbar>-->\n</ion-header>\n\n<ion-content>\n    <!--<div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <!--<ion-list [hidden]="isLoading">\n        <ion-item *ngFor="let item of data">\n            {{ item.name }}\n        </ion-item>\n    </ion-list>-->\n\n    <!-- Widgets -->\n    <!--<ion-card no-padding>\n        <ion-card-header>{{data[0].name}}</ion-card-header>\n        <ion-card-content>\n            <div style="border-style: none; text-align:center"><img src="{{data[0].thumbnail}}"/></div>\n        </ion-card-content>\n    </ion-card>-->\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/
+            selector: 'page-working',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Working</ion-title>\n\n    </ion-navbar>\n\n    <!--<ion-toolbar>\n\n        <ion-searchbar placeholder="Search" (ionInput)="searchData($event)"></ion-searchbar>\n\n    </ion-toolbar>-->\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <!--<div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <!--<ion-list [hidden]="isLoading">\n\n        <ion-item *ngFor="let item of data">\n\n            {{ item.name }}\n\n        </ion-item>\n\n    </ion-list>-->\n\n\n\n    <!-- Widgets -->\n\n    <!--<ion-card no-padding>\n\n        <ion-card-header>{{data[0].name}}</ion-card-header>\n\n        <ion-card-content>\n\n            <div style="border-style: none; text-align:center"><img src="{{data[0].thumbnail}}"/></div>\n\n        </ion-card-content>\n\n    </ion-card>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]])
     ], WorkingPage);
@@ -2432,10 +2457,20 @@ var Terminal2 = /** @class */ (function () {
         }
     };
     Terminal2.prototype.valueHandler = function (e) {
-        if (!this.outlet) {
-            if ((e.keyCode > 31 && e.keyCode < 127) || (e.keyCode > 127 && e.keyCode < 255)) {
+        /* Deprecated
+        if(!this.outlet)
+        {
+            if((e.keyCode > 31 && e.keyCode < 127) || (e.keyCode > 127 && e.keyCode < 255)) // Recognize only printable characters
+            {
                 this.value = this.value + String.fromCharCode(e.keyCode);
             }
+        }*/
+        if (!this.outlet) {
+            if (e.key.length != null || e.key.length != undefined) {
+                if (e.key.length == 1)
+                    this.value = this.value + e.key;
+            }
+            //console.log("KEY WAS: " + e.key + "  AND VALUE IS: " + this.value);
         }
     };
     Terminal2.prototype.historyHandler_ = function (e) {

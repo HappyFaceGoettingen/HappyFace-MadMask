@@ -281,7 +281,12 @@ export class DataModel
         modal.onDidDismiss(data => {
             if(!(data == null || data == undefined || data.retry == null || data.retry == undefined) && data.retry) {
                 this.currentlyActive.host = data.host;
-                this.currentlyActive.mobile_port = data.port;
+                console.log("FROM ERROR: HF: " + this.configuration.get().happyFaceCompatible + " PORT: " + data.port);
+                if(this.configuration.get().happyFaceCompatible)
+                    this.currentlyActive.web_port = data.port;
+                else
+                    this.currentlyActive.mobile_port = data.port;
+                console.log("ERROR: NEW WEB_PORT: " + this.currentlyActive.web_port);
                 this.reload();
                 this.configuration.setAutomaticFetch(preset);
             }
@@ -295,7 +300,10 @@ export class DataModel
     // Helpers
     getRemoteURL()
     {
-        return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port + "/";
+        if(this.configuration.get().happyFaceCompatible)
+            return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.web_port + "/" + "static/";
+        else
+            return "http://" + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port + "/";
     }
 
     isHttpURL(url:string)
@@ -358,6 +366,7 @@ export class DataModel
         {
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
+            this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
 
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
@@ -398,7 +407,7 @@ export class DataModel
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost()
     {
-        return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
+        return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb');
         //return false;
     }
 
@@ -494,7 +503,7 @@ export class ConfigurationObject
     private _enableTextSpeech:boolean = true;
     private _enableAutoReadout:boolean = false;
     private _speakInterval:number = 1;
-    private _happyFaceCompatible:boolean = false;
+    private _happyFaceCompatible:boolean = true;
 
     get() {
         return {
