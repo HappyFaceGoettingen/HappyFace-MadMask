@@ -6,7 +6,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se restart"
+		"text": "Send restart command to [se]",
+		"command": "restart se"
 		}]
   },{
 	"name": "bdii",
@@ -16,7 +17,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "bdii restart"
+		"text": "Send restart command to [bdii]",
+		"command": "restart bdii"
 		}]
   },{
 	"name": "creamce",
@@ -26,7 +28,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "creamce restart"
+		"text": "Send restart command to [creamce]",
+		"command": "restart creamce"
 		}]
   },{
 	"name": "pbs",
@@ -36,7 +39,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "pbs restart"
+		"text": "Send restart command to [pbs]",
+		"command": "restart pbs"
 		}]
   },{
 	"name": "creamce2",
@@ -46,7 +50,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "creamce2 restart"
+		"text": "Send restart command to [creamce2]",
+		"command": "restart creamce2"
 		}]
   },{
 	"name": "creamce3",
@@ -56,7 +61,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "creamce3 restart"
+		"text": "Send restart command to [creamce3]",
+		"command": "restart creamce3"
 		}]
   },{
 	"name": "apel",
@@ -66,7 +72,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "apel restart"
+		"text": "Send restart command to [apel]",
+		"command": "restart apel"
 		}]
   },{
 	"name": "FAX",
@@ -76,7 +83,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "FAX restart"
+		"text": "Send restart command to [FAX]",
+		"command": "restart FAX"
 		}]
   },{
 	"name": "Squid",
@@ -86,7 +94,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Squid restart"
+		"text": "Send restart command to [Squid]",
+		"command": "restart Squid"
 		}]
   },{
 	"name": "ALL",
@@ -96,7 +105,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ALL restart"
+		"text": "Send restart command to [ALL]",
+		"command": "restart ALL"
 		}]
   },{
 	"name": "nagios",
@@ -106,7 +116,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "nagios restart"
+		"text": "Send restart command to [nagios]",
+		"command": "restart nagios"
 		}]
   },{
 	"name": "ganglia",
@@ -116,7 +127,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ganglia restart"
+		"text": "Send restart command to [ganglia]",
+		"command": "restart ganglia"
 		}]
   },{
 	"name": "virt1",
@@ -126,7 +138,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt1 restart"
+		"text": "Send restart command to [virt1]",
+		"command": "restart virt1"
 		}]
   },{
 	"name": "virt2",
@@ -136,7 +149,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt2 restart"
+		"text": "Send restart command to [virt2]",
+		"command": "restart virt2"
 		}]
   },{
 	"name": "virt3",
@@ -146,7 +160,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt3 restart"
+		"text": "Send restart command to [virt3]",
+		"command": "restart virt3"
 		}]
   },{
 	"name": "virt4",
@@ -156,7 +171,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt4 restart"
+		"text": "Send restart command to [virt4]",
+		"command": "restart virt4"
 		}]
   },{
 	"name": "virt5",
@@ -166,7 +182,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt5 restart"
+		"text": "Send restart command to [virt5]",
+		"command": "restart virt5"
 		}]
   },{
 	"name": "virt6",
@@ -176,7 +193,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt6 restart"
+		"text": "Send restart command to [virt6]",
+		"command": "restart virt6"
 		}]
   },{
 	"name": "rocks",
@@ -186,7 +204,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "rocks restart"
+		"text": "Send restart command to [rocks]",
+		"command": "restart rocks"
 		}]
   },{
 	"name": "se2",
@@ -196,7 +215,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se2 restart"
+		"text": "Send restart command to [se2]",
+		"command": "restart se2"
 		}]
   },{
 	"name": "se3",
@@ -206,7 +226,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se3 restart"
+		"text": "Send restart command to [se3]",
+		"command": "restart se3"
 		}]
   },{
 	"name": "se4",
@@ -216,7 +237,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se4 restart"
+		"text": "Send restart command to [se4]",
+		"command": "restart se4"
 		}]
   },{
 	"name": "se5",
@@ -226,7 +248,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se5 restart"
+		"text": "Send restart command to [se5]",
+		"command": "restart se5"
 		}]
   },{
 	"name": "se6",
@@ -236,7 +259,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se6 restart"
+		"text": "Send restart command to [se6]",
+		"command": "restart se6"
 		}]
   },{
 	"name": "se7",
@@ -246,7 +270,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se7 restart"
+		"text": "Send restart command to [se7]",
+		"command": "restart se7"
 		}]
   },{
 	"name": "se8",
@@ -256,7 +281,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se8 restart"
+		"text": "Send restart command to [se8]",
+		"command": "restart se8"
 		}]
   },{
 	"name": "se9",
@@ -266,7 +292,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se9 restart"
+		"text": "Send restart command to [se9]",
+		"command": "restart se9"
 		}]
   },{
 	"name": "se10",
@@ -276,7 +303,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se10 restart"
+		"text": "Send restart command to [se10]",
+		"command": "restart se10"
 		}]
   },{
 	"name": "se11",
@@ -286,7 +314,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se11 restart"
+		"text": "Send restart command to [se11]",
+		"command": "restart se11"
 		}]
   },{
 	"name": "se12",
@@ -296,7 +325,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se12 restart"
+		"text": "Send restart command to [se12]",
+		"command": "restart se12"
 		}]
   },{
 	"name": "se13",
@@ -306,7 +336,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se13 restart"
+		"text": "Send restart command to [se13]",
+		"command": "restart se13"
 		}]
   },{
 	"name": "se14",
@@ -316,7 +347,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se14 restart"
+		"text": "Send restart command to [se14]",
+		"command": "restart se14"
 		}]
   },{
 	"name": "se15",
@@ -326,7 +358,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se15 restart"
+		"text": "Send restart command to [se15]",
+		"command": "restart se15"
 		}]
   },{
 	"name": "se16",
@@ -336,7 +369,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se16 restart"
+		"text": "Send restart command to [se16]",
+		"command": "restart se16"
 		}]
   },{
 	"name": "dcache",
@@ -346,7 +380,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "dcache restart"
+		"text": "Send restart command to [dcache]",
+		"command": "restart dcache"
 		}]
 
 }]

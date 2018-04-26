@@ -6,7 +6,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DDM transfer service restart"
+		"text": "Send restart command to [DDM transfer service]",
+		"command": "restart DDM_transfer_service"
 		}]
   },{
 	"name": "DE Cloud",
@@ -16,7 +17,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DE Cloud restart"
+		"text": "Send restart command to [DE Cloud]",
+		"command": "restart DE_Cloud"
 		}]
   },{
 	"name": "DDM deletion service",
@@ -26,7 +28,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DDM deletion service restart"
+		"text": "Send restart command to [DDM deletion service]",
+		"command": "restart DDM_deletion_service"
 		}]
   },{
 	"name": "AGIS",
@@ -36,7 +39,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "AGIS restart"
+		"text": "Send restart command to [AGIS]",
+		"command": "restart AGIS"
 		}]
   },{
 	"name": "Panda Queues in DE Cloud",
@@ -46,7 +50,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in DE Cloud restart"
+		"text": "Send restart command to [Panda Queues in DE Cloud]",
+		"command": "restart Panda_Queues_in_DE_Cloud"
 		}]
   },{
 	"name": "Site Status Board",
@@ -56,7 +61,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Site Status Board restart"
+		"text": "Send restart command to [Site Status Board]",
+		"command": "restart Site_Status_Board"
 		}]
   },{
 	"name": "Panglia",
@@ -66,7 +72,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panglia restart"
+		"text": "Send restart command to [Panglia]",
+		"command": "restart Panglia"
 		}]
   },{
 	"name": "Panda Production Job",
@@ -76,7 +83,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Production Job restart"
+		"text": "Send restart command to [Panda Production Job]",
+		"command": "restart Panda_Production_Job"
 		}]
   },{
 	"name": "eLog",
@@ -86,7 +94,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "eLog restart"
+		"text": "Send restart command to [eLog]",
+		"command": "restart eLog"
 		}]
   },{
 	"name": "ADC",
@@ -96,7 +105,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ADC restart"
+		"text": "Send restart command to [ADC]",
+		"command": "restart ADC"
 		}]
   },{
 	"name": "Twiki",
@@ -106,7 +116,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Twiki restart"
+		"text": "Send restart command to [Twiki]",
+		"command": "restart Twiki"
 		}]
   },{
 	"name": "GGUS",
@@ -116,7 +127,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "GGUS restart"
+		"text": "Send restart command to [GGUS]",
+		"command": "restart GGUS"
 		}]
   },{
 	"name": "Jira",
@@ -126,7 +138,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Jira restart"
+		"text": "Send restart command to [Jira]",
+		"command": "restart Jira"
 		}]
 
 }]

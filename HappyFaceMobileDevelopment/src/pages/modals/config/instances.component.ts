@@ -9,7 +9,7 @@ import {Storage} from "@ionic/storage";
 
 export class InstancesComponent
 {
-    headURL:string = "http://141.5.108.30:20100/sites/default/meta-meta.json";
+    headURL:string = ""; //http://141.5.108.30:20100/sites/default/meta-meta.json";
     label:string = "";
     locations: InstanceObject[] = [];
     favorites: InstanceObject[] = [];
@@ -31,6 +31,10 @@ export class InstancesComponent
             else this.favorites = [];
             console.log("FAVORITES: " + JSON.stringify(value));
         });
+        if(this.model.configuration.get().happyFaceCompatible)
+            this.headURL = "http://141.5.108.29:10100/static/sites/default/meta-meta.json";
+        else
+            this.headURL = "http://141.5.108.29:20100/sites/default/meta-meta.json";
 
         let req = new XMLHttpRequest();
         req.addEventListener("load",() => {
@@ -62,9 +66,17 @@ export class InstancesComponent
         this.current = loc;
         let url:string = "";
 
-        if(this.level <= 0) { this.level = 0; url = this.headURL; }
-        else if(this.level == 1) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
-        else if(this.level >= 2) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+        if(this.model.configuration.get().happyFaceCompatible)
+        {
+            if(this.level <= 0) { this.level = 0; url = this.headURL; }
+            else if(this.level == 1) url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+            else if(this.level >= 2) url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+        }
+        else {
+            if(this.level <= 0) { this.level = 0; url = this.headURL; }
+            else if(this.level == 1) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+            else if(this.level >= 2) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+        }
 
         let req = new XMLHttpRequest();
         req.addEventListener("load",() => {this.updateList(req.responseText)});

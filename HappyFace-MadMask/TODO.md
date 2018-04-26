@@ -47,8 +47,7 @@
     madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC --> Done
 
     madmaskd --> Reboot --> PID file error --> Doing --> Done
-    madfoxd  --> Reboot --> PID file error --> Doing
-
+    madfoxd  --> Reboot --> PID file error --> Doing --> Done
 
 ---------------------------------------------------------------------
 [root@3fd5422be4f4 MadMask]# systemctl status madmaskd.service
@@ -73,22 +72,29 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 ## iPhone build
  * TestFlight: https://developer.apple.com/testflight/
+ * cordova-ios@4.5.4
 
-
-
+   * --> xcode build error: HappyFace3/plugins/GCDWebserverDataRequest.m  --> -(Bool) writeData
+     [_data appendData ...] ---> Must be commented out
+     Instert
+     NSMutableData *mdata
+     
+ 
 ## Upgrade data analyzer (with systems.json)
  * Think of systems.json definition and remove errors (A simple template builder by using monitoring-urls.json?) --> Doing
 
  * Forecast improvement
       * Change ADC systems --> Doing --> Done
+
       * The example forecast routine should be paralleled
       * HF DB connector (simple one)
 
-
 ## Implement new data importer for HF database
-   * MadAnalyzer lib should be re-written in Python
    * In MadBrowser
    * In MadAnalyzer
+
+## MadAnalyzer lib should be re-written in Python
+   
 
 
 ## MadFoxd new functions: firefox command executor + X-win default displays

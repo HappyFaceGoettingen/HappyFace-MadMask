@@ -1,7 +1,8 @@
 SHELL=/bin/bash
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-0,15,30,45 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -B import -A all &> /tmp/madmask.cron.log
-5,20,35,50 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -B reload
-10,25,40,55 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -B capture
-*/1 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -L
+## Calling reload/capture/import/analyze
+0,30 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -C 300 &> /tmp/madmask.cron.log
+## Wiping out outdated data
 2 */1 * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -W &> /tmp/madmask.cron.wipe.log
+## Collecting log files
+*/1 * * * * happyface3 TERM=xterm /var/lib/HappyFace/MadMask/madmask -L

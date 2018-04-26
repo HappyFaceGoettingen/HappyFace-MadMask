@@ -6,7 +6,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Kibana restart"
+		"text": "Send restart command to [Kibana]",
+		"command": "restart Kibana"
 		}]
   },{
 	"name": "AGIS",
@@ -16,7 +17,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "AGIS restart"
+		"text": "Send restart command to [AGIS]",
+		"command": "restart AGIS"
 		}]
   },{
 	"name": "AMI",
@@ -26,7 +28,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "AMI restart"
+		"text": "Send restart command to [AMI]",
+		"command": "restart AMI"
 		}]
   },{
 	"name": "Event Index Consumer",
@@ -36,7 +39,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Event Index Consumer restart"
+		"text": "Send restart command to [Event Index Consumer]",
+		"command": "restart Event_Index_Consumer"
 		}]
   },{
 	"name": "Event Index Hadoop Cluster",
@@ -46,7 +50,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Event Index Hadoop Cluster restart"
+		"text": "Send restart command to [Event Index Hadoop Cluster]",
+		"command": "restart Event_Index_Hadoop_Cluster"
 		}]
   },{
 	"name": "Event Index Web",
@@ -56,7 +61,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Event Index Web restart"
+		"text": "Send restart command to [Event Index Web]",
+		"command": "restart Event_Index_Web"
 		}]
   },{
 	"name": "Frontier",
@@ -66,7 +72,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Frontier restart"
+		"text": "Send restart command to [Frontier]",
+		"command": "restart Frontier"
 		}]
   },{
 	"name": "CVMFS ATLAS CONDB",
@@ -76,7 +83,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CVMFS ATLAS CONDB restart"
+		"text": "Send restart command to [CVMFS ATLAS CONDB]",
+		"command": "restart CVMFS_ATLAS_CONDB"
 		}]
   },{
 	"name": "CVMFS Stratum1 ATLAS",
@@ -86,7 +94,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CVMFS Stratum1 ATLAS restart"
+		"text": "Send restart command to [CVMFS Stratum1 ATLAS]",
+		"command": "restart CVMFS_Stratum1_ATLAS"
 		}]
   },{
 	"name": "Panda Proxy",
@@ -96,7 +105,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Proxy restart"
+		"text": "Send restart command to [Panda Proxy]",
+		"command": "restart Panda_Proxy"
 		}]
   },{
 	"name": "Panda",
@@ -106,7 +116,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda restart"
+		"text": "Send restart command to [Panda]",
+		"command": "restart Panda"
 		}]
   },{
 	"name": "JEDI",
@@ -116,7 +127,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "JEDI restart"
+		"text": "Send restart command to [JEDI]",
+		"command": "restart JEDI"
 		}]
   },{
 	"name": "Panda Pilot Factory",
@@ -126,7 +138,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Pilot Factory restart"
+		"text": "Send restart command to [Panda Pilot Factory]",
+		"command": "restart Panda_Pilot_Factory"
 		}]
   },{
 	"name": "Rucio",
@@ -136,7 +149,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio restart"
+		"text": "Send restart command to [Rucio]",
+		"command": "restart Rucio"
 		}]
   },{
 	"name": "Rucio Kronos",
@@ -146,7 +160,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio Kronos restart"
+		"text": "Send restart command to [Rucio Kronos]",
+		"command": "restart Rucio_Kronos"
 		}]
   },{
 	"name": "Rucio Reaper",
@@ -156,7 +171,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio Reaper restart"
+		"text": "Send restart command to [Rucio Reaper]",
+		"command": "restart Rucio_Reaper"
 		}]
   },{
 	"name": "Rucio Undertaker",
@@ -166,7 +182,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio Undertaker restart"
+		"text": "Send restart command to [Rucio Undertaker]",
+		"command": "restart Rucio_Undertaker"
 		}]
   },{
 	"name": "Rucio httpd",
@@ -176,7 +193,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio httpd restart"
+		"text": "Send restart command to [Rucio httpd]",
+		"command": "restart Rucio_httpd"
 		}]
   },{
 	"name": "Rucio Load Balancer",
@@ -186,7 +204,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio Load Balancer restart"
+		"text": "Send restart command to [Rucio Load Balancer]",
+		"command": "restart Rucio_Load_Balancer"
 		}]
   },{
 	"name": "Central databases",
@@ -196,7 +215,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Central databases restart"
+		"text": "Send restart command to [Central databases]",
+		"command": "restart Central_databases"
 		}]
   },{
 	"name": "DDM transfer service",
@@ -206,7 +226,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DDM transfer service restart"
+		"text": "Send restart command to [DDM transfer service]",
+		"command": "restart DDM_transfer_service"
 		}]
   },{
 	"name": "CERN Tier0 disk",
@@ -216,7 +237,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CERN Tier0 disk restart"
+		"text": "Send restart command to [CERN Tier0 disk]",
+		"command": "restart CERN_Tier0_disk"
 		}]
   },{
 	"name": "CERN Tier0 tape",
@@ -226,7 +248,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CERN Tier0 tape restart"
+		"text": "Send restart command to [CERN Tier0 tape]",
+		"command": "restart CERN_Tier0_tape"
 		}]
   },{
 	"name": "Rucio UI",
@@ -236,7 +259,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Rucio UI restart"
+		"text": "Send restart command to [Rucio UI]",
+		"command": "restart Rucio_UI"
 		}]
   },{
 	"name": "CERN Tier0",
@@ -246,7 +270,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CERN Tier0 restart"
+		"text": "Send restart command to [CERN Tier0]",
+		"command": "restart CERN_Tier0"
 		}]
   },{
 	"name": "DDM functional tests",
@@ -256,7 +281,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DDM functional tests restart"
+		"text": "Send restart command to [DDM functional tests]",
+		"command": "restart DDM_functional_tests"
 		}]
   },{
 	"name": "CA Cloud",
@@ -266,7 +292,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CA Cloud restart"
+		"text": "Send restart command to [CA Cloud]",
+		"command": "restart CA_Cloud"
 		}]
   },{
 	"name": "CERN",
@@ -276,7 +303,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "CERN restart"
+		"text": "Send restart command to [CERN]",
+		"command": "restart CERN"
 		}]
   },{
 	"name": "DE Cloud",
@@ -286,7 +314,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DE Cloud restart"
+		"text": "Send restart command to [DE Cloud]",
+		"command": "restart DE_Cloud"
 		}]
   },{
 	"name": "ES Cloud",
@@ -296,7 +325,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ES Cloud restart"
+		"text": "Send restart command to [ES Cloud]",
+		"command": "restart ES_Cloud"
 		}]
   },{
 	"name": "FR Cloud",
@@ -306,7 +336,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "FR Cloud restart"
+		"text": "Send restart command to [FR Cloud]",
+		"command": "restart FR_Cloud"
 		}]
   },{
 	"name": "IT Cloud",
@@ -316,7 +347,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "IT Cloud restart"
+		"text": "Send restart command to [IT Cloud]",
+		"command": "restart IT_Cloud"
 		}]
   },{
 	"name": "ND Cloud",
@@ -326,7 +358,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ND Cloud restart"
+		"text": "Send restart command to [ND Cloud]",
+		"command": "restart ND_Cloud"
 		}]
   },{
 	"name": "NL Cloud",
@@ -336,7 +369,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "NL Cloud restart"
+		"text": "Send restart command to [NL Cloud]",
+		"command": "restart NL_Cloud"
 		}]
   },{
 	"name": "RU Cloud",
@@ -346,7 +380,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "RU Cloud restart"
+		"text": "Send restart command to [RU Cloud]",
+		"command": "restart RU_Cloud"
 		}]
   },{
 	"name": "TW Cloud",
@@ -356,7 +391,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "TW Cloud restart"
+		"text": "Send restart command to [TW Cloud]",
+		"command": "restart TW_Cloud"
 		}]
   },{
 	"name": "UK Cloud",
@@ -366,7 +402,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "UK Cloud restart"
+		"text": "Send restart command to [UK Cloud]",
+		"command": "restart UK_Cloud"
 		}]
   },{
 	"name": "US Cloud",
@@ -376,7 +413,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "US Cloud restart"
+		"text": "Send restart command to [US Cloud]",
+		"command": "restart US_Cloud"
 		}]
   },{
 	"name": "DDM deletion service",
@@ -386,7 +424,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "DDM deletion service restart"
+		"text": "Send restart command to [DDM deletion service]",
+		"command": "restart DDM_deletion_service"
 		}]
   },{
 	"name": "Squid service",
@@ -396,7 +435,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Squid service restart"
+		"text": "Send restart command to [Squid service]",
+		"command": "restart Squid_service"
 		}]
   },{
 	"name": "Panda Production Job",
@@ -406,7 +446,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Production Job restart"
+		"text": "Send restart command to [Panda Production Job]",
+		"command": "restart Panda_Production_Job"
 		}]
   },{
 	"name": "Panda Queues in CA Cloud",
@@ -416,7 +457,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in CA Cloud restart"
+		"text": "Send restart command to [Panda Queues in CA Cloud]",
+		"command": "restart Panda_Queues_in_CA_Cloud"
 		}]
   },{
 	"name": "Panda Queues in CERN",
@@ -426,7 +468,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in CERN restart"
+		"text": "Send restart command to [Panda Queues in CERN]",
+		"command": "restart Panda_Queues_in_CERN"
 		}]
   },{
 	"name": "Panda Queues in DE Cloud",
@@ -436,7 +479,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in DE Cloud restart"
+		"text": "Send restart command to [Panda Queues in DE Cloud]",
+		"command": "restart Panda_Queues_in_DE_Cloud"
 		}]
   },{
 	"name": "Panda Queues in ES Cloud",
@@ -446,7 +490,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in ES Cloud restart"
+		"text": "Send restart command to [Panda Queues in ES Cloud]",
+		"command": "restart Panda_Queues_in_ES_Cloud"
 		}]
   },{
 	"name": "Panda Queues in FR Cloud",
@@ -456,7 +501,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in FR Cloud restart"
+		"text": "Send restart command to [Panda Queues in FR Cloud]",
+		"command": "restart Panda_Queues_in_FR_Cloud"
 		}]
   },{
 	"name": "Panda Queues in IT Cloud",
@@ -466,7 +512,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in IT Cloud restart"
+		"text": "Send restart command to [Panda Queues in IT Cloud]",
+		"command": "restart Panda_Queues_in_IT_Cloud"
 		}]
   },{
 	"name": "Panda Queues in ND Cloud",
@@ -476,7 +523,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in ND Cloud restart"
+		"text": "Send restart command to [Panda Queues in ND Cloud]",
+		"command": "restart Panda_Queues_in_ND_Cloud"
 		}]
   },{
 	"name": "Panda Queues in NL Cloud",
@@ -486,7 +534,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in NL Cloud restart"
+		"text": "Send restart command to [Panda Queues in NL Cloud]",
+		"command": "restart Panda_Queues_in_NL_Cloud"
 		}]
   },{
 	"name": "Panda Queues in RU Cloud",
@@ -496,7 +545,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in RU Cloud restart"
+		"text": "Send restart command to [Panda Queues in RU Cloud]",
+		"command": "restart Panda_Queues_in_RU_Cloud"
 		}]
   },{
 	"name": "Panda Queues in TW Cloud",
@@ -506,7 +556,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in TW Cloud restart"
+		"text": "Send restart command to [Panda Queues in TW Cloud]",
+		"command": "restart Panda_Queues_in_TW_Cloud"
 		}]
   },{
 	"name": "Panda Queues in UK Cloud",
@@ -516,7 +567,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in UK Cloud restart"
+		"text": "Send restart command to [Panda Queues in UK Cloud]",
+		"command": "restart Panda_Queues_in_UK_Cloud"
 		}]
   },{
 	"name": "Panda Queues in US Cloud",
@@ -526,7 +578,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panda Queues in US Cloud restart"
+		"text": "Send restart command to [Panda Queues in US Cloud]",
+		"command": "restart Panda_Queues_in_US_Cloud"
 		}]
   },{
 	"name": "Site Status Board",
@@ -536,7 +589,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Site Status Board restart"
+		"text": "Send restart command to [Site Status Board]",
+		"command": "restart Site_Status_Board"
 		}]
   },{
 	"name": "Panglia",
@@ -546,7 +600,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Panglia restart"
+		"text": "Send restart command to [Panglia]",
+		"command": "restart Panglia"
 		}]
   },{
 	"name": "Production Tasks",
@@ -556,7 +611,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Production Tasks restart"
+		"text": "Send restart command to [Production Tasks]",
+		"command": "restart Production_Tasks"
 		}]
   },{
 	"name": "Jira",
@@ -566,7 +622,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Jira restart"
+		"text": "Send restart command to [Jira]",
+		"command": "restart Jira"
 		}]
   },{
 	"name": "eLog",
@@ -576,7 +633,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "eLog restart"
+		"text": "Send restart command to [eLog]",
+		"command": "restart eLog"
 		}]
   },{
 	"name": "Twiki",
@@ -586,7 +644,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Twiki restart"
+		"text": "Send restart command to [Twiki]",
+		"command": "restart Twiki"
 		}]
   },{
 	"name": "GGUS",
@@ -596,7 +655,8 @@
 	"services": [{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "GGUS restart"
+		"text": "Send restart command to [GGUS]",
+		"command": "restart GGUS"
 		}]
 
 }]

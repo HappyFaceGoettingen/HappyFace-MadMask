@@ -2,16 +2,16 @@
     "name": "HappyFace Cron Log",
     "file": "/var/log/HappyFace/HappyFace.cron.log"
 }, {
-    "name": "MadMask Cron Log [Import & Analysis]",
+    "name": "Cron Log [Import & Analysis]",
     "file": "/tmp/madmask.cron.log"
 }, {
-    "name": "MadMask Cron Log [Wipe]",
+    "name": "Cron Log [Wipe]",
     "file": "/tmp/madmask.cron.wipe.log"
 }, {
-    "name": "MadMask Ionic Server Log",
+    "name": "Ionic Server Log",
     "file": "/var/log/HappyFace/ionic-server.8111.log"
 }, {
-    "name": "MadMask Andorid Build Log",
+    "name": "Andorid Build Log",
     "file": "/tmp/madmask.android-build.log"
 }, {
     "name": "MadFoxd Log",

@@ -18,7 +18,6 @@ var configJson = "config.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 var systemsJson = "systems.json";
 var logsJson = "logs.json";
-var humansJson = "humans.json";
 
 var LIMIT_LOG_LINES = 1000;
 var COMMAND_MAXBUFFER = 2000 * 1024;
@@ -53,6 +52,50 @@ function readJSON(jsonFile) {
 function makeDefaultSite(dir){
   // default site_dir dir does not exist, so make it
   if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
+};
+
+
+function run_madfox(dir, config, action) {
+  // Calling madfox Meta-Browser daemon
+  var commandLine = "madfox"
+                  + " -L " + config.log_level
+	          + " -x :1000"
+	          + " -c " + dir + "/" + configJson
+	          + " -u " + dir + "/" + monitoringUrlsJson
+	          + " -f " + config.firefox_profile
+	          + " -o ."
+                  + " -a " + action;
+  return commandLine;
+};
+
+
+function run_madanalyzer(dir, config, action) {
+  // Calling madanalyzer analytics mediator
+  var commandLine = "madanalyzer"
+                  + " -o ."
+                  + " -s " + dir
+                  + " -a " + action;
+  return commandLine;
+};
+
+
+function run_build_command(platform, cordova_ver, sdk_bin, apks, apk_dir) {
+  // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
+  var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
+                  + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
+                  + "if ! which " + platform + "; then"
+                  + " echo '[" + platform + "] command does not exist';"
+                  + "else"
+                  + " test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
+                  + " ionic cordova platform remove " + platform + ";"
+                  + " ionic cordova platform add " + platform + "@" + cordova_ver + ";"
+                  + " rm -v www/data;"
+                  + " ionic cordova build " + platform + " && ionic cordova build " + platform + " --prod --release;"
+                  + " ln -vs ../data www/data;"
+                        + " cp -v " + apks + " " + apk_dir + ";"
+                  + "fi";
+
+  return commandLine;
 };
 
 
@@ -119,7 +162,7 @@ module.exports = {
       console.log("Number of the basic system components = " + unique_systems.length);
       var template = "[{\n";
       for (var k = 0; k < unique_systems.length; k++){
-        //console.log(unique_systems[k]);
+        // console.log(unique_systems[k]);
         // Output the following basic element
         template = template
                  + "\t\"name\": \"" + unique_systems[k] + "\",\n"
@@ -129,7 +172,8 @@ module.exports = {
                  + "\t\"services\": [{\n"
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Restart\",\n"
-                 + "\t\t\"command\": \"" + unique_systems[k] + " restart\"\n"
+                 + "\t\t\"text\": \"Send restart command to [" + unique_systems[k] + "]\",\n"
+                 + "\t\t\"command\": \"restart " + unique_systems[k].replace(/ /g, "_") + "\"\n"
                  + "\t\t}]\n";
 
 
@@ -160,17 +204,7 @@ module.exports = {
         process.exit(-1);
       }
 
-      // Command: madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
-      // Calling madfox exec
-      var commandLine = "madfox"
-                      + " -L " + config.log_level
-	              + " -x :1000"
-	              + " -c " + dir + "/" + configJson
-	              + " -u " + dir + "/" + monitoringUrlsJson
-	              + " -f " + config.firefox_profile
-	              + " -o ."
-                      + " -a " + action;
-
+      var commandLine = run_madfox(dir, config, action);
       console.log("Executing ... [" + commandLine + "]");
       my_exec(commandLine);
     },
@@ -188,16 +222,34 @@ module.exports = {
         process.exit(-1);
       }
 
-      // Calling madanalyzer analytics mediator
-      var commandLine = "madanalyzer"
-                      + " -o ."
-                      + " -s " + dir
-                      + " -a " + action
-
+      var commandLine = run_madanalyzer(dir, config, action);
       console.log("Executing ... [" + commandLine + "]");
       my_exec(commandLine);
     },
 
+    /*
+     * MadBrowser and MadAnalyzer mediators called by CRON jobs
+     */
+    call_cronRun(dir, config, wait) {
+      console.log("Running a CRON job ...");
+      makeDefaultSite(dir);
+
+      var commandLine = 'time eval \"';
+
+      // Reload & Capture & Import
+      commandLine = commandLine + run_madfox(dir, config, 'reload') + '; sleep ' + wait + ';';
+      commandLine = commandLine + run_madfox(dir, config, 'capture') + '; sleep ' + wait + ';';
+      commandLine = commandLine + run_madfox(dir, config, 'import') + ';';
+
+      // Analyze
+      commandLine = commandLine + run_madanalyzer(dir, config, 'all');
+
+      // end
+      commandLine = commandLine + '\"';
+
+      console.log("Executing ... [" + commandLine + "]");
+      my_exec(commandLine);
+    },
 
     /*
      * Log Collector. The original log files are defined by "logs.json".
@@ -232,31 +284,32 @@ module.exports = {
 
 
     /*
-     * Android Application APK builder.
+     * Mobile Application builder.
      */
-    build_android_apk: function (dir, config) {
-      console.log("Building Android Application ...");
+    build_mobile_application: function (dir, config, platform) {
+      console.log("Building Mobile Application for [" + platform + "] ...");
 
       // Creating apk dir in data dir (typically data/site_name/application/*apk)
       var apk_dir = config.data_dir + "/application";
-      if (!fileExists(apk_dir)) my_exec("mkdir -v " + apk_dir);
 
-      // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
-      var apks = "platforms/android/build/outputs/apk/*.apk";
-      var cordova_android_ver = "6.1.0";
-      var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
-                        + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
-                        + "if ! which android; then"
-                        + " echo '[android] command does not exist';"
-                        + "else"
-                        + " ionic cordova platform remove android;"
-                        + " ionic cordova platform add android@" + cordova_android_ver + ";"
-                        + " rm -v www/data;"
-                        + " ionic cordova build android && ionic cordova build android --prod --release;"
-                        + " ln -vs ../data www/data;"
-                        + " cp -v " + apks + " " + apk_dir + ";"
-                        + "fi";
-      console.log("Debug & Release Apks Builder: " + commandLine);
+      if ((platform != 'android') && (platform != 'ios')) {
+	console.error("Error: Platform [" + platform + "] is not defined!");
+        process.exit(-1);
+      }
+
+      // Making Build command
+      var commandLine = "";
+      if (platform == 'android') {
+        var apks = "platforms/android/build/outputs/apk/*.apk";
+        commandLine = run_build_command(platform, "6.1.0", "android", apks, apk_dir);
+      }
+
+      if (platform == 'ios') {
+        var apks = "platforms/ios/build/outputs/apk/*.apk";
+        commandLine = run_build_command(platform, "4.5.4", "xcode", apks, apk_dir);
+      }
+
+      console.log("Mobile Application Builder: " + commandLine);
       my_exec(commandLine);
     },
 

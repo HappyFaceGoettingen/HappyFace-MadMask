@@ -84,4 +84,5 @@
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="latest" />
     <plugin name="cordova-plugin-sshclient" spec="https://github.com/R3nPi2/cordova-plugin-sshclient.git" />
+    <plugin name="cordova-plugin-tts" spec="^0.2.3" />
 </widget>
