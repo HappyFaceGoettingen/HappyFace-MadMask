@@ -277,18 +277,17 @@ export class DataModel
         this.configuration.setAutomaticFetch(false);
         console.log("ERROR initialized");
         const modal = this.modalCtrl.create(ConnectionErrorPage,
-            {"host": this.currentlyActive.host, "port": this.currentlyActive.mobile_port, "errors" : this.errors});
+            {"host": this.currentlyActive.host, "mport": this.currentlyActive.mobile_port,
+                "wport": this.currentlyActive.web_port, "errors" : this.errors});
         modal.onDidDismiss(data => {
             if(!(data == null || data == undefined || data.retry == null || data.retry == undefined) && data.retry) {
                 this.currentlyActive.host = data.host;
-                console.log("FROM ERROR: HF: " + this.configuration.get().happyFaceCompatible + " PORT: " + data.port);
-                if(this.configuration.get().happyFaceCompatible)
-                    this.currentlyActive.web_port = data.port;
-                else
-                    this.currentlyActive.mobile_port = data.port;
-                console.log("ERROR: NEW WEB_PORT: " + this.currentlyActive.web_port);
+                this.currentlyActive.web_port = data.wport;
+                this.currentlyActive.mobile_port = data.mport;
                 this.reload();
                 this.configuration.setAutomaticFetch(preset);
+                if(data.save != null || data.save != undefined || data.save)
+                    this.storage.set('instance', this.currentlyActive);
             }
             else {
                 this.configuration.setAutomaticFetch(preset);

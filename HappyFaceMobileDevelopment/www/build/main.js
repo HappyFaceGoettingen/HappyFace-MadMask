@@ -36,6 +36,14 @@ var ConfigPage = /** @class */ (function () {
         this.enableAutoReadout = false;
         this.speakInterval = 1;
         this.happyFaceCompatible = false;
+        this.automaticFetch = this.model.configuration.get().automaticFetch;
+        this.interval = this.model.configuration.get().reloadInterval;
+        this.automaticRotation = this.model.configuration.get().automaticRotation;
+        this.detectOnlyChange = this.model.configuration.get().detectOnlyChange;
+        this.enableTextSpeech = this.model.configuration.get().enableTextSpeech;
+        this.enableAutoReadout = this.model.configuration.get().enableAutoReadout;
+        this.speakInterval = this.model.configuration.get().speakInterval;
+        this.happyFaceCompatible = this.model.configuration.get().happyFaceCompatible;
     }
     ConfigPage.prototype.notify = function () {
         //let model:DataModel = DataModel.getInstance();
@@ -51,7 +59,7 @@ var ConfigPage = /** @class */ (function () {
         this.model.updateLoop();
     };
     ConfigPage.prototype.chooseInstance = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__instances_component__["a" /* InstancesComponent */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__instances_component__["a" /* InstancesComponent */], { "viewCtrl": this.navParams.get('viewCtrl') });
     };
     ConfigPage.prototype.closeModal = function () {
         var viewCtrl = this.navParams.get('viewCtrl');
@@ -599,18 +607,17 @@ var DataModel = /** @class */ (function () {
         var preset = this.configuration.get().automaticFetch;
         this.configuration.setAutomaticFetch(false);
         console.log("ERROR initialized");
-        var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */], { "host": this.currentlyActive.host, "port": this.currentlyActive.mobile_port, "errors": this.errors });
+        var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */], { "host": this.currentlyActive.host, "mport": this.currentlyActive.mobile_port,
+            "wport": this.currentlyActive.web_port, "errors": this.errors });
         modal.onDidDismiss(function (data) {
             if (!(data == null || data == undefined || data.retry == null || data.retry == undefined) && data.retry) {
                 _this.currentlyActive.host = data.host;
-                console.log("FROM ERROR: HF: " + _this.configuration.get().happyFaceCompatible + " PORT: " + data.port);
-                if (_this.configuration.get().happyFaceCompatible)
-                    _this.currentlyActive.web_port = data.port;
-                else
-                    _this.currentlyActive.mobile_port = data.port;
-                console.log("ERROR: NEW WEB_PORT: " + _this.currentlyActive.web_port);
+                _this.currentlyActive.web_port = data.wport;
+                _this.currentlyActive.mobile_port = data.mport;
                 _this.reload();
                 _this.configuration.setAutomaticFetch(preset);
+                if (data.save != null || data.save != undefined || data.save)
+                    _this.storage.set('instance', _this.currentlyActive);
             }
             else {
                 _this.configuration.setAutomaticFetch(preset);
@@ -637,10 +644,23 @@ var DataModel = /** @class */ (function () {
         if (this.configuration == undefined || this.summary == undefined || this.summary.text == undefined)
             return;
         if (this.configuration.get().enableTextSpeech) {
-            var u = new SpeechSynthesisUtterance();
-            u.text = this.summary.text;
-            u.lang = 'en-GB';
-            speechSynthesis.speak(u);
+            if (this.isiOS() || this.isAndroid()) {
+                if (window.tts != null || window.tts != undefined) {
+                    window.tts.speak({
+                        text: this.summary.text,
+                        locale: "en-GB",
+                        rate: 0.75
+                    });
+                }
+                else
+                    console.log("PLUGIN ERROR: TTS not found in window");
+            }
+            else {
+                var u = new SpeechSynthesisUtterance();
+                u.text = this.summary.text;
+                u.lang = 'en-GB';
+                speechSynthesis.speak(u);
+            }
         }
     };
     DataModel.prototype.initLoop = function () {
@@ -737,10 +757,10 @@ var DataModel = /** @class */ (function () {
     DataModel.summaryJson = "index/latest/summary.json";
     DataModel = DataModel_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]])
     ], DataModel);
     return DataModel;
-    var DataModel_1, _a, _b, _c;
+    var DataModel_1;
 }());
 
 var ConfigObject = /** @class */ (function () {
@@ -1146,12 +1166,16 @@ var ConnectionErrorPage = /** @class */ (function () {
         this.viewCtrl = viewCtrl;
         this.navParams = navParams;
         this.host = "";
-        this.port = "";
+        this.m_port = "";
+        this.w_port = "";
+        this.save = false;
         this.statusCode = "404";
         this.onlyOneCode = true;
         this.missingFiles = [];
         this.host = this.navParams.get("host");
-        this.port = this.navParams.get("port");
+        this.m_port = this.navParams.get("mport");
+        this.w_port = this.navParams.get("wport");
+        console.log("WEB: " + this.w_port + "  MOBILE: " + this.m_port);
         this.missingFiles = this.navParams.get("errors");
         if (!(this.missingFiles == null || this.missingFiles == undefined) || this.missingFiles.length > 0) {
             var s = this.missingFiles[0].code;
@@ -1161,14 +1185,14 @@ var ConnectionErrorPage = /** @class */ (function () {
         }
     }
     ConnectionErrorPage.prototype.retry = function () {
-        this.viewCtrl.dismiss({ "retry": true, "host": this.host, "port": this.port });
+        this.viewCtrl.dismiss({ "retry": true, "host": this.host, "mport": this.m_port, "wport": this.w_port, "save": this.save });
     };
     ConnectionErrorPage.prototype.closeModal = function () {
-        this.viewCtrl.dismiss({ "retry": false, "host": this.host, "port": this.port });
+        this.viewCtrl.dismiss({ "retry": false, "host": this.host, "mport": this.m_port, "wport": this.w_port, "save": this.save });
     };
     ConnectionErrorPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-connection-error",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\error\connection-error.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Connection Error</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <div text-center><h1>Connection Error</h1></div>\n\n    <p>Unable to connect to given instance.</p>\n\n    <p *ngIf="onlyOneCode">Errorcode: {{statusCode}}</p>\n\n    <p *ngIf="!onlyOneCode">Recieved various Errorcodes (shown below)</p>\n\n\n\n    <ion-item>\n\n        <ion-label color="primary" fixed>Host: </ion-label>\n\n        <ion-input placeholder="{{host}}" [(ngModel)]="host"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label color="primary" fixed>Port: </ion-label>\n\n        <ion-input placeholder="{{port}}" [(ngModel)]="port"></ion-input>\n\n    </ion-item>\n\n    <br/>\n\n    <!--Data: {{host}} + {{port}} <br/>-->\n\n\n\n    Files with errors: <br/>\n\n    <code>\n\n        <span *ngFor="let m of missingFiles">{{m.url}} --> code: {{m.code}}<br/></span>\n\n    </code>\n\n</ion-content>\n\n\n\n<ion-footer>\n\n    <ion-toolbar>\n\n        <ion-buttons end>\n\n            <button ion-button type="submit" (click)="retry()" item-end>Retry</button>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\error\connection-error.html"*/,
+            selector: "page-connection-error",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\error\connection-error.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Connection Error</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <div text-center><h1>Connection Error</h1></div>\n    <p>Unable to connect to given instance.</p>\n    <p *ngIf="onlyOneCode">Errorcode: {{statusCode}}</p>\n    <p *ngIf="!onlyOneCode">Recieved various Errorcodes (shown below)</p>\n\n    <ion-item>\n        <ion-label color="primary" fixed>Host: </ion-label>\n        <ion-input placeholder="{{host}}" [(ngModel)]="host"></ion-input>\n    </ion-item>\n    <ion-item>\n        <ion-label color="primary" fixed>Mobile Port: </ion-label>\n        <ion-input placeholder="{{m_port}}" [(ngModel)]="m_port"></ion-input>\n    </ion-item>\n    <ion-item>\n        <ion-label color="primary" fixed>Web Port: </ion-label>\n        <ion-input placeholder="{{w_port}}" [(ngModel)]="w_port"></ion-input>\n    </ion-item>\n    <br/>\n    <!--Data: {{host}} + {{port}} <br/>-->\n\n    Files with errors: <br/>\n    <code>\n        <span *ngFor="let m of missingFiles">{{m.url}} --> code: {{m.code}}<br/></span>\n    </code>\n    <br>\n    <ion-item>\n        <ion-label>Save configuration ?</ion-label>\n        <ion-checkbox [(ngModel)]="save"></ion-checkbox>\n    </ion-item>\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar>\n        <ion-buttons end>\n            <button ion-button type="submit" (click)="retry()" item-end>Retry</button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\error\connection-error.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
     ], ConnectionErrorPage);
@@ -1280,19 +1304,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var InstancesComponent = /** @class */ (function () {
-    function InstancesComponent(model, navCtrl, plt, storage) {
+    function InstancesComponent(model, navCtrl, plt, storage, navParams) {
         this.model = model;
         this.navCtrl = navCtrl;
         this.plt = plt;
         this.storage = storage;
+        this.navParams = navParams;
         this.headURL = ""; //http://141.5.108.30:20100/sites/default/meta-meta.json";
         this.label = "";
+        this.isLoading = false;
         this.locations = [];
         this.favorites = [];
         this.backstack = [];
         this.current = null;
         this.level = 0;
-        this.levels = ["Country", "Region", "Server"];
+        this.final_level = 2;
+        this.levels = ["Cloud", "Region", "Cluster"];
         this.isIOS = false;
         this.isIOS = this.plt.is('ios');
     }
@@ -1305,13 +1332,17 @@ var InstancesComponent = /** @class */ (function () {
                 _this.favorites = [];
             console.log("FAVORITES: " + JSON.stringify(value));
         });
-        if (this.model.configuration.get().happyFaceCompatible)
+        /*if(this.model.configuration.get().happyFaceCompatible)
             this.headURL = "http://141.5.108.29:10100/static/sites/default/meta-meta.json";
         else
             this.headURL = "http://141.5.108.29:20100/sites/default/meta-meta.json";
+        */
+        this.headURL = "http://www.atopion.com/apps/hf/metadata/adc-meta-meta.json";
+        this.isLoading = true;
         var req = new XMLHttpRequest();
         req.addEventListener("load", function () {
             _this.updateList(req.responseText);
+            _this.isLoading = false;
         });
         req.open("GET", this.headURL);
         req.send();
@@ -1334,28 +1365,32 @@ var InstancesComponent = /** @class */ (function () {
             loc = this.backstack.pop();
         this.current = loc;
         var url = "";
-        if (this.model.configuration.get().happyFaceCompatible) {
-            if (this.level <= 0) {
-                this.level = 0;
-                url = this.headURL;
-            }
-            else if (this.level == 1)
-                url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
-            else if (this.level >= 2)
-                url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+        /*if(this.model.configuration.get().happyFaceCompatible)
+        {
+            if(this.level <= 0) { this.level = 0; url = this.headURL; }
+            else if(this.level == 1) url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+            else if(this.level >= 2) url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
         }
         else {
-            if (this.level <= 0) {
-                this.level = 0;
-                url = this.headURL;
-            }
-            else if (this.level == 1)
-                url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
-            else if (this.level >= 2)
+            if(this.level <= 0) { this.level = 0; url = this.headURL; }
+            else if(this.level == 1) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+            else if(this.level >= 2) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+        }*/
+        if (this.level <= 0) {
+            this.level = 0;
+            url = this.headURL;
+        }
+        else {
+            if (this.level > this.final_level)
+                this.level = this.final_level;
+            if (this.model.configuration.get().happyFaceCompatible)
+                url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+            else
                 url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
         }
+        this.isLoading = true;
         var req = new XMLHttpRequest();
-        req.addEventListener("load", function () { _this.updateList(req.responseText); });
+        req.addEventListener("load", function () { _this.updateList(req.responseText); _this.isLoading = false; });
         req.open("GET", url);
         req.send();
         this.label = this.levels[this.level];
@@ -1371,7 +1406,11 @@ var InstancesComponent = /** @class */ (function () {
         this.model.currentlyActive = loc;
         this.storage.set('instance', this.model.currentlyActive);
         this.model.reload();
-        this.navCtrl.pop();
+        var viewCtrl = this.navParams.get("viewCtrl");
+        if (viewCtrl != null || viewCtrl != undefined)
+            viewCtrl.dismiss();
+        else
+            this.navCtrl.pop();
     };
     InstancesComponent.prototype.favorite = function (loc) {
         if (!(this.favorites.indexOf(loc) > -1)) {
@@ -1386,9 +1425,10 @@ var InstancesComponent = /** @class */ (function () {
         }
     };
     InstancesComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Choose Instance</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="outer-content">\n\n  <ion-list-header>\n\n    Favorites\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let fav of favorites">\n\n      <button ion-item detail-none (click)="choose(fav)">\n\n        {{fav.name}}\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n\n\n    <br/>\n\n  <ion-list-header>\n\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n\n          <ion-icon name="ios-arrow-back"></ion-icon>\n\n      </button>\n\n      {{label}}\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let loc of locations">\n\n      <button ion-item detail-none (click)="choose(loc);">\n\n        {{loc.name}}\n\n        <div item-end text-center>\n\n          <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">\n\n            <ion-icon name="arrow-forward"></ion-icon>\n\n          </button>\n\n        </div>\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n  <!--<span [innerHtml]="label"></span>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n    </ion-navbar>\n    <ion-navbar *ngIf="!isIOS">\n        <ion-title>Choose Instance</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="outer-content">\n  <ion-list-header>\n    Favorites\n  </ion-list-header>\n  <ion-list>\n    <ion-item-sliding *ngFor="let fav of favorites">\n      <button ion-item detail-none (click)="choose(fav)">\n        {{fav.name}}\n      </button>\n      <ion-item-options side="left">\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n\n    <br/>\n  <ion-list-header>\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n          <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n      {{label}}\n  </ion-list-header>\n  <div text-center padding [hidden]="!isLoading">\n      <ion-spinner></ion-spinner>\n  </div>\n  <ion-list [hidden]="isLoading">\n      <ion-item-sliding *ngFor="let loc of locations">\n          <button ion-item detail-none (click)="choose(loc);">\n              {{loc.name}}\n              <div item-end text-center *ngIf="level < final_level">\n                  <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">\n                      <ion-icon name="arrow-forward"></ion-icon>\n                  </button>\n              </div>\n          </button>\n          <ion-item-options side="left">\n               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n          </ion-item-options>\n      </ion-item-sliding>\n  </ion-list>\n  <!--<span [innerHtml]="label"></span>-->\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
     ], InstancesComponent);
     return InstancesComponent;
 }());

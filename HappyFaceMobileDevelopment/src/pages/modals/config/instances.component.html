@@ -29,20 +29,23 @@
       </button>
       {{label}}
   </ion-list-header>
-  <ion-list>
-    <ion-item-sliding *ngFor="let loc of locations">
-      <button ion-item detail-none (click)="choose(loc);">
-        {{loc.name}}
-        <div item-end text-center>
-          <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">
-            <ion-icon name="arrow-forward"></ion-icon>
+  <div text-center padding [hidden]="!isLoading">
+      <ion-spinner></ion-spinner>
+  </div>
+  <ion-list [hidden]="isLoading">
+      <ion-item-sliding *ngFor="let loc of locations">
+          <button ion-item detail-none (click)="choose(loc);">
+              {{loc.name}}
+              <div item-end text-center *ngIf="level < final_level">
+                  <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">
+                      <ion-icon name="arrow-forward"></ion-icon>
+                  </button>
+              </div>
           </button>
-        </div>
-      </button>
-      <ion-item-options side="left">
-        <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>
-      </ion-item-options>
-    </ion-item-sliding>
+          <ion-item-options side="left">
+               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>
+          </ion-item-options>
+      </ion-item-sliding>
   </ion-list>
   <!--<span [innerHtml]="label"></span>-->
 </ion-content>

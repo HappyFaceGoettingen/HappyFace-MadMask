@@ -10,8 +10,6 @@ import {InstancesComponent} from "./instances.component";
 
 export class ConfigPage
 {
-    constructor(private model: DataModel, private navCtrl:NavController, private navParams: NavParams) {}
-
     automaticFetch:boolean = true;
     interval:number = 1;
     automaticRotation:boolean = false;
@@ -21,6 +19,18 @@ export class ConfigPage
     enableAutoReadout:boolean = false;
     speakInterval:number = 1;
     happyFaceCompatible:boolean = false;
+
+    constructor(private model: DataModel, private navCtrl:NavController, private navParams: NavParams)
+    {
+        this.automaticFetch = this.model.configuration.get().automaticFetch;
+        this.interval = this.model.configuration.get().reloadInterval;
+        this.automaticRotation = this.model.configuration.get().automaticRotation;
+        this.detectOnlyChange = this.model.configuration.get().detectOnlyChange;
+        this.enableTextSpeech = this.model.configuration.get().enableTextSpeech;
+        this.enableAutoReadout = this.model.configuration.get().enableAutoReadout;
+        this.speakInterval = this.model.configuration.get().speakInterval;
+        this.happyFaceCompatible = this.model.configuration.get().happyFaceCompatible;
+    }
 
     notify()
     {
@@ -40,7 +50,7 @@ export class ConfigPage
 
     chooseInstance()
     {
-        this.navCtrl.push(InstancesComponent);
+        this.navCtrl.push(InstancesComponent, {"viewCtrl": this.navParams.get('viewCtrl')});
     }
 
     closeModal()

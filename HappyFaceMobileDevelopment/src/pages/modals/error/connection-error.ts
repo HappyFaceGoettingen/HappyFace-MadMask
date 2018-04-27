@@ -9,7 +9,9 @@ import {NavParams, ViewController} from "ionic-angular";
 export class ConnectionErrorPage
 {
     host:string = "";
-    port:string = "";
+    m_port:string = "";
+    w_port:string = "";
+    save:boolean = false;
     statusCode:string = "404";
     onlyOneCode:boolean = true;
 
@@ -18,7 +20,10 @@ export class ConnectionErrorPage
     constructor(private viewCtrl: ViewController, private navParams: NavParams)
     {
         this.host = this.navParams.get("host");
-        this.port = this.navParams.get("port");
+        this.m_port = this.navParams.get("mport");
+        this.w_port = this.navParams.get("wport");
+        console.log("WEB: " + this.w_port + "  MOBILE: " + this.m_port);
+
 
         this.missingFiles = this.navParams.get("errors");
         if(!(this.missingFiles == null || this.missingFiles == undefined) || this.missingFiles.length > 0)
@@ -31,11 +36,11 @@ export class ConnectionErrorPage
 
     retry()
     {
-        this.viewCtrl.dismiss({"retry": true, "host": this.host, "port": this.port});
+        this.viewCtrl.dismiss({"retry": true, "host": this.host, "mport": this.m_port, "wport": this.w_port, "save": this.save});
     }
 
     closeModal()
     {
-        this.viewCtrl.dismiss({"retry": false, "host": this.host, "port": this.port});
+        this.viewCtrl.dismiss({"retry": false, "host": this.host, "mport": this.m_port, "wport": this.w_port, "save": this.save});
     }
 }
