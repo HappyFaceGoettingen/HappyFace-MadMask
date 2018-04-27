@@ -3,8 +3,8 @@
 ## Main R library loader
 ##
 ##-----------------------------------------------------------
-library(futile.logger)
-library(rjson)
+require(futile.logger)
+require(rjson)
 
 ##-----------------------------------------------------------
 ## Useful Common Functions
@@ -13,7 +13,7 @@ str.concat <- function(...){
   paste(c(...), collapse="")
 }
 
-
+## Calling a loop by monitoring-urls.json
 monitoring.urls.caller <- function(func=NULL, func.vars=list()){
   message("Reading [", urls.json, "] ...")
   monitoring.urls <- fromJSON(file=urls.json)
@@ -50,6 +50,18 @@ monitoring.urls.caller <- function(func=NULL, func.vars=list()){
   }
 }
 
+
+systems.mc.caller <- function(func=NULL, func.vars=list(), parallel, mode="forecast"){
+  message("Reading [", systems.json, "] ...")
+  all.systems <- fromJSON(file=systems.json)
+
+  ## Taking unique items
+  for (system.item in 1:length(all.systems)){
+    if (mode == "forecast") {
+      items <- all.systems
+    }
+  }
+}
 
 
 ##-----------------------------------------------------------

@@ -1,5 +1,5 @@
-library(rimage)
-library(igraph)
+require(rimage)
+require(igraph)
 
 
 generate.terminator.vision <-  function(image.matrix, png.output.file, analysis.data){

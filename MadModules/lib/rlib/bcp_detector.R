@@ -1,7 +1,7 @@
-library(rimage)
-library(bcp)
-library(entropy)
-library(xts)
+require(rimage)
+require(bcp)
+require(entropy)
+require(xts)
 
 
 ##-----------------------------------------------------------

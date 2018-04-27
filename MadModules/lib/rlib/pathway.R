@@ -1,4 +1,4 @@
-library(igraph)
+require(igraph)
 
 ## Standard plot for Analysis
 plot.params.1 <- as.list(NULL)

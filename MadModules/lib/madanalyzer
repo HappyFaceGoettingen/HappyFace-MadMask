@@ -78,7 +78,7 @@ usage="$0 [options] -a [action]
     - summary_template/ (Summary template provides some 'Category' templates such as 'Normal.json', etc.)
 
  * Run an action
- -a:  Set action [base_images|detector|pathway|madvision|forecast|summary|all]
+ -a:  Set action [base_image|detector|pathway|madvision|forecast|summary|all]
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch>"
 
@@ -210,8 +210,8 @@ INFO "LATEST_DATE_ID = [$LATEST_DATE_ID], DATE_IDs = [$(echo $DATE_IDs)]"
 
 # Running an action
 case "$action" in
-    base_images)
-	generate_base_images "$ANALYSIS_IMAGE_SIZE"
+    base_image)
+	generate_base_image "$ANALYSIS_IMAGE_SIZE"
 	;;
     detector)
 	generate_detector "$DETECTOR_ALGORITHM"
@@ -223,7 +223,7 @@ case "$action" in
 	generate_madvision "$DETECTOR_ALGORITHM"
 	;;
     forecast)
-	generate_forecast "$FORECAST_ALGORITHM"
+	generate_forecast "$DETECTOR_ALGORITHM" "$FORECAST_ALGORITHM"
 	;;
     summary)
 	generate_summary "$DETECTOR_ALGORITHM"
@@ -231,7 +231,7 @@ case "$action" in
 	generate_latest_symlinks
 	;;
     all)
-	generate_base_images "$ANALYSIS_IMAGE_SIZE"
+	generate_base_image "$ANALYSIS_IMAGE_SIZE"
 	generate_detector "$DETECTOR_ALGORITHM"
 	generate_pathway
 	generate_madvision "$DETECTOR_ALGORITHM"

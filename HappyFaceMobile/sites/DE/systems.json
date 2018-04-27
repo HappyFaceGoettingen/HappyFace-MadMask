@@ -3,143 +3,377 @@
 	"text": "System [DDM transfer service]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [DDM transfer service] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [DDM transfer service] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [DDM transfer service]",
+		"text": "Send a restart command to [DDM transfer service] via ssh",
 		"command": "restart DDM_transfer_service"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [DDM transfer service] via ssh",
+		"command": "start DDM_transfer_service"
+	}]
   },{
 	"name": "DE Cloud",
 	"text": "System [DE Cloud]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [DE Cloud] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [DE Cloud] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [DE Cloud]",
+		"text": "Send a restart command to [DE Cloud] via ssh",
 		"command": "restart DE_Cloud"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [DE Cloud] via ssh",
+		"command": "start DE_Cloud"
+	}]
   },{
 	"name": "DDM deletion service",
 	"text": "System [DDM deletion service]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [DDM deletion service] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [DDM deletion service] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [DDM deletion service]",
+		"text": "Send a restart command to [DDM deletion service] via ssh",
 		"command": "restart DDM_deletion_service"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [DDM deletion service] via ssh",
+		"command": "start DDM_deletion_service"
+	}]
   },{
 	"name": "AGIS",
 	"text": "System [AGIS]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [AGIS] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [AGIS] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [AGIS]",
+		"text": "Send a restart command to [AGIS] via ssh",
 		"command": "restart AGIS"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [AGIS] via ssh",
+		"command": "start AGIS"
+	}]
   },{
 	"name": "Panda Queues in DE Cloud",
 	"text": "System [Panda Queues in DE Cloud]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Panda Queues in DE Cloud] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Panda Queues in DE Cloud] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [Panda Queues in DE Cloud]",
+		"text": "Send a restart command to [Panda Queues in DE Cloud] via ssh",
 		"command": "restart Panda_Queues_in_DE_Cloud"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Panda Queues in DE Cloud] via ssh",
+		"command": "start Panda_Queues_in_DE_Cloud"
+	}]
   },{
 	"name": "Site Status Board",
 	"text": "System [Site Status Board]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Site Status Board] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Site Status Board] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [Site Status Board]",
+		"text": "Send a restart command to [Site Status Board] via ssh",
 		"command": "restart Site_Status_Board"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Site Status Board] via ssh",
+		"command": "start Site_Status_Board"
+	}]
   },{
 	"name": "Panglia",
 	"text": "System [Panglia]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Panglia] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Panglia] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [Panglia]",
+		"text": "Send a restart command to [Panglia] via ssh",
 		"command": "restart Panglia"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Panglia] via ssh",
+		"command": "start Panglia"
+	}]
   },{
 	"name": "Panda Production Job",
 	"text": "System [Panda Production Job]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Panda Production Job] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Panda Production Job] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [Panda Production Job]",
+		"text": "Send a restart command to [Panda Production Job] via ssh",
 		"command": "restart Panda_Production_Job"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Panda Production Job] via ssh",
+		"command": "start Panda_Production_Job"
+	}]
   },{
 	"name": "eLog",
 	"text": "System [eLog]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [eLog] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [eLog] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [eLog]",
+		"text": "Send a restart command to [eLog] via ssh",
 		"command": "restart eLog"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [eLog] via ssh",
+		"command": "start eLog"
+	}]
   },{
 	"name": "ADC",
 	"text": "System [ADC]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [ADC] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [ADC] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [ADC]",
+		"text": "Send a restart command to [ADC] via ssh",
 		"command": "restart ADC"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [ADC] via ssh",
+		"command": "start ADC"
+	}]
   },{
 	"name": "Twiki",
 	"text": "System [Twiki]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Twiki] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Twiki] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [Twiki]",
+		"text": "Send a restart command to [Twiki] via ssh",
 		"command": "restart Twiki"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Twiki] via ssh",
+		"command": "start Twiki"
+	}]
   },{
 	"name": "GGUS",
 	"text": "System [GGUS]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [GGUS] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [GGUS] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [GGUS]",
+		"text": "Send a restart command to [GGUS] via ssh",
 		"command": "restart GGUS"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [GGUS] via ssh",
+		"command": "start GGUS"
+	}]
   },{
 	"name": "Jira",
 	"text": "System [Jira]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Jira] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Jira] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"text": "Send restart command to [Jira]",
+		"text": "Send a restart command to [Jira] via ssh",
 		"command": "restart Jira"
-		}]
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Jira] via ssh",
+		"command": "start Jira"
+	}]
 
 }]

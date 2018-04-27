@@ -159,24 +159,42 @@ module.exports = {
             return self.indexOf(x) === i; });
 
       // Generating a [system.json] template
+      var forecast_default_items = "0,1,2,3,4";
+
       console.log("Number of the basic system components = " + unique_systems.length);
       var template = "[{\n";
       for (var k = 0; k < unique_systems.length; k++){
-        // console.log(unique_systems[k]);
+        var systems_item = unique_systems[k];
         // Output the following basic element
         template = template
-                 + "\t\"name\": \"" + unique_systems[k] + "\",\n"
-                 + "\t\"text\": \"System [" + unique_systems[k] + "]\",\n"
+                 + "\t\"name\": \"" + systems_item + "\",\n"
+                 + "\t\"text\": \"System [" + systems_item + "]\",\n"
                  + "\t\"img\":  \"img/default_server.png\",\n"
                  + "\t\"dependent\":  [],\n"
+                 + "\t\"happyface\":  [],\n"
+                 + "\t\"elasticsearch\":  [],\n"
+                 + "\t\"forecast\":  ["+ forecast_default_items + "],\n"
                  + "\t\"services\": [{\n"
+                 + "\t\t\"type\": \"email\",\n"
+                 + "\t\t\"name\": \"E-mail\",\n"
+                 + "\t\t\"text\": \"Send an email to [" + systems_item + "] administrator(s)\",\n"
+                 + "\t\t\"command\": \"mail:admin@noemail.dummy\"\n"
+                 + "\t\t},{\n"
+                 + "\t\t\"type\": \"ticket\",\n"
+                 + "\t\t\"name\": \"Ticket\",\n"
+                 + "\t\t\"text\": \"Open a ticket to [" + systems_item + "] administrator(s)\",\n"
+                 + "\t\t\"command\": \"url:https://www.google.com\"\n"
+                 + "\t\t},{\n"
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Restart\",\n"
-                 + "\t\t\"text\": \"Send restart command to [" + unique_systems[k] + "]\",\n"
-                 + "\t\t\"command\": \"restart " + unique_systems[k].replace(/ /g, "_") + "\"\n"
-                 + "\t\t}]\n";
-
-
+                 + "\t\t\"text\": \"Send a restart command to [" + systems_item + "] via ssh\",\n"
+                 + "\t\t\"command\": \"restart " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t\t},{\n"
+                 + "\t\t\"type\": \"ssh\",\n"
+                 + "\t\t\"name\": \"Start\",\n"
+                 + "\t\t\"text\": \"Send a start command to [" + systems_item + "] via ssh\",\n"
+                 + "\t\t\"command\": \"start " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t}]\n";
         if (k < unique_systems.length - 1) template = template + "  },{\n";
       }
       template = template + "\n}]\n";

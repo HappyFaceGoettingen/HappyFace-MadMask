@@ -39,6 +39,7 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 A RPM builder for HappyFace-MadMask modules, Mobile components, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-MadModules and MadFoxd RPM packages under RPMS directory.
 
 ### How to build RPMs
+     $ ./rebuild.sh -b hf
      $ ./rebuild.sh -b madmask
      $ ./rebuild.sh -b madmodules
      $ ./rebuild.sh -b madfoxd

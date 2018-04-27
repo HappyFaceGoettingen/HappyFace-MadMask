@@ -83,24 +83,36 @@ common_imager(){
 }
 
 
-## R runtime caller. This can run in parallel.
-common_rcaller(){
+## R runtime caller by URLs. This can run in parallel.
+common_urls_rcaller(){
     local rcall="$1"
     local output_dir="$2"
     local others="$3"
 
-    [ -e "$output_dir" ] && ERROR "common_rcaller\$$rcall: [$output_dir] exists!" && return 1
+    ## Load items and giving them to parallel R jobs
+    load_monitoringUrls_json $URLS_JSON || return 1
+    parallel_rcaller "$rcall" "$output_dir" "$others" "${FILE_PREFIXES[*]}"
+}
+
+
+## R runtime caller. This can run in parallel
+parallel_rcaller(){
+    local rcall="$1"
+    local output_dir="$2"
+    local others="$3"
+    local items="$4"
+
+    [ -e "$output_dir" ] && ERROR "parallel_rcaller\$$rcall: [$output_dir] exists!" && return 1
     mkdir -v $output_dir
 
-    ## Generating analysis plots and objs
+    ## Generating analysis plots, objs and so on. Running R in parallel
     local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGE_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
-    load_monitoringUrls_json $URLS_JSON || return 1
-    local i
-    for i in $(seq 0 $((${#FILE_PREFIXES[*]} - 1)))
+    local item
+    for item in $items
     do
-	[ "${FILE_PREFIXES[$i]}" == "null" ] && continue
-        parallel_run R "R --slave -f $R_RUNTIME_LOADER --args $rcall ${FILE_PREFIXES[$i]} $args"
-        [ ! -z "$DEBUG" ] && [ $i -ge 0 ] && break
+	[ "$item" == "null" ] && continue
+        parallel_run R "R --slave -f $R_RUNTIME_LOADER --args $rcall $item $args"
+        [ ! -z "$DEBUG" ] && break
     done
     check_parallel_job R
     return 0
@@ -115,7 +127,6 @@ single_rcaller(){
 
     [ ! -e "$output_dir" ] && mkdir -v $output_dir
 
-    ## Generating analysis plots and objs
     local args="$URLS_JSON $SYSTEMS_JSON $CAPTURE_DIR $BASE_IMAGE_DIR $CDATE_IDs $output_dir $ANALYSIS_OBJ_DIR $others"
     R --slave -f $R_RUNTIME_LOADER --args $rcall "" $args 
 }
@@ -127,7 +138,7 @@ single_rcaller(){
 #  {base_images|detector|madvision|pathway}
 #---------------------------------------------------------------------------
 ## Generating common image file. The base_image size is defined in config.json (analysis_image_size)
-generate_base_images(){
+generate_base_image(){
     local base_image_option="-geometry $ANALYSIS_IMAGE_SIZE!"
 
     local date_id
@@ -142,7 +153,7 @@ generate_base_images(){
 
 ## Generating a basic detector to identify a status change point
 generate_detector(){
-    common_rcaller "${1}_detector" "$PLOT_ANALYSIS_DIR/$LATEST_DATE_ID" || return 1
+    common_urls_rcaller "${1}_detector" "$PLOT_ANALYSIS_DIR/$LATEST_DATE_ID" || return 1
     return 0
 }
 
@@ -156,7 +167,7 @@ generate_pathway(){
 
 ## Generating red-vision (madvision) like a terminator view. This view can emphasize the browser view/thumbnails which have a status change point.
 generate_madvision(){
-    common_rcaller "${1}_madvision" "$MADVISION_DIR/$LATEST_DATE_ID" || return 1
+    common_urls_rcaller "${1}_madvision" "$MADVISION_DIR/$LATEST_DATE_ID" || return 1
 
     ## Generating thumbnails
     generate_madvision_thumbnails "$MADVISION_DIR/$LATEST_DATE_ID" "$MADVISION_THUMBNAIL_DIR/$LATEST_DATE_ID" "$THUMBNAIL_DIR/$LATEST_DATE_ID"
@@ -169,12 +180,26 @@ generate_madvision_thumbnails(){
     common_imager "$1" "$THUMBNAIL_OPTION" "$2" "$3" 
 }
 
-## Generating forecasts according to systems.json definition. HappyFace DB will be used in future
+
+## Generating forecasts according to systems.json definition. HappyFace DB (in system.definition) will be used in future
 generate_forecast(){
+    local detector_alg=${1}_detector
+    local forecast_alg=${2}_forecast
+
+    local forecast_data_dir="$FORECAST_DATA_DIR/$LATEST_DATE_ID"
     local output_dir="$PLOT_FORECAST_DIR/$LATEST_DATE_ID"
     [ -e "$output_dir" ] && ERROR "generate_forecast: [$output_dir] exists!" && return 1
 
-    single_rcaller "${1}_forecast" "$output_dir" || return 1
+    ## Getting unique forecast items
+    local forecast_items=$(jq -c ".[].forecast" $SYSTEMS_JSON | perl  -pe "s/[,\"\]\[]/\n/g" | sort | uniq)
+
+    ## Generating RAW time series data from Detector, HappyFace DB and Elasticsearch DB. Using plugins here.
+    # generate_ts_data "$detector_alg" "$forecast_items" $forecast_data_dir
+    # generate_ts_data "happyface" "$forecast_items" $forecast_data_dir
+    # generate_ts_data "elasticsearch" "$forecast_items" $forecast_data_dir
+
+    ## Generating analysis plots and objs
+    parallel_rcaller $forecast_alg $output_dir "$forecast_data_dir" "$forecast_items"
     return 0
 }
 
