@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {ClassicalDataModel} from "./ClassicalDataModel";
-import {NavParams} from "ionic-angular";
+import {NavParams, Platform} from "ionic-angular";
+import {InAppBrowser, InAppBrowserOptions} from "@ionic-native/in-app-browser";
 
 @Component({
     selector: "page-hf-modules",
@@ -21,7 +22,8 @@ export class HFModulesPage
     outdated:boolean = false;
     outdateHandler:number = 0;
 
-    constructor(private classicModel:ClassicalDataModel, private navParams:NavParams)
+    constructor(private classicModel:ClassicalDataModel, private navParams:NavParams, private iab: InAppBrowser,
+                private plt:Platform)
     {
         this.category = this.navParams.get('category');
         if(this.category == null || this.category == undefined)
@@ -60,6 +62,28 @@ export class HFModulesPage
 
     moduleSelected(mod:any)
     {
-        window.open(mod.link, "_blank");
+        //window.open(mod.link, "_blank");
+        this.plt.ready().then(() => {
+            let options: InAppBrowserOptions = {
+                location: 'yes',//Or 'no'
+                hidden: 'no', //Or  'yes'
+                clearcache: 'yes',
+                clearsessioncache: 'yes',
+                zoom: 'yes',//Android only ,shows browser zoom controls
+                hardwareback: 'yes',
+                mediaPlaybackRequiresUserAction: 'no',
+                shouldPauseOnSuspend: 'no', //Android only
+                closebuttoncaption: 'Close', //iOS only
+                disallowoverscroll: 'no', //iOS only
+                toolbar: 'yes', //iOS only
+                enableViewportScale: 'no', //iOS only
+                allowInlineMediaPlayback: 'no',//iOS only
+                presentationstyle: 'pagesheet',//iOS only
+                fullscreen: 'yes',//Windows only
+            };
+
+            const browser = this.iab.create(mod.link, "_blank", options);
+            //browser.on("loadstop").subscribe(()=> console.log("loadstop"));
+        });
     }
 }
