@@ -18,8 +18,12 @@
         <ion-input placeholder="{{host}}" [(ngModel)]="host"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label color="primary" fixed>Port: </ion-label>
-        <ion-input placeholder="{{port}}" [(ngModel)]="port"></ion-input>
+        <ion-label color="primary" fixed>Mobile Port: </ion-label>
+        <ion-input placeholder="{{m_port}}" [(ngModel)]="m_port"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary" fixed>Web Port: </ion-label>
+        <ion-input placeholder="{{w_port}}" [(ngModel)]="w_port"></ion-input>
     </ion-item>
     <br/>
     <!--Data: {{host}} + {{port}} <br/>-->
@@ -28,6 +32,11 @@
     <code>
         <span *ngFor="let m of missingFiles">{{m.url}} --> code: {{m.code}}<br/></span>
     </code>
+    <br>
+    <ion-item>
+        <ion-label>Save configuration ?</ion-label>
+        <ion-checkbox [(ngModel)]="save"></ion-checkbox>
+    </ion-item>
 </ion-content>
 
 <ion-footer>

@@ -235,7 +235,7 @@ case "$action" in
 	generate_detector "$DETECTOR_ALGORITHM"
 	generate_pathway
 	generate_madvision "$DETECTOR_ALGORITHM"
-	generate_forecast "$FORECAST_ALGORITHM"
+	generate_forecast "$DETECTOR_ALGORITHM" "$FORECAST_ALGORITHM"
 	generate_summary "$DETECTOR_ALGORITHM"
 	generate_analysis_index
 	generate_latest_symlinks

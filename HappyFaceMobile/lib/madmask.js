@@ -250,19 +250,21 @@ module.exports = {
     /*
      * MadBrowser and MadAnalyzer mediators called by CRON jobs
      */
-    call_cronRun(dir, config, wait) {
+    call_cronRun(dir, config) {
       console.log("Running a CRON job ...");
       makeDefaultSite(dir);
 
       var commandLine = 'time eval \"';
 
-      // Reload & Capture & Import
-      commandLine = commandLine + run_madfox(dir, config, 'reload') + '; sleep ' + wait + ';';
-      commandLine = commandLine + run_madfox(dir, config, 'capture') + '; sleep ' + wait + ';';
+      // Reload & Import
+      commandLine = commandLine + run_madfox(dir, config, 'reload') + ';';
       commandLine = commandLine + run_madfox(dir, config, 'import') + ';';
 
       // Analyze
-      commandLine = commandLine + run_madanalyzer(dir, config, 'all');
+      commandLine = commandLine + run_madanalyzer(dir, config, 'all') + ';';
+
+      // Capture for next
+      commandLine = commandLine + run_madfox(dir, config, 'capture');
 
       // end
       commandLine = commandLine + '\"';

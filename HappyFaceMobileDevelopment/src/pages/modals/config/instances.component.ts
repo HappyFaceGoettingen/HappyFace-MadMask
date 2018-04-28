@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, Platform} from "ionic-angular";
+import {NavController, NavParams, Platform, ViewController} from "ionic-angular";
 import {DataModel, InstanceObject} from "../../../data/DataModel";
 import {Storage} from "@ionic/storage";
 
@@ -11,16 +11,19 @@ export class InstancesComponent
 {
     headURL:string = ""; //http://141.5.108.30:20100/sites/default/meta-meta.json";
     label:string = "";
+    isLoading:boolean = false;
     locations: InstanceObject[] = [];
     favorites: InstanceObject[] = [];
     backstack: InstanceObject[] = [];
     current:   InstanceObject = null;
     level:number = 0;
+    final_level:number = 2;
 
-    levels:string[] = [ "Country", "Region", "Server"];
+    levels:string[] = [ "Cloud", "Region", "Cluster"];
     isIOS:boolean = false;
 
-    constructor(private model: DataModel, private navCtrl:NavController, private plt: Platform, private storage:Storage)
+    constructor(private model: DataModel, private navCtrl:NavController, private plt: Platform, private storage:Storage,
+                private navParams: NavParams)
             { this.isIOS = this.plt.is('ios'); }
 
     ngOnInit()
@@ -31,14 +34,18 @@ export class InstancesComponent
             else this.favorites = [];
             console.log("FAVORITES: " + JSON.stringify(value));
         });
-        if(this.model.configuration.get().happyFaceCompatible)
+        /*if(this.model.configuration.get().happyFaceCompatible)
             this.headURL = "http://141.5.108.29:10100/static/sites/default/meta-meta.json";
         else
             this.headURL = "http://141.5.108.29:20100/sites/default/meta-meta.json";
+        */
+        this.headURL = "http://www.atopion.com/apps/hf/metadata/adc-meta-meta.json";
 
+        this.isLoading = true;
         let req = new XMLHttpRequest();
         req.addEventListener("load",() => {
           this.updateList(req.responseText);
+          this.isLoading = false;
         });
         req.open("GET", this.headURL);
         req.send();
@@ -66,7 +73,7 @@ export class InstancesComponent
         this.current = loc;
         let url:string = "";
 
-        if(this.model.configuration.get().happyFaceCompatible)
+        /*if(this.model.configuration.get().happyFaceCompatible)
         {
             if(this.level <= 0) { this.level = 0; url = this.headURL; }
             else if(this.level == 1) url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
@@ -76,10 +83,21 @@ export class InstancesComponent
             if(this.level <= 0) { this.level = 0; url = this.headURL; }
             else if(this.level == 1) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
             else if(this.level >= 2) url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
+        }*/
+
+
+        if(this.level <= 0) { this.level = 0; url = this.headURL; }
+        else {
+            if(this.level > this.final_level) this.level = this.final_level;
+            if(this.model.configuration.get().happyFaceCompatible)
+                url = "http://" + loc.host + ":" + loc.web_port + "/static/sites/default/meta-meta.json";
+            else
+                url = "http://" + loc.host + ":" + loc.mobile_port + "/sites/default/meta-meta.json";
         }
 
+        this.isLoading = true;
         let req = new XMLHttpRequest();
-        req.addEventListener("load",() => {this.updateList(req.responseText)});
+        req.addEventListener("load",() => {this.updateList(req.responseText); this.isLoading = false});
         req.open("GET", url);
         req.send();
         this.label = this.levels[this.level];
@@ -100,7 +118,9 @@ export class InstancesComponent
         this.model.currentlyActive = loc;
         this.storage.set('instance', this.model.currentlyActive);
         this.model.reload();
-        this.navCtrl.pop();
+        let viewCtrl:ViewController = this.navParams.get("viewCtrl");
+        if(viewCtrl != null || viewCtrl != undefined) viewCtrl.dismiss();
+        else this.navCtrl.pop();
     }
 
     favorite(loc: InstanceObject)

@@ -25,7 +25,7 @@ program
   .option('-S, --SystemsTemplate', "Generate [systems.json] template from [monitoring-urls.json]")
   .option('-B, --Browser [action]', 'Call MadBrowser (action = {status|reload|capture|import})', '')
   .option('-A, --Analyzer [action]', 'Call MadAnalyzer (action = {base_image|detector|pathway|madvision|forecast|summary|all})', '')
-  .option('-C, --CronRun [wait]', 'Call MadBrowser [reload -(wait)-> capture -(wait)-> import] => MadAnalyzer [all]', '')
+  .option('-C, --CronRun', 'Call MadBrowser [reload -> import] => MadAnalyzer [all] => MadBrowser [capture]')
   .option('-H, --HappyFace', 'Run HappyFace CRON job')
   .option('-L, --LogCollector', 'Log Collector')
   .option('-W, --Wipe', 'Wipe old files/dirs in data dir')
@@ -74,7 +74,7 @@ if(program.rawArgs.length <= 2) {
 
    if (program.Analyzer) madmask.call_madanalyzer(program.config, config, program.Analyzer);
 
-   if (program.CronRun) madmask.call_cronRun(program.config, config, program.CronRun);
+   if (program.CronRun) madmask.call_cronRun(program.config, config);
 
    if (program.LogCollector) madmask.run_log_collector(program.config, config);
 

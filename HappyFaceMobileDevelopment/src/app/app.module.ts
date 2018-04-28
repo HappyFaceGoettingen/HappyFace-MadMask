@@ -28,6 +28,7 @@ import {AnalyzerPage2} from "../pages/analyzer/analyzer2";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 @NgModule({
     declarations: [
@@ -87,6 +88,7 @@ import {PassModal} from "../pages/modals/ssh/pass-modal";
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
+        InAppBrowser,
         ClassicalDataModel
     ]
 })

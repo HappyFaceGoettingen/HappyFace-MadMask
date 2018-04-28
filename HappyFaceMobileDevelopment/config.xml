@@ -85,4 +85,5 @@
     <engine name="android" spec="latest" />
     <plugin name="cordova-plugin-sshclient" spec="https://github.com/R3nPi2/cordova-plugin-sshclient.git" />
     <plugin name="cordova-plugin-tts" spec="^0.2.3" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
 </widget>
