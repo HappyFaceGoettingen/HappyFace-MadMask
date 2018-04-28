@@ -37,14 +37,6 @@ pidfile_base=$MADFOXD_PIDDIR
 logfile_base=$MADFOXD_LOGDIR
 [ -z "$TERM" ] && export TERM=xterm
 
-read_displays(){
-    local displays=$(find $MADFOXD_CONFIG)
-    jq '.port' $displays | sed "s/\"//g" | sort | uniq
-}
-
-read_data_dir(){
-    local data_dir
-}
 
 check_pidfiles(){
     [ ! -e $logfile_base ] && su $user -c "mkdir -pv $logfile_base"

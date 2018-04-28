@@ -52,7 +52,7 @@ if(program.rawArgs.length <= 2) {
    console.log('Start Ionic server: %s', program.ionic);
    console.log('Ionic logdir: %s', program.logdir);
    console.log('Ionic piddir: %s', program.piddir);
-   console.log('Ionic Port: %s', config.port);
+   console.log('Ionic Port: %s', config.ionic_port);
 
    console.log('Call MadBrowser: %s', program.Browser);
    console.log('Call MadAnalyzer: %s', program.Analyzer);

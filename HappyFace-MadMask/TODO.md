@@ -86,11 +86,17 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
  * New firefox_profile with gantry --> Done
  * Put firefox_profile (in madfoxd, make a firefox_command routine)
 
+## PCATLAS11
+ * Open ports
 
 ## Implement new data importer for HF database
    * In MadBrowser
    * In MadAnalyzer
 
+## Change item names in JSON files
+   * meta-meta.json: name --> site_name, host --> site_host
+   * config.json: port --> ionic_port, added version, web_port, mobile_port
+   * systems.json: services --> actions
 
 ## Mad-Gantry site builder second step
  * Cloud Host selector --> Done

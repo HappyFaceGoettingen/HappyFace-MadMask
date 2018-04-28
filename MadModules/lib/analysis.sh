@@ -29,9 +29,10 @@ set_analysis_dirs(){
     MADVISION_DIR="$ANALYSIS_DIR/madvision"
     MADVISION_THUMBNAIL_DIR="$ANALYSIS_DIR/madvision_thumbnail"
     PLOT_FORECAST_DIR="$ANALYSIS_DIR/plot_forecast"
+    FORECAST_DATA_DIR="$ANALYSIS_DIR/forecast_data"
     ANALYSIS_OBJ_DIR="$ANALYSIS_DIR/analysis_obj"
 
-    local all_analysis_subdirs="$BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR $ANALYSIS_OBJ_DIR"
+    local all_analysis_subdirs="$BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR $FORECAST_DATA_DIR $ANALYSIS_OBJ_DIR"
     local dir
     for dir in $all_analysis_subdirs
     do
@@ -151,9 +152,12 @@ generate_base_image(){
     return 0
 }
 
-## Generating a basic detector to identify a status change point
+## Generating a basic detector to identify a status change point. 
+##   Note: RAW time series data (1-D) will be written into forecast_data_dir.
 generate_detector(){
-    common_urls_rcaller "${1}_detector" "$PLOT_ANALYSIS_DIR/$LATEST_DATE_ID" || return 1
+    local forecast_data_dir="$FORECAST_DATA_DIR/$LATEST_DATE_ID"
+    [ ! -e $forecast_data_dir ] && mkdir -v $forecast_data_dir
+    common_urls_rcaller "${1}_detector" "$PLOT_ANALYSIS_DIR/$LATEST_DATE_ID" "$forecast_data_dir" || return 1
     return 0
 }
 
@@ -193,14 +197,28 @@ generate_forecast(){
     ## Getting unique forecast items
     local forecast_items=$(jq -c ".[].forecast" $SYSTEMS_JSON | perl  -pe "s/[,\"\]\[]/\n/g" | sort | uniq)
 
-    ## Generating RAW time series data from Detector, HappyFace DB and Elasticsearch DB. Using plugins here.
-    # generate_ts_data "$detector_alg" "$forecast_items" $forecast_data_dir
+    ## Generating RAW time series data from HappyFace DB and Elasticsearch DB. Using plugins here.
     # generate_ts_data "happyface" "$forecast_items" $forecast_data_dir
     # generate_ts_data "elasticsearch" "$forecast_items" $forecast_data_dir
 
     ## Generating analysis plots and objs
     parallel_rcaller $forecast_alg $output_dir "$forecast_data_dir" "$forecast_items"
     return 0
+}
+
+
+## Sub-function of generate_forecast
+generate_ts_data(){
+    local plugin=$1
+    case $plugin in
+	happyface|elasticsearch)
+	    generate_${plugin}_ts_data "$2" "$3"
+	    return $?
+	    ;;
+	*)
+	    echo "Forecast data plugin [$plugin] is not defined" && return 1
+	    ;;
+    esac
 }
 
 
@@ -295,7 +313,7 @@ generate_analysis_index(){
 
 ## Genelating "latest" symlinks in each LATEST_DATE_ID directory (e.g. 20180101-2300)
 generate_latest_symlinks(){
-    local all_inout_subdirs="$CAPTURE_DIR $THUMBNAIL_DIR $INDEX_DIR $BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR"
+    local all_inout_subdirs="$CAPTURE_DIR $THUMBNAIL_DIR $INDEX_DIR $BASE_IMAGE_DIR $PLOT_ANALYSIS_DIR $PLOT_PATHWAY_DIR $MADVISION_DIR $MADVISION_THUMBNAIL_DIR $PLOT_FORECAST_DIR $FORECAST_DATA_DIR"
     local dir
     for dir in $all_inout_subdirs
     do

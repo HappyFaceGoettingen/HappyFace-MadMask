@@ -114,18 +114,20 @@ module.exports = {
     ionic: function (dir, config, logdir, piddir) {
       makeDefaultSite(dir);
 
-      console.log("Starting madmask server: port = " + config.port);
+      var ionic_port = config.ionic_port;
+
+      console.log("Starting madmask server: port = " + ionic_port);
 
       // Setting up LOG and PID files
-      var pidfile = piddir + "/ionic-server." + config.port;
+      var pidfile = piddir + "/ionic-server." + ionic_port;
       if (fileExists(pidfile)){
 	console.log("pidfile exists! [" + pidfile + "]");
 	process.exit(-1);
       }
-      var logfile = logdir + "/ionic-server." + config.port + ".log";
+      var logfile = logdir + "/ionic-server." + ionic_port + ".log";
 
       // Starting an Ionic server by the "forever" library. The "forever" command is calling lib/ionic-server.js
-      var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + config.port;
+      var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + ionic_port;
       console.log("Executing ... [" + commandLine + "]");
       console.log(" * To list the running Ionic servers:  forever list");
       console.log(" * To stop the running Ionic servers:  forever stopall");

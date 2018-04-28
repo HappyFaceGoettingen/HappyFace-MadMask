@@ -39,7 +39,7 @@ fi
 
 read_ports(){
     site_defs=$(find $MADMASK_HOME/sites/*/config.json)
-    jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
+    jq '.ionic_port' $site_defs | sed "s/\"//g" | sort | uniq
 }
 
 forever_status() {
@@ -76,9 +76,9 @@ start() {
     done
 
     ## Waiting until pidfiles are ready
-    for port in $(read_ports)
+    for ionic_port in $(read_ports)
     do
-	ionic_pidfile=${pidfile_base}/ionic-server.${port}
+	ionic_pidfile=${pidfile_base}/ionic-server.${ionic_port}
 	for i in $(seq 1 60)
 	do
 	    [ -e ${ionic_pidfile} ] && echo "$(cat $ionic_pidfile)" >> $pidfile && break
@@ -102,9 +102,9 @@ stop() {
     su $user -c "forever stopall" &> /dev/null
     RETVAL=$?
 
-    for port in $(read_ports)
+    for ionic_port in $(read_ports)
     do
-	ionic_pidfile=${pidfile_base}/ionic-server.${port}
+	ionic_pidfile=${pidfile_base}/ionic-server.${ionic_port}
 	[ -e ${ionic_pidfile} ] && rm ${ionic_pidfile}
     done
 

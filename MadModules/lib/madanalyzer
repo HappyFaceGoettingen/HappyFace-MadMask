@@ -49,7 +49,7 @@ CONFIG_DATA_DIR=""
 
 
 usage="$0 [options] -a [action]
- Meta-monitoring Analytics Device (MAD) Analyzer: A library to analyze a system status by the given meta-monitoring data of a time series and the system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template in 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary.
+ Meta-monitoring Analytics Device (MAD) Analyzer: A library to analyze a system status by the given meta-monitoring data of a time series and a system definition. The final stauts is categorized by some predefined priorities and a structure in the URLs and Systems JSON files. According to a template in 'summary_template', the 'summary.json' file in the 'index' directory will provide a human-readable status summary.
 
  * System parameters and constrains
  -l:  System load limit [default: $SYSTEM_LOAD_MAX %]
