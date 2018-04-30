@@ -207,8 +207,8 @@ set_workdir(){
 
 test_install(){
     yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
-    rpm -q HappyFaceCore || yum -y install RPMS/x86_64/HappyfaceCore-*.rpm
-    rpm -q HappyFace-ATLAS || yum -y install RPMS/x86_64/Happyface-ATLAS-*.rpm
+    rpm -q HappyFaceCore || yum -y install RPMS/x86_64/HappyFaceCore-*.rpm
+    rpm -q HappyFace-ATLAS || yum -y install RPMS/x86_64/HappyFace-ATLAS-*.rpm
     yum -y install RPMS/x86_64/MadFoxd-*.rpm
     yum -y install RPMS/x86_64/HappyFace-*.rpm
     ls RPMS/x86_64/android-sdk-*.rpm && yum -y install RPMS/x86_64/android-sdk-*.rpm
