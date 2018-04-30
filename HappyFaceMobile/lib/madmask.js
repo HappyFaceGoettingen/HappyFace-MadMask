@@ -38,9 +38,10 @@ function fileExists(filePath){
 
 
 function my_exec(commandLine){
-    a = exec(commandLine, {maxBuffer: COMMAND_MAXBUFFER});
-    a.stdout.pipe(process.stdout);
-    a.stderr.pipe(process.stderr);
+  console.log("Executing ... [" + commandLine + "]");
+  a = exec(commandLine, {maxBuffer: COMMAND_MAXBUFFER});
+  a.stdout.pipe(process.stdout);
+  a.stderr.pipe(process.stderr);
 }
 
 
@@ -128,7 +129,6 @@ module.exports = {
 
       // Starting an Ionic server by the "forever" library. The "forever" command is calling lib/ionic-server.js
       var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + ionic_port;
-      console.log("Executing ... [" + commandLine + "]");
       console.log(" * To list the running Ionic servers:  forever list");
       console.log(" * To stop the running Ionic servers:  forever stopall");
       my_exec(commandLine);
@@ -225,7 +225,6 @@ module.exports = {
       }
 
       var commandLine = run_madfox(dir, config, action);
-      console.log("Executing ... [" + commandLine + "]");
       my_exec(commandLine);
     },
 
@@ -243,7 +242,6 @@ module.exports = {
       }
 
       var commandLine = run_madanalyzer(dir, config, action);
-      console.log("Executing ... [" + commandLine + "]");
       my_exec(commandLine);
     },
 
@@ -269,7 +267,14 @@ module.exports = {
       // end
       commandLine = commandLine + '\"';
 
-      console.log("Executing ... [" + commandLine + "]");
+      // Exec
+      my_exec(commandLine);
+    },
+
+    call_happyface(dir, config) {
+      console.log("Running a HappyFace CRON job ...");
+      var HAPPYFACE_HOME = "/var/lib/HappyFace";
+      var commandLine = "cd " + HAPPYFACE_HOME + " && time python acquire.py";
       my_exec(commandLine);
     },
 
@@ -298,7 +303,6 @@ module.exports = {
         if (! fileExists(src_logfile)) {
           console.log("LogCollector: [" + src_logfile + "] does not exist");
         } else {
-          console.log("LogCollector: " + commandLine);
           my_exec(commandLine);
         }
       }
@@ -331,7 +335,7 @@ module.exports = {
         commandLine = run_build_command(platform, "4.5.4", "xcode", apks, apk_dir);
       }
 
-      console.log("Mobile Application Builder: " + commandLine);
+      // Building
       my_exec(commandLine);
     },
 

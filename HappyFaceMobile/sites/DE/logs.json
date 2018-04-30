@@ -11,9 +11,6 @@
     "name": "Ionic Server Log",
     "file": "/var/log/HappyFace/ionic-server.8111.log"
 }, {
-    "name": "Andorid Build Log",
-    "file": "/tmp/madmask.android-build.log"
-}, {
     "name": "MadFoxd Log",
     "file": "/var/tmp/MadFoxd/log/madfoxd.log"
 }, {

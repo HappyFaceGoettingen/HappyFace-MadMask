@@ -80,23 +80,29 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
  * Forecast improvement
       * The example forecast routine should be paralleled --> Done
-      * Run HF CRON & HF DB connector (simple one) --> Doing
+      * Run HF CRON --> Done
+      * HF DB connector (simple one) 
 
 ## Profile
  * New firefox_profile with gantry --> Done
- * Put firefox_profile (in madfoxd, make a firefox_command routine)
+ * Put firefox_profile (in madfoxd, make a firefox_command routine) --> Doing --> Done
+
+## VM OSX config
+ * Apple ID --> Doing
+ * ssh connection + ssh server in OSX
 
 ## PCATLAS11
- * Open ports
+ * Open ports in PCATLAS11 --> Doing
+
 
 ## Implement new data importer for HF database
    * In MadBrowser
    * In MadAnalyzer
 
 ## Change item names in JSON files
-   * meta-meta.json: name --> site_name, host --> site_host
-   * config.json: port --> ionic_port, added version, web_port, mobile_port
-   * systems.json: services --> actions
+   * meta-meta.json: "name" --> "site_name", "host" --> "site_host"
+   * config.json: "port" --> "ionic_port", added "version", "web_port", "mobile_port"
+   * systems.json: "services" --> "actions"
 
 ## Mad-Gantry site builder second step
  * Cloud Host selector --> Done
