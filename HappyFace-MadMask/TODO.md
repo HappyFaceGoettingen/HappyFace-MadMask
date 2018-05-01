@@ -84,12 +84,14 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
       * HF DB connector (simple one) 
 
 ## Profile
- * New firefox_profile with gantry --> Done
- * Put firefox_profile (in madfoxd, make a firefox_command routine) --> Doing --> Done
+ * New firefox_profile with gantry  --> Done
+ * Put firefox_profile (in madfoxd) --> Done
+ * make a firefox_command routine)  --> Doing --> Done
 
 ## VM OSX config
  * Apple ID --> Doing
  * ssh connection + ssh server in OSX
+ * Automatic iOS builder in madmask
 
 ## PCATLAS11
  * Open ports in PCATLAS11 --> Doing
@@ -100,9 +102,11 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
    * In MadAnalyzer
 
 ## Change item names in JSON files
-   * meta-meta.json: "name" --> "site_name", "host" --> "site_host"
-   * config.json: "port" --> "ionic_port", added "version", "web_port", "mobile_port"
-   * systems.json: "services" --> "actions"
+   * config.json:   "port" --> "ionic_port", added "version", "web_port", "mobile_port"
+   * meta-meta.json:   "name" --> "site_name", "host" --> "site_host"
+   * ==> Implement config.json version, web_port, mobile_port in mad-gantry
+   * systems.json:   "services" --> "actions"
+   * monitoring-urls.json:   remove default "capture": true, 
 
 ## Mad-Gantry site builder second step
  * Cloud Host selector --> Done

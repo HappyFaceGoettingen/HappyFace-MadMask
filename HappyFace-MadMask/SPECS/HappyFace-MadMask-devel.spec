@@ -10,7 +10,7 @@ Source1: HappyFaceMobileDevelopment.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
-Requires: MadFoxd
+#Requires: MadFoxd
 
 Requires: nodejs
 Requires: npm
@@ -96,6 +96,12 @@ ln -s ../sites $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/sites
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 
+
+#------------------------------------------------------
+#
+# POST routine
+#
+#------------------------------------------------------
 %post
 
 

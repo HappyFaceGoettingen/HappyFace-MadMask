@@ -9,7 +9,7 @@ Source0: HappyFaceMobile.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
-Requires: MadFoxd
+#Requires: MadFoxd
 
 Requires: nodejs
 Requires: npm
