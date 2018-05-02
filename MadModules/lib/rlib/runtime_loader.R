@@ -53,19 +53,6 @@ monitoring.urls.caller <- function(func=NULL, func.vars=list()){
 }
 
 
-systems.mc.caller <- function(func=NULL, func.vars=list(), parallel, mode="forecast"){
-  message("Reading [", systems.json, "] ...")
-  all.systems <- fromJSON(file=systems.json)
-
-  ## Taking unique items
-  for (system.item in 1:length(all.systems)){
-    if (mode == "forecast") {
-      items <- all.systems
-    }
-  }
-}
-
-
 ##-----------------------------------------------------------
 ## Main
 ##-----------------------------------------------------------
