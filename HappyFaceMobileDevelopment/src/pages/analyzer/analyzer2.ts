@@ -28,7 +28,7 @@ export class AnalyzerPage2
         {"id": "pathway", "name": "Info Pathway", "type": "plots", "src": null},
         {"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
         {"id": "happyface", "name": "HappyFace Classical Rating", "type": "page", "src": HFCategoriesPage},
-        {"id": "forecast", "name": "Happy Forecast", "type": "img", "src": "assets/img/forecast.png"}
+        {"id": "forecast", "name": "Happy Forecast", "type": "imgs", "src": Array<string>(0)}
     ];
     selectedViewer:any = this.viewers.find( v => v.id === "overall_pathway");
 
@@ -54,6 +54,7 @@ export class AnalyzerPage2
             this.setPlots2();
             //this.monitoringURLs = this.model.monitoringUrls;
             this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
+            this.setForecast();
         }
     }
 
@@ -182,5 +183,13 @@ export class AnalyzerPage2
                 }
             }
         }
+    }
+
+    setForecast()
+    {
+        let tmp:string[] = this.model.analysis[0].forecast;
+        for(let i:number = 0; i < tmp.length; i++) tmp[i] = this.model.getRemoteURL() + this.model.analysis[0].forecast[i].substring(1);
+
+        this.viewers.find(v => v.id === "forecast").src = this.model.analysis[0].forecast;
     }
 }
