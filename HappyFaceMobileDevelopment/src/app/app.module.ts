@@ -29,6 +29,7 @@ import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {HomePage} from "../pages/home/home";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -57,6 +58,7 @@ import {HomePage} from "../pages/home/home";
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         IonicModule.forRoot(HappyFaceApp),
         IonicStorageModule.forRoot()
     ],
@@ -90,7 +92,8 @@ import {HomePage} from "../pages/home/home";
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
-        ClassicalDataModel
+        ClassicalDataModel,
+        HttpClientModule
     ]
 })
 export class AppModule {}

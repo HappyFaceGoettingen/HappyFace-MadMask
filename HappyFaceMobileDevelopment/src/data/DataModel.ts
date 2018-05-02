@@ -16,6 +16,7 @@ export class DataModel
     // Debug switches
     static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
+    static FORCE_CLIENT_DEBUG:boolean = true;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
 
@@ -200,6 +201,7 @@ export class DataModel
             req.open("GET", urls[i], true);
             req.send();
         }
+
     }
 
     finishingCallback(responses:any[], statusCodes:number[])
@@ -351,6 +353,7 @@ export class DataModel
     findInitialConfiguration()
     {
         // App running on a webserver:
+        console.log("SELFHOST: " + this.isHost() );
         if(this.isHost())
         {
             this.currentlyActive.host = window.location.hostname;
@@ -395,8 +398,8 @@ export class DataModel
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost()
     {
-        return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
-        //return false;
+        return (!DataModel.FORCE_CLIENT_DEBUG) &&
+            (DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb'));
     }
 
     isAndroid()

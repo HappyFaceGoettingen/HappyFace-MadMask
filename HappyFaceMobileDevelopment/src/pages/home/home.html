@@ -6,24 +6,20 @@
 
 <ion-content padding>
 
-    <ion-card *ngFor="let wid of widgets">
+    <ion-card *ngFor="let i of widgets">
 
         <!-- Headers -->
-        <ion-card-header *ngIf="wid.textHeader">
-            {{wid.widget.headerText}}
-        </ion-card-header>
-        <ion-card-header *ngIf="wid.htmlHeader">
-            <div [innerHTML]="wid.widget.headerHTML"></div>
+        <ion-card-header *ngIf="i.widget.title">
+            <div [innerHTML]="i.widget.title"></div>
         </ion-card-header>
 
         <!-- Content -->
-        <ion-card-content *ngIf="wid.textHeader">
-            {{wid.widget.contentText}}
-        </ion-card-content>
-        <ion-card-content *ngIf="wid.htmlContent">
-            <div [innerHTML]="wid.widget.contentHTML"></div>
+        <ion-card-content *ngIf="i.widget.content">
+            <div [innerHTML]="i.widget.content"></div>
         </ion-card-content>
 
     </ion-card>
+
+    <div #vc></div>
 
 </ion-content>

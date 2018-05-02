@@ -1,0 +1,29 @@
+<style>
+    .card_temp {
+        display: inline-block;
+        height: 50px;
+        border: 1px solid #fff;
+        padding: 0;
+        margin: 1rem;
+        position: relative;
+        width: 50px;
+    }
+
+    .card_temp img {
+        width: 5em;
+        height: 4em;
+        border-style: none;
+        text-align:center;
+        max-width: 5em; max-height: 4em;
+        min-width: 5em; min-height: 4em;
+    }
+</style>
+
+<ion-row>
+    <ion-col col-sm-4 *ngFor="let img of img_list">
+        <div class="card_temp" (click)="imgClicked(img)">
+            <img src="{{img.src}}">
+            <p style="font-size: 9px">{{img.title}}</p>
+        </div>
+    </ion-col>
+</ion-row>

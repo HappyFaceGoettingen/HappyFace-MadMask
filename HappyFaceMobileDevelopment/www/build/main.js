@@ -8,7 +8,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__instances_component__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__instances_component__ = __webpack_require__(207);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,7 +62,7 @@ ConfigPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Configuration</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list>\n\n        <ion-item (click)="chooseInstance()">\n\n            <!-- Move to Instance selection page -->\n\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Automatic rotation</ion-label>\n\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Automatic fetch</ion-label>\n\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-list-header *ngIf="automaticFetch">\n\n            Reload Interval:\n\n            <ion-badge item-end>{{interval}} min</ion-badge>\n\n        </ion-list-header>\n\n        <ion-item *ngIf="automaticFetch">\n\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n\n                <ion-icon range-left name="time"></ion-icon>\n\n            </ion-range>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Detect only change</ion-label>\n\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable Mad Vision</ion-label>\n\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable Text speech</ion-label>\n\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable automatic voice readout</ion-label>\n\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-list-header *ngIf="enableAutoReadout">\n\n            Readout Interval:\n\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n\n        </ion-list-header>\n\n        <ion-item *ngIf="enableAutoReadout">\n\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n\n                <ion-icon range-left name="time"></ion-icon>\n\n            </ion-range>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>HappyFace compatible</ion-label>\n\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavParams */]])
 ], ConfigPage);
 
 //# sourceMappingURL=config.js.map
@@ -77,7 +77,7 @@ ConfigPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hf_modules__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hf_modules__ = __webpack_require__(217);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -135,7 +135,7 @@ HFCategoriesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-hf-categories",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-categories.html"*/'<!--<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Categories</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>-->\n\n\n\n<style>.scroll-content {\n\n    padding: 0 !important;\n\n}</style>\n\n\n\n<ion-content>\n\n    <div text-center padding *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <div class="complete-overlay" padding *ngIf="outdated && !isLoading">\n\n        <h1 class="outdated">Outdated</h1>\n\n    </div>\n\n    <div class="complete-overlay" padding *ngIf="false && !isLoading">\n\n        <h1 class="no-active-instance">No Active Instance</h1>\n\n    </div>\n\n\n\n    <div text-center *ngIf="!isLoading" no-padding><h5>data from {{data_time}}</h5></div>\n\n\n\n    <ion-grid *ngIf="!isLoading">\n\n        <ion-row>\n\n            <ion-col col-6 col-sm *ngFor="let category of categories">\n\n                <ion-card (click)="categorySelected(category)">\n\n                    <ion-card-content>\n\n                        <img src="{{imgForCategory(category)}}" height="50px" width="50px"/><br/>\n\n                        <div class="cat-title"><h2>{{category.title}}</h2></div>\n\n                    </ion-card-content>\n\n                </ion-card>\n\n            </ion-col>\n\n        </ion-row>\n\n    </ion-grid>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-categories.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */]])
 ], HFCategoriesPage);
 
 //# sourceMappingURL=hf-categories.js.map
@@ -302,14 +302,14 @@ AnalyzerDetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-analyzer-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{url.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img style="margin-left: auto; margin-right: auto; max-width: 100%;" src="{{url.plot}}"/>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer-detail.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], AnalyzerDetailPage);
 
 //# sourceMappingURL=analyzer-detail.js.map
 
 /***/ }),
 
-/***/ 114:
+/***/ 116:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -322,7 +322,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 114;
+webpackEmptyAsyncContext.id = 116;
 
 /***/ }),
 
@@ -335,7 +335,7 @@ webpackEmptyAsyncContext.id = 114;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__ = __webpack_require__(204);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -638,6 +638,7 @@ let DataModel = DataModel_1 = class DataModel {
     // Initial configuration
     findInitialConfiguration() {
         // App running on a webserver:
+        console.log("SELFHOST: " + this.isHost());
         if (this.isHost()) {
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
@@ -673,8 +674,8 @@ let DataModel = DataModel_1 = class DataModel {
     // Determine whether this instance should show content hosted by itself or should connect to a remote host
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost() {
-        return DataModel_1.FORCE_SELFHOST_DEBUG || this.plt.is('core'); // || this.plt.is('mobileweb');
-        //return false;
+        return (!DataModel_1.FORCE_CLIENT_DEBUG) &&
+            (DataModel_1.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb'));
     }
     isAndroid() {
         return this.plt.is('android');
@@ -690,6 +691,7 @@ let DataModel = DataModel_1 = class DataModel {
 // Debug switches
 DataModel.FORCE_SELFHOST_DEBUG = false;
 DataModel.FORCE_MOBILE_VISION = false;
+DataModel.FORCE_CLIENT_DEBUG = true;
 //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
 //static FORCE_MOBILE:boolean = false;
 // Seed node (unused)
@@ -709,7 +711,7 @@ DataModel.meta_meta_json = "meta-meta.json";
 DataModel.summaryJson = "index/latest/summary.json";
 DataModel = DataModel_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */]])
 ], DataModel);
 
 class ConfigObject {
@@ -800,7 +802,7 @@ var DataModel_1;
 
 /***/ }),
 
-/***/ 155:
+/***/ 158:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -813,26 +815,26 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 155;
+webpackEmptyAsyncContext.id = 158;
 
 /***/ }),
 
-/***/ 199:
+/***/ 202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__monitoring_monitoring__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controller_controller__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__logs_logs__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__visualizers_visualizers__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__humans_humans__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__working_working__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__monitoring_monitoring__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controller_controller__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__logs_logs__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__visualizers_visualizers__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__humans_humans__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__working_working__ = __webpack_require__(215);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modals_config_config__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__analyzer_analyzer2__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__home_home__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__analyzer_analyzer2__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__home_home__ = __webpack_require__(218);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -882,14 +884,14 @@ TabsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/'<ion-content padding>\n  <ion-tabs [selectedIndex]="6">\n      <ion-tab [root]="tabHome" tabTitle="Home" tabIcon="ios-home" *ngIf="true"></ion-tab>\n      <ion-tab [root]="tabMonitoring" tabTitle="Monitoring" tabIcon="ios-speedometer"></ion-tab>\n      <ion-tab [root]="tabAnalyzer" tabTitle="Analyzer" tabIcon="ios-analytics"></ion-tab>\n      <ion-tab [root]="tabSystems" tabTitle="Controller" tabIcon="ios-game-controller-b"></ion-tab>\n      <ion-tab [root]="tabVisualizer" tabTitle="Visualizer" tabIcon="ios-desktop"></ion-tab>\n      <ion-tab [root]="tabLogs" tabTitle="Logs" tabIcon="ios-recording"></ion-tab>\n      <ion-tab [root]="tabHumans" tabTitle="Humans" tabIcon="ios-people"></ion-tab>\n      <ion-tab [root]="tabConfig" tabTitle="Config" tabIcon="ios-settings" *ngIf="false"></ion-tab>\n      <ion-tab [root]="tabWorking" tabTitle="Working" tabIcon="ios-nuclear" *ngIf="true"></ion-tab>\n  </ion-tabs>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\tabs\tabs.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], TabsPage);
 
 //# sourceMappingURL=tabs.js.map
 
 /***/ }),
 
-/***/ 200:
+/***/ 203:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -897,8 +899,8 @@ TabsPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__monitoring_webview__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_config_modal__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__monitoring_webview__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_config_modal__ = __webpack_require__(206);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1087,14 +1089,14 @@ MonitoringPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-buttons left>\n\n            <button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>\n\n        </ion-buttons>\n\n        <ion-title>Happy Meta-Monitoring</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-more"></ion-icon></button>\n\n        </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card-header>\n\n                Status: {{statusLevel}}\n\n            </ion-card-header>\n\n            <ion-card-content no-padding>\n\n                <ion-item color="{{statusColor}}" text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <!-- History chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>History:</ion-label>\n\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n        <!-- Content list -->\n\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n\n            <ion-card no-padding no-margin>\n\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                <ion-card-content no-padding>\n\n                    <ion-grid>\n\n                        <ion-row>\n\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                <div class="launchpad">\n\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                </div>\n\n                            </ion-col>\n\n                        </ion-row>\n\n                    </ion-grid>\n\n                </ion-card-content>\n\n            </ion-card>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* ModalController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* ModalController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
 ], MonitoringPage);
 
 //# sourceMappingURL=monitoring.js.map
 
 /***/ }),
 
-/***/ 201:
+/***/ 204:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1142,14 +1144,14 @@ ConnectionErrorPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-connection-error",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\error\connection-error.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Connection Error</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <div text-center><h1>Connection Error</h1></div>\n\n    <p>Unable to connect to given instance.</p>\n\n    <p *ngIf="onlyOneCode">Errorcode: {{statusCode}}</p>\n\n    <p *ngIf="!onlyOneCode">Recieved various Errorcodes (shown below)</p>\n\n\n\n    <ion-item>\n\n        <ion-label color="primary" fixed>Host: </ion-label>\n\n        <ion-input placeholder="{{host}}" [(ngModel)]="host"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label color="primary" fixed>Port: </ion-label>\n\n        <ion-input placeholder="{{port}}" [(ngModel)]="port"></ion-input>\n\n    </ion-item>\n\n    <br/>\n\n    <!--Data: {{host}} + {{port}} <br/>-->\n\n\n\n    Files with errors: <br/>\n\n    <code>\n\n        <span *ngFor="let m of missingFiles">{{m.url}} --> code: {{m.code}}<br/></span>\n\n    </code>\n\n</ion-content>\n\n\n\n<ion-footer>\n\n    <ion-toolbar>\n\n        <ion-buttons end>\n\n            <button ion-button type="submit" (click)="retry()" item-end>Retry</button>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\error\connection-error.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], ConnectionErrorPage);
 
 //# sourceMappingURL=connection-error.js.map
 
 /***/ }),
 
-/***/ 202:
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1181,14 +1183,14 @@ let MonitoringWebviewPage = class MonitoringWebviewPage {
 MonitoringWebviewPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring-webview.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{url.name}}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only item-end (click)="changeToMadVision()">\n\n                <ion-icon name="ion-eye"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img style="margin-left: auto; margin-right:auto; max-width: 100%" src="{{url.image}}"/>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring-webview.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavParams */]])
 ], MonitoringWebviewPage);
 
 //# sourceMappingURL=monitoring-webview.js.map
 
 /***/ }),
 
-/***/ 203:
+/***/ 206:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1218,14 +1220,14 @@ let ModalPage = class ModalPage {
 ModalPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\modal.html"*/'<ion-nav [root]="rootPage" [rootParams]="rootParams"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\modal.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* ViewController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* ViewController */]])
 ], ModalPage);
 
 //# sourceMappingURL=modal.js.map
 
 /***/ }),
 
-/***/ 204:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1339,14 +1341,14 @@ let InstancesComponent = class InstancesComponent {
 InstancesComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Choose Instance</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="outer-content">\n\n  <ion-list-header>\n\n    Favorites\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let fav of favorites">\n\n      <button ion-item detail-none (click)="choose(fav)">\n\n        {{fav.name}}\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n\n\n    <br/>\n\n  <ion-list-header>\n\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n\n          <ion-icon name="ios-arrow-back"></ion-icon>\n\n      </button>\n\n      {{label}}\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let loc of locations">\n\n      <button ion-item detail-none (click)="choose(loc);">\n\n        {{loc.name}}\n\n        <div item-end text-center>\n\n          <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">\n\n            <ion-icon name="arrow-forward"></ion-icon>\n\n          </button>\n\n        </div>\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n  <!--<span [innerHtml]="label"></span>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
 ], InstancesComponent);
 
 //# sourceMappingURL=instances.component.js.map
 
 /***/ }),
 
-/***/ 205:
+/***/ 208:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1354,8 +1356,8 @@ InstancesComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controller_detail__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_ssh_ssh_terminal__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controller_detail__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_ssh_ssh_terminal__ = __webpack_require__(210);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1415,14 +1417,14 @@ ControllerPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-controller',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Controller</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button (click)="openSSH()" class="ssh-button">SSH</button>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list no-padding [hidden]="isLoading">\n\n        <ion-item *ngFor="let system of systems" text-wrap no-padding (click)="openPage(system)">\n\n            <ion-avatar item-left>\n\n                <img src="assets/{{system.img}}"/>\n\n            </ion-avatar>\n\n            <h2>{{system.name}}</h2>\n\n            <p>{{system.text}}</p>\n\n            <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* ModalController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* ModalController */]])
 ], ControllerPage);
 
 //# sourceMappingURL=controller.js.map
 
 /***/ }),
 
-/***/ 206:
+/***/ 209:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1461,14 +1463,14 @@ ControllerDetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{system.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n\n    <h2>{{system.text}}</h2>\n\n\n\n    <!--<ion-card>\n\n        <ion-item-divider>Power</ion-item-divider>\n\n        <ion-item text-wrap>\n\n            <button ion-button class="button-outline">Cold reboot</button>\n\n            <button ion-button class="button-outline">Warm reboot</button>\n\n        </ion-item>\n\n    </ion-card>-->\n\n    <ion-card>\n\n        <ion-item-divider>Service</ion-item-divider>\n\n        <ion-item *ngFor="let service of system.services" text-wrap>\n\n            <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n\n        </ion-item>\n\n    </ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], ControllerDetailPage);
 
 //# sourceMappingURL=controller-detail.js.map
 
 /***/ }),
 
-/***/ 207:
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1518,15 +1520,15 @@ SSHTerminalPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-ssh",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\ssh-terminal.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>SSH-Terminal</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content id="terminal-container">\n\n    <div id="container">\n\n        <output></output>\n\n        <div id="input-line" class="input-line">\n\n            <div class="prompt" [innerHtml]="promt"></div>\n\n            <div><input id="cmdline" class="cmdline" autofocus/></div>\n\n        </div>\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\ssh-terminal.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */]])
 ], SSHTerminalPage);
 
 //# sourceMappingURL=ssh-terminal.js.map
 
 /***/ }),
 
-/***/ 208:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1562,14 +1564,14 @@ let PassModal = class PassModal {
 PassModal = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\pass-modal.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Login</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <p>Please provide login information:</p>\n\n\n\n    <ion-item>\n\n        <ion-label fixed>Host: </ion-label>\n\n        <ion-input [(ngModel)]="host"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label fixed>Port: </ion-label>\n\n        <ion-input type="number" [(ngModel)]="port"></ion-input>\n\n    </ion-item>\n\n    <p></p>\n\n    <ion-item>\n\n        <ion-label fixed>Username: </ion-label>\n\n        <ion-input [(ngModel)]="user"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label fixed>Password: </ion-label>\n\n        <ion-input type="password" [(ngModel)]="pass"></ion-input>\n\n    </ion-item>\n\n</ion-content>\n\n\n\n<ion-footer>\n\n    <ion-toolbar>\n\n        <ion-buttons end>\n\n            <button ion-button (click)="enter()">Enter</button>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\pass-modal.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* ViewController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["j" /* ViewController */]])
 ], PassModal);
 
 //# sourceMappingURL=pass-modal.js.map
 
 /***/ }),
 
-/***/ 209:
+/***/ 212:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1658,7 +1660,7 @@ LogsPage = __decorate([
 
 /***/ }),
 
-/***/ 210:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1743,7 +1745,7 @@ VisualizersPage = __decorate([
 
 /***/ }),
 
-/***/ 211:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1797,14 +1799,13 @@ HumansPage = __decorate([
 
 /***/ }),
 
-/***/ 212:
+/***/ 215:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WorkingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataSearch__ = __webpack_require__(296);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1816,14 +1817,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 let WorkingPage = class WorkingPage {
     constructor(model) {
         this.model = model;
-        this.search = null;
-        this.data = [{ name: "Hallo" }];
-        this.searchContent = "";
         this.isLoading = true;
+        this.listIMG = [];
     }
     ngOnInit() {
         this.model.addLoadingFinishedCallback(this.loadingFinished.bind(this));
@@ -1831,25 +1829,63 @@ let WorkingPage = class WorkingPage {
             this.loadingFinished();
     }
     loadingFinished() {
+        if (this.model.monitoringUrls == undefined)
+            return;
         this.isLoading = false;
-        this.search = new __WEBPACK_IMPORTED_MODULE_2__data_DataSearch__["a" /* DataSearch */](this.model);
-        console.log("PROD: " + JSON.stringify(this.search.searchData));
-        this.data = this.search.searchData;
-        if (this.searchContent !== "")
-            this.data = this.search.search(this.searchContent);
+        this.setLinks("latest");
+        this.listIMG = [];
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[0].thumbnail, title: this.model.monitoringUrls[0].urls[0].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[1].thumbnail, title: this.model.monitoringUrls[0].urls[1].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[2].thumbnail, title: this.model.monitoringUrls[0].urls[2].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[3].thumbnail, title: this.model.monitoringUrls[0].urls[3].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[4].thumbnail, title: this.model.monitoringUrls[0].urls[4].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[4].thumbnail, title: this.model.monitoringUrls[0].urls[4].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[4].thumbnail, title: this.model.monitoringUrls[0].urls[4].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[4].thumbnail, title: this.model.monitoringUrls[0].urls[4].name });
+        this.listIMG.push({ src: this.model.monitoringUrls[0].urls[4].thumbnail, title: this.model.monitoringUrls[0].urls[4].name });
+        console.log("LIST: " + JSON.stringify(this.listIMG));
     }
-    searchData(event) {
-        this.data = this.search.searchData;
-        let val = event.target.value;
-        if (val && val.trim() !== '') {
-            this.data = this.search.search(val);
+    setLinks(datetime_dir) {
+        //let model:DataModel = DataModel.getInstance();
+        let remote_url = this.model.getRemoteURL();
+        let config = this.model.config;
+        let capture_dir = config.data_dir + "/capture";
+        let thumbnail_dir = config.data_dir + "/thumbnail";
+        let analysis_dir = config.data_dir + "/analysis";
+        if (this.model.configuration.get().enableMadVision) {
+            capture_dir = analysis_dir + "/madvision";
+            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
         }
-        this.searchContent = val;
+        let plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
+        let plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
+        for (let i = 0; i < this.model.monitoringUrls.length; i++) {
+            for (let j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
+                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
+                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "img/not_captured.png";
+                }
+                else {
+                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.model.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.model.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
+                    //this.setPlots(this.plot_name);
+                }
+            }
+        }
+        //console.log(JSON.stringify(this.model.monitoringUrls));
+        //this.monitoringURLs = this.model.monitoringUrls;
+    }
+    imgClicked(img) {
     }
 };
 WorkingPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-working',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Working</ion-title>\n\n    </ion-navbar>\n\n    <!--<ion-toolbar>\n\n        <ion-searchbar placeholder="Search" (ionInput)="searchData($event)"></ion-searchbar>\n\n    </ion-toolbar>-->\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <!--<ion-list [hidden]="isLoading">\n\n        <ion-item *ngFor="let item of data">\n\n            {{ item.name }}\n\n        </ion-item>\n\n    </ion-list>-->\n\n\n\n    <!-- Widgets -->\n\n    <!--<ion-card no-padding>\n\n        <ion-card-header>{{data[0].name}}</ion-card-header>\n\n        <ion-card-content>\n\n            <div style="border-style: none; text-align:center"><img src="{{data[0].thumbnail}}"/></div>\n\n        </ion-card-content>\n\n    </ion-card>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/
+        selector: 'page-working',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Working</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <!--<ion-grid [hidden]="isLoading">\n        <ion-row>\n            <ion-scroll scrollX="true" scrollY="false" style="height:100px;">\n                    <ion-col col-sm-4 *ngFor="let img of listIMG">\n                        <div class="card card-1" (click)="imgClicked(img)">\n                            <img src="{{img.src}}">\n                            <p style="font-size: 9px">{{img.title}}</p>\n                        </div>\n                    </ion-col>\n            </ion-scroll>\n        </ion-row>\n    </ion-grid>-->\n\n    <ion-item>\n        <ion-scroll scrollX="true" scrollY="true" style="height:100px;">\n            <ion-col col-sm-4 *ngFor="let img of listIMG" style="height:100px;">\n                <div class="card_temp" (click)="imgClicked(img)">\n                    <img src="{{img.src}}">\n                    <p style="font-size: 9px">{{img.title}}</p>\n                </div>\n            </ion-col>\n        </ion-scroll>\n    </ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\working\working.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]])
 ], WorkingPage);
@@ -1858,7 +1894,7 @@ WorkingPage = __decorate([
 
 /***/ }),
 
-/***/ 213:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2032,7 +2068,7 @@ AnalyzerPage2 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["m" /* Component */])({
         selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer2.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card-header>\n\n                Status: {{statusLevel}}\n\n            </ion-card-header>\n\n            <ion-card-content no-padding>\n\n                <ion-item color="{{statusColor}}" text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <!-- Viewer chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>Viewer:</ion-label>\n\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n\n\n        <!-- TYPE == plots -->\n\n        <ng-container *ngIf="(selectedViewer.type === \'plots\')">\n\n            <ion-item *ngFor="let monitoringURL of selectedViewer.src.monitoringURLs" no-padding no-margin text-wrap>\n\n                <ion-card no-padding no-margin>\n\n                    <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                    <ion-card-content no-padding>\n\n                        <ion-grid>\n\n                            <ion-row>\n\n                                <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                    <div class="launchpad">\n\n                                        <div class="logo"><img src="{{url.plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n\n                                        <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                    </div>\n\n                                </ion-col>\n\n                            </ion-row>\n\n                        </ion-grid>\n\n                    </ion-card-content>\n\n                </ion-card>\n\n            </ion-item>\n\n        </ng-container>\n\n\n\n\n\n        <!-- TYPE == img -->\n\n        <ion-item *ngIf="(selectedViewer.type === \'img\')">\n\n            <img src="{{selectedViewer.src}}"/>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <!-- TYPE == page -->\n\n    <span [hidden]="!(selectedViewer.type === \'page\')">\n\n        <ng-container #parent></ng-container>\n\n    </span>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer2.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* NavController */],
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_3__angular_core__["o" /* ComponentFactoryResolver */]])
 ], AnalyzerPage2);
 
@@ -2040,7 +2076,7 @@ AnalyzerPage2 = __decorate([
 
 /***/ }),
 
-/***/ 214:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2108,20 +2144,21 @@ HFModulesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-hf-modules",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-modules.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>\n\n            {{category.title}}\n\n        </ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="false"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <div text-center padding *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <div class="complete-overlay" padding *ngIf="outdated && !isLoading">\n\n        <h1 class="outdated">Outdated</h1>\n\n    </div>\n\n\n\n    <div class="no-modules" *ngIf="!modulesExisting"> No modules contained</div>\n\n\n\n    <ion-list *ngIf="modulesExisting">\n\n        <ng-container *ngFor="let module of category.module">\n\n            <ion-item *ngIf="module.title" (click)="moduleSelected(module)" style="padding: 0 !important">\n\n                <ion-thumbnail item-start style="min-width: 30px; min-height: 30px; width: 30px; height: 30px;">\n\n                    <img src="{{imgForModule(module)}}" style="width: 30px; height: 30px"/>\n\n                </ion-thumbnail>\n\n                <span padding-left text-wrap style="font-size: 20px" item-end>{{module.title}}</span>\n\n                <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>\n\n            </ion-item>\n\n        </ng-container>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-modules.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavParams */]])
 ], HFModulesPage);
 
 //# sourceMappingURL=hf-modules.js.map
 
 /***/ }),
 
-/***/ 215:
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2133,62 +2170,71 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-let HomePage = HomePage_1 = class HomePage {
-    constructor(model) {
+
+let HomePage = class HomePage {
+    constructor(model, _compiler, _injector, _m) {
         this.model = model;
+        this._compiler = _compiler;
+        this._injector = _injector;
+        this._m = _m;
         this.widgets = [];
-        this.widgetsDATA = ["C:\\Users\\atopi\\Codes\\bachelor\\HappyFace-MadMask\\HappyFaceMobileDevelopment\\src\\pages\\home\\widgets\\TestWidget"];
+        this.widgetsSave = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
     }
     ngOnInit() {
-        for (let i = 0; i < this.widgetsDATA.length; i++) {
-            let a = this.widgetsDATA[i];
+        this.reloadWidgets();
+    }
+    reloadWidgets() {
+        for (let i = 0; i < this.widgetsSave.length; i++) {
+            let a = this.widgetsSave[i];
             console.log("MODULE: " + a);
-            HomePage_1.loadWidget(a).then((widget) => { this.buildWidget(widget); });
+            this.loadAndBuildWidget(a); //.then( (base:BaseWidget) => { this.widgets.push({widget:base}); })
         }
     }
-    static async loadWidget(name) {
-        let s = "http://141.5.108.29:19000/widgets/TestWidget.js";
-        for (let i = 0; i < s.length; i++)
-            console.log("NUMBER: " + s.charCodeAt(i));
-        const widget = await __webpack_require__(297)(s); // "./widgets/TestWidget");
-        return widget.instance();
-    }
-    buildWidget(widget) {
-        widget.config = this.model.config;
-        widget.humans = this.model.humans;
-        widget.logs = this.model.logs;
-        widget.systems = this.model.systems;
-        widget.summary = this.model.summary;
-        widget.visualizers = this.model.visualizers;
-        widget.monitoringURLS = this.model.monitoringUrls;
-        let htmlHeader = widget.headerHTML !== null;
-        let textHeader = widget.headerText !== null;
-        let htmlContent = widget.contentHTML !== null;
-        let textContent = widget.contentText !== null;
-        this.widgets.push({ widget: widget, htmlHeader: htmlHeader, textHeader: textHeader, htmlContent: htmlContent,
-            textContent: textContent });
-        console.log("Pushed");
+    async loadAndBuildWidget(name) {
+        const func = new Function("x", "return import(x)");
+        const loaded = await func(name);
+        //console.log(loaded);
+        //return loaded.instance();
+        //const template = '<span>generated on the fly: {{name}}</span>';
+        const tmpCmp = Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({ selector: "dynamic-page", template: loaded.template() })(loaded.cls());
+        const tmpModule = Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({ declarations: [tmpCmp], imports: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPageModule */].forChild(tmpCmp)] })(class {
+        });
+        this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
+            .then((factories) => {
+            const f = factories.componentFactories[0];
+            const cmpRef = f.create(this._injector, [], null, this._m);
+            //console.log("INSTANCE: " + JSON.stringify(cmpRef.instance));
+            //console.log("HEADER: " + cmpRef.instance.headerText);
+            //const cmpRef = this.vc.createComponent(tmpCmp);
+            //cmpRef.instance.name = 'B component';
+            this.vc.insert(cmpRef.hostView);
+        });
+        return null;
     }
 };
-HomePage = HomePage_1 = __decorate([
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('vc', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
+], HomePage.prototype, "vc", void 0);
+HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <ion-card *ngFor="let wid of widgets">\n\n        <!-- Headers -->\n        <ion-card-header *ngIf="wid.textHeader">\n            {{wid.widget.headerText}}\n        </ion-card-header>\n        <ion-card-header *ngIf="wid.htmlHeader">\n            <div [innerHTML]="wid.widget.headerHTML"></div>\n        </ion-card-header>\n\n        <!-- Content -->\n        <ion-card-content *ngIf="wid.textHeader">\n            {{wid.widget.contentText}}\n        </ion-card-content>\n        <ion-card-content *ngIf="wid.htmlContent">\n            <div [innerHTML]="wid.widget.contentHTML"></div>\n        </ion-card-content>\n\n    </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
+        selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <ion-card *ngFor="let i of widgets">\n\n        <!-- Headers -->\n        <ion-card-header *ngIf="i.widget.title">\n            <div [innerHTML]="i.widget.title"></div>\n        </ion-card-header>\n\n        <!-- Content -->\n        <ion-card-content *ngIf="i.widget.content">\n            <div [innerHTML]="i.widget.content"></div>\n        </ion-card-content>\n\n    </ion-card>\n\n    <div #vc></div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _e || Object])
 ], HomePage);
 
-var HomePage_1;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 216:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(240);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -2196,7 +2242,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 239:
+/***/ 240:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2204,39 +2250,41 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_analyzer_analyzer_detail__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_visualizers_visualizers__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_logs_logs__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_humans_humans__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_working_working__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_visualizers_visualizers__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_logs_logs__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_humans_humans__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_working_working__ = __webpack_require__(215);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_config__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_instances_component__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_modals_config_modal__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_instances_component__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_modals_config_modal__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__data_DataModel__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_storage__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_ClassicalDataModel__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_categories__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_hf_classical_hf_modules__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_analyzer_analyzer2__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_modals_error_connection_error__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_ssh_terminal__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_modals_ssh_pass_modal__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_home_home__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_hf_classical_hf_modules__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_analyzer_analyzer2__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_modals_error_connection_error__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_ssh_terminal__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_modals_ssh_pass_modal__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_home_home__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_common_http__ = __webpack_require__(297);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -2297,6 +2345,7 @@ AppModule = __decorate([
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_30__angular_common_http__["a" /* HttpClientModule */],
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* HappyFaceApp */], {}, {
                 links: []
             }),
@@ -2332,7 +2381,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
             { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
             __WEBPACK_IMPORTED_MODULE_20__data_DataModel__["a" /* DataModel */],
-            __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_ClassicalDataModel__["a" /* ClassicalDataModel */]
+            __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_ClassicalDataModel__["a" /* ClassicalDataModel */],
+            __WEBPACK_IMPORTED_MODULE_30__angular_common_http__["a" /* HttpClientModule */]
         ]
     })
 ], AppModule);
@@ -2348,9 +2398,9 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HappyFaceApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2379,7 +2429,7 @@ let HappyFaceApp = class HappyFaceApp {
 HappyFaceApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], HappyFaceApp);
 
 //# sourceMappingURL=app.component.js.map
@@ -2391,7 +2441,7 @@ HappyFaceApp = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SSH2_Wrapper__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pass_modal__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pass_modal__ = __webpack_require__(211);
 
 
 class Terminal2 {
@@ -2799,60 +2849,6 @@ class SSH2Wrapper {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class DataSearch {
-    constructor(model) {
-        this.model = model;
-        this.searchData = [];
-        this.prodSearchData();
-    }
-    prodSearchData() {
-        if (this.model.monitoringUrls == null || this.model.monitoringUrls == undefined)
-            return;
-        for (let i = 0; i < this.model.monitoringUrls.length; i++) {
-            for (let j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                //console.log("PROD: " + JSON.stringify(this.model.monitoringUrls[i].urls[j]));
-                let obj = this.model.monitoringUrls[i].urls[j];
-                obj["category"] = this.model.monitoringUrls[i].name;
-                let index = this.searchData.length;
-                this.searchData.push(this.model.monitoringUrls[i].urls[j]);
-            }
-        }
-    }
-    search(str) {
-        console.log("STR: " + str);
-        let result = [];
-        this.searchData.filter((data) => { if (data.name.toLowerCase().includes(str.toLowerCase()))
-            result.push(data); });
-        return result;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = DataSearch;
-
-//# sourceMappingURL=DataSearch.js.map
-
-/***/ }),
-
-/***/ 297:
-/***/ (function(module, exports) {
-
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncatched exception popping up in devtools
-	return Promise.resolve().then(function() {
-		throw new Error("Cannot find module '" + req + "'.");
-	});
-}
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 297;
-
-/***/ }),
-
-/***/ 298:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalyzerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
@@ -2998,12 +2994,12 @@ AnalyzerPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card-header>\n\n                Status: {{statusLevel}}\n\n            </ion-card-header>\n\n            <ion-card-content no-padding>\n\n                <ion-item color="{{statusColor}}" text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <!-- Viewer chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>Viewer:</ion-label>\n\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n        <!-- HappyFace Version1 Connector -->\n\n        <ion-item [hidden]="!selectedViewer.id === \'happyface\'">\n\n            <ion-tabs>\n\n                <ion-tab [root]="HFClassical"></ion-tab>\n\n            </ion-tabs>\n\n        </ion-item>\n\n\n\n        <!-- Single Plots, i.e. pictures -->\n\n        <ion-item [hidden]="selectedViewer.multiplots  || (selectedViewer.id === \'happyface\' )">\n\n            <img src="{{selectedViewer.spsrc}}"/>\n\n        </ion-item>\n\n\n\n        <!-- Multi Plots -->\n\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap [hidden]="!selectedViewer.multiplots || (selectedViewer.id === \'happyface\')">\n\n            <ion-card no-padding no-margin>\n\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                <ion-card-content no-padding>\n\n                    <ion-grid>\n\n                        <ion-row>\n\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                <div class="launchpad">\n\n                                    <div class="logo"><img src="{{url.analysis_plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                </div>\n\n                            </ion-col>\n\n                        </ion-row>\n\n                    </ion-grid>\n\n                </ion-card-content>\n\n            </ion-card>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
 ], AnalyzerPage);
 
 //# sourceMappingURL=analyzer.js.map
 
 /***/ })
 
-},[216]);
+},[219]);
 //# sourceMappingURL=main.js.map

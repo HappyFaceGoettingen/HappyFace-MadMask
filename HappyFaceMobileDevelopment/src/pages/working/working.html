@@ -2,9 +2,6 @@
     <ion-navbar>
         <ion-title>Working</ion-title>
     </ion-navbar>
-    <!--<ion-toolbar>
-        <ion-searchbar placeholder="Search" (ionInput)="searchData($event)"></ion-searchbar>
-    </ion-toolbar>-->
 </ion-header>
 
 <ion-content>
@@ -12,17 +9,27 @@
         <ion-spinner></ion-spinner>
     </div>
 
-    <!--<ion-list [hidden]="isLoading">
-        <ion-item *ngFor="let item of data">
-            {{ item.name }}
-        </ion-item>
-    </ion-list>-->
+    <!--<ion-grid [hidden]="isLoading">
+        <ion-row>
+            <ion-scroll scrollX="true" scrollY="false" style="height:100px;">
+                    <ion-col col-sm-4 *ngFor="let img of listIMG">
+                        <div class="card card-1" (click)="imgClicked(img)">
+                            <img src="{{img.src}}">
+                            <p style="font-size: 9px">{{img.title}}</p>
+                        </div>
+                    </ion-col>
+            </ion-scroll>
+        </ion-row>
+    </ion-grid>-->
 
-    <!-- Widgets -->
-    <!--<ion-card no-padding>
-        <ion-card-header>{{data[0].name}}</ion-card-header>
-        <ion-card-content>
-            <div style="border-style: none; text-align:center"><img src="{{data[0].thumbnail}}"/></div>
-        </ion-card-content>
-    </ion-card>-->
+    <ion-item>
+        <ion-scroll scrollX="true" scrollY="true" style="height:100px;">
+            <ion-col col-sm-4 *ngFor="let img of listIMG" style="height:100px;">
+                <div class="card_temp" (click)="imgClicked(img)">
+                    <img src="{{img.src}}">
+                    <p style="font-size: 9px">{{img.title}}</p>
+                </div>
+            </ion-col>
+        </ion-scroll>
+    </ion-item>
 </ion-content>

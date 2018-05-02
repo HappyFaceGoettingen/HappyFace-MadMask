@@ -1,63 +1,71 @@
-import {Component} from "@angular/core";
-import {HFWidget} from "./widgets/HFWidget";
+import {Compiler, Component, Injector, NgModule, NgModuleRef, ViewChild, ViewContainerRef} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
+import {BaseWidget} from "../../assets/widgets/BaseWidget";
+import {IonicPageModule} from "ionic-angular";
 
 @Component({
-    selector: 'page-home',
-    templateUrl: 'home.html'
+    selector: "page-home",
+    templateUrl: "home.html"
 })
 
 export class HomePage
 {
-    widgets:any[] = [];
+    widgets:WidgetData[] = [];
+    widgetsSave:string[] = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
 
-    widgetsDATA:string[] = [ "C:\\Users\\atopi\\Codes\\bachelor\\HappyFace-MadMask\\HappyFaceMobileDevelopment\\src\\pages\\home\\widgets\\TestWidget" ];
 
-    constructor(private model:DataModel) {}
+    @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
+
+    constructor(private model:DataModel, private _compiler:Compiler, private _injector:Injector, private _m:NgModuleRef<any>)
+    {}
 
     ngOnInit()
     {
+        this.reloadWidgets();
+    }
 
-
-        for(let i:number = 0; i < this.widgetsDATA.length; i++)
+    reloadWidgets()
+    {
+        for(let i:number = 0; i < this.widgetsSave.length; i++)
         {
-            let a:string = this.widgetsDATA[i];
+            let a:string = this.widgetsSave[i];
             console.log("MODULE: " + a);
-            HomePage.loadWidget(a).then((widget) => { this.buildWidget(widget); } );
+            this.loadAndBuildWidget(a); //.then( (base:BaseWidget) => { this.widgets.push({widget:base}); })
         }
     }
 
-    static async loadWidget(name:string):Promise<HFWidget>
+    async loadAndBuildWidget(name:string):Promise<BaseWidget>
     {
-        let s:string = "http://141.5.108.29:19000/widgets/TestWidget.js";
-        for(let i:number = 0; i < s.length; i++) console.log("NUMBER: " + s.charCodeAt(i));
-        const widget = await import(s);// "./widgets/TestWidget");
-        return widget.instance();
+        const func = new Function("x", "return import(x)");
+        const loaded = await func(name);
+
+        //console.log(loaded);
+        //return loaded.instance();
+
+        //const template = '<span>generated on the fly: {{name}}</span>';
+
+        const tmpCmp = Component({selector: "dynamic-page", template: loaded.template()})(loaded.cls());
+        const tmpModule = NgModule({declarations: [tmpCmp], imports: [IonicPageModule.forChild(tmpCmp)]})(class {});
+
+        this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
+            .then((factories) => {
+                const f = factories.componentFactories[0];
+                const cmpRef = f.create(this._injector, [], null, this._m);
+                //console.log("INSTANCE: " + JSON.stringify(cmpRef.instance));
+                //console.log("HEADER: " + cmpRef.instance.headerText);
+                //const cmpRef = this.vc.createComponent(tmpCmp);
+                //cmpRef.instance.name = 'B component';
+                this.vc.insert(cmpRef.hostView);
+            });
+
+        return null;
     }
 
-    buildWidget(widget:HFWidget)
-    {
-        widget.config  = this.model.config;
-        widget.humans  = this.model.humans;
-        widget.logs    = this.model.logs;
-        widget.systems = this.model.systems;
-        widget.summary = this.model.summary;
-        widget.visualizers = this.model.visualizers;
-        widget.monitoringURLS = this.model.monitoringUrls;
 
-        let htmlHeader:boolean = widget.headerHTML !== null;
-        let textHeader:boolean = widget.headerText !== null;
+}
 
-        let htmlContent:boolean = widget.contentHTML !== null;
-        let textContent:boolean = widget.contentText !== null;
-
-        this.widgets.push({widget: widget, htmlHeader: htmlHeader, textHeader: textHeader, htmlContent: htmlContent,
-            textContent: textContent});
-        console.log("Pushed");
-    }
-
-    makeAccess()
-    {
-
-    }
+export interface WidgetData
+{
+    widget:BaseWidget;
+    x?:number; y?:number; width?:number; height?:number;
 }

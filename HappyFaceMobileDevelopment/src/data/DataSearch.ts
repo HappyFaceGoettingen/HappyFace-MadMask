@@ -3,10 +3,11 @@ import {DataModel} from "./DataModel";
 export class DataSearch
 {
     searchData:any[] = [];
+    data:string = "Hallo Welt";
 
     constructor(private model:DataModel)
     {
-        this.prodSearchData();
+        //this.prodSearchData();
     }
 
     prodSearchData()
