@@ -135,6 +135,7 @@ android_sdk_zip(){
 
 build_packages(){
     local package=$1
+    echo "Starting a build process for a package [$package] ..."
 
     case "$package" in 
 	hf)

@@ -32,20 +32,22 @@ monitoring.urls.caller <- function(func=NULL, func.vars=list()){
 
     ## Loop over monitoring pages
     for (url.id in 1:length(urls)){
-      ## If capture = true, then call a function
-      if (urls[[url.id]]$capture){
-        file.prefix <<- urls[[url.id]]$file
-        url.name <<- urls[[url.id]]$name
-        systems <<- urls[[url.id]]$systems
+      ## If capture == false, then call a function (default is 'capture == TRUE')
+      capture <- urls[[url.id]]$capture
+      if (!is.null(capture) && (!capture)) next
 
-        ## Definitions of R Object files
-        robj.infogain <<- str.concat(robj.dir, "/", file.prefix, "__infogain.robj")
-        robj.detector <<- str.concat(robj.dir, "/", file.prefix, "__detector.robj")
-        robj.pathway <<- str.concat(robj.dir, "/", file.prefix, "__pathway.robj")
-
-        ## Calling a function
-        do.call(func, func.vars)
-      }
+      ## Running
+      file.prefix <<- urls[[url.id]]$file
+      url.name <<- urls[[url.id]]$name
+      systems <<- urls[[url.id]]$systems
+      
+      ## Definitions of R Object files
+      robj.infogain <<- str.concat(robj.dir, "/", file.prefix, "__infogain.robj")
+      robj.detector <<- str.concat(robj.dir, "/", file.prefix, "__detector.robj")
+      robj.pathway <<- str.concat(robj.dir, "/", file.prefix, "__pathway.robj")
+      
+      ## Calling a function
+      do.call(func, func.vars)
     }
   }
 }

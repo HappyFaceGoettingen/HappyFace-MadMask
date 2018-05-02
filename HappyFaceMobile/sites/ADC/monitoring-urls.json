@@ -1,1076 +1,925 @@
 [{
-	      "name": "Critical Line",
-	      "text": "The most critical monitoring pages",
-	      "level": "Critical",
-	      "urls": [
-		{
-		    "name": "Kibana ADC Central Services",
-		    "file_prefix": "Kibana_ADC_Central_Services", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/temp/ATLAS::ATLAS",
-		    "firefox_command": "Return",
-		    "capture": true,
-		    "systems": ["Kibana", "AGIS", "AMI", "Event Index Consumer", "Event Index Hadoop Cluster", "Event Index Web", "Frontier", "CVMFS ATLAS CONDB", "CVMFS Stratum1 ATLAS", "Panda Proxy", "Panda", "JEDI", "Panda Pilot Factory", "Rucio", "Rucio Kronos", "Rucio Reaper", "Rucio Undertaker", "Rucio httpd", "Rucio Load Balancer"]
-		},
-		{
-		    "name": "Kibana Atlas AGIS API",
-		    "file_prefix": "Kibana_Atlas_AGIS_API", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20atlas-agis-api*%20%29",
-		    "capture": true,
-		    "systems": ["Kibana", "AGIS"]
-		},
-		{
-		    "name": "Kibana Atlas AGIS Web UI",
-		    "file_prefix": "Kibana_Atlas_AGIS_Web_UI", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20ATLAS-AGIS-WEB*%20%29",
-		    "capture": true,
-		    "systems": ["Kibana", "AGIS"]
-		},
-		{
-		    "name": "Kibana AMI",
-		    "file_prefix": "Kibana_AMI", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28ATLAS-AMI%20ATLAS-AMI-CERN%29",
-		    "capture": true,
-		    "systems": ["Kibana", "AMI"]
-		},
-		{
-		    "name": "Kibana EventIndex Consumer",
-		    "file_prefix": "Kibana_EventIndex_Consumer", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20atlevindcon",
-		    "capture": true,
-		    "systems": ["Kibana", "Event Index Consumer"]
-		},
-		{
-		    "name": "Kibana EventIndex Hadoop Cluster",
-		    "file_prefix": "Kibana_EventIndex_Hadoop_Cluster", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20atlevindhad",
-		    "capture": true,
-		    "systems": ["Kibana", "Event Index Hadoop Cluster"]
-		},
-		{
-		    "name": "Kibana EventIndex Web",
-		    "file_prefix": "Kibana_EventIndex_Web", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20atlevindweb",
-		    "capture": true,
-		    "systems": ["Kibana", "Event Index Web"]
-		},
-		{
-		    "name": "Kibana Frontier",
-		    "file_prefix": "Kibana_Frontier", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20atlas-*-frontier%20%29",
-		    "capture": true,
-		    "systems": ["Kibana", "Frontier"]
-		},
-		{
-		    "name": "Kibana CVMFS Atlas CONDB",
-		    "file_prefix": "Kibana_CVMFS_ATLAS_CONDB", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20CVMFS_Stratum1_atlas-condb",
-		    "capture": true,
-		    "systems": ["Kibana", "CVMFS ATLAS CONDB"]
-		},
-		{
-		    "name": "Kibana CVMFS Stratum1 Atlas",
-		    "file_prefix": "Kibana_CVMFS_Stratum1_ATLAS", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20CVMFS_Stratum1_atlas",
-		    "capture": true,
-		    "systems": ["Kibana", "CVMFS Stratum1 ATLAS"]
-		},
-		{
-		    "name": "Kibana Panda Proxy",
-		    "file_prefix": "Kibana_Panda_Proxy", 
-		    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20pandaproxy_*%20%29",
-		    "capture": true,
-		    "systems": ["Kibana", "Panda Proxy"]
-		},
-                {
-                    "name": "Kibana Atlas Panda and Jedi Servers",
-                    "file_prefix": "Kibana_Atlas_Panda_and_Jedi_Servers", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/temp/ATLAS::PandaServers",
-                    "capture": true,
-                    "systems": ["Kibana", "Panda", "JEDI"]
-                },
-                {
-                    "name": "Kibana Atlas Panda Pilot Factory",
-                    "file_prefix": "Kibana_Atlas_Panda_Pilot_Factory", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20pilotfactory*%20%29",
-                    "capture": true,
-                    "systems": ["Kibana", "Panda Pilot Factory"]
-                },
-                {
-                    "name": "Kibana Rucio Client Benchmark",
-                    "file_prefix": "Kibana_Rucio_Client_Benchmark", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.rucio-nagios-prod.client*",
-                    "capture": true,
-                    "systems": ["Kibana", "Rucio"]
-                },
-                {
-                    "name": "Kibana Rucio Daemons Kronos",
-                    "file_prefix": "Kibana_Rucio_Daemons_Kronos", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.daemons.kronos",
-                    "capture": true,
-                    "systems": ["Kibana", "Rucio Kronos"]
-                },
-                {
-                    "name": "Kibana Rucio Daemons Reaper",
-                    "file_prefix": "Kibana_Rucio_Daemons_Reaper", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.daemons.reaper",
-                    "capture": true,
-                    "systems": ["Kibana", "Rucio Reaper"]
-                },
-                {
-                    "name": "Kibana Rucio Daemons Undertaker",
-                    "file_prefix": "Kibana_Rucio_Daemons_Undertaker", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.daemons.undertaker",
-                    "capture": true,
-                    "systems": ["Kibana", "Rucio Undertaker"]
-                },
-                {
-                    "name": "Kibana Rucio HTTPD",
-                    "file_prefix": "Kibana_Rucio_HTTPD", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.httpd",
-                    "capture": true,
-                    "systems": ["Kibana", "Rucio httpd"]
-                },
-                {
-                    "name": "Kibana Rucio Loadbalancer",
-                    "file_prefix": "Kibana_Rucio_Load_Balancer", 
-                    "link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.loadbalancer",
-                    "capture": true,
-                    "systems": ["Kibana", "Rucio Load Balancer"]
-                },
-		{
-		    "name": "Database Dashboard",
-		    "file_prefix": "Database_Dashboard", 
-		    "link": "https://atlas-service-dbmonitor.web.cern.ch/atlas-service-dbmonitor/shifter/database_dashboard.php",
-		    "capture": true,
-		    "systems": ["Central databases"]
-		}
-		]
-	}, 
-	
+    "name": "Critical Line",
+    "text": "The most critical monitoring pages",
+    "level": "Critical",
+    "urls": [{
+	"name": "Kibana ADC Central Services",
+	"file_prefix": "Kibana_ADC_Central_Services", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/temp/ATLAS::ATLAS",
+	"firefox_command": "Return",
+	"capture": true,
+	"systems": ["Kibana", "AGIS", "AMI", "Event Index Consumer", "Event Index Hadoop Cluster", "Event Index Web", "Frontier", "CVMFS ATLAS CONDB", "CVMFS Stratum1 ATLAS", "Panda Proxy", "Panda", "JEDI", "Panda Pilot Factory", "Rucio", "Rucio Kronos", "Rucio Reaper", "Rucio Undertaker", "Rucio httpd", "Rucio Load Balancer"]
+    },{
+	"name": "Kibana Atlas AGIS API",
+	"file_prefix": "Kibana_Atlas_AGIS_API", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20atlas-agis-api*%20%29",
+	"capture": true,
+	"systems": ["Kibana", "AGIS"]
+    },{
+	"name": "Kibana Atlas AGIS Web UI",
+	"file_prefix": "Kibana_Atlas_AGIS_Web_UI", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20ATLAS-AGIS-WEB*%20%29",
+	"capture": true,
+	"systems": ["Kibana", "AGIS"]
+    },{
+	"name": "Kibana AMI",
+	"file_prefix": "Kibana_AMI", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28ATLAS-AMI%20ATLAS-AMI-CERN%29",
+	"capture": true,
+	"systems": ["Kibana", "AMI"]
+    },{
+	"name": "Kibana EventIndex Consumer",
+	"file_prefix": "Kibana_EventIndex_Consumer", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20atlevindcon",
+	"capture": true,
+	"systems": ["Kibana", "Event Index Consumer"]
+    },{
+	"name": "Kibana EventIndex Hadoop Cluster",
+	"file_prefix": "Kibana_EventIndex_Hadoop_Cluster", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20atlevindhad",
+	"capture": true,
+	"systems": ["Kibana", "Event Index Hadoop Cluster"]
+    },{
+	"name": "Kibana EventIndex Web",
+	"file_prefix": "Kibana_EventIndex_Web", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20atlevindweb",
+	"capture": true,
+	"systems": ["Kibana", "Event Index Web"]
+    },{
+	"name": "Kibana Frontier",
+	"file_prefix": "Kibana_Frontier", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20atlas-*-frontier%20%29",
+	"capture": true,
+	"systems": ["Kibana", "Frontier"]
+    },{
+	"name": "Kibana CVMFS Atlas CONDB",
+	"file_prefix": "Kibana_CVMFS_ATLAS_CONDB", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20CVMFS_Stratum1_atlas-condb",
+	"capture": true,
+	"systems": ["Kibana", "CVMFS ATLAS CONDB"]
+    },{
+	"name": "Kibana CVMFS Stratum1 Atlas",
+	"file_prefix": "Kibana_CVMFS_Stratum1_ATLAS", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20CVMFS_Stratum1_atlas",
+	"capture": true,
+	"systems": ["Kibana", "CVMFS Stratum1 ATLAS"]
+    },{
+	"name": "Kibana Panda Proxy",
+	"file_prefix": "Kibana_Panda_Proxy", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20pandaproxy_*%20%29",
+	"capture": true,
+	"systems": ["Kibana", "Panda Proxy"]
+    },{
+	"name": "Kibana Atlas Panda and Jedi Servers",
+	"file_prefix": "Kibana_Atlas_Panda_and_Jedi_Servers", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/temp/ATLAS::PandaServers",
+	"capture": true,
+	"systems": ["Kibana", "Panda", "JEDI"]
+    },{
+	"name": "Kibana Atlas Panda Pilot Factory",
+	"file_prefix": "Kibana_Atlas_Panda_Pilot_Factory", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20%28%20pilotfactory*%20%29",
+	"capture": true,
+	"systems": ["Kibana", "Panda Pilot Factory"]
+    },{
+	"name": "Kibana Rucio Client Benchmark",
+	"file_prefix": "Kibana_Rucio_Client_Benchmark", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.rucio-nagios-prod.client*",
+	"capture": true,
+	"systems": ["Kibana", "Rucio"]
+    },{
+	"name": "Kibana Rucio Daemons Kronos",
+	"file_prefix": "Kibana_Rucio_Daemons_Kronos", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.daemons.kronos",
+	"capture": true,
+	"systems": ["Kibana", "Rucio Kronos"]
+    },{
+	"name": "Kibana Rucio Daemons Reaper",
+	"file_prefix": "Kibana_Rucio_Daemons_Reaper", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.daemons.reaper",
+	"capture": true,
+	"systems": ["Kibana", "Rucio Reaper"]
+    },{
+	"name": "Kibana Rucio Daemons Undertaker",
+	"file_prefix": "Kibana_Rucio_Daemons_Undertaker", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.daemons.undertaker",
+	"capture": true,
+	"systems": ["Kibana", "Rucio Undertaker"]
+    },{
+	"name": "Kibana Rucio HTTPD",
+	"file_prefix": "Kibana_Rucio_HTTPD", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.httpd",
+	"capture": true,
+	"systems": ["Kibana", "Rucio httpd"]
+    },{
+	"name": "Kibana Rucio Loadbalancer",
+	"file_prefix": "Kibana_Rucio_Load_Balancer", 
+	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.loadbalancer",
+	"capture": true,
+	"systems": ["Kibana", "Rucio Load Balancer"]
+    },{
+	"name": "Database Dashboard",
+	"file_prefix": "Database_Dashboard", 
+	"link": "https://atlas-service-dbmonitor.web.cern.ch/atlas-service-dbmonitor/shifter/database_dashboard.php",
+	"capture": true,
+	"systems": ["Central databases"]
+    }]
+},
+ 
 
 
-	{
-		"name": "Error Line",
-		"text": "Critical monitoring pages",
-		"level": "Error",
-		"urls": [
-		{
-		    "name": "Tier0 disk to Tier0 tape transfers Plots last 12 hours",
-		    "file_prefix": "Tier0_disk_to_Tier0_tape_transfers_Plots_last_12h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Tape%29&date.interval=720&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6&tab=transfer_plots",
-		    "capture": true,
-                    "systems": ["DDM transfer service", "CERN Tier0 disk", "CERN Tier0 tape"]
-		},
-		{
-		    "name": "Tier0 disk to Tier0 tape transfers last 12 hours",
-		    "file_prefix": "Tier0_disk_to_Tier0_tape_transfers_last_12h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Tape%29&date.interval=720&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6",
-		    "capture": true,
-                    "systems": ["DDM transfer service", "CERN Tier0 disk", "CERN Tier0 tape"]
-		},
-		{
-		    "name": "Rucio UI T0 disk to T0 tape transfers last 24 hours",
-		    "file_prefix": "Rucio_UI_Tier0_disk_to_Tier0_tape_transfers_last_24h", 
-		     "link": "https://rucio-ui.cern.ch/rule_backlog_monitor?account=tzero&activity=T0%20Tape&endpoint=CERN-PROD_RAW&state=Stuck&age=1day",
-		    "capture": true,
-                    "systems": ["Rucio UI", "CERN Tier0 disk", "CERN Tier0 tape"]
-		},
-		{
-		    "name": "DDM Tier0 data export to Grid last 12 hours",
-		    "file_prefix": "DDM_Tier0_Data_Export_to_Grid_last_12h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Export%29&date.interval=720&dst.tier=%280,1,2%29&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6&src.tier=%280,1,2%29&tab=transfer_plots",
-		    "capture": true,
-                    "systems": ["DDM transfer service", "CERN Tier0"]
-		},
-		{
-		    "name": "Rucio UI Tier0 data export to Grid last 12 hours",
-		    "file_prefix": "RUCIO_UI_Tier0_Data_Export_to_Grid_last_12h", 
-		     "link": "https://rucio-ui.cern.ch/rule_backlog_monitor?account=ddmadmin&activity=T0%20Export&state=stuck&age=12h&age_mode=younger",
-		    "capture": true,
-                    "systems": ["Rucio UI", "CERN Tier0"]
-		},
-
-		{
-		    "name": "Rucio UI Tier0 data export to Grid more than 1 day",
-		    "file_prefix": "RUCIO_UI_Tier0_Data_Export_to_Grid_more_than_1day", 
-		     "link": "https://rucio-ui.cern.ch/rule_backlog_monitor?account=ddmadmin&activity=T0%20Export&state=stuck&age=1d&age_mode=older",
-		    "capture": true,
-                    "systems": ["Rucio UI", "CERN Tier0"]
-		},
-		{
-		    "name": "DDM Functional Tests last 12 hours",
-		    "file_prefix": "DDM_Functional_Tests_last_12h", 
-		    "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Functional+Test%29&date.interval=720&dst.tier=%280,1,2%29&m.content=%28t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM functional tests", "DDM transfer service"]
-		},
-		{
-		    "name": "DDM Transfer Plots last 4 hours",
-		    "file_prefix": "DDM_Transfer_Plots_last_4h", 
-		    "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29&tab=transfer_plots",
-		    "capture": true,
-		    "systems": ["DDM transfer service"]
-		},
-		{
-		    "name": "DDM Transfer Monitor last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to CA Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_CA_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22CA%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "CA Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to CERN last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_CERN_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22CERN%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "CERN"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to DE Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_DE_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to ES Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_ES_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22ES%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "ES Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to FR Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_FR_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22FR%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "FR Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to IT Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_IT_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22IT%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "IT Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to ND Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_ND_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22ND%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "ND Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to NL Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_NL_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22NL%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "NL Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to RU Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_RU_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22RU%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "RU Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to TW Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_TW_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22TW%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "TW Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to UK Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_UK_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22UK%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "UK Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor to US Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_US_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22US%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "US Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from CA Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_CA_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22CA%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "CA Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from CERN last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_CERN_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22CERN%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "CERN"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from DE last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_DE_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22DE%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from ES last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_ES_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22ES%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "ES Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from FR last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_FR_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22FR%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "FR Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from IT last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_IT_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22IT%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "IT Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from ND last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_ND_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22ND%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "ND Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from NL last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_NL_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22NL%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "NL Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from RU last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_RU_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22RU%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "RU Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from TW last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_TW_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22TW%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "TW Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from UK last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_UK_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22UK%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "UK Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from US last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_US_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22US%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "US Cloud"]
-		},
-		{
-		    "name": "DDM Staging Plots last 4 hours",
-		    "file_prefix": "DDM_Staging_Plots_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&m.content=%28s_eff,s_err,s_suc%29&tab=staging_plots",
-		    "capture": true,
-		    "systems": ["DDM transfer service"]
-		},
-		{
-		    "name": "DDM Staging Monitor last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service"]
-		},
-		{
-		    "name": "DDM Staging Monitor CA Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_CA_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22CA%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "CA Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor CERN last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_CERN_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22CERN%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "CERN"]
-		},
-		{
-		    "name": "DDM Staging Monitor DE Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_DE_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22DE%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor ES Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_ES_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22ES%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "ES Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor FR Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_FR_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22FR%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "FR Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor ND Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_ND_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22ND%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "ND Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor TW Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_TW_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22TW%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "TW Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor UK Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_UK_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22UK%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "UK Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor US Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_US_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22US%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "US Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Plots last 4 hours",
-		    "file_prefix": "DDM_Deletion_Plots_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#m.content=%28d_dof,d_dot,d_eff,d_faf,d_plf%29&tab=deletion_plots",
-		    "capture": true,
-		    "systems": ["DDM deletion service"]
-		},
-		{
-		    "name": "DDM Deletion Monitor last 4 hours",
-		    "file_prefix": "DDM_Deletion_monitor_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#m.content=%28d_dof,d_dot,d_eff,d_faf,d_plf%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service"]
-		},
-		{
-		    "name": "DDM Deletion Monitor CA Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_CA_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22CA%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "CA Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor CERN last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_CERN_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22CERN%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "CERN"]
-		},
-		{
-		    "name": "DDM Deletion Monitor DE Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_DE_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor ES Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_ES_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22ES%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "ES Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor FR Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_FR_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22FR%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "FR Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor IT Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_IT_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22IT%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "IT Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor ND Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_ND_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22ND%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "ND Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor NL Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_NL_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22NL%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "NL Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor RU Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_RU_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22RU%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "RU Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor TW Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_TW_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22TW%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "TW Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor UK Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_UK_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22UK%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "UK Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor US Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_US_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22US%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "US Cloud"]
-		},
-		{
-		    "name": "Squid Monitor",
-		    "file_prefix": "Squid_Monitor", 
-		     "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteview#aaSorting[0][]=2&aaSorting[0][]=asc&currentView=Frontier_Squid&highlight=false&rowsPerPage=-1",
-		    "xdisplay_name": "large",
-		    "capture": true,
-		    "systems": ["Squid service"]
-		}
-		]
-	},
+ {
+     "name": "Error Line",
+     "text": "Critical monitoring pages",
+     "level": "Error",
+     "urls": [{
+	 "name": "Tier0 disk to Tier0 tape transfers Plots last 12 hours",
+	 "file_prefix": "Tier0_disk_to_Tier0_tape_transfers_Plots_last_12h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Tape%29&date.interval=720&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6&tab=transfer_plots",
+	 "capture": true,
+         "systems": ["DDM transfer service", "CERN Tier0 disk", "CERN Tier0 tape"]
+     },{
+	 "name": "Tier0 disk to Tier0 tape transfers last 12 hours",
+	 "file_prefix": "Tier0_disk_to_Tier0_tape_transfers_last_12h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Tape%29&date.interval=720&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CERN Tier0 disk", "CERN Tier0 tape"]
+     },{
+	 "name": "Rucio UI T0 disk to T0 tape transfers last 24 hours",
+	 "file_prefix": "Rucio_UI_Tier0_disk_to_Tier0_tape_transfers_last_24h", 
+	 "link": "https://rucio-ui.cern.ch/rule_backlog_monitor?account=tzero&activity=T0%20Tape&endpoint=CERN-PROD_RAW&state=Stuck&age=1day",
+	 "capture": true,
+	 "systems": ["Rucio UI", "CERN Tier0 disk", "CERN Tier0 tape"]
+     },{
+	 "name": "DDM Tier0 data export to Grid last 12 hours",
+	 "file_prefix": "DDM_Tier0_Data_Export_to_Grid_last_12h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28T0+Export%29&date.interval=720&dst.tier=%280,1,2%29&grouping.dst=%28site,token%29&m.content=%28s_eff,s_thr,t_eff,t_err,t_suc,t_thr%29&p.bin.size=10m&p.bin.step=6&src.tier=%280,1,2%29&tab=transfer_plots",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CERN Tier0"]
+     },{
+	 "name": "Rucio UI Tier0 data export to Grid last 12 hours",
+	 "file_prefix": "RUCIO_UI_Tier0_Data_Export_to_Grid_last_12h", 
+	 "link": "https://rucio-ui.cern.ch/rule_backlog_monitor?account=ddmadmin&activity=T0%20Export&state=stuck&age=12h&age_mode=younger",
+	 "capture": true,
+	 "systems": ["Rucio UI", "CERN Tier0"]
+     },{
+	 "name": "Rucio UI Tier0 data export to Grid more than 1 day",
+	 "file_prefix": "RUCIO_UI_Tier0_Data_Export_to_Grid_more_than_1day", 
+	 "link": "https://rucio-ui.cern.ch/rule_backlog_monitor?account=ddmadmin&activity=T0%20Export&state=stuck&age=1d&age_mode=older",
+	 "capture": true,
+	 "systems": ["Rucio UI", "CERN Tier0"]
+     },{
+	 "name": "DDM Functional Tests last 12 hours",
+	 "file_prefix": "DDM_Functional_Tests_last_12h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Functional+Test%29&date.interval=720&dst.tier=%280,1,2%29&m.content=%28t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM functional tests", "DDM transfer service"]
+     },{
+	 "name": "DDM Transfer Plots last 4 hours",
+	 "file_prefix": "DDM_Transfer_Plots_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29&tab=transfer_plots",
+	 "capture": true,
+	 "systems": ["DDM transfer service"]
+     },{
+	 "name": "DDM Transfer Monitor last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service"]
+     },{
+	 "name": "DDM Transfer Monitor to CA Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_CA_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22CA%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CA Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to CERN last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_CERN_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22CERN%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CERN"]
+     },{
+	 "name": "DDM Transfer Monitor to DE Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_DE_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "DE Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to ES Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_ES_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22ES%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "ES Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to FR Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_FR_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22FR%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "FR Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to IT Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_IT_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22IT%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "IT Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to ND Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_ND_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22ND%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "ND Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to NL Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_NL_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22NL%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "NL Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to RU Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_RU_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22RU%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "RU Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to TW Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_TW_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22TW%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "TW Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to UK Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_UK_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22UK%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "UK Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor to US Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_to_US_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22US%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "US Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from CA Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_CA_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22CA%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CA Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from CERN last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_CERN_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22CERN%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CERN"]
+     },{
+	 "name": "DDM Transfer Monitor from DE last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_DE_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22DE%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "DE Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from ES last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_ES_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22ES%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "ES Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from FR last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_FR_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22FR%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "FR Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from IT last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_IT_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22IT%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "IT Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from ND last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_ND_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22ND%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "ND Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from NL last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_NL_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22NL%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "NL Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from RU last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_RU_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22RU%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "RU Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from TW last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_TW_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22TW%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "TW Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from UK last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_UK_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22UK%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "UK Cloud"]
+     },{
+	 "name": "DDM Transfer Monitor from US last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_from_US_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22US%22%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "US Cloud"]
+     },{
+	 "name": "DDM Staging Plots last 4 hours",
+	 "file_prefix": "DDM_Staging_Plots_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&m.content=%28s_eff,s_err,s_suc%29&tab=staging_plots",
+	 "capture": true,
+	 "systems": ["DDM transfer service"]
+     },{
+	 "name": "DDM Staging Monitor last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service"]
+     },{
+	 "name": "DDM Staging Monitor CA Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_CA_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22CA%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CA Cloud"]
+     },{
+	 "name": "DDM Staging Monitor CERN last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_CERN_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22CERN%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "CERN"]
+     },{
+	 "name": "DDM Staging Monitor DE Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_DE_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22DE%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "DE Cloud"]
+     },{
+	 "name": "DDM Staging Monitor ES Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_ES_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22ES%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "ES Cloud"]
+     },{
+	 "name": "DDM Staging Monitor FR Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_FR_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22FR%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "FR Cloud"]
+     },{
+	 "name": "DDM Staging Monitor ND Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_ND_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22ND%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "ND Cloud"]
+     },{
+	 "name": "DDM Staging Monitor TW Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_TW_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22TW%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "TW Cloud"]
+     },{
+	 "name": "DDM Staging Monitor UK Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_UK_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22UK%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "UK Cloud"]
+     },{
+	 "name": "DDM Staging Monitor US Cloud last 4 hours",
+	 "file_prefix": "DDM_Staging_monitor_US_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22US%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	 "capture": true,
+	 "systems": ["DDM transfer service", "US Cloud"]
+     },{
+	 "name": "DDM Deletion Plots last 4 hours",
+	 "file_prefix": "DDM_Deletion_Plots_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#m.content=%28d_dof,d_dot,d_eff,d_faf,d_plf%29&tab=deletion_plots",
+	 "capture": true,
+	 "systems": ["DDM deletion service"]
+     },{
+	 "name": "DDM Deletion Monitor last 4 hours",
+	 "file_prefix": "DDM_Deletion_monitor_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#m.content=%28d_dof,d_dot,d_eff,d_faf,d_plf%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service"]
+     },{
+	 "name": "DDM Deletion Monitor CA Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_CA_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22CA%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "CA Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor CERN last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_CERN_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22CERN%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "CERN"]
+     },{
+	 "name": "DDM Deletion Monitor DE Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_DE_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "DE Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor ES Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_ES_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22ES%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "ES Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor FR Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_FR_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22FR%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "FR Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor IT Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_IT_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22IT%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "IT Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor ND Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_ND_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22ND%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "ND Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor NL Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_NL_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22NL%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "NL Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor RU Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_RU_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22RU%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "RU Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor TW Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_TW_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22TW%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "TW Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor UK Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_UK_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22UK%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "UK Cloud"]
+     },{
+	 "name": "DDM Deletion Monitor US Cloud last 4 hours",
+	 "file_prefix": "DDM_Transfer_monitor_US_Cloud_last_4h", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22US%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	 "capture": true,
+	 "systems": ["DDM deletion service", "US Cloud"]
+     },{
+	 "name": "Squid Monitor",
+	 "file_prefix": "Squid_Monitor", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteview#aaSorting[0][]=2&aaSorting[0][]=asc&currentView=Frontier_Squid&highlight=false&rowsPerPage=-1",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Squid service"]
+     }]
+ },
 
 
-	{
-		"name": "Warning Line",
-		"text": "Need to check them",
-		"level": "Warning",
-		"urls": [
-		{
-			"name": "Panda Production Job Submitting State",
-	    		"file_prefix": "Panda_Job_Production_Job_Submitting", 
-	     		"link": "http://bigpanda.cern.ch/tasks/?superstatus=submitting&statenotupdated=720&display_limit=300",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Panda Production Job"]
-		},
-		{
-			"name": "Panda Production Job Transferring State",
-	    		"file_prefix": "Panda_Job_Production_Job_Transferring", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?jobtype=production&jobstatus=transferring&statenotupdated=36&display_limit=100",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Panda Production Job"]
-		},
-		{
-			"name": "Panda Production Job Running State",
-	    		"file_prefix": "Panda_Job_Production_Job_Running", 
-	     		"link": "http://bigpanda.cern.ch/tasks/?tasktype=prod&sortby=pctfailed&display_limit=100&superstatus=running",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Panda Production Job"]
-		},
-		{
-			"name": "Panda Production Job Waiting State",
-	    		"file_prefix": "Panda_Job_Production_Job_Running", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?jobtype=production&display_limit=100&jobstatus=waiting",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Panda Production Job"]
-		},
-		{
-			"name": "AGIS Panda Production Online States in CA Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_CA_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=CA",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in CA Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in CA Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_CA_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=CA",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in CA Cloud"]
-		},
-		{
-			"name": "AGIS Panda Production Online States in CERN",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_CERN", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=CERN",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in CERN"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in CERN",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_CERN", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=CERN",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in CERN"]
-		},
-		{
-			"name": "AGIS Panda Production Online States in DE Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_DE_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=DE",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in DE Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in DE Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_DE_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=DE",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in DE Cloud"]
-		},
-		{
-			"name": "AGIS Panda Production Online States in ES Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_ES_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=ES",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in ES Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in ES Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_ES_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=ES",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in ES Cloud"]
-		},
-		{
-			"name": "AGIS Panda Production Online States in FR Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_FR_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=FR",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in FR Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in FR Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_FR_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=FR",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in FR Cloud"]
-		},
-                {
-                        "name": "AGIS Panda Production Online States in IT Cloud",
-                        "file_prefix": "AGIS_Panda_Production_Online_State_IT_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=IT",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in IT Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Analysis Online States in IT Cloud",
-                        "file_prefix": "AGIS_Panda_Analysis_Online_State_IT_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=IT",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in IT Cloud"]
-                },
-		{
-			"name": "AGIS Panda Production Online States in ND Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_ND_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=ND",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in ND Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in ND Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_ND_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=ND",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in ND Cloud"]
-		},
-                {
-                        "name": "AGIS Panda Production Online States in NL Cloud",
-                        "file_prefix": "AGIS_Panda_Production_Online_State_NL_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=NL",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in NL Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Analysis Online States in NL Cloud",
-                        "file_prefix": "AGIS_Panda_Analysis_Online_State_NL_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=NL",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in NL Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Production Online States in RU Cloud",
-                        "file_prefix": "AGIS_Panda_Production_Online_State_RU_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=RU",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in RU Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Analysis Online States in RU Cloud",
-                        "file_prefix": "AGIS_Panda_Analysis_Online_State_RU_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=RU",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in RU Cloud"]
-                },
-		{
-			"name": "AGIS Panda Production Online States in TW Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_TW_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=TW",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in TW Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in TW Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_TW_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=TW",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in TW Cloud"]
-		},
-                {
-                        "name": "AGIS Panda Production Online States in UK Cloud",
-                        "file_prefix": "AGIS_Panda_Production_Online_State_UK_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=UK",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in UK Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Analysis Online States in UK Cloud",
-                        "file_prefix": "AGIS_Panda_Analysis_Online_State_UK_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=UK",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in UK Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Production Online States in US Cloud",
-                        "file_prefix": "AGIS_Panda_Production_Online_State_US_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=US",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in US Cloud"]
-                },
-                {
-                        "name": "AGIS Panda Analysis Online States in US Cloud",
-                        "file_prefix": "AGIS_Panda_Analysis_Online_State_US_Cloud", 
-                        "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=US",
-                        "capture": true,
-                        "systems": ["AGIS", "Panda Queues in US Cloud"]
-                },
-		{
-			"name": "SSB Panda Queue States in CA Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_CA_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=CA",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in CA Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in CERN",
-	    		"file_prefix": "SSB_Panda_Queue_CERN", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=CERN",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in CERN"]
-		},
-		{
-			"name": "SSB Panda Queue States in DE Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_DE_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=DE",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in DE Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in ES Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_ES_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=ES",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in ES Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in FR Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_FR_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=FR",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in FR Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in IT Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_IT_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=IT",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in IT Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in ND Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_ND_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=ND",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in ND Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in NL Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_NL_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=NL",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in NL Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in RU Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_RU_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=RU",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in RU Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in TW Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_TW_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=TW",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in TW Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in UK Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_UK_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=UK",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in UK Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in US Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_US_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=US",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in US Cloud"]
-		},
-		{
-			"name": "Panglia Panda Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloudtasks/",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Panglia"]
-		},
-		{
-			"name": "Panglia Panda CA Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_CA_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=CA&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "CA Cloud"]
-		},
-		{
-			"name": "Panglia Panda CERN Job States",
-	    		"file_prefix": "Panglia_Panda_CERN_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=CERN&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "CERN"]
-		},
-		{
-			"name": "Panglia Panda DE Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_DE_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=DE&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "DE Cloud"]
-		},
-		{
-			"name": "Panglia Panda ES Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_ES_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=ES&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "ES Cloud"]
-		},
-		{
-			"name": "Panglia Panda FR Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_FR_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=FR&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "FR Cloud"]
-		},
-		{
-			"name": "Panglia Panda IT Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_IT_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=IT&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "IT Cloud"]
-		},
-		{
-			"name": "Panglia Panda ND Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_ND_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=ND&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "ND Cloud"]
-		},
-		{
-			"name": "Panglia Panda NL Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_NL_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=NL&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "NL Cloud"]
-		},
-		{
-			"name": "Panglia Panda RU Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_RU_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=RU&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "RU Cloud"]
-		},
-		{
-			"name": "Panglia Panda TW Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_TW_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=TW&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "TW Cloud"]
-		},
-		{
-			"name": "Panglia Panda UK Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_UK_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=UK&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "UK Cloud"]
-		},
-		{
-			"name": "Panglia Panda US Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_US_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=US&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "US Cloud"]
-		}
-		]
-	},
+ {
+     "name": "Warning Line",
+     "text": "Need to check them",
+     "level": "Warning",
+     "urls": [{
+	 "name": "Panda Production Job Submitting State",
+	 "file_prefix": "Panda_Job_Production_Job_Submitting", 
+	 "link": "http://bigpanda.cern.ch/tasks/?superstatus=submitting&statenotupdated=720&display_limit=300",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Panda Production Job"]
+     },{
+	 "name": "Panda Production Job Transferring State",
+	 "file_prefix": "Panda_Job_Production_Job_Transferring", 
+	 "link": "http://bigpanda.cern.ch/jobs/?jobtype=production&jobstatus=transferring&statenotupdated=36&display_limit=100",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Panda Production Job"]
+     },{
+	 "name": "Panda Production Job Running State",
+	 "file_prefix": "Panda_Job_Production_Job_Running", 
+	 "link": "http://bigpanda.cern.ch/tasks/?tasktype=prod&sortby=pctfailed&display_limit=100&superstatus=running",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Panda Production Job"]
+     },{
+	 "name": "Panda Production Job Waiting State",
+	 "file_prefix": "Panda_Job_Production_Job_Running", 
+	 "link": "http://bigpanda.cern.ch/jobs/?jobtype=production&display_limit=100&jobstatus=waiting",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Panda Production Job"]
+     },{
+	 "name": "AGIS Panda Production Online States in CA Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_CA_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=CA",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in CA Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in CA Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_CA_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=CA",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in CA Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in CERN",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_CERN", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=CERN",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in CERN"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in CERN",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_CERN", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=CERN",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in CERN"]
+     },{
+	 "name": "AGIS Panda Production Online States in DE Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_DE_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=DE",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in DE Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in DE Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_DE_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=DE",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in DE Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in ES Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_ES_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=ES",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in ES Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in ES Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_ES_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=ES",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in ES Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in FR Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_FR_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=FR",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in FR Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in FR Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_FR_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=FR",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in FR Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in IT Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_IT_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=IT",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in IT Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in IT Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_IT_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=IT",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in IT Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in ND Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_ND_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=ND",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in ND Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in ND Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_ND_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=ND",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in ND Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in NL Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_NL_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=NL",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in NL Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in NL Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_NL_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=NL",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in NL Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in RU Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_RU_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=RU",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in RU Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in RU Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_RU_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=RU",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in RU Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in TW Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_TW_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=TW",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in TW Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in TW Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_TW_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=TW",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in TW Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in UK Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_UK_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=UK",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in UK Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in UK Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_UK_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=UK",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in UK Cloud"]
+     },{
+	 "name": "AGIS Panda Production Online States in US Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_US_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=US",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in US Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in US Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_US_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=US",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in US Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in CA Cloud",
+	 "file_prefix": "SSB_Panda_Queue_CA_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=CA",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in CA Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in CERN",
+	 "file_prefix": "SSB_Panda_Queue_CERN", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=CERN",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in CERN"]
+     },{
+	 "name": "SSB Panda Queue States in DE Cloud",
+	 "file_prefix": "SSB_Panda_Queue_DE_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=DE",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in DE Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in ES Cloud",
+	 "file_prefix": "SSB_Panda_Queue_ES_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=ES",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in ES Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in FR Cloud",
+	 "file_prefix": "SSB_Panda_Queue_FR_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=FR",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in FR Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in IT Cloud",
+	 "file_prefix": "SSB_Panda_Queue_IT_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=IT",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in IT Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in ND Cloud",
+	 "file_prefix": "SSB_Panda_Queue_ND_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=ND",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in ND Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in NL Cloud",
+	 "file_prefix": "SSB_Panda_Queue_NL_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=NL",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in NL Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in RU Cloud",
+	 "file_prefix": "SSB_Panda_Queue_RU_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=RU",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in RU Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in TW Cloud",
+	 "file_prefix": "SSB_Panda_Queue_TW_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=TW",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in TW Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in UK Cloud",
+	 "file_prefix": "SSB_Panda_Queue_UK_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=UK",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in UK Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in US Cloud",
+	 "file_prefix": "SSB_Panda_Queue_US_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=US",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in US Cloud"]
+     },{
+	 "name": "Panglia Panda Cloud Job States",
+	 "file_prefix": "Panglia_Panda_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloudtasks/",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Panglia"]
+     },{
+	 "name": "Panglia Panda CA Cloud Job States",
+	 "file_prefix": "Panglia_Panda_CA_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=CA&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "CA Cloud"]
+     },{
+	 "name": "Panglia Panda CERN Job States",
+	 "file_prefix": "Panglia_Panda_CERN_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=CERN&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "CERN"]
+     },{
+	 "name": "Panglia Panda DE Cloud Job States",
+	 "file_prefix": "Panglia_Panda_DE_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=DE&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "DE Cloud"]
+     },{
+	 "name": "Panglia Panda ES Cloud Job States",
+	 "file_prefix": "Panglia_Panda_ES_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=ES&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "ES Cloud"]
+     },{
+	 "name": "Panglia Panda FR Cloud Job States",
+	 "file_prefix": "Panglia_Panda_FR_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=FR&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "FR Cloud"]
+     },{
+	 "name": "Panglia Panda IT Cloud Job States",
+	 "file_prefix": "Panglia_Panda_IT_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=IT&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "IT Cloud"]
+     },{
+	 "name": "Panglia Panda ND Cloud Job States",
+	 "file_prefix": "Panglia_Panda_ND_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=ND&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "ND Cloud"]
+     },{
+	 "name": "Panglia Panda NL Cloud Job States",
+	 "file_prefix": "Panglia_Panda_NL_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=NL&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "NL Cloud"]
+     },{
+	 "name": "Panglia Panda RU Cloud Job States",
+	 "file_prefix": "Panglia_Panda_RU_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=RU&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "RU Cloud"]
+     },{
+	 "name": "Panglia Panda TW Cloud Job States",
+	 "file_prefix": "Panglia_Panda_TW_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=TW&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "TW Cloud"]
+     },{
+	 "name": "Panglia Panda UK Cloud Job States",
+	 "file_prefix": "Panglia_Panda_UK_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=UK&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "UK Cloud"]
+     },{
+	 "name": "Panglia Panda US Cloud Job States",
+	 "file_prefix": "Panglia_Panda_US_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=US&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "US Cloud"]
+     }]
+ },
 
 
-	{
-		"name": "Validation Line",
-		"text": "Physics Validation Tasks",
-		"level": "Validation",
-		"urls": [
-		{
-			"name": "Panda Failed Production Tasks Overview",
-	    		"file_prefix": "Panda_Failed_Production_Tasks_Overview", 
-	     		"link": "http://bigpanda.cern.ch/tasks/?tasktype=prod&display_limit=300&superstatus=failed",
-	    		"capture": true,
-                    	"systems": ["Panda", "Production Tasks"]
-		},
-		{
-			"name": "Jira Tickets overview Physics Validation",
-	    		"file_prefix": "Jira_Tickets_overview_Physics_Validation", 
-	     		"link": "https://its.cern.ch/jira/browse/ATLPHYSVAL-363?jql=project%20%3D%20ATLPHYSVAL%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20key%20DESC%2C%20priority%20DESC",
-	    		"capture": true,
-                    	"systems": ["Jira", "Production Tasks"]
-		}
-		]
-	},
+ {
+     "name": "Validation Line",
+     "text": "Physics Validation Tasks",
+     "level": "Validation",
+     "urls": [{
+	 "name": "Panda Failed Production Tasks Overview",
+	 "file_prefix": "Panda_Failed_Production_Tasks_Overview", 
+	 "link": "http://bigpanda.cern.ch/tasks/?tasktype=prod&display_limit=300&superstatus=failed",
+	 "capture": true,
+	 "systems": ["Panda", "Production Tasks"]
+     },{
+	 "name": "Jira Tickets overview Physics Validation",
+	 "file_prefix": "Jira_Tickets_overview_Physics_Validation", 
+	 "link": "https://its.cern.ch/jira/browse/ATLPHYSVAL-363?jql=project%20%3D%20ATLPHYSVAL%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20key%20DESC%2C%20priority%20DESC",
+	 "capture": true,
+	 "systems": ["Jira", "Production Tasks"]
+     }]
+ },
 
 
 
-	{
-		"name": "Notification Line",
-		"text": "Notification should be sent, when one is updated",
-		"level": "Notification",
-		"urls": [
-		{
-			"name": "ADC Operations Shift Report",
-	    		"file_prefix": "ADCOS_Report", 
-	     		"link": "https://atlas-logbook.cern.ch/elog/ATLAS+Distributed+Computing+Operations+Shifts+Reports+Logbook/",
-	    		"capture": true,
-                    	"systems": ["eLog"]
-		},
-		{
-			"name": "Atlas Computer Operations Logbook",
-	    		"file_prefix": "ATLAS_Computer_Operations_Logbook", 
-	     		"link": "https://atlas-logbook.cern.ch/elog/ATLAS+Computer+Operations+Logbook/?mode=summary",
-			"firefox_command": "Return",
-	    		"capture": true,
-                    	"systems": ["eLog"]
-		},
-		{
-			"name": "ADCoS Senior Shifter Tasks",
-	    		"file_prefix": "ADCoS_Senior_Shifter_Tasks", 
-	     		"link": "https://adcos.web.cern.ch/adcos/ADCoS_Clock/",
-	    		"capture": false,
-                    	"systems": []
-		},
-		{
-			"name": "Twiki ADCoS Howto",
-	    		"file_prefix": "Twiki_ADCoS_Howto", 
-	     		"link": "https://twiki.cern.ch/twiki/bin/viewauth/AtlasComputing/ADCoS",
-	    		"capture": true,
-                    	"systems": ["Twiki"]
-		},
-		{
-			"name": "Twiki ADCoS Known Problem",
-	    		"file_prefix": "Twiki_ADCoS_Known_Problem", 
-	     		"link": "https://twiki.cern.ch/twiki/bin/viewauth/AtlasComputing/ADCoSKnownProblem",
-	    		"capture": true,
-                    	"systems": ["Twiki"]
-		},
-		{
-			"name": "DDM Black listed",
-	    		"file_prefix": "DDM_Black_listed", 
-	     		"link": "http://atlas-agis.cern.ch/agis/ddmblacklisting/list/",
-	    		"capture": true,
-                    	"systems": ["AGIS"]
-		},
-		{
-			"name": "GGUS Atlas Team Tickets",
-	    		"file_prefix": "GGUS_Atlas_Team_Tickets", 
-	     		"link": "https://ggus.eu/?mode=ticket_search&status=open&specattrib=Team-Ticket&vo=atlas&date_type=creation+date&tf_radio=1&timeframe=any&orderticketsby=REQUEST_ID&orderhow=desc&search_submit=GO!",
-	    		"capture": true,
-                    	"systems": ["GGUS"]
-		},
-		{
-			"name": "AGIS Downtime Calender",
-	    		"file_prefix": "AGIS_Downtime_Calender", 
-	     		"link": "http://atlas-agis.cern.ch/agis/downtime/calendar/",
-	    		"capture": true,
-                    	"systems": ["AGIS"]
-		},
-		{
-			"name": "Jira Tickets overview ADCoS",
-	    		"file_prefix": "Jira_Tickets_overview_ADCoS", 
-	     		"link": "https://its.cern.ch/jira/secure/Dashboard.jspa?selectPageId=13820",
-	    		"capture": true,
-                    	"systems": ["Jira"]
-		},
-		{
-			"name": "Jira Tickets overview DDM",
-	    		"file_prefix": "Jira_Tickets_overview_DDM", 
-	     		"link": "https://its.cern.ch/jira/browse/ATLDDMOPS/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel",
-	    		"capture": true,
-                    	"systems": ["Jira"]
-		}
-		]
-	}
-
+ {
+     "name": "Notification Line",
+     "text": "Notification should be sent, when one is updated",
+     "level": "Notification",
+     "urls": [{
+	 "name": "ADC Operations Shift Report",
+	 "file_prefix": "ADCOS_Report", 
+	 "link": "https://atlas-logbook.cern.ch/elog/ATLAS+Distributed+Computing+Operations+Shifts+Reports+Logbook/",
+	 "capture": true,
+	 "systems": ["eLog"]
+     },{
+	 "name": "Atlas Computer Operations Logbook",
+	 "file_prefix": "ATLAS_Computer_Operations_Logbook", 
+	 "link": "https://atlas-logbook.cern.ch/elog/ATLAS+Computer+Operations+Logbook/?mode=summary",
+	 "firefox_command": "Return",
+	 "capture": true,
+	 "systems": ["eLog"]
+     },{
+	 "name": "ADCoS Senior Shifter Tasks",
+	 "file_prefix": "ADCoS_Senior_Shifter_Tasks", 
+	 "link": "https://adcos.web.cern.ch/adcos/ADCoS_Clock/",
+	 "capture": false,
+	 "systems": []
+     },{
+	 "name": "Twiki ADCoS Howto",
+	 "file_prefix": "Twiki_ADCoS_Howto", 
+	 "link": "https://twiki.cern.ch/twiki/bin/viewauth/AtlasComputing/ADCoS",
+	 "capture": true,
+	 "systems": ["Twiki"]
+     },{
+	 "name": "Twiki ADCoS Known Problem",
+	 "file_prefix": "Twiki_ADCoS_Known_Problem", 
+	 "link": "https://twiki.cern.ch/twiki/bin/viewauth/AtlasComputing/ADCoSKnownProblem",
+	 "capture": true,
+	 "systems": ["Twiki"]
+     },{
+	 "name": "DDM Black listed",
+	 "file_prefix": "DDM_Black_listed", 
+	 "link": "http://atlas-agis.cern.ch/agis/ddmblacklisting/list/",
+	 "capture": true,
+	 "systems": ["AGIS"]
+     },{
+	 "name": "GGUS Atlas Team Tickets",
+	 "file_prefix": "GGUS_Atlas_Team_Tickets", 
+	 "link": "https://ggus.eu/?mode=ticket_search&status=open&specattrib=Team-Ticket&vo=atlas&date_type=creation+date&tf_radio=1&timeframe=any&orderticketsby=REQUEST_ID&orderhow=desc&search_submit=GO!",
+	 "capture": true,
+	 "systems": ["GGUS"]
+     },{
+	 "name": "AGIS Downtime Calender",
+	 "file_prefix": "AGIS_Downtime_Calender", 
+	 "link": "http://atlas-agis.cern.ch/agis/downtime/calendar/",
+	 "capture": true,
+	 "systems": ["AGIS"]
+     },{
+	 "name": "Jira Tickets overview ADCoS",
+	 "file_prefix": "Jira_Tickets_overview_ADCoS", 
+	 "link": "https://its.cern.ch/jira/secure/Dashboard.jspa?selectPageId=13820",
+	 "capture": true,
+	 "systems": ["Jira"]
+     },{
+	 "name": "Jira Tickets overview DDM",
+	 "file_prefix": "Jira_Tickets_overview_DDM", 
+	 "link": "https://its.cern.ch/jira/browse/ATLDDMOPS/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel",
+	 "capture": true,
+	 "systems": ["Jira"]
+     }]
+ }
 ]

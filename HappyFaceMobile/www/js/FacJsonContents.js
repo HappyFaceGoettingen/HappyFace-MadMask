@@ -232,25 +232,4 @@ angular.module('happyface.FacJsonContents', [])
 	  setLinks();
     }
   };
-})
-
-.factory('Humans', function(Config) {
-
-  return {
-    all: function() {
-      return humans;
-    },
-    get: function(emailAddress) {
-      for (var i = 0; i < humans.length; i++) {
-        if (humans[i].email === emailAddress) {
-          return humanss[i];
-        }
-      }
-      return null;
-    },
-    reload: function(){
-	  logger.debug("Reloading Humanss ...");
-	  humans = loadJsonByConfig(Config.get(), humansJson);
-    }
-  };
 });

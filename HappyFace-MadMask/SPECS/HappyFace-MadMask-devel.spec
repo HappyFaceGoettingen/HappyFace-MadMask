@@ -146,10 +146,13 @@ fi
 
 
 
-
+#------------------------------------------------------
+#
+# PRE Uninstall routine
+#
+#------------------------------------------------------
 %preun
 service madmaskd stop
-
 
 ## Changing a symlink of sites dir
 [ -L %{_prefix}/MadMask/sites ] && rm -v %{_prefix}/MadMask/sites
