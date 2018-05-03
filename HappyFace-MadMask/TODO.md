@@ -94,7 +94,7 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
  * Automatic iOS builder in madmask
 
 ## PCATLAS11
- * Open ports in PCATLAS11 --> Doing
+ * Open ports in PCATLAS11 --> Doing --> Done
 
 
 ## Implement new data importer for HF database
@@ -103,8 +103,8 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 ## Change item names in JSON files
    * config.json:   "port" --> "ionic_port", added "version", "web_port", "mobile_port"
-   * meta-meta.json:   "name" --> "site_name", "host" --> "site_host"
    * ==> Implement config.json version, web_port, mobile_port in mad-gantry
+   * top.json:   Added onto GitHub
    * systems.json:   "services" --> "actions"
    * monitoring-urls.json:   remove default "capture": true, 
 
