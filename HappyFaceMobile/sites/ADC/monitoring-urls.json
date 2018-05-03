@@ -3,10 +3,16 @@
     "text": "The most critical monitoring pages",
     "level": "Critical",
     "urls": [{
+	"name": "Database Dashboard",
+	"file_prefix": "Database_Dashboard", 
+	"link": "https://atlas-service-dbmonitor.web.cern.ch/atlas-service-dbmonitor/shifter/database_dashboard.php",
+	"capture": true,
+	"firefox_command": "Return",
+	"systems": ["Central databases"]
+    },{
 	"name": "Kibana ADC Central Services",
 	"file_prefix": "Kibana_ADC_Central_Services", 
 	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/temp/ATLAS::ATLAS",
-	"firefox_command": "Return",
 	"capture": true,
 	"systems": ["Kibana", "AGIS", "AMI", "Event Index Consumer", "Event Index Hadoop Cluster", "Event Index Web", "Frontier", "CVMFS ATLAS CONDB", "CVMFS Stratum1 ATLAS", "Panda Proxy", "Panda", "JEDI", "Panda Pilot Factory", "Rucio", "Rucio Kronos", "Rucio Reaper", "Rucio Undertaker", "Rucio httpd", "Rucio Load Balancer"]
     },{
@@ -117,12 +123,6 @@
 	"link": "https://meter.cern.ch/public/_plugin/kibana/#/dashboard/elasticsearch/Metrics:%20Availability?query=@fields.entity:%20rucio.loadbalancer",
 	"capture": true,
 	"systems": ["Kibana", "Rucio Load Balancer"]
-    },{
-	"name": "Database Dashboard",
-	"file_prefix": "Database_Dashboard", 
-	"link": "https://atlas-service-dbmonitor.web.cern.ch/atlas-service-dbmonitor/shifter/database_dashboard.php",
-	"capture": true,
-	"systems": ["Central databases"]
     }]
 },
  

@@ -246,13 +246,14 @@ start_browser(){
 stop_browser(){
     ! check_lock firefox && ERROR "Firefox already stopped" && return 1
     remove_lock firefox
-    return $?
+    local ret=$?
+    really_kill firefox
+    return $ret
 }
 
 
 status_browser(){
     ! check_lock firefox && return 1
-    
     return 0
 }
 
