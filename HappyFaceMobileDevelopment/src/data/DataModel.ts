@@ -35,6 +35,7 @@ export class DataModel
     static humansJson:string = "humans.json";
     static meta_meta_json:string = "meta-meta.json";
     static summaryJson:string = "index/latest/summary.json";
+    static analysisJson:string = "index/latest/analysis.json";
 
     // Data
     metaMetaSites:any;
@@ -49,6 +50,7 @@ export class DataModel
     visualizers    :any = null;
     logs           :any = null;
     humans         :any = null;
+    analysis       :any = null;
 
     // __backup        :InstanceObject = new InstanceObject(); (unused)
     currentlyActive :InstanceObject = new InstanceObject();
@@ -168,11 +170,12 @@ export class DataModel
             return;
         }
         let urls:string[] = [ DataModel.monitoringUrlsJson, DataModel.systemsJson, DataModel.visualizersJson,
-            DataModel.logsJson, DataModel.humansJson, DataModel.meta_meta_json, DataModel.summaryJson ];
+            DataModel.logsJson, DataModel.humansJson, DataModel.meta_meta_json, DataModel.summaryJson, DataModel.analysisJson ];
         for(let i:number = 0; i < urls.length; i++)
         {
             if(this.currentlyActive.host == "localhost") urls[i] = this.currentlyActive.dir + "/" + urls[i];
-            else urls[i] = this.getRemoteURL() + (i == urls.length -1 ? this.config.data_dir : this.currentlyActive.dir) + "/" + urls[i];
+            else urls[i] = this.getRemoteURL() + ((i == urls.length -2) || (i == urls.length -1)
+                ? this.config.data_dir : this.currentlyActive.dir) + "/" + urls[i];
         }
         this.readFileListAsync(urls, this.finishingCallback.bind(this));
     }
@@ -212,22 +215,25 @@ export class DataModel
         else { this.monitoringUrls = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[0]); }
 
         if(statusCodes[1] == 200) this.systems = JSON.parse(responses[1]);
-        else { this.systems = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[1]); }
+        else { this.systems = null; this.pushError(DataModel.systemsJson, statusCodes[1]); }
 
         if(statusCodes[2] == 200) this.visualizers = JSON.parse(responses[2]);
-        else { this.visualizers = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[2]); }
+        else { this.visualizers = null; this.pushError(DataModel.visualizersJson, statusCodes[2]); }
 
         if(statusCodes[3] == 200) this.logs = JSON.parse(responses[3]);
-        else { this.logs = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[3]); }
+        else { this.logs = null; this.pushError(DataModel.logsJson, statusCodes[3]); }
 
         if(statusCodes[4] == 200) this.humans = JSON.parse(responses[4]);
-        else { this.humans = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[4]); }
+        else { this.humans = null; this.pushError(DataModel.humansJson, statusCodes[4]); }
 
         if(statusCodes[5] == 200) this.metaMetaSites = JSON.parse(responses[5]);
-        else { this.metaMetaSites = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[5]); }
+        else { this.metaMetaSites = null; this.pushError(DataModel.meta_meta_json, statusCodes[5]); }
 
         if(statusCodes[6] == 200) this.summary = JSON.parse(responses[6]);
-        else { this.summary = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[6]); }
+        else { this.summary = null; this.pushError(DataModel.summaryJson, statusCodes[6]); }
+
+        if(statusCodes[7] == 200) this.analysis = JSON.parse(responses[7]);
+        else { this.analysis = null; this.pushError(DataModel.analysisJson, statusCodes[7])}
 
         this.loading = false;
 
@@ -510,13 +516,13 @@ export class InstanceObject
 export class ConfigurationObject
 {
     private _automaticFetch:boolean = true;
-    private _reloadInterval:number = 1;
+    private _reloadInterval:number = 10;
     private _automaticRotation:boolean = false;
     private _detectOnlyChange:boolean = true;
     private _enableMadVision:boolean = true;
     private _enableTextSpeech:boolean = true;
     private _enableAutoReadout:boolean = false;
-    private _speakInterval:number = 1;
+    private _speakInterval:number = 10;
     private _happyFaceCompatible:boolean = false;
 
     get() {

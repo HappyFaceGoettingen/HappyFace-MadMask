@@ -64,6 +64,15 @@
             <img src="{{selectedViewer.src}}"/>
         </ion-item>
 
+        <!-- TYPE == imgs -->
+        <ion-item *ngIf="(selectedViewer.type === 'imgs')">
+            <ion-row>
+                <ion-col col-sm-4 *ngFor="let src of selectedViewer.src">
+                    <img src="{{src}}">
+                </ion-col>
+            </ion-row>
+        </ion-item>
+
     </ion-list>
 
     <!-- TYPE == page -->
