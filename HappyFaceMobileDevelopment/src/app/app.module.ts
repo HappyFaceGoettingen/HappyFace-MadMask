@@ -28,8 +28,9 @@ import {AnalyzerPage2} from "../pages/analyzer/analyzer2";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
-import {HomePage} from "../pages/home/home";
+import {HomePage, WidgetCard} from "../pages/home/home";
 import {HttpClientModule} from "@angular/common/http";
+import {AbsoluteDrag} from "../directives/absolute-drag/AbsoluteDrag";
 
 @NgModule({
     declarations: [
@@ -54,7 +55,9 @@ import {HttpClientModule} from "@angular/common/http";
         PassModal,
         HFCategoriesPage,
         HFModulesPage,
-        HomePage
+        HomePage,
+        AbsoluteDrag,
+        WidgetCard
     ],
     imports: [
         BrowserModule,
@@ -85,7 +88,8 @@ import {HttpClientModule} from "@angular/common/http";
         PassModal,
         HFCategoriesPage,
         HFModulesPage,
-        HomePage
+        HomePage,
+        WidgetCard
     ],
     providers: [
         StatusBar,

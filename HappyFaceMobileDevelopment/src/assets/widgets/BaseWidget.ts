@@ -5,4 +5,5 @@ export abstract class BaseWidget
     content:string;
 
     protected constructor() {}
+
 }
