@@ -179,17 +179,30 @@ open_firefox_tabs(){
     local profile_option=""
     [ ! -z "$FIREFOX_PROFILE" ] && profile_option="--profile $FIREFOX_PROFILE"
 
-    local url
-    for url in ${URLS[*]}
+    local i
+    local num_tabs=$((${#URLS[*]} - 1))
+    INFO "Opening [$num_tabs] tabs ..."
+    for i in $(seq 0 $num_tabs)
     do
-	local command_option="$profile_option -new-tab $url"
-	INFO "COMMAND = [firefox $command_option]"
+	## Do we need to open a tab? (false => not capture, default/no_value = true)
+	[ "${CAPTURES[$i]}" == "false" ] && INFO "Skipping [${CAPTURES[$i]}]" && continue
+
+	## Open a tab
+	local command_option="$profile_option -new-tab ${URLS[$i]}"
+	INFO "FIREFOX TAB = [firefox $command_option]"
 	firefox $command_option &> /dev/null &
 	[ $? -ne 0 ] && ERROR "Opening Firefox Tabs failed" && return 1
 	sleep $WAIT_FIREFOX_OPEN_TAB
 
-	## For Debug
-	[ $LOGLEVEL -ge $DEBUG_LEVEL ] && INFO "DEBUG mode. Exiting." && break
+	## Run 'firefox_command' 
+	local fcommand="${FIREFOX_COMMANDS[$i]}"
+	if [ ! -z "$fcommand" ] && [ "$fcommand" != "null" ]; then
+	    INFO "Pushed [$fcommand] for Firefox"
+	    send_firefox_command "$fcommand"
+	fi
+
+	## For Trace
+	[ $LOGLEVEL -ge $TRACE_LEVEL ] && INFO "TRACE mode. Exiting." && break
     done
     return 0
 }
@@ -233,13 +246,14 @@ start_browser(){
 stop_browser(){
     ! check_lock firefox && ERROR "Firefox already stopped" && return 1
     remove_lock firefox
-    return $?
+    local ret=$?
+    really_kill firefox
+    return $ret
 }
 
 
 status_browser(){
     ! check_lock firefox && return 1
-    
     return 0
 }
 

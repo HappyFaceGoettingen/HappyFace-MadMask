@@ -9,7 +9,7 @@ Source0: HappyFaceMobile.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
-Requires: MadFoxd
+#Requires: MadFoxd
 
 Requires: nodejs
 Requires: npm
@@ -84,21 +84,17 @@ ln -s %{_datadir} $RPM_BUILD_ROOT/%{_prefix}/MadMask/data
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 
+
+#------------------------------------------------------
+#
+# POST routine
+#
+#------------------------------------------------------
 %post
 
 
 ## Making a symlink (for a Docker node)
 [ -e /sites ] && mv -v %{_prefix}/MadMask/sites %{_prefix}/MadMask/sites.org && ln -sv /sites %{_prefix}/MadMask/sites
-
-
-%if 0%{rhel} == 6
-  ## SSL error? Why on 03.04.2018? 
-  npm config set ca ""
-  
-  ## Reinstalling node-sass to HFMobile again, due to a native hardware or vender issue 
-  echo "Reinstalling node-sass to [%{_prefix}/MadMask/node_modules] again ..."
-  su - %{happyface_user} -c "npm config set ca \"\"; cd %{_prefix}/MadMask && npm install node-sass@4.2.0 && npm rebuild node-sass --force"
-%endif
 
 
 ## Installing Basic packages for Ionic and Cordova
@@ -128,10 +124,13 @@ fi
 [ ! -e %{_piddir} ] && mkdir -pv %{_piddir} && chown %{happyface_user}:%{happyface_group} %{_piddir}
 
 
+#------------------------------------------------------
+#
+# PRE Uninstall routine
+#
+#------------------------------------------------------
 %preun
-%if 0%{rhel} == 6
-  service madmaskd stop
-%endif
+service madmaskd stop
 
 ## Changing a symlink of sites dir
 [ -L %{_prefix}/MadMask/sites ] && rm -v %{_prefix}/MadMask/sites

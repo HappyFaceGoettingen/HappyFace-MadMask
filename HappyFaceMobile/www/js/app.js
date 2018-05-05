@@ -60,17 +60,6 @@ angular.module('happyface', ['ionic', 'happyface.controllers', 'happyface.CtrlMo
         }
       }
     })
-
-    .state('tab.humans', {
-       url: '/humans',
-       views: {
-	  'tab-humans': {
-	   templateUrl: 'templates/tab-humans.html',
-	   controller: 'HumansCtrl'
-	 }
-       }
-    })
-
     .state('tab.monitoring', {
        url: '/monitoring',
        views: {

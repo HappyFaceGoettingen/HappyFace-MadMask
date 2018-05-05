@@ -62,3 +62,8 @@ remove_all_locks(){
 	rm -v $lockfile
     done
 }
+
+
+really_kill(){
+    killall $1
+}

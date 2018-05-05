@@ -34,8 +34,8 @@ import_madfox_images(){
 	trim_madfox_image $imgfile $imported_img
 	let i++
 
-	## For Debug
-	[ $LOGLEVEL -ge $DEBUG_LEVEL ] && INFO "DEBUG mode. Exiting." && break
+	## For Trace
+	[ $LOGLEVEL -ge $TRACE_LEVEL ] && INFO "TRACE mode. Exiting." && break
     done
 }
 
@@ -60,8 +60,8 @@ generate_thumbnails(){
 	convert $capture_img $THUMBNAIL_OPTION $thumbnail_img
 	[ $? -ne 0 ] && rm -v $thumbnail_img
 
-	## For Debug
-	[ $LOGLEVEL -ge $DEBUG_LEVEL ] && INFO "DEBUG mode. Exiting." && break
+	## For Trace
+	[ $LOGLEVEL -ge $TRACE_LEVEL ] && INFO "TRACE mode. Exiting." && break
     done
 }
 

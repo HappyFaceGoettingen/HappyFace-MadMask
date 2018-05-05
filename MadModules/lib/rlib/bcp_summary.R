@@ -3,6 +3,8 @@
 ## Functions
 ##
 ##-----------------------------------------------------------
+
+## Main function which can be paralleled by monitoring.urls.caller
 run.bcp.summary <- function(detection.method="bcp.detect.one.exceeds", bcp.threshold=0.6, combined.threshold=0.6, max.url.outputs=3, max.system.outputs=3){
 
   ## For Normal level (default)
@@ -20,6 +22,7 @@ run.bcp.summary <- function(detection.method="bcp.detect.one.exceeds", bcp.thres
 }
 
 
+## This function is called by monitoring.urls.caller() in run.bcp.summary function
 bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.outputs, max.system.outputs){
 
   ## Init

@@ -3,350 +3,1015 @@
 	"text": "System [se]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se restart"
-		}]
+		"text": "Send a restart command to [se] via ssh",
+		"command": "restart se"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se] via ssh",
+		"command": "start se"
+	}]
   },{
 	"name": "bdii",
 	"text": "System [bdii]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [bdii] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [bdii] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "bdii restart"
-		}]
+		"text": "Send a restart command to [bdii] via ssh",
+		"command": "restart bdii"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [bdii] via ssh",
+		"command": "start bdii"
+	}]
   },{
 	"name": "creamce",
 	"text": "System [creamce]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [creamce] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [creamce] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "creamce restart"
-		}]
+		"text": "Send a restart command to [creamce] via ssh",
+		"command": "restart creamce"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [creamce] via ssh",
+		"command": "start creamce"
+	}]
   },{
 	"name": "pbs",
 	"text": "System [pbs]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [pbs] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [pbs] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "pbs restart"
-		}]
+		"text": "Send a restart command to [pbs] via ssh",
+		"command": "restart pbs"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [pbs] via ssh",
+		"command": "start pbs"
+	}]
   },{
 	"name": "creamce2",
 	"text": "System [creamce2]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [creamce2] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [creamce2] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "creamce2 restart"
-		}]
+		"text": "Send a restart command to [creamce2] via ssh",
+		"command": "restart creamce2"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [creamce2] via ssh",
+		"command": "start creamce2"
+	}]
   },{
 	"name": "creamce3",
 	"text": "System [creamce3]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [creamce3] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [creamce3] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "creamce3 restart"
-		}]
+		"text": "Send a restart command to [creamce3] via ssh",
+		"command": "restart creamce3"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [creamce3] via ssh",
+		"command": "start creamce3"
+	}]
   },{
 	"name": "apel",
 	"text": "System [apel]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [apel] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [apel] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "apel restart"
-		}]
+		"text": "Send a restart command to [apel] via ssh",
+		"command": "restart apel"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [apel] via ssh",
+		"command": "start apel"
+	}]
   },{
 	"name": "FAX",
 	"text": "System [FAX]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [FAX] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [FAX] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "FAX restart"
-		}]
+		"text": "Send a restart command to [FAX] via ssh",
+		"command": "restart FAX"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [FAX] via ssh",
+		"command": "start FAX"
+	}]
   },{
 	"name": "Squid",
 	"text": "System [Squid]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [Squid] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [Squid] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "Squid restart"
-		}]
+		"text": "Send a restart command to [Squid] via ssh",
+		"command": "restart Squid"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [Squid] via ssh",
+		"command": "start Squid"
+	}]
   },{
 	"name": "ALL",
 	"text": "System [ALL]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [ALL] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [ALL] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ALL restart"
-		}]
+		"text": "Send a restart command to [ALL] via ssh",
+		"command": "restart ALL"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [ALL] via ssh",
+		"command": "start ALL"
+	}]
   },{
 	"name": "nagios",
 	"text": "System [nagios]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [nagios] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [nagios] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "nagios restart"
-		}]
+		"text": "Send a restart command to [nagios] via ssh",
+		"command": "restart nagios"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [nagios] via ssh",
+		"command": "start nagios"
+	}]
   },{
 	"name": "ganglia",
 	"text": "System [ganglia]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [ganglia] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [ganglia] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "ganglia restart"
-		}]
+		"text": "Send a restart command to [ganglia] via ssh",
+		"command": "restart ganglia"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [ganglia] via ssh",
+		"command": "start ganglia"
+	}]
   },{
 	"name": "virt1",
 	"text": "System [virt1]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [virt1] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [virt1] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt1 restart"
-		}]
+		"text": "Send a restart command to [virt1] via ssh",
+		"command": "restart virt1"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [virt1] via ssh",
+		"command": "start virt1"
+	}]
   },{
 	"name": "virt2",
 	"text": "System [virt2]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [virt2] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [virt2] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt2 restart"
-		}]
+		"text": "Send a restart command to [virt2] via ssh",
+		"command": "restart virt2"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [virt2] via ssh",
+		"command": "start virt2"
+	}]
   },{
 	"name": "virt3",
 	"text": "System [virt3]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [virt3] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [virt3] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt3 restart"
-		}]
+		"text": "Send a restart command to [virt3] via ssh",
+		"command": "restart virt3"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [virt3] via ssh",
+		"command": "start virt3"
+	}]
   },{
 	"name": "virt4",
 	"text": "System [virt4]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [virt4] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [virt4] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt4 restart"
-		}]
+		"text": "Send a restart command to [virt4] via ssh",
+		"command": "restart virt4"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [virt4] via ssh",
+		"command": "start virt4"
+	}]
   },{
 	"name": "virt5",
 	"text": "System [virt5]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [virt5] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [virt5] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt5 restart"
-		}]
+		"text": "Send a restart command to [virt5] via ssh",
+		"command": "restart virt5"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [virt5] via ssh",
+		"command": "start virt5"
+	}]
   },{
 	"name": "virt6",
 	"text": "System [virt6]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [virt6] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [virt6] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "virt6 restart"
-		}]
+		"text": "Send a restart command to [virt6] via ssh",
+		"command": "restart virt6"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [virt6] via ssh",
+		"command": "start virt6"
+	}]
   },{
 	"name": "rocks",
 	"text": "System [rocks]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [rocks] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [rocks] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "rocks restart"
-		}]
+		"text": "Send a restart command to [rocks] via ssh",
+		"command": "restart rocks"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [rocks] via ssh",
+		"command": "start rocks"
+	}]
   },{
 	"name": "se2",
 	"text": "System [se2]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se2] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se2] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se2 restart"
-		}]
+		"text": "Send a restart command to [se2] via ssh",
+		"command": "restart se2"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se2] via ssh",
+		"command": "start se2"
+	}]
   },{
 	"name": "se3",
 	"text": "System [se3]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se3] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se3] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se3 restart"
-		}]
+		"text": "Send a restart command to [se3] via ssh",
+		"command": "restart se3"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se3] via ssh",
+		"command": "start se3"
+	}]
   },{
 	"name": "se4",
 	"text": "System [se4]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se4] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se4] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se4 restart"
-		}]
+		"text": "Send a restart command to [se4] via ssh",
+		"command": "restart se4"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se4] via ssh",
+		"command": "start se4"
+	}]
   },{
 	"name": "se5",
 	"text": "System [se5]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se5] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se5] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se5 restart"
-		}]
+		"text": "Send a restart command to [se5] via ssh",
+		"command": "restart se5"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se5] via ssh",
+		"command": "start se5"
+	}]
   },{
 	"name": "se6",
 	"text": "System [se6]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se6] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se6] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se6 restart"
-		}]
+		"text": "Send a restart command to [se6] via ssh",
+		"command": "restart se6"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se6] via ssh",
+		"command": "start se6"
+	}]
   },{
 	"name": "se7",
 	"text": "System [se7]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se7] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se7] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se7 restart"
-		}]
+		"text": "Send a restart command to [se7] via ssh",
+		"command": "restart se7"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se7] via ssh",
+		"command": "start se7"
+	}]
   },{
 	"name": "se8",
 	"text": "System [se8]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se8] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se8] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se8 restart"
-		}]
+		"text": "Send a restart command to [se8] via ssh",
+		"command": "restart se8"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se8] via ssh",
+		"command": "start se8"
+	}]
   },{
 	"name": "se9",
 	"text": "System [se9]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se9] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se9] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se9 restart"
-		}]
+		"text": "Send a restart command to [se9] via ssh",
+		"command": "restart se9"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se9] via ssh",
+		"command": "start se9"
+	}]
   },{
 	"name": "se10",
 	"text": "System [se10]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se10] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se10] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se10 restart"
-		}]
+		"text": "Send a restart command to [se10] via ssh",
+		"command": "restart se10"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se10] via ssh",
+		"command": "start se10"
+	}]
   },{
 	"name": "se11",
 	"text": "System [se11]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se11] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se11] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se11 restart"
-		}]
+		"text": "Send a restart command to [se11] via ssh",
+		"command": "restart se11"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se11] via ssh",
+		"command": "start se11"
+	}]
   },{
 	"name": "se12",
 	"text": "System [se12]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se12] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se12] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se12 restart"
-		}]
+		"text": "Send a restart command to [se12] via ssh",
+		"command": "restart se12"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se12] via ssh",
+		"command": "start se12"
+	}]
   },{
 	"name": "se13",
 	"text": "System [se13]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se13] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se13] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se13 restart"
-		}]
+		"text": "Send a restart command to [se13] via ssh",
+		"command": "restart se13"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se13] via ssh",
+		"command": "start se13"
+	}]
   },{
 	"name": "se14",
 	"text": "System [se14]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se14] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se14] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se14 restart"
-		}]
+		"text": "Send a restart command to [se14] via ssh",
+		"command": "restart se14"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se14] via ssh",
+		"command": "start se14"
+	}]
   },{
 	"name": "se15",
 	"text": "System [se15]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se15] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se15] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se15 restart"
-		}]
+		"text": "Send a restart command to [se15] via ssh",
+		"command": "restart se15"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se15] via ssh",
+		"command": "start se15"
+	}]
   },{
 	"name": "se16",
 	"text": "System [se16]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [se16] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [se16] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "se16 restart"
-		}]
+		"text": "Send a restart command to [se16] via ssh",
+		"command": "restart se16"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [se16] via ssh",
+		"command": "start se16"
+	}]
   },{
 	"name": "dcache",
 	"text": "System [dcache]",
 	"img":  "img/default_server.png",
 	"dependent":  [],
+	"happyface":  [],
+	"elasticsearch":  [],
+	"forecast":  [0,1,2,3,4],
 	"services": [{
+		"type": "email",
+		"name": "E-mail",
+		"text": "Send an email to [dcache] administrator(s)",
+		"command": "mail:admin@noemail.dummy"
+		},{
+		"type": "ticket",
+		"name": "Ticket",
+		"text": "Open a ticket to [dcache] administrator(s)",
+		"command": "url:https://www.google.com"
+		},{
 		"type": "ssh",
 		"name": "Restart",
-		"command": "dcache restart"
-		}]
+		"text": "Send a restart command to [dcache] via ssh",
+		"command": "restart dcache"
+		},{
+		"type": "ssh",
+		"name": "Start",
+		"text": "Send a start command to [dcache] via ssh",
+		"command": "start dcache"
+	}]
 
 }]

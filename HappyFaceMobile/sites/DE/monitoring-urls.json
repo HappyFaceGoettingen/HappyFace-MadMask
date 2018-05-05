@@ -1,134 +1,115 @@
 [{
-	      "name": "Critical Line",
-	      "text": "The most critical monitoring pages",
-	      "level": "Critical",
-		"urls": [
-		{
-		    "name": "DDM Transfer Monitor to DE Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_to_DE_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Transfer Monitor from DE last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_from_DE_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22DE%22%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Staging Monitor DE Cloud last 4 hours",
-		    "file_prefix": "DDM_Staging_monitor_DE_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22DE%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
-		    "capture": true,
-		    "systems": ["DDM transfer service", "DE Cloud"]
-		},
-		{
-		    "name": "DDM Deletion Monitor DE Cloud last 4 hours",
-		    "file_prefix": "DDM_Transfer_monitor_DE_Cloud_last_4h", 
-		     "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
-		    "capture": true,
-		    "systems": ["DDM deletion service", "DE Cloud"]
-		}
-		]
-	},
+    "name": "Critical Line",
+    "text": "The most critical monitoring pages",
+    "level": "Critical",
+    "urls": [{
+	"name": "DDM Transfer Monitor to DE Cloud last 4 hours",
+	"file_prefix": "DDM_Transfer_monitor_to_DE_Cloud_last_4h", 
+	"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.tier=%280,1,2%29",
+	"capture": true,
+	"systems": ["DDM transfer service", "DE Cloud"]
+    },{
+	"name": "DDM Transfer Monitor from DE last 4 hours",
+	"file_prefix": "DDM_Transfer_monitor_from_DE_last_4h", 
+	"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on%29%29&dst.tier=%280,1,2%29&grouping.src=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf,s_eff,s_err,s_suc,t_eff,t_err,t_suc%29&src.cloud=%28%22DE%22%29&src.tier=%280,1,2%29",
+	"capture": true,
+	"systems": ["DDM transfer service", "DE Cloud"]
+    },{
+	"name": "DDM Staging Monitor DE Cloud last 4 hours",
+	"file_prefix": "DDM_Staging_monitor_DE_Cloud_last_4h", 
+	"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Staging%29&dst.cloud=%28%22DE%22%29&grouping.dst=%28cloud,site%29&m.content=%28s_eff,s_err,s_suc%29",
+	"capture": true,
+	"systems": ["DDM transfer service", "DE Cloud"]
+    },{
+	"name": "DDM Deletion Monitor DE Cloud last 4 hours",
+	"file_prefix": "DDM_Transfer_monitor_DE_Cloud_last_4h", 
+	"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Deletion%29&dst.cloud=%28%22DE%22%29&dst.tier=%280,1,2%29&grouping.dst=%28cloud,site%29&m.content=%28d_dof,d_eff,d_faf%29&src.tier=%280,1,2%29",
+	"capture": true,
+	"systems": ["DDM deletion service", "DE Cloud"]
+    }]
+ },
 
 
-	{
-		"name": "Warning Line",
-		"text": "Need to check them",
-		"level": "Warning",
-		"urls": [
-		{
-			"name": "AGIS Panda Production Online States in DE Cloud",
-	    		"file_prefix": "AGIS_Panda_Production_Online_State_DE_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=DE",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in DE Cloud"]
-		},
-		{
-			"name": "AGIS Panda Analysis Online States in DE Cloud",
-	    		"file_prefix": "AGIS_Panda_Analysis_Online_State_DE_Cloud", 
-	     		"link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=DE",
-	    		"capture": true,
-	    		"systems": ["AGIS", "Panda Queues in DE Cloud"]
-		},
-		{
-			"name": "SSB Panda Queue States in DE Cloud",
-	    		"file_prefix": "SSB_Panda_Queue_DE_Cloud", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=DE",
-			"xdisplay_name": "large",
-	    		"capture": true,
-	    		"systems": ["Site Status Board", "Panda Queues in DE Cloud"]
-		},
-		{
-			"name": "Panglia Panda DE Cloud Job States",
-	    		"file_prefix": "Panglia_Panda_DE_Cloud_Job_states", 
-	     		"link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=DE&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["Panglia", "Panda Production Job", "DE Cloud"]
-		}
-		]
-	},
+ {
+     "name": "Warning Line",
+     "text": "Need to check them",
+     "level": "Warning",
+     "urls": [{
+	 "name": "AGIS Panda Production Online States in DE Cloud",
+	 "file_prefix": "AGIS_Panda_Production_Online_State_DE_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=production&cloud_name=DE",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in DE Cloud"]
+     },{
+	 "name": "AGIS Panda Analysis Online States in DE Cloud",
+	 "file_prefix": "AGIS_Panda_Analysis_Online_State_DE_Cloud", 
+	 "link": "http://atlas-agis.cern.ch/agis/pandaqueue/table_view/?&state=ACTIVE&status=online&type=analysis&cloud_name=DE",
+	 "capture": true,
+	 "systems": ["AGIS", "Panda Queues in DE Cloud"]
+     },{
+	 "name": "SSB Panda Queue States in DE Cloud",
+	 "file_prefix": "SSB_Panda_Queue_DE_Cloud", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=all&clouds=DE",
+	 "xdisplay_name": "large",
+	 "capture": true,
+	 "systems": ["Site Status Board", "Panda Queues in DE Cloud"]
+     },{
+	 "name": "Panglia Panda DE Cloud Job States",
+	 "file_prefix": "Panglia_Panda_DE_Cloud_Job_states", 
+	 "link": "http://panglia.triumf.ca/cloud/graph.php?CLOUD=DE&QUEUE=production&TIME=day&SCALE=regular&GRTYPE=individual&CSTATE=ALL&VIEW=bystate&&SIZE=large",
+	 "capture": true,
+	 "systems": ["Panglia", "Panda Production Job", "DE Cloud"]
+     }]
+ },
 
 
-	{
-		"name": "Notification Line",
-		"text": "Notification should be sent, when one is updated",
-		"level": "Notification",
-		"urls": [
-		{
-			"name": "Atlas Computer Operations Logbook",
-	    		"file_prefix": "ATLAS_Computer_Operations_Logbook", 
-	     		"link": "https://atlas-logbook.cern.ch/elog/ATLAS+Computer+Operations+Logbook/?mode=summary",
-			"firefox_command": "Return",
-	    		"capture": true,
-                    	"systems": ["eLog", "ADC"]
-		},
-		{
-			"name": "Twiki ADCoS Known Problem",
-	    		"file_prefix": "Twiki_ADCoS_Known_Problem", 
-	     		"link": "https://twiki.cern.ch/twiki/bin/viewauth/AtlasComputing/ADCoSKnownProblem",
-	    		"capture": true,
-                    	"systems": ["Twiki", "ADC"]
-		},
-		{
-			"name": "DDM Black listed",
-	    		"file_prefix": "DDM_Black_listed", 
-	     		"link": "http://atlas-agis.cern.ch/agis/ddmblacklisting/list/",
-	    		"capture": true,
-                    	"systems": ["AGIS", "DDM transfer service"]
-		},
-		{
-			"name": "GGUS Atlas Team Tickets",
-	    		"file_prefix": "GGUS_Atlas_Team_Tickets", 
-	     		"link": "https://ggus.eu/?mode=ticket_search&status=open&specattrib=Team-Ticket&vo=atlas&date_type=creation+date&tf_radio=1&timeframe=any&orderticketsby=REQUEST_ID&orderhow=desc&search_submit=GO!",
-	    		"capture": true,
-                    	"systems": ["GGUS", "ADC"]
-		},
-		{
-			"name": "AGIS Downtime Calender",
-	    		"file_prefix": "AGIS_Downtime_Calender", 
-	     		"link": "http://atlas-agis.cern.ch/agis/downtime/calendar/",
-	    		"capture": true,
-                    	"systems": ["AGIS", "ADC"]
-		},
-		{
-			"name": "Jira Tickets overview ADCoS",
-	    		"file_prefix": "Jira_Tickets_overview_ADCoS", 
-	     		"link": "https://its.cern.ch/jira/secure/Dashboard.jspa?selectPageId=13820",
-	    		"capture": true,
-                    	"systems": ["Jira", "ADC"]
-		},
-		{
-			"name": "Jira Tickets overview DDM",
-	    		"file_prefix": "Jira_Tickets_overview_DDM", 
-	     		"link": "https://its.cern.ch/jira/browse/ATLDDMOPS/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel",
-	    		"capture": true,
-                    	"systems": ["Jira", "DDM transfer service"]
-		}
-		]
-	}
-
+ {
+     "name": "Notification Line",
+     "text": "Notification should be sent, when one is updated",
+     "level": "Notification",
+     "urls": [{
+	 "name": "Atlas Computer Operations Logbook",
+	 "file_prefix": "ATLAS_Computer_Operations_Logbook", 
+	 "link": "https://atlas-logbook.cern.ch/elog/ATLAS+Computer+Operations+Logbook/?mode=summary",
+	 "firefox_command": "Return",
+	 "capture": true,
+         "systems": ["eLog", "ADC"]
+     },{
+	 "name": "Twiki ADCoS Known Problem",
+	 "file_prefix": "Twiki_ADCoS_Known_Problem", 
+	 "link": "https://twiki.cern.ch/twiki/bin/viewauth/AtlasComputing/ADCoSKnownProblem",
+	 "capture": true,
+         "systems": ["Twiki", "ADC"]
+     },{
+	 "name": "DDM Black listed",
+	 "file_prefix": "DDM_Black_listed", 
+	 "link": "http://atlas-agis.cern.ch/agis/ddmblacklisting/list/",
+	 "capture": true,
+         "systems": ["AGIS", "DDM transfer service"]
+     },{
+	 "name": "GGUS Atlas Team Tickets",
+	 "file_prefix": "GGUS_Atlas_Team_Tickets", 
+	 "link": "https://ggus.eu/?mode=ticket_search&status=open&specattrib=Team-Ticket&vo=atlas&date_type=creation+date&tf_radio=1&timeframe=any&orderticketsby=REQUEST_ID&orderhow=desc&search_submit=GO!",
+	 "capture": true,
+         "systems": ["GGUS", "ADC"]
+     },{
+	 "name": "AGIS Downtime Calender",
+	 "file_prefix": "AGIS_Downtime_Calender", 
+	 "link": "http://atlas-agis.cern.ch/agis/downtime/calendar/",
+	 "capture": true,
+         "systems": ["AGIS", "ADC"]
+     },{
+	 "name": "Jira Tickets overview ADCoS",
+	 "file_prefix": "Jira_Tickets_overview_ADCoS", 
+	 "link": "https://its.cern.ch/jira/secure/Dashboard.jspa?selectPageId=13820",
+	 "capture": true,
+         "systems": ["Jira", "ADC"]
+     },{
+	 "name": "Jira Tickets overview DDM",
+	 "file_prefix": "Jira_Tickets_overview_DDM", 
+	 "link": "https://its.cern.ch/jira/browse/ATLDDMOPS/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel",
+	 "capture": true,
+         "systems": ["Jira", "DDM transfer service"]
+     }]
+ }
 ]

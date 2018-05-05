@@ -204,8 +204,4 @@ angular.module('happyface.controllers', [])
 
 .controller('ConfigCtrl', function($scope) {
 
-})
-
-.controller('HumansCtrl', function($scope, Humans) {
-  $scope.humans = Humans.all();
 });
