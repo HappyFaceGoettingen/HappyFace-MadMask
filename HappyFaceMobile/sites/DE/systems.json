@@ -6,7 +6,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [DDM transfer service] administrator(s)",
@@ -20,12 +20,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [DDM transfer service] via ssh",
-		"command": "restart DDM_transfer_service"
+		"command": "admin_command restart DDM_transfer_service"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [DDM transfer service] via ssh",
-		"command": "start DDM_transfer_service"
+		"command": "admin_command start DDM_transfer_service"
 	}]
   },{
 	"name": "DE Cloud",
@@ -35,7 +35,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [DE Cloud] administrator(s)",
@@ -49,12 +49,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [DE Cloud] via ssh",
-		"command": "restart DE_Cloud"
+		"command": "admin_command restart DE_Cloud"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [DE Cloud] via ssh",
-		"command": "start DE_Cloud"
+		"command": "admin_command start DE_Cloud"
 	}]
   },{
 	"name": "DDM deletion service",
@@ -64,7 +64,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [DDM deletion service] administrator(s)",
@@ -78,12 +78,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [DDM deletion service] via ssh",
-		"command": "restart DDM_deletion_service"
+		"command": "admin_command restart DDM_deletion_service"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [DDM deletion service] via ssh",
-		"command": "start DDM_deletion_service"
+		"command": "admin_command start DDM_deletion_service"
 	}]
   },{
 	"name": "AGIS",
@@ -93,7 +93,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [AGIS] administrator(s)",
@@ -107,12 +107,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [AGIS] via ssh",
-		"command": "restart AGIS"
+		"command": "admin_command restart AGIS"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [AGIS] via ssh",
-		"command": "start AGIS"
+		"command": "admin_command start AGIS"
 	}]
   },{
 	"name": "Panda Queues in DE Cloud",
@@ -122,7 +122,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Panda Queues in DE Cloud] administrator(s)",
@@ -136,12 +136,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Panda Queues in DE Cloud] via ssh",
-		"command": "restart Panda_Queues_in_DE_Cloud"
+		"command": "admin_command restart Panda_Queues_in_DE_Cloud"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Panda Queues in DE Cloud] via ssh",
-		"command": "start Panda_Queues_in_DE_Cloud"
+		"command": "admin_command start Panda_Queues_in_DE_Cloud"
 	}]
   },{
 	"name": "Site Status Board",
@@ -151,7 +151,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Site Status Board] administrator(s)",
@@ -165,12 +165,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Site Status Board] via ssh",
-		"command": "restart Site_Status_Board"
+		"command": "admin_command restart Site_Status_Board"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Site Status Board] via ssh",
-		"command": "start Site_Status_Board"
+		"command": "admin_command start Site_Status_Board"
 	}]
   },{
 	"name": "Panglia",
@@ -180,7 +180,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Panglia] administrator(s)",
@@ -194,12 +194,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Panglia] via ssh",
-		"command": "restart Panglia"
+		"command": "admin_command restart Panglia"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Panglia] via ssh",
-		"command": "start Panglia"
+		"command": "admin_command start Panglia"
 	}]
   },{
 	"name": "Panda Production Job",
@@ -209,7 +209,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Panda Production Job] administrator(s)",
@@ -223,12 +223,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Panda Production Job] via ssh",
-		"command": "restart Panda_Production_Job"
+		"command": "admin_command restart Panda_Production_Job"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Panda Production Job] via ssh",
-		"command": "start Panda_Production_Job"
+		"command": "admin_command start Panda_Production_Job"
 	}]
   },{
 	"name": "eLog",
@@ -238,7 +238,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [eLog] administrator(s)",
@@ -252,12 +252,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [eLog] via ssh",
-		"command": "restart eLog"
+		"command": "admin_command restart eLog"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [eLog] via ssh",
-		"command": "start eLog"
+		"command": "admin_command start eLog"
 	}]
   },{
 	"name": "ADC",
@@ -267,7 +267,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [ADC] administrator(s)",
@@ -281,12 +281,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [ADC] via ssh",
-		"command": "restart ADC"
+		"command": "admin_command restart ADC"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [ADC] via ssh",
-		"command": "start ADC"
+		"command": "admin_command start ADC"
 	}]
   },{
 	"name": "Twiki",
@@ -296,7 +296,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Twiki] administrator(s)",
@@ -310,12 +310,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Twiki] via ssh",
-		"command": "restart Twiki"
+		"command": "admin_command restart Twiki"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Twiki] via ssh",
-		"command": "start Twiki"
+		"command": "admin_command start Twiki"
 	}]
   },{
 	"name": "GGUS",
@@ -325,7 +325,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [GGUS] administrator(s)",
@@ -339,12 +339,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [GGUS] via ssh",
-		"command": "restart GGUS"
+		"command": "admin_command restart GGUS"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [GGUS] via ssh",
-		"command": "start GGUS"
+		"command": "admin_command start GGUS"
 	}]
   },{
 	"name": "Jira",
@@ -354,7 +354,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Jira] administrator(s)",
@@ -368,12 +368,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Jira] via ssh",
-		"command": "restart Jira"
+		"command": "admin_command restart Jira"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Jira] via ssh",
-		"command": "start Jira"
+		"command": "admin_command start Jira"
 	}]
 
 }]

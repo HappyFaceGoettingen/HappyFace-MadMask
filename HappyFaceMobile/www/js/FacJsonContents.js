@@ -86,7 +86,7 @@ angular.module('happyface.FacJsonContents', [])
 
       for (var i = 0; i < monitoringUrls.length; i++) {
 	  for (var j = 0; j < monitoringUrls[i].urls.length; j++){
-	      if ((monitoringUrls[i].urls[j].file_prefix == null) || (! monitoringUrls[i].urls[j].capture)){
+	      if (monitoringUrls[i].urls[j].file_prefix == null){
 		  monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
 		  monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
 		  monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
@@ -109,7 +109,7 @@ angular.module('happyface.FacJsonContents', [])
       plot_name = pname;
       for (var i = 0; i < monitoringUrls.length; i++) {
 	  for (var j = 0; j < monitoringUrls[i].urls.length; j++){
-	      if ((monitoringUrls[i].urls[j].file_prefix == null) || (! monitoringUrls[i].urls[j].capture)){
+	      if (monitoringUrls[i].urls[j].file_prefix == null){
 		  logger.debug("nop");
 	      } else {
 		  if (plot_name == "analysis" ) monitoringUrls[i].urls[j].analysis_plot = monitoringUrls[i].urls[j].plot_analysis;

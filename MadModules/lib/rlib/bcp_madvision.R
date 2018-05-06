@@ -34,6 +34,7 @@ run.madvision <- function(bcp.threshold=0.7){
   ## Generating plots
   ##----------------------------------------
   ## Loading data
+  message("Loading data [", robj.detector, "], [", robj.pathway, "] ...")
   if (file.exists(robj.detector)) load(file=robj.detector)
   if (file.exists(robj.pathway)) load(file=robj.pathway)
   
@@ -42,44 +43,47 @@ run.madvision <- function(bcp.threshold=0.7){
   latest.date.id <- date.ids[length(date.ids)]
   latest.img.file <- paste(c(capture.dir, "/", latest.date.id, "/", file.prefix, ".jpg"), collapse="")
   mad.vision.file <- paste(c(output.dir, "/", file.prefix, ".jpg"), collapse="")
-  if (file.exists(latest.img.file)){
-    message("Latest BCP Posterior Probability of ", file.prefix, "  = ", latest.bcp.pp)
-
-    ## Status Not Changed
-    if (latest.bcp.pp < bcp.threshold) {
-      relative.path <- system(paste(c("prealpath ", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
-      system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
-      return(0)
-    }
-
-    ## Status Changed
-    message("Generating MadVision: ", file.prefix, "  = ", latest.bcp.pp, " ...")
-    img <- read.jpeg(latest.img.file)
-    data1 <- as.list(NULL)
-    
-    ## Graph 1
-    if (exists("sub.graph.matrix")) data1[["graph1"]] <- generate.graph(sub.graph.matrix)
-    
-    ## Plot 1
-    data1[["plot1"]] <- bcp.posterior.prob
-    data1[["plot1.title"]] <- "Bayesian Posterior Probability"
-    
-    ## Plot 2
-    data1[["plot2"]] <- info.gain.df$info.gain
-    data1[["plot2.title"]] <- "Nearest Image InfoGain"
-    len <- length(bcp.posterior.prob)
-    
-    ## Text 1,2,3
-    len.end <- 0
-    if (length(c(len:len.end)) > 8) len.end <- len-8
-    data1[["text1"]] <- bcp.posterior.prob[len:len.end]
-    data1[["text2"]] <- "■ Status Changed"
-    len <- length(info.gain.df$info.gain)
-    data1[["text3"]] <- c("Mad Vision v0.30", "-------------------------", info.gain.df$info.gain[len:len.end])
-    
-    ## Plotting here
-    generate.terminator.vision(img, mad.vision.file, data1)
+  if (!file.exists(latest.img.file)){
+    message("Image file [", latest.img.file, "] does not exist ...")
+    return(FALSE)
   }
+  
+  message("Latest BCP Posterior Probability of ", file.prefix, "  = ", latest.bcp.pp)
+
+  ## Status Not Changed
+  if (latest.bcp.pp < bcp.threshold) {
+    relative.path <- system(paste(c("prealpath ", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
+    system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
+    return(TRUE)
+  }
+  
+  ## Status Changed
+  message("Generating MadVision: ", file.prefix, "  = ", latest.bcp.pp, " ...")
+  img <- read.jpeg(latest.img.file)
+  data1 <- as.list(NULL)
+  
+  ## Graph 1
+  if (exists("sub.graph.matrix")) data1[["graph1"]] <- generate.graph(sub.graph.matrix)
+  
+  ## Plot 1
+  data1[["plot1"]] <- bcp.posterior.prob
+  data1[["plot1.title"]] <- "Bayesian Posterior Probability"
+  
+  ## Plot 2
+  data1[["plot2"]] <- info.gain.df$info.gain
+  data1[["plot2.title"]] <- "Nearest Image InfoGain"
+  len <- length(bcp.posterior.prob)
+  
+  ## Text 1,2,3
+  len.end <- 0
+  if (length(c(len:len.end)) > 8) len.end <- len-8
+  data1[["text1"]] <- bcp.posterior.prob[len:len.end]
+  data1[["text2"]] <- "■ Status Changed"
+  len <- length(info.gain.df$info.gain)
+  data1[["text3"]] <- c("Mad Vision v0.30", "-------------------------", info.gain.df$info.gain[len:len.end])
+  
+  ## Plotting here
+  generate.terminator.vision(img, mad.vision.file, data1)
 }
 
 

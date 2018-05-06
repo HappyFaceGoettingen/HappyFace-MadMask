@@ -122,13 +122,18 @@ run.sub.pathway <- function(){
   
   ## Generate from/to matrix
   message("file.prefix = [", file.prefix, "], url.name = [", url.name, "], systems = [", paste(systems, collapse=","), "]")
-  graph.matrix <<- append.graph.matrix(graph.matrix, url.name, systems, all.systems)
+  if (is.null(systems) || (length(systems) == 0)) {
+    message("System definition is null [", systems, "]")
+    return(FALSE)
+  }
   
+  graph.matrix <<- append.graph.matrix(graph.matrix, url.name, systems, all.systems)
+
   ## Generate from/to sub matrix
   sub.graph.matrix <- append.graph.matrix(sub.graph.matrix, url.name, systems, all.systems)
   sub.pathway.obj <- generate.graph(sub.graph.matrix)
   layout <- generate.layout(sub.graph.matrix)
-
+  
   ## Plotting a sub pathway
   plot.file <- paste(c(output.dir, "/", file.prefix, ".png"), collapse="")
   message("Plotting [", plot.file, "] ...")

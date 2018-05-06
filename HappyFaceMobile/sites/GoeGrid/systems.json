@@ -6,7 +6,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se] administrator(s)",
@@ -20,12 +20,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se] via ssh",
-		"command": "restart se"
+		"command": "admin_command restart se"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se] via ssh",
-		"command": "start se"
+		"command": "admin_command start se"
 	}]
   },{
 	"name": "bdii",
@@ -35,7 +35,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [bdii] administrator(s)",
@@ -49,12 +49,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [bdii] via ssh",
-		"command": "restart bdii"
+		"command": "admin_command restart bdii"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [bdii] via ssh",
-		"command": "start bdii"
+		"command": "admin_command start bdii"
 	}]
   },{
 	"name": "creamce",
@@ -64,7 +64,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [creamce] administrator(s)",
@@ -78,12 +78,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [creamce] via ssh",
-		"command": "restart creamce"
+		"command": "admin_command restart creamce"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [creamce] via ssh",
-		"command": "start creamce"
+		"command": "admin_command start creamce"
 	}]
   },{
 	"name": "pbs",
@@ -93,7 +93,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [pbs] administrator(s)",
@@ -107,12 +107,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [pbs] via ssh",
-		"command": "restart pbs"
+		"command": "admin_command restart pbs"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [pbs] via ssh",
-		"command": "start pbs"
+		"command": "admin_command start pbs"
 	}]
   },{
 	"name": "creamce2",
@@ -122,7 +122,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [creamce2] administrator(s)",
@@ -136,12 +136,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [creamce2] via ssh",
-		"command": "restart creamce2"
+		"command": "admin_command restart creamce2"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [creamce2] via ssh",
-		"command": "start creamce2"
+		"command": "admin_command start creamce2"
 	}]
   },{
 	"name": "creamce3",
@@ -151,7 +151,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [creamce3] administrator(s)",
@@ -165,12 +165,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [creamce3] via ssh",
-		"command": "restart creamce3"
+		"command": "admin_command restart creamce3"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [creamce3] via ssh",
-		"command": "start creamce3"
+		"command": "admin_command start creamce3"
 	}]
   },{
 	"name": "apel",
@@ -180,7 +180,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [apel] administrator(s)",
@@ -194,12 +194,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [apel] via ssh",
-		"command": "restart apel"
+		"command": "admin_command restart apel"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [apel] via ssh",
-		"command": "start apel"
+		"command": "admin_command start apel"
 	}]
   },{
 	"name": "FAX",
@@ -209,7 +209,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [FAX] administrator(s)",
@@ -223,12 +223,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [FAX] via ssh",
-		"command": "restart FAX"
+		"command": "admin_command restart FAX"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [FAX] via ssh",
-		"command": "start FAX"
+		"command": "admin_command start FAX"
 	}]
   },{
 	"name": "Squid",
@@ -238,7 +238,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [Squid] administrator(s)",
@@ -252,12 +252,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [Squid] via ssh",
-		"command": "restart Squid"
+		"command": "admin_command restart Squid"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [Squid] via ssh",
-		"command": "start Squid"
+		"command": "admin_command start Squid"
 	}]
   },{
 	"name": "ALL",
@@ -267,7 +267,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [ALL] administrator(s)",
@@ -281,12 +281,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [ALL] via ssh",
-		"command": "restart ALL"
+		"command": "admin_command restart ALL"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [ALL] via ssh",
-		"command": "start ALL"
+		"command": "admin_command start ALL"
 	}]
   },{
 	"name": "nagios",
@@ -296,7 +296,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [nagios] administrator(s)",
@@ -310,12 +310,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [nagios] via ssh",
-		"command": "restart nagios"
+		"command": "admin_command restart nagios"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [nagios] via ssh",
-		"command": "start nagios"
+		"command": "admin_command start nagios"
 	}]
   },{
 	"name": "ganglia",
@@ -325,7 +325,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [ganglia] administrator(s)",
@@ -339,12 +339,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [ganglia] via ssh",
-		"command": "restart ganglia"
+		"command": "admin_command restart ganglia"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [ganglia] via ssh",
-		"command": "start ganglia"
+		"command": "admin_command start ganglia"
 	}]
   },{
 	"name": "virt1",
@@ -354,7 +354,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [virt1] administrator(s)",
@@ -368,12 +368,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [virt1] via ssh",
-		"command": "restart virt1"
+		"command": "admin_command restart virt1"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [virt1] via ssh",
-		"command": "start virt1"
+		"command": "admin_command start virt1"
 	}]
   },{
 	"name": "virt2",
@@ -383,7 +383,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [virt2] administrator(s)",
@@ -397,12 +397,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [virt2] via ssh",
-		"command": "restart virt2"
+		"command": "admin_command restart virt2"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [virt2] via ssh",
-		"command": "start virt2"
+		"command": "admin_command start virt2"
 	}]
   },{
 	"name": "virt3",
@@ -412,7 +412,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [virt3] administrator(s)",
@@ -426,12 +426,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [virt3] via ssh",
-		"command": "restart virt3"
+		"command": "admin_command restart virt3"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [virt3] via ssh",
-		"command": "start virt3"
+		"command": "admin_command start virt3"
 	}]
   },{
 	"name": "virt4",
@@ -441,7 +441,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [virt4] administrator(s)",
@@ -455,12 +455,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [virt4] via ssh",
-		"command": "restart virt4"
+		"command": "admin_command restart virt4"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [virt4] via ssh",
-		"command": "start virt4"
+		"command": "admin_command start virt4"
 	}]
   },{
 	"name": "virt5",
@@ -470,7 +470,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [virt5] administrator(s)",
@@ -484,12 +484,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [virt5] via ssh",
-		"command": "restart virt5"
+		"command": "admin_command restart virt5"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [virt5] via ssh",
-		"command": "start virt5"
+		"command": "admin_command start virt5"
 	}]
   },{
 	"name": "virt6",
@@ -499,7 +499,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [virt6] administrator(s)",
@@ -513,12 +513,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [virt6] via ssh",
-		"command": "restart virt6"
+		"command": "admin_command restart virt6"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [virt6] via ssh",
-		"command": "start virt6"
+		"command": "admin_command start virt6"
 	}]
   },{
 	"name": "rocks",
@@ -528,7 +528,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [rocks] administrator(s)",
@@ -542,12 +542,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [rocks] via ssh",
-		"command": "restart rocks"
+		"command": "admin_command restart rocks"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [rocks] via ssh",
-		"command": "start rocks"
+		"command": "admin_command start rocks"
 	}]
   },{
 	"name": "se2",
@@ -557,7 +557,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se2] administrator(s)",
@@ -571,12 +571,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se2] via ssh",
-		"command": "restart se2"
+		"command": "admin_command restart se2"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se2] via ssh",
-		"command": "start se2"
+		"command": "admin_command start se2"
 	}]
   },{
 	"name": "se3",
@@ -586,7 +586,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se3] administrator(s)",
@@ -600,12 +600,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se3] via ssh",
-		"command": "restart se3"
+		"command": "admin_command restart se3"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se3] via ssh",
-		"command": "start se3"
+		"command": "admin_command start se3"
 	}]
   },{
 	"name": "se4",
@@ -615,7 +615,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se4] administrator(s)",
@@ -629,12 +629,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se4] via ssh",
-		"command": "restart se4"
+		"command": "admin_command restart se4"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se4] via ssh",
-		"command": "start se4"
+		"command": "admin_command start se4"
 	}]
   },{
 	"name": "se5",
@@ -644,7 +644,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se5] administrator(s)",
@@ -658,12 +658,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se5] via ssh",
-		"command": "restart se5"
+		"command": "admin_command restart se5"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se5] via ssh",
-		"command": "start se5"
+		"command": "admin_command start se5"
 	}]
   },{
 	"name": "se6",
@@ -673,7 +673,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se6] administrator(s)",
@@ -687,12 +687,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se6] via ssh",
-		"command": "restart se6"
+		"command": "admin_command restart se6"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se6] via ssh",
-		"command": "start se6"
+		"command": "admin_command start se6"
 	}]
   },{
 	"name": "se7",
@@ -702,7 +702,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se7] administrator(s)",
@@ -716,12 +716,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se7] via ssh",
-		"command": "restart se7"
+		"command": "admin_command restart se7"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se7] via ssh",
-		"command": "start se7"
+		"command": "admin_command start se7"
 	}]
   },{
 	"name": "se8",
@@ -731,7 +731,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se8] administrator(s)",
@@ -745,12 +745,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se8] via ssh",
-		"command": "restart se8"
+		"command": "admin_command restart se8"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se8] via ssh",
-		"command": "start se8"
+		"command": "admin_command start se8"
 	}]
   },{
 	"name": "se9",
@@ -760,7 +760,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se9] administrator(s)",
@@ -774,12 +774,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se9] via ssh",
-		"command": "restart se9"
+		"command": "admin_command restart se9"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se9] via ssh",
-		"command": "start se9"
+		"command": "admin_command start se9"
 	}]
   },{
 	"name": "se10",
@@ -789,7 +789,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se10] administrator(s)",
@@ -803,12 +803,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se10] via ssh",
-		"command": "restart se10"
+		"command": "admin_command restart se10"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se10] via ssh",
-		"command": "start se10"
+		"command": "admin_command start se10"
 	}]
   },{
 	"name": "se11",
@@ -818,7 +818,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se11] administrator(s)",
@@ -832,12 +832,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se11] via ssh",
-		"command": "restart se11"
+		"command": "admin_command restart se11"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se11] via ssh",
-		"command": "start se11"
+		"command": "admin_command start se11"
 	}]
   },{
 	"name": "se12",
@@ -847,7 +847,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se12] administrator(s)",
@@ -861,12 +861,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se12] via ssh",
-		"command": "restart se12"
+		"command": "admin_command restart se12"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se12] via ssh",
-		"command": "start se12"
+		"command": "admin_command start se12"
 	}]
   },{
 	"name": "se13",
@@ -876,7 +876,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se13] administrator(s)",
@@ -890,12 +890,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se13] via ssh",
-		"command": "restart se13"
+		"command": "admin_command restart se13"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se13] via ssh",
-		"command": "start se13"
+		"command": "admin_command start se13"
 	}]
   },{
 	"name": "se14",
@@ -905,7 +905,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se14] administrator(s)",
@@ -919,12 +919,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se14] via ssh",
-		"command": "restart se14"
+		"command": "admin_command restart se14"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se14] via ssh",
-		"command": "start se14"
+		"command": "admin_command start se14"
 	}]
   },{
 	"name": "se15",
@@ -934,7 +934,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se15] administrator(s)",
@@ -948,12 +948,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se15] via ssh",
-		"command": "restart se15"
+		"command": "admin_command restart se15"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se15] via ssh",
-		"command": "start se15"
+		"command": "admin_command start se15"
 	}]
   },{
 	"name": "se16",
@@ -963,7 +963,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [se16] administrator(s)",
@@ -977,12 +977,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [se16] via ssh",
-		"command": "restart se16"
+		"command": "admin_command restart se16"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [se16] via ssh",
-		"command": "start se16"
+		"command": "admin_command start se16"
 	}]
   },{
 	"name": "dcache",
@@ -992,7 +992,7 @@
 	"happyface":  [],
 	"elasticsearch":  [],
 	"forecast":  [0,1,2,3,4],
-	"services": [{
+	"actions": [{
 		"type": "email",
 		"name": "E-mail",
 		"text": "Send an email to [dcache] administrator(s)",
@@ -1006,12 +1006,12 @@
 		"type": "ssh",
 		"name": "Restart",
 		"text": "Send a restart command to [dcache] via ssh",
-		"command": "restart dcache"
+		"command": "admin_command restart dcache"
 		},{
 		"type": "ssh",
 		"name": "Start",
 		"text": "Send a start command to [dcache] via ssh",
-		"command": "start dcache"
+		"command": "admin_command start dcache"
 	}]
 
 }]

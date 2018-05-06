@@ -184,8 +184,10 @@ open_firefox_tabs(){
     INFO "Opening [$num_tabs] tabs ..."
     for i in $(seq 0 $num_tabs)
     do
-	## Do we need to open a tab? (false => not capture, default/no_value = true)
-	[ "${CAPTURES[$i]}" == "false" ] && INFO "Skipping [${CAPTURES[$i]}]" && continue
+	## Do we need to open a tab? (file_prefix = null => not capture, default/no_value = true)
+	if [ -z "${FILE_PREFIXES[$i]}" ] || [ "${FILE_PREFIXES[$i]}" == "null" ]; then
+	    INFO "Skipping [${FILE_PREFIXES[$i]}]" && continue
+	fi
 
 	## Open a tab
 	local command_option="$profile_option -new-tab ${URLS[$i]}"

@@ -151,7 +151,7 @@ module.exports = {
       for (var i = 0; i < urls.length; i++){
         for (var j = 0; j < urls[i].urls.length; j++){
           var systems = urls[i].urls[j].systems;
-          if (systems.length != 0)
+          if ((systems) && (systems.length != 0))
             overall_systems = overall_systems.concat(systems);
         }
       }
@@ -176,7 +176,7 @@ module.exports = {
                  + "\t\"happyface\":  [],\n"
                  + "\t\"elasticsearch\":  [],\n"
                  + "\t\"forecast\":  ["+ forecast_default_items + "],\n"
-                 + "\t\"services\": [{\n"
+                 + "\t\"actions\": [{\n"
                  + "\t\t\"type\": \"email\",\n"
                  + "\t\t\"name\": \"E-mail\",\n"
                  + "\t\t\"text\": \"Send an email to [" + systems_item + "] administrator(s)\",\n"
@@ -190,12 +190,12 @@ module.exports = {
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Restart\",\n"
                  + "\t\t\"text\": \"Send a restart command to [" + systems_item + "] via ssh\",\n"
-                 + "\t\t\"command\": \"restart " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t\t\"command\": \"admin_command restart " + systems_item.replace(/ /g, "_") + "\"\n"
                  + "\t\t},{\n"
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Start\",\n"
                  + "\t\t\"text\": \"Send a start command to [" + systems_item + "] via ssh\",\n"
-                 + "\t\t\"command\": \"start " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t\t\"command\": \"admin_command start " + systems_item.replace(/ /g, "_") + "\"\n"
                  + "\t}]\n";
         if (k < unique_systems.length - 1) template = template + "  },{\n";
       }

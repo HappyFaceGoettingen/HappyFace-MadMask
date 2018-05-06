@@ -81,21 +81,21 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
  * Forecast improvement
       * The example forecast routine should be paralleled --> Done
       * Run HF CRON --> Done
-      * HF DB connector (simple one) 
+      * HF DB connector (simple one)
+      * Elasticsearch plugin (simple one)
 
 ## Profile
  * New firefox_profile with gantry  --> Done
  * Put firefox_profile (in madfoxd) --> Done
  * make a firefox_command routine)  --> Doing --> Done
 
-## VM OSX config
- * Apple ID --> Doing
- * ssh connection + ssh server in OSX
- * Automatic iOS builder in madmask
-
 ## PCATLAS11
  * Open ports in PCATLAS11 --> Doing --> Done
 
+## VM OSX config
+ * Apple ID --> Doing --> Done
+ * ssh connection + ssh server in OSX
+ * Automatic iOS builder in madmask
 
 ## Implement new data importer for HF database
    * In MadBrowser
@@ -103,10 +103,10 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 ## Change item names in JSON files
    * config.json:   "port" --> "ionic_port", added "version", "web_port", "mobile_port"
-   * ==> Implement config.json version, web_port, mobile_port in mad-gantry
-   * top.json:   Added onto GitHub
-   * systems.json:   "services" --> "actions"
-   * monitoring-urls.json:   remove default "capture": true, 
+   * ==> Implement config.json version, web_port, mobile_port in mad-gantry => Doing
+   * top.json:   Added onto GitHub => Done
+   * systems.json:   "services" --> "actions" => Done
+   * monitoring-urls.json:   Remove 'capture' completely. When file.prefix is null, then not capture => Done
 
 ## Mad-Gantry site builder second step
  * Cloud Host selector --> Done
