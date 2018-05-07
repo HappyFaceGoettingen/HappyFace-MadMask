@@ -2180,7 +2180,7 @@ let HomePage = class HomePage {
         this._m = _m;
         this.componentFactoryResolver = componentFactoryResolver;
         this.widgets = [];
-        this.widgetsSave = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
+        this.widgetsSave = ["/assets/widgets/clock-widget/ClockWidget.js"];
         this.viewIndex = 0;
     }
     ngOnInit() {
@@ -2199,7 +2199,7 @@ let HomePage = class HomePage {
         let start = Date.now();
         const func = new Function("x", "return import(x)");
         const loaded = await func(name);
-        const widgetStyle = ":host { display: block; left: 0; width: 300px; height: 140px }\n" + loaded.style();
+        const widgetStyle = ":host { display: block; left: 0; width: 300px; height: 140px }\n" + (loaded.style ? loaded.style() : "");
         const cmpData = { selector: "dynamic-page", template: loaded.template(), styles: [widgetStyle] };
         const widgetComponent = Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])(cmpData)(loaded.cls());
         const widgetModule = Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({ declarations: [widgetComponent],
@@ -2226,7 +2226,7 @@ __decorate([
 ], HomePage.prototype, "vc", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n        <!-- Headers --\n        <ion-card-header *ngIf="i.widget.title">\n            <div [innerHTML]="i.widget.title"></div>\n        </ion-card-header>\n\n        <!-- Content --\n        <ion-card-content *ngIf="i.widget.content">\n            <div [innerHTML]="i.widget.content"></div>\n        </ion-card-content>\n\n    </ion-card>-->\n\n    <ng-container #vc></ng-container>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
+        selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Widgets</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n\n\n        <!-- Headers --\n\n        <ion-card-header *ngIf="i.widget.title">\n\n            <div [innerHTML]="i.widget.title"></div>\n\n        </ion-card-header>\n\n\n\n        <!-- Content --\n\n        <ion-card-content *ngIf="i.widget.content">\n\n            <div [innerHTML]="i.widget.content"></div>\n\n        </ion-card-content>\n\n\n\n    </ion-card>-->\n\n\n\n    <ng-container #vc></ng-container>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _f || Object])
 ], HomePage);

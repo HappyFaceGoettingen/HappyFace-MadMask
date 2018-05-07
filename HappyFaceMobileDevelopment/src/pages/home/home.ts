@@ -19,7 +19,7 @@ import {IonicPageModule} from "ionic-angular";
 export class HomePage
 {
     widgets:WidgetData[] = [];
-    widgetsSave:string[] = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
+    widgetsSave:string[] = ["/assets/widgets/clock-widget/ClockWidget.js"];
     viewIndex:number = 0;
 
     @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
@@ -54,7 +54,7 @@ export class HomePage
 
 
 
-        const widgetStyle      = ":host { display: block; left: 0; width: 300px; height: 140px }\n" + loaded.style();
+        const widgetStyle      = ":host { display: block; left: 0; width: 300px; height: 140px }\n" + (loaded.style ? loaded.style() : "");
 
         const cmpData          = { selector: "dynamic-page", template: loaded.template(), styles: [widgetStyle]};
         const widgetComponent  = Component(cmpData)(loaded.cls());
