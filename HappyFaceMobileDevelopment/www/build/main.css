@@ -36669,12 +36669,10 @@ a:hover {
 .group {
   background: #e4e2e5;
   display: inline;
-  margin: 0.35em;
-  padding: 0.35em;
 }
 
 .group, .group-title, .launchpad {
-  /* rounded corners */
+  border: 1px solid #aaaaaa;
 }
 
 .group-title {
@@ -36686,12 +36684,14 @@ a:hover {
 }
 
 .launchpad {
-  background: #ffffff;
+  background: #FFFFFF;
   width: 11em;
   min-height: 8em;
   float: left;
   margin: 0.35em;
   padding: 0.35em;
+  /* rounded corners */
+  border-radius: 0.3em;
 }
 
 .launchpad:hover {

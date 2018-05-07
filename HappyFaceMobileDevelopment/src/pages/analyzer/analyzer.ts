@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {AlertController, NavController} from "ionic-angular";
+import {NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
-import {AnalyzerDetailPage} from "./analyzer-detail";
 import {HFCategoriesPage} from "./hf-classical/hf-categories";
+import {Component, ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef} from "@angular/core";
+import {AnalyzerDetailPage} from "./analyzer-detail";
 
 @Component({
     selector: 'page-analyzer',
@@ -11,34 +11,34 @@ import {HFCategoriesPage} from "./hf-classical/hf-categories";
 
 export class AnalyzerPage
 {
-    isLoading:boolean = true;
-
+    // Default values
     statusLevel:string = "Normal";
     statusImg  :string = "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg";
     statusColor:string = "item-calm";
     statusText :string = "World wide Atlas Distributed Computing System";
 
-    HFClassical:any = HFCategoriesPage;
+    isLoading:boolean = true;
+
+    // Page plugin
+    @ViewChild('parent', {read: ViewContainerRef}) parent: ViewContainerRef;
+    pageHolder:ComponentRef<any> = null;
 
     viewers:any[] = [
-        {"id": "analysis", "name": "Status Analysis", "multiplots": true, "spsrc": ""},
-        {"id": "pathway", "name": "Info Pathway", "multiplots": true, "spsrc": ""},
-        {"id": "overall_pathway", "name": "Overall Info Pathway", "multiplots": false, "spsrc": ""},
-        {"id": "happyface", "name": "HappyFace Classical Rating", "multiplots": false, "spsrc": ""},
-        {"id": "forecast", "name": "Happy Forecast", "multiplots": false, "spsrc": "assets/img/forecast.png"}
+        {"id": "analysis", "name": "Status Analysis", "type": "plots", "src": null},
+        {"id": "pathway", "name": "Info Pathway", "type": "plots", "src": null},
+        {"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
+        {"id": "happyface", "name": "HappyFace Classical Rating", "type": "page", "src": HFCategoriesPage},
+        {"id": "forecast", "name": "Happy Forecast", "type": "imgs", "src": Array<string>(0)}
     ];
     selectedViewer:any = this.viewers.find( v => v.id === "overall_pathway");
 
     monitoringURLs:any[];
 
-
-    constructor(private model: DataModel, private navControl: NavController, private alertCtrl: AlertController) {}
+    constructor(private model: DataModel, private navControl: NavController,
+                private componentFactoryResolver: ComponentFactoryResolver) {}
 
     ngOnInit()
     {
-        //DataModel.getInstance().addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
-        //DataModel.getInstance().addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
-        //if(!DataModel.getInstance().isLoading()) this.onReloadFinishedListener();
         this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
         this.model.addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
         if(!this.model.isLoading()) this.onReloadFinishedListener();
@@ -46,14 +46,13 @@ export class AnalyzerPage
 
     onReloadFinishedListener()
     {
-        if(!this.connectionErrorPopup())
+        if(this.dataExists())
         {
             this.isLoading = false;
             this.setStatusCard();
-            this.setPlots(this.selectedViewer.id);
-            //this.monitoringURLs = DataModel.getInstance().monitoringUrls;
-            this.monitoringURLs = this.model.monitoringUrls;
-            this.viewers.find(v => v.id === "overall_pathway").spsrc = this.monitoringURLs[0].urls[0].plot_overall_pathway;
+            this.setPlots2();
+            this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
+            this.setForecast();
         }
     }
 
@@ -62,9 +61,8 @@ export class AnalyzerPage
         this.isLoading = true;
     }
 
-    connectionErrorPopup()
+    dataExists()
     {
-        //let model:DataModel = DataModel.getInstance();
         if(!(this.model.summary == null || this.model.summary == undefined))
         {
             if(!(this.model.config == null || this.model.config == undefined))
@@ -73,30 +71,19 @@ export class AnalyzerPage
                 {
                     if(!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined))
                     {
-                        return false;
+                        return true;
                     }
                 }
             }
         }
-
-        const alert = this.alertCtrl.create({
-            title: '<b>Connection error</b>',
-            subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
-            buttons: ['OK']
-        });
-        alert.present();
-
-        return true;
+        return false;
     }
 
     setStatusCard()
     {
-        //this.statusText  = DataModel.getInstance().summary.text;
-        //this.statusLevel = DataModel.getInstance().summary.level;
         this.statusText = this.model.summary.text;
         this.statusLevel = this.model.summary.level;
 
-        //let model:DataModel = DataModel.getInstance();
         for (let i = 0; i < this.model.config.status.length; i++) {
             if (this.model.config.status[i].name === this.statusLevel) {
                 this.statusImg = this.model.config.status[i].file;
@@ -114,25 +101,28 @@ export class AnalyzerPage
     {
         if(this.isLoading) return;
         this.isLoading = true;
-        //DataModel.getInstance().reload();
         this.model.reload();
     }
 
     viewerChanged(event:any)
     {
+        if(this.selectedViewer.type === 'page' && !this.pageHolder == undefined)
+        {
+            this.pageHolder.destroy();
+        }
+
         console.log("VIEWER CHANGED TO: " + JSON.stringify(event));
         this.selectedViewer = event;
-        if(this.selectedViewer.multiplots) {
-            this.setPlots(this.selectedViewer.id);
-            this.monitoringURLs = this.model.monitoringUrls;
+        if(this.selectedViewer.type === 'page')
+        {
+            if(this.parent == undefined) console.error("PARENT UNDEFINED");
+            else this.pageHolder = this.parent.createComponent(this.componentFactoryResolver.resolveComponentFactory(this.selectedViewer.src))
         }
     }
 
     speakSummary()
     {
         this.setStatusCard();
-
-        //DataModel.getInstance().speakSummary();
         this.model.speakSummary();
     }
 
@@ -141,19 +131,48 @@ export class AnalyzerPage
         this.navControl.push(AnalyzerDetailPage, { 'url' : url });
     }
 
-    setPlots(plot_name:string){
-        //let model:DataModel = DataModel.getInstance();
-        for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
-            for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (! this.model.monitoringUrls[i].urls[j].capture)){
-                    //logger.debug("nop");
-                    console.log("DEBUG: nop");
-                } else {
-                    if (plot_name == "analysis" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
-                    if (plot_name == "pathway" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
-                    if (plot_name == "overall_pathway" ) this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_overall_pathway;
+    setPlots2()
+    {
+        // Generate array
+        this.viewers[0].src = {"monitoringURLs": []};
+        this.viewers[1].src = {"monitoringURLs": []};
+        this.viewers[0].src.monitoringURLs = [];
+        this.viewers[1].src.monitoringURLs = [];
+        for(let i:number = 0; i < this.model.monitoringUrls.length; i++)
+        {
+            this.viewers[0].src.monitoringURLs.push({"urls": [], "name": ""});
+            this.viewers[1].src.monitoringURLs.push({"urls": [], "name": ""});
+            for(let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++)
+            {
+                this.viewers[0].src.monitoringURLs[i].urls.push({"plot": "", "name" : "", "link" : ""});
+                this.viewers[1].src.monitoringURLs[i].urls.push({"plot": "", "name" : "", "link" : ""});
+            }
+        }
+
+        for(let i:number = 0; i < this.model.monitoringUrls.length; i++)
+        {
+            this.viewers[0].src.monitoringURLs[i].name = this.model.monitoringUrls[i].name;
+            this.viewers[1].src.monitoringURLs[i].name = this.model.monitoringUrls[i].name;
+            for(let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++)
+            {
+                if((this.model.monitoringUrls[i].urls[j].file_prefix == null)) console.log("DEBUG: 1nop");
+                else {
+                    this.viewers[0].src.monitoringURLs[i].urls[j].plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
+                    this.viewers[0].src.monitoringURLs[i].urls[j].name = this.model.monitoringUrls[i].urls[j].name;
+                    this.viewers[0].src.monitoringURLs[i].urls[j].link = this.model.monitoringUrls[i].urls[j].link;
+                    this.viewers[1].src.monitoringURLs[i].urls[j].plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
+                    this.viewers[1].src.monitoringURLs[i].urls[j].name = this.model.monitoringUrls[i].urls[j].name;
+                    this.viewers[1].src.monitoringURLs[i].urls[j].link = this.model.monitoringUrls[i].urls[j].link;
                 }
             }
         }
+    }
+
+    setForecast()
+    {
+        let tmp:string[] = this.model.analysis[0].forecast;
+        for(let i:number = 0; i < tmp.length; i++) tmp[i] = this.model.getRemoteURL() + this.model.analysis[0].forecast[i].substring(1);
+
+        this.viewers.find(v => v.id === "forecast").src = this.model.analysis[0].forecast;
     }
 }

@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {DataModel} from "../../../data/DataModel";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {InstancesComponent} from "./instances.component";
+import {InstancesBrowserComponent} from "./instances.browser.component";
 
 @Component({
     selector: 'page-config',
@@ -10,6 +11,8 @@ import {InstancesComponent} from "./instances.component";
 
 export class ConfigPage
 {
+    isHost:boolean = false;
+
     automaticFetch:boolean = true;
     interval:number = 1;
     automaticRotation:boolean = false;
@@ -22,6 +25,8 @@ export class ConfigPage
 
     constructor(private model: DataModel, private navCtrl:NavController, private navParams: NavParams)
     {
+        this.isHost = this.model.isHost();
+
         this.automaticFetch = this.model.configuration.get().automaticFetch;
         this.interval = this.model.configuration.get().reloadInterval;
         this.automaticRotation = this.model.configuration.get().automaticRotation;

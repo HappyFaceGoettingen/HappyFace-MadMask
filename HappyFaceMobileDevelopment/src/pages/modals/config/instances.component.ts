@@ -39,7 +39,7 @@ export class InstancesComponent
         else
             this.headURL = "http://141.5.108.29:20100/sites/default/meta-meta.json";
         */
-        this.headURL = "http://www.atopion.com/apps/hf/metadata/adc-meta-meta.json";
+        this.headURL = "https://raw.githubusercontent.com/HappyFaceGoettingen/HappyFace-MadMask/master/HappyFaceMobile/sites/top.json";
 
         this.isLoading = true;
         let req = new XMLHttpRequest();

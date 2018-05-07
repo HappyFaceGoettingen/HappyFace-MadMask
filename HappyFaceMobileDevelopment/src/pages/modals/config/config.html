@@ -1,6 +1,7 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Configuration</ion-title>
+        <ion-title *ngIf="!isHost">Configuration</ion-title>
+        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
         </ion-buttons>
@@ -9,7 +10,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item (click)="chooseInstance()">
+        <ion-item (click)="chooseInstance()" *ngIf="!isHost">
             <!-- Move to Instance selection page -->
             <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>
             <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->

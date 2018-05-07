@@ -18,14 +18,9 @@ a:hover {
 .group {
     background: #e4e2e5;
     display: inline;
-    margin: 0.35em;
-    padding: 0.35em;
-    //width: 100%
 }
 .group, .group-title, .launchpad {
-    //border: 1px solid #aaaaaa;
-    /* rounded corners */
-    //-moz-border-radius: 0.3em; -webkit-border-radius: 0.3em; border-radius: 0.3em;
+    border: 1px solid #aaaaaa;
 }
 .group-title {
     text-align:center;
@@ -33,15 +28,17 @@ a:hover {
     background: #3d7dbd;
     color: #ffffff;
     font-weight: bold;
-    //max-width: 10em; max-height: 3em;
 }
 .launchpad {
-    background: #ffffff;
+    background: #FFFFFF;
     width: 11em;
     min-height: 8em;
     float: left;
     margin: 0.35em;
     padding: 0.35em;
+
+    /* rounded corners */
+    -moz-border-radius: 0.3em; -webkit-border-radius: 0.3em; border-radius: 0.3em;
 }
 .launchpad:hover {
     border-color: #3d7dbd;

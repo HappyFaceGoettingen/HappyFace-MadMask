@@ -1,12 +1,12 @@
 <ion-header>
     <ion-navbar>
         <ion-buttons left>
-            <button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>
+            <!--<button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>-->
+            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
         </ion-buttons>
         <ion-title>Happy Meta-Monitoring</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
-            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-more"></ion-icon></button>
+            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-cog"></ion-icon></button>
         </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -18,12 +18,14 @@
 
     <ion-list [hidden]="isLoading" no-padding>
         <!-- Status card -->
-        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">
-            <ion-card-header>
-                Status: {{statusLevel}}
-            </ion-card-header>
+        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">
+            <ion-card color="{{statusColor}}">
+                <ion-card-header>
+                    Status: {{statusLevel}}
+                </ion-card-header>
+            </ion-card>
             <ion-card-content no-padding>
-                <ion-item color="{{statusColor}}" text-wrap>
+                <ion-item text-wrap>
                     <ion-thumbnail item-start>
                         <img src="{{statusImg}}">
                     </ion-thumbnail>
@@ -31,6 +33,7 @@
                 </ion-item>
             </ion-card-content>
         </ion-card>
+        <br>
 
         <!-- History chooser -->
         <ion-item no-padding>
@@ -45,8 +48,8 @@
             <ion-card no-padding no-margin>
                 <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>
                 <ion-card-content no-padding>
-                    <ion-grid>
-                        <ion-row>
+                    <ion-grid no-padding>
+                        <ion-row class="group" no-padding no-margin>
                             <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">
                                 <div class="launchpad">
                                     <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>

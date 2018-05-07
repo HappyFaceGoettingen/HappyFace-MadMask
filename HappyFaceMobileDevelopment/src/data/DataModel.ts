@@ -14,8 +14,9 @@ export class DataModel
     // { return this._instance || (this._instance = new DataModel()); };
 
     // Debug switches
-    static FORCE_SELFHOST_DEBUG:boolean = false;
+    static FORCE_SELFHOST_DEBUG:boolean = true;
     static FORCE_MOBILE_VISION:boolean = false;
+    static FORCE_CLIENT_FUNCTION:boolean = false;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
 
@@ -321,6 +322,58 @@ export class DataModel
         this.errors.push({"url" : this.getRemoteURL() + this.currentlyActive.dir + "/" + website, "code" : code})
     }
 
+    private plot_name:string = "analysis";
+
+    setLinks(datetime_dir) {
+        //let model:DataModel = DataModel.getInstance();
+        let remote_url:string = this.getRemoteURL();
+        let config:any = this.config;
+
+        let capture_dir:string = config.data_dir + "/capture";
+        let thumbnail_dir:string = config.data_dir + "/thumbnail";
+        let analysis_dir:string = config.data_dir + "/analysis";
+        if (this.configuration.get().enableMadVision) {
+            capture_dir = analysis_dir + "/madvision";
+            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
+        }
+        let plot_analysis_dir:string = analysis_dir + "/plot_analysis/latest";
+        let plot_pathway_dir:string = analysis_dir + "/plot_pathway/latest";
+
+        for (let i: number = 0; i < this.monitoringUrls.length; i++) {
+            for (let j: number = 0; j < this.monitoringUrls[i].urls.length; j++) {
+                if ((this.monitoringUrls[i].urls[j].file_prefix == null)) {
+                    this.monitoringUrls[i].urls[j].thumbnail = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].image = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].analysis_plot = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].plot_pathway = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "assets/img/img-missing.svg";
+                } else {
+                    this.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
+
+                    this.setPlots(this.plot_name);
+                }
+            }
+        }
+    }
+
+    setPlots(plot_name:string){
+        for (let i:number = 0; i < this.monitoringUrls.length; i++) {
+            for (let j:number = 0; j < this.monitoringUrls[i].urls.length; j++){
+                if ((this.monitoringUrls[i].urls[j].file_prefix == null)){
+                    console.log("DEBUG: nop");
+                } else {
+                    if (plot_name == "analysis" ) this.monitoringUrls[i].urls[j].analysis_plot = this.monitoringUrls[i].urls[j].plot_analysis;
+                    if (plot_name == "pathway" ) this.monitoringUrls[i].urls[j].analysis_plot = this.monitoringUrls[i].urls[j].plot_pathway;
+                    if (plot_name == "overall_pathway" ) this.monitoringUrls[i].urls[j].analysis_plot = this.monitoringUrls[i].urls[j].plot_overall_pathway;
+                }
+            }
+        }
+    }
+
 
     speakSummary()
     {
@@ -390,9 +443,8 @@ export class DataModel
             this.currentlyActive.dir = "sites/default";
 
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
-            /*this.loadConfig();
-            this.currentlyActive.name = this.config.site_name;*/
-            this.reload();
+
+            //this.reload();
         }
         // App running on a clients device
         else {
@@ -403,13 +455,14 @@ export class DataModel
             this.currentlyActive.web_port = "10200";
             this.currentlyActive.dir = "sites/default";
 
-            this.storage.get('instance').then((value) => {
-                if(!(value == null || value == undefined))
-                    this.currentlyActive = value;
-                console.log("Saved Instance is: " + JSON.stringify(value));
-                this.reload();
-            });
         }
+
+        this.storage.get('instance').then((value) => {
+            if(!(value == null || value == undefined))
+                this.currentlyActive = value;
+            console.log("Saved Instance is: " + JSON.stringify(value));
+            this.reload();
+        });
     }
 
     // Determinations.
@@ -427,8 +480,8 @@ export class DataModel
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost()
     {
-        return DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb');
-        //return false;
+        return (!DataModel.FORCE_CLIENT_FUNCTION)
+            && (DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb'));
     }
 
     isAndroid()
@@ -515,7 +568,7 @@ export class InstanceObject
 
 export class ConfigurationObject
 {
-    private _automaticFetch:boolean = true;
+    private _automaticFetch:boolean = false;
     private _reloadInterval:number = 10;
     private _automaticRotation:boolean = false;
     private _detectOnlyChange:boolean = true;
