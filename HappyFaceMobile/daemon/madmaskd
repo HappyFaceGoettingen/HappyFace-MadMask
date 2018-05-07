@@ -12,18 +12,18 @@
 #
 # chkconfig: - 65 35
 # description: madmaskd provides a web server of Ionic Web Launcher
-# processname: madmask
+# processname: madmaskd
 # config: /etc/madmask.conf
-# pidfile: /var/run/madmask.pid
+# pidfile: /var/run/madmaskd.pid
 
 . /etc/rc.d/init.d/functions
 
 RETVAL=0
 
-prog=madmaskd
+prog=madmask
 user=happyface3
 group=happyface3
-lockfile=/var/lock/subsys/madmaskd
+pidfile=/var/run/madmaskd.pid
 pidfile_base=/var/run/HappyFace
 logfile_base=/var/log/HappyFace
 config=/etc/madmask.conf
@@ -39,7 +39,7 @@ fi
 
 read_ports(){
     site_defs=$(find $MADMASK_HOME/sites/*/config.json)
-    jq '.port' $site_defs | sed "s/\"//g" | sort | uniq
+    jq '.ionic_port' $site_defs | sed "s/\"//g" | sort | uniq
 }
 
 forever_status() {
@@ -49,8 +49,7 @@ forever_status() {
 }
 
 check_pidfiles(){
-    ls $pidfile_base | grep ionic-server > /dev/null
-    [ $? -eq 0 ] && echo "pidfiles in [$pidfile_base] exist" && return 1
+    [ -e $pidfile ] && echo "pidfile [$pidfile] exist" && return 1
     return 0
 }
 
@@ -67,17 +66,28 @@ start() {
     echo -n "Starting $prog server: "
 
     RETVAL=0
-    pushd $MADMASK_HOME &> /dev/null
+
+    ## Starting
     for site_def in $(find $MADMASK_HOME/sites/* -maxdepth 0 -type d)
     do
 	## Starting daemons
-	su $user -c "$MADMASK_HOME/madmask -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
+	su $user -c "$MADMASK_HOME/$prog -i -c $site_def -l ${logfile_base} -p ${pidfile_base}" &> /dev/null
 	[ $? -ne 0 ] && RETVAL=255
     done
-    popd &> /dev/null
 
+    ## Waiting until pidfiles are ready
+    for ionic_port in $(read_ports)
+    do
+	ionic_pidfile=${pidfile_base}/ionic-server.${ionic_port}
+	for i in $(seq 1 60)
+	do
+	    [ -e ${ionic_pidfile} ] && echo "$(cat $ionic_pidfile)" >> $pidfile && break
+	    sleep 5
+	done
+    done
+
+    ## Result
     if [ $RETVAL -eq 0 ]; then
-	touch $lockfile
 	echo -e "\t[OK]"
     else
 	echo -e "\t[ERROR]"
@@ -92,14 +102,14 @@ stop() {
     su $user -c "forever stopall" &> /dev/null
     RETVAL=$?
 
-    for port in $(read_ports)
+    for ionic_port in $(read_ports)
     do
-	pidfile=${pidfile_base}/ionic-server.${port}
-	[ -e ${pidfile} ] && rm ${pidfile}
+	ionic_pidfile=${pidfile_base}/ionic-server.${ionic_port}
+	[ -e ${ionic_pidfile} ] && rm ${ionic_pidfile}
     done
 
     if [ $RETVAL -eq 0 ]; then
-	rm -f $lockfile
+	rm -f $pidfile
 	echo "[OK]"
     else
 	echo "[ERROR]"

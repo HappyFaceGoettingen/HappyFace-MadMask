@@ -1,6 +1,8 @@
 {
-        "text": "Hey, Status is __LEVEL__. __MYNAME__ checked status of __SITE__ at __TIME__. Please have a look at __SYSTEMS__.",
-        "level": "__LEVEL__",
-        "score": "__SCORE__",
-        "history": "__HISTORY__"
+    "text": "Hey, Status is __LEVEL__. __MYNAME__ checked status of __SITE__ at __TIME__. Please have a look at __SYSTEMS__.",
+    "level": "__LEVEL__",
+    "score": "__SCORE__",
+    "systems": "__SYSTEMS__",
+    "urls": "__URLS__",
+    "history": "__HISTORY__"
 }

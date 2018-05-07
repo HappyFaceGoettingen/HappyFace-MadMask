@@ -17,17 +17,19 @@ var madmask = require('./lib/madmask');
 
 
 program
-  .version('0.3.0')
+  .version('0.9.0')
   .option('-c, --config [SiteDefDir]', 'Select site definition dir [default: sites/default]', 'sites/default')
-  .option('-i, --ionic', 'Start ionic server')
+  .option('-i, --ionic', 'Start ionic server. Ionic port is given by [config.json]')
   .option('-l, --logdir [LogDir]', 'Log dir [default: /tmp]', '/tmp')
   .option('-p, --piddir [PidDir]', 'Pid dir [default: /tmp]', '/tmp')
   .option('-S, --SystemsTemplate', "Generate [systems.json] template from [monitoring-urls.json]")
   .option('-B, --Browser [action]', 'Call MadBrowser (action = {status|reload|capture|import})', '')
-  .option('-A, --Analyzer [action]', 'Call MadAnalyzer (action = {base_images|detector|pathway|madvision|forecast|summary|all})', '')
+  .option('-A, --Analyzer [action]', 'Call MadAnalyzer (action = {base_image|detector|pathway|madvision|forecast|summary|all})', '')
+  .option('-C, --CronRun', 'Call MadBrowser [reload -> import] => MadAnalyzer [all] => MadBrowser [capture]')
+  .option('-H, --HappyFace', 'Run HappyFace CRON job')
   .option('-L, --LogCollector', 'Log Collector')
   .option('-W, --Wipe', 'Wipe old files/dirs in data dir')
-  .option('-b, --build', 'Build Android application')
+  .option('-b, --build [android|ios]', 'Build Mobile Application', '')
   .parse(process.argv);
 
 //console.log(program);
@@ -50,10 +52,12 @@ if(program.rawArgs.length <= 2) {
    console.log('Start Ionic server: %s', program.ionic);
    console.log('Ionic logdir: %s', program.logdir);
    console.log('Ionic piddir: %s', program.piddir);
-   console.log('Port is: %s', config.port);
+   console.log('Ionic Port: %s', config.ionic_port);
 
    console.log('Call MadBrowser: %s', program.Browser);
    console.log('Call MadAnalyzer: %s', program.Analyzer);
+   console.log('Call CronRun: %s', program.CronRun);
+   console.log('Call HappyFace CRON: %s', program.HappyFace);
    console.log('Generate system.json: %s', program.SystemsTemplate);
    console.log('Log Collector: %s', program.LogCollector);
    console.log('Wipe is: %s', program.Wipe);
@@ -71,9 +75,13 @@ if(program.rawArgs.length <= 2) {
 
    if (program.Analyzer) madmask.call_madanalyzer(program.config, config, program.Analyzer);
 
+   if (program.CronRun) madmask.call_cronRun(program.config, config);
+
+   if (program.HappyFace) madmask.call_happyface(program.config, config);
+
    if (program.LogCollector) madmask.run_log_collector(program.config, config);
 
    if (program.Wipe) madmask.wipe_data(program.config, config);
 
-   if (program.build) madmask.build_android_apk(program.config, config);
+   if (program.build) madmask.build_mobile_application(program.config, config, program.build);
 }

@@ -34,19 +34,16 @@
    --> Done?
 
  
-## Mad-Gantry site builder second step
- * Cloud Host selector --> Done
- * Connecting to AGIS, more sites with configs (level0, level1, level2, Goettingen Internal)
-
-
 ## For CentOS 7
  * Solve the D-Bus issue in mad-gantry CentOS 7 --> Done
  * Upgrading mad-gantry --> Done
  * Upgrade SPECs and daemon scripts accordingly --> Doing --> Needs a default PID file
 
-    madfoxd --> Reboot --> PID file error --> Doing
-
     madmaskd --> Not start --> some libraries, especially 'commander', were removed. Upgrading HappyFace-MadMask.SPEC --> Done
+
+    madmaskd --> Reboot --> PID file error --> Doing --> Done
+    madfoxd  --> Reboot --> PID file error --> Doing --> Done
+
 ---------------------------------------------------------------------
 [root@3fd5422be4f4 MadMask]# systemctl status madmaskd.service
 ● madmaskd.service - LSB: Start and stop the madmask server
@@ -68,19 +65,56 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 ----------------------------------------------------------------------
 
 
+## iPhone build
+ * TestFlight: https://developer.apple.com/testflight/
+ * cordova-ios@4.5.4
 
+   * --> xcode build error: HappyFace3/plugins/GCDWebserverDataRequest.m  --> -(Bool) writeData
+     [_data appendData ...] ---> Must be commented out
+     Instert
+     NSMutableData *mdata
+     
+ 
 ## Upgrade data analyzer (with systems.json)
- * Think of systems.json definition and remove errors (A simple template builder by using monitoring-urls.json?) --> Doing
+ * Think of systems.json definition and remove errors (A simple template builder by using monitoring-urls.json?) --> Done
 
  * Forecast improvement
-      * Change ADC systems --> Doing --> Done
-      * The example forecast routine should be paralleled
-      * HF DB connector (simple one)
+      * The example forecast routine should be paralleled --> Done
+      * Run HF CRON --> Done
+      * HF DB connector (simple one) 
+
+## Profile
+ * New firefox_profile with gantry  --> Done
+ * Put firefox_profile (in madfoxd) --> Done
+ * make a firefox_command routine)  --> Doing --> Done
+
+## VM OSX config
+ * Apple ID --> Doing
+ * ssh connection + ssh server in OSX
+ * Automatic iOS builder in madmask
+
+## PCATLAS11
+ * Open ports in PCATLAS11 --> Doing --> Done
 
 
 ## Implement new data importer for HF database
    * In MadBrowser
    * In MadAnalyzer
+
+## Change item names in JSON files
+   * config.json:   "port" --> "ionic_port", added "version", "web_port", "mobile_port"
+   * ==> Implement config.json version, web_port, mobile_port in mad-gantry
+   * top.json:   Added onto GitHub
+   * systems.json:   "services" --> "actions"
+   * monitoring-urls.json:   remove default "capture": true, 
+
+## Mad-Gantry site builder second step
+ * Cloud Host selector --> Done
+ * Connecting to AGIS, more sites with configs (level0, level1, level2, Goettingen Internal)
+
+
+## MadAnalyzer lib should be re-written in Python
+   
 
 
 ## MadFoxd new functions: firefox command executor + X-win default displays
@@ -96,33 +130,6 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 
 ## Man pages in MadFoxd and MadAnalyzer?
-
-
-
-# Bug fixes
- * 04.04.2018: Cannot open XMLHttpRequest in a mobile application --> Used "adb logcat" --> A wrong URL at ConfigReader.js: 50
-
-   Reason: loadJsonByConfig() in ConfigReader.js is obsolete. location.hostname is not available in mobile. A handler of the meta-meta information should be reconsidered.
-
---------------------------------------------------------------------------
-I/chromium(26006): [INFO:CONSOLE(30)] "Reading [http://141.5.108.30:20100/sites/default/meta-meta.json] ...", source: file:///android_asset/www/js/ConfigReader.js (30)
-I/chromium(26006): [INFO:CONSOLE(30)] "Reading [http://141.5.108.30:20100/sites/default/config.json] ...", source: file:///android_asset/www/js/ConfigReader.js (30)
-E/WifiStateMachine( 2248): WifiStateMachine CMD_START_SCAN source -2 txSuccessRate=0,12 rxSuccessRate=0,15 targetRoamBSSID=08:96:d7:b2:d3:07 RSSI=-47
-I/chromium(26006): [INFO:CONSOLE(30)] "Reading [http://:/sites/default/monitoring-urls.json] ...", source: file:///android_asset/www/js/ConfigReader.js (30)
-I/chromium(26006): [INFO:CONSOLE(50)] "Uncaught NetworkError: Failed to execute 'send' on 'XMLHttpRequest': Failed to load 'http:///sites/default/monitoring-urls.json'.", source: file:///android_asset/www/js/ConfigReader.js (50)
-W/InputMethodManagerService( 2248): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@e1d4048 attribute=null, token = android.os.BinderProxy@1f6d6dd7
-I/chromium(26006): [INFO:CONSOLE(20434)] "TypeError: Cannot read property 'length' of undefined
-I/chromium(26006):     at setLinks (file:///android_asset/www/js/FacJsonContents.js:87:41)
-I/chromium(26006):     at Object.<anonymous> (file:///android_asset/www/js/FacJsonContents.js:71:3)
-I/chromium(26006):     at Object.invoke (file:///android_asset/www/lib/ionic/js/ionic.bundle.js:13012:17)
-I/chromium(26006):     at Object.enforcedReturnValue [as $get] (file:///android_asset/www/lib/ionic/js/ionic.bundle.js:12865:37)
-I/chromium(26006):     at Object.invoke (file:///android_asset/www/lib/ionic/js/ionic.bundle.js:13012:17)
-I/chromium(26006):     at file:///android_asset/www/lib/ionic/js/ionic.bundle.js:12830:37
-I/chromium(26006):     at getService (file:///android_asset/www/lib/ionic/js/ionic.bundle.js:12971:39)
-I/chromium(26006):     at invoke (file:///android_asset/www/lib/ionic/js/ionic.bundle.js:13003:13)
-I/chromium(26006):     at Object.instantiate (file:///android_asset/www/lib/ionic/js/ionic.bundle.js:13020:27)
-I/chromium(26006):     at file:///android_asset/www/lib/ionic/js/ionic.bundle.js:17289:28", source: file:///android_asset/www/lib/ionic/js/ionic.bundle.js (20434)
---------------------------------------------------------------------------
 
 
 

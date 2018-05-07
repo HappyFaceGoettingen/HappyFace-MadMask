@@ -150,7 +150,6 @@ if (FORCE_LOAD_LOCAL_META_META_FILE){
  *   http://host:port/site_dir/systems.json          --> tab-controller.html (FacJsonContents.js: Systems)
  *   http://host:port/site_dir/visualizers.json      --> tab-visualizer.html (FacJsonContents.js: Visualizers)
  *   http://host:port/site_dir/logs.json             --> tab-logs.html       (FacJsonContents.js: Logs)
- *   http://host:port/site_dir/humans.json           --> tab-humans.html     (FacJsonContents.js: Humans)
  *
  *
  *  The human-readable analysis summary is taken from:
@@ -177,7 +176,6 @@ var monitoringUrlsJson = "monitoring-urls.json";
 var systemsJson = "systems.json";
 var visualizersJson = "visualizers.json";
 var logsJson = "logs.json";
-var humansJson = "humans.json";
 
 
 var config = loadJson(host, port, dir, configJson);
@@ -191,4 +189,3 @@ var summary = loadJson(host, port, "", summaryJson);
 var systems = loadJsonByConfig(config, systemsJson);
 var visualizers = loadJsonByConfig(config, visualizersJson);
 var logs = loadJsonByConfig(config, logsJson);
-var humans = loadJsonByConfig(config, humansJson);

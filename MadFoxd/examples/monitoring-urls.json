@@ -1,765 +1,662 @@
 [{
-	      "name": "Critical Line",
-	      "text": "The most critical monitoring pages",
-	      "level": "Critical",
-	      "urls": [
-		{
-			"name": "SSB Analysis queue last 24 hours",
-	    		"file_prefix": "ATLAS_SSB_ANALY_GOEGRID_last_24h", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=one&clouds=DE&site=ANALY_GOEGRID",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "SSB Production queue last 24 hours",
-	    		"file_prefix": "ATLAS_SSB_GOEGRID_last_24h", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=one&clouds=DE&site=GoeGrid",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "SSB Mcore queue last 24 hours",
-	    		"file_prefix": "ATLAS_SSB_GOEGRID_MCORE_last_24h", 
-	     		"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=one&clouds=DE&site=GoeGrid_MCORE",
-	    		"capture": true,
-	    		"systems": ["se"]
-		},
-		{
-			"name": "Argo Monitoring BDII",
-	    		"file_prefix": "ARGO_MONITORING_BDII", 
-	     		"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=bdii.goegrid.gwdg.de",
-	    		"capture": true,
-	    		"systems": ["bdii"]
-		},
-		{
-			"name": "Argo Mon Monitoring SE",
-	    		"file_prefix": "ARGO_MONITORING_SE",
-	     		"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=se-goegrid.gwdg.de",
-	    		"capture": true,
-	    		"systems": ["se"]
-		},
-		{
-			"name": "Argo Monitoring CE1",
-	    		"file_prefix": "ARGO_MONITORING_CE1", 
-	     		"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=creamce.goegrid.gwdg.de",
-	    		"capture": true,
-	    		"systems": ["creamce", "pbs"]
-		},
-		{
-			"name": "Argo Monitoring CE2",
-	    		"file_prefix": "ARGO_MONITORING_CE2", 
-	     		"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=creamce2.goegrid.gwdg.de",
-	    		"capture": true,
-	    		"systems": ["creamce2", "pbs"]
-		},
-		{
-			"name": "Argo Monitoring CE3",
-	    		"file_prefix": "ARGO_MONITORING_CE3", 
-	     		"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=creamce3.goegrid.gwdg.de",
-	    		"capture": true,
-	    		"systems": ["creamce3", "pbs"]
-		}
-		]
-	}, 
-	
+    "name": "Critical Line",
+    "text": "The most critical monitoring pages",
+    "level": "Critical",
+    "urls": [{
+	"name": "SSB Analysis queue last 24 hours",
+	"file_prefix": "ATLAS_SSB_ANALY_GOEGRID_last_24h", 
+	"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=one&clouds=DE&site=ANALY_GOEGRID",
+	"capture": true,
+	"systems": ["se"]
+    },{
+	"name": "SSB Production queue last 24 hours",
+	"file_prefix": "ATLAS_SSB_GOEGRID_last_24h", 
+	"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=one&clouds=DE&site=GoeGrid",
+	"capture": true,
+	"systems": ["se"]
+    },{
+	"name": "SSB Mcore queue last 24 hours",
+	"file_prefix": "ATLAS_SSB_GOEGRID_MCORE_last_24h", 
+	"link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteviewhistorywithstatistics?columnid=562&view=Shifter%20view#time=24&use_downtimes=false&merge_colors=false&sites=one&clouds=DE&site=GoeGrid_MCORE",
+	"capture": true,
+	"systems": ["se"]
+    },{
+	"name": "Argo Monitoring BDII",
+	"file_prefix": "ARGO_MONITORING_BDII", 
+	"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=bdii.goegrid.gwdg.de",
+	"capture": true,
+	"systems": ["bdii"]
+    },{
+	"name": "Argo Mon Monitoring SE",
+	"file_prefix": "ARGO_MONITORING_SE",
+	"link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=se-goegrid.gwdg.de",
+	"capture": true,
+	"systems": ["se"]
+    },
+	     {
+		 "name": "Argo Monitoring CE1",
+		 "file_prefix": "ARGO_MONITORING_CE1", 
+		 "link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=creamce.goegrid.gwdg.de",
+		 "capture": true,
+		 "systems": ["creamce", "pbs"]
+	     },{
+		 "name": "Argo Monitoring CE2",
+		 "file_prefix": "ARGO_MONITORING_CE2", 
+		 "link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=creamce2.goegrid.gwdg.de",
+		 "capture": true,
+		 "systems": ["creamce2", "pbs"]
+	     },{
+		 "name": "Argo Monitoring CE3",
+		 "file_prefix": "ARGO_MONITORING_CE3", 
+		 "link": "https://argo-mon2.egi.eu/nagios/cgi-bin/status.cgi?host=creamce3.goegrid.gwdg.de",
+		 "capture": true,
+		 "systems": ["creamce3", "pbs"]
+	     }]
+}, 
+ 
 
 
-	{
-		"name": "Error Line",
-		"text": "Critical monitoring pages",
-		"level": "Error",
-		"urls": [
-		{
-			"name": "Hammer Cloud Analsys test last 6 hours",
-	    		"file_prefix": "HC_test_ANALY_GOEGRID_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?computingsite=ANALY_GOEGRID&hours=6&display_limit=100&produsername=gangarbt",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Hammer Cloud Production test last 6 hours",
-	    		"file_prefix": "HC_test_GoeGrid_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid&hours=6&display_limit=100&produsername=gangarbt",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Hammer Cloud Mcore test last 6 hours",
-	    		"file_prefix": "HC_test_GoeGrid_MCORE_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid_MCORE&hours=6&display_limit=100&produsername=gangarbt",
-	    		"capture": true,
-	    		"systems": ["se"]
-		},
-		{
-		    "name": "SSB Panda Queue Status",
-		    "file_prefix": "SSB_PANDA_QUEUE_STATUS", 
-		     "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteview?site=GoeGrid#currentView=Shifter+view&highlight=false",
-		    "capture": true,
-		    "systems": ["bdii"]
-		},
-		{
-			"name": "Apel Synchronisation test",
-	    		"file_prefix": "APEL_SYNC_TEST", 
-	     		"link": "http://goc-accounting.grid-support.ac.uk/rss/GoeGrid_Sync.html",
-	    		"capture": true,
-	    		"systems": ["apel"]
-		}, 
-		{
-		    "name": "SSB Fax GoeGrid",
-		    "file_prefix": "SSB_FAX", 
-		     "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/sitehistory?site=GoeGrid#currentView=FAX+endpoints",
-		    "capture": true,
-		    "systems": ["FAX"]
-		},
-		{
-		    "name": "Frontier Squid GoeGrid",
-		    "file_prefix": "Frontier_Squid_GoeGrid", 
-		     "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/sitehistory?site=GoeGrid#currentView=Frontier_Squid",
-		    "capture": true,
-		    "systems": ["Squid"]
-		},
-		{
-			"name": "Panda Analysis Job Plot",
-	    		"file_prefix": "Panda_Analysis_Job_Plot", 
-	     		"link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=ANALY_GOEGRID&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Panda Analysis Efficiency Plot",
-	    		"file_prefix": "Panda_Analysis_Efficiency_Plot", 
-	     		"link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=ANALY_GOEGRID&SIZE=large&PARAM=efficiency&VIEW=byparam",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Panda Production Job Plot",
-	    		"file_prefix": "Panda_Production_Job_Plot", 
-	     		"link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Panda Production Efficiency Plot",
-	    		"file_prefix": "Panda_Production_Efficiency_Plot", 
-	     		"link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid&SIZE=large&PARAM=efficiency&VIEW=byparam",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Panda Mcore Job Plot",
-	    		"file_prefix": "Panda_Mcore_Job_Plot", 
-	     		"link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid_MCORE&SIZE=large",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Panda Mcore Efficiency Plot",
-	    		"file_prefix": "Panda_Mcore_Efficiency_Plot", 
-	     		"link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid_MCORE&SIZE=large&PARAM=efficiency&VIEW=byparam",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Job Efficiency Dashboard last 24 hours",
-	    		"file_prefix": "Job_Efficiency_Dashboard_last_24h", 
-	     		"link": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last24&sortBy=12&granularity=Hourly&generic=0&series=All&type=ebsf",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Plots of DDM transfers from GoeGrid",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "Plots_of_DDM_transfers_from_GoeGrid", 
-	     		"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#date.interval=720&grouping.src=%28cloud,site,token%29&src.cloud=%28%22DE%22%29&src.site=%28%22GOEGRID%22%29&tab=transfer_plots",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "DDM Transfers from GoeGrid",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "ATLAS_DDM_from_GoeGrid", 
-	     		"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#date.interval=720&grouping.src=%28cloud,site,token%29&src.cloud=%28%22DE%22%29&src.site=%28%22GOEGRID%22%29",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "Plots of DDM transfers to GoeGrid",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "Plots_of_DDM_transfers_to_GoeGrid", 
-	     		"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Data+Export+Test,Debug,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on,on,rucio-integration,test,test%3AT0_T1+export,test%3AT1_T2+export,testactivity10,testactivity20,testactivity70%29&date.interval=720&dst.cloud=%28%22DE%22%29&dst.site=%28%22GOEGRID%22%29&grouping.dst=%28cloud,site,token%29&m.transpose=true&tab=transfer_plots",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "DDM Transfers to GoeGrid",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "ATLAS_DDM_to_GoeGrid", 
-	     		"link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Data+Export+Test,Debug,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on,on,rucio-integration,test,test%3AT0_T1+export,test%3AT1_T2+export,testactivity10,testactivity20,testactivity70%29&date.interval=720&dst.cloud=%28%22DE%22%29&dst.site=%28%22GOEGRID%22%29&grouping.dst=%28cloud,site,token%29&m.transpose=true",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-                {
-			"name": "SAM3 Visualization last 12 hours",
-			"file_prefix": "SAM3_Quick_12h", 
-			"link": "http://wlcg-sam-atlas.cern.ch/templates/ember/#/historicalsmry/heatMap?end_time=2015%2F01%2F31%2000%3A00&group=ATLAS_Cloud_DE&hosts=&profile=ATLAS_AnalysisAvailability&site=GoeGrid&start_time=2014%2F10%2F31%2000%3A00&time=Last%2012%20Hours&type=Availability%20Ranking%20Plot",
-			"capture": true,
-	    		"systems": ["ALL"]
-		}, 
-		{
-			"name": "SAM3 Visualization last 24 hours",
-	    		"file_prefix": "SAM3_Quick_24h", 
-	     		"link": "http://wlcg-sam-atlas.cern.ch/templates/ember/#/historicalsmry/heatMap?end_time=2015%2F01%2F31%2000%3A00&group=ATLAS_Cloud_DE&hosts=&profile=ATLAS_AnalysisAvailability&site=GoeGrid&start_time=2014%2F10%2F31%2000%3A00&time=Last%2024%20Hours&type=Availability%20Ranking%20Plot",
-	    		"capture": true,
-	    		"systems": ["ALL"]
-		},
-		{
-			"name": "HammerCloud GoeGrid PFT Test 1",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "HammerCloud_GoeGrid_Monitoring_PFT_Test_1", 
-	     		"link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?site=GoeGrid&days=0&templateType=isGolden",
-	    		"capture": true,
-	    		"systems": ["ALL"]
-		},
-		{
-			"name": "HammerCloud GoeGrid Analysis Test",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "HammerCloud_GoeGrid_Analysis_Test", 
-	     		"link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?queue=ANALY_GOEGRID&days=0",
-	    		"capture": true,
-	    		"systems": ["ALL"]
-		},
-		{
-			"name": "HammerCloud GoeGrid Production Test",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "HammerCloud_GoeGrid_Production_Test", 
-	     		"link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?queue=GoeGrid&days=0",
-	    		"capture": true,
-	    		"systems": ["ALL"]
-		},
-		{
-			"name": "HammerCloud GoeGrid Production Mcore Test",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "HammerCloud_GoeGrid_Production_Mcore_Test",
-	     		"link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?queue=GoeGrid_MCORE&days=0&templateType=functional",
-	    		"capture": true,
-	    		"systems": ["ALL"]
-		}
-		]
-	},
+ {
+     "name": "Error Line",
+     "text": "Critical monitoring pages",
+     "level": "Error",
+     "urls": [{
+	 "name": "Hammer Cloud Analsys test last 6 hours",
+	 "file_prefix": "HC_test_ANALY_GOEGRID_last_6h", 
+	 "link": "http://bigpanda.cern.ch/jobs/?computingsite=ANALY_GOEGRID&hours=6&display_limit=100&produsername=gangarbt",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Hammer Cloud Production test last 6 hours",
+	 "file_prefix": "HC_test_GoeGrid_last_6h", 
+	 "link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid&hours=6&display_limit=100&produsername=gangarbt",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Hammer Cloud Mcore test last 6 hours",
+	 "file_prefix": "HC_test_GoeGrid_MCORE_last_6h", 
+	 "link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid_MCORE&hours=6&display_limit=100&produsername=gangarbt",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "SSB Panda Queue Status",
+	 "file_prefix": "SSB_PANDA_QUEUE_STATUS", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/siteview?site=GoeGrid#currentView=Shifter+view&highlight=false",
+	 "capture": true,
+	 "systems": ["bdii"]
+     },{
+	 "name": "Apel Synchronisation test",
+	 "file_prefix": "APEL_SYNC_TEST", 
+	 "link": "http://goc-accounting.grid-support.ac.uk/rss/GoeGrid_Sync.html",
+	 "capture": true,
+	 "systems": ["apel"]
+     },{
+	 "name": "SSB Fax GoeGrid",
+	 "file_prefix": "SSB_FAX", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/sitehistory?site=GoeGrid#currentView=FAX+endpoints",
+	 "capture": true,
+	 "systems": ["FAX"]
+     },{
+	 "name": "Frontier Squid GoeGrid",
+	 "file_prefix": "Frontier_Squid_GoeGrid", 
+	 "link": "http://dashb-atlas-ssb.cern.ch/dashboard/request.py/sitehistory?site=GoeGrid#currentView=Frontier_Squid",
+	 "capture": true,
+	 "systems": ["Squid"]
+     },{
+	 "name": "Panda Analysis Job Plot",
+	 "file_prefix": "Panda_Analysis_Job_Plot", 
+	 "link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=ANALY_GOEGRID&SIZE=large",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Panda Analysis Efficiency Plot",
+	 "file_prefix": "Panda_Analysis_Efficiency_Plot", 
+	 "link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=ANALY_GOEGRID&SIZE=large&PARAM=efficiency&VIEW=byparam",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Panda Production Job Plot",
+	 "file_prefix": "Panda_Production_Job_Plot", 
+	 "link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid&SIZE=large",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Panda Production Efficiency Plot",
+	 "file_prefix": "Panda_Production_Efficiency_Plot", 
+	 "link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid&SIZE=large&PARAM=efficiency&VIEW=byparam",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Panda Mcore Job Plot",
+	 "file_prefix": "Panda_Mcore_Job_Plot", 
+	 "link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid_MCORE&SIZE=large",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Panda Mcore Efficiency Plot",
+	 "file_prefix": "Panda_Mcore_Efficiency_Plot", 
+	 "link": "http://panglia.triumf.ca/site/graph.php?TIME=day&STATE=ALL&GRTYPE=individual&SCALE=regular&VIEW=bysites&SITE=GoeGrid_MCORE&SIZE=large&PARAM=efficiency&VIEW=byparam",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Job Efficiency Dashboard last 24 hours",
+	 "file_prefix": "Job_Efficiency_Dashboard_last_24h", 
+	 "link": "http://dashb-atlas-job.cern.ch/dashboard/request.py/terminatedjobsstatus_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last24&sortBy=12&granularity=Hourly&generic=0&series=All&type=ebsf",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Plots of DDM transfers from GoeGrid",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "Plots_of_DDM_transfers_from_GoeGrid", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#date.interval=720&grouping.src=%28cloud,site,token%29&src.cloud=%28%22DE%22%29&src.site=%28%22GOEGRID%22%29&tab=transfer_plots",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "DDM Transfers from GoeGrid",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "ATLAS_DDM_from_GoeGrid", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#date.interval=720&grouping.src=%28cloud,site,token%29&src.cloud=%28%22DE%22%29&src.site=%28%22GOEGRID%22%29",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "Plots of DDM transfers to GoeGrid",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "Plots_of_DDM_transfers_to_GoeGrid", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Data+Export+Test,Debug,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on,on,rucio-integration,test,test%3AT0_T1+export,test%3AT1_T2+export,testactivity10,testactivity20,testactivity70%29&date.interval=720&dst.cloud=%28%22DE%22%29&dst.site=%28%22GOEGRID%22%29&grouping.dst=%28cloud,site,token%29&m.transpose=true&tab=transfer_plots",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "DDM Transfers to GoeGrid",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "ATLAS_DDM_to_GoeGrid", 
+	 "link": "http://dashb-atlas-ddm.cern.ch/ddm2/#activity=%28Data+Brokering,Data+Consolidation,Data+Export+Test,Debug,Deletion,Express,Functional+Test,Group+Subscriptions,Production,Production+Input,Production+Output,Recovery,Staging,T0+Export,T0+Tape,User+Subscriptions,default,on,on,rucio-integration,test,test%3AT0_T1+export,test%3AT1_T2+export,testactivity10,testactivity20,testactivity70%29&date.interval=720&dst.cloud=%28%22DE%22%29&dst.site=%28%22GOEGRID%22%29&grouping.dst=%28cloud,site,token%29&m.transpose=true",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "SAM3 Visualization last 12 hours",
+	 "file_prefix": "SAM3_Quick_12h", 
+	 "link": "http://wlcg-sam-atlas.cern.ch/templates/ember/#/historicalsmry/heatMap?end_time=2015%2F01%2F31%2000%3A00&group=ATLAS_Cloud_DE&hosts=&profile=ATLAS_AnalysisAvailability&site=GoeGrid&start_time=2014%2F10%2F31%2000%3A00&time=Last%2012%20Hours&type=Availability%20Ranking%20Plot",
+	 "capture": true,
+	 "systems": ["ALL"]
+     },{ 
+	 "name": "SAM3 Visualization last 24 hours",
+	 "file_prefix": "SAM3_Quick_24h", 
+	 "link": "http://wlcg-sam-atlas.cern.ch/templates/ember/#/historicalsmry/heatMap?end_time=2015%2F01%2F31%2000%3A00&group=ATLAS_Cloud_DE&hosts=&profile=ATLAS_AnalysisAvailability&site=GoeGrid&start_time=2014%2F10%2F31%2000%3A00&time=Last%2024%20Hours&type=Availability%20Ranking%20Plot",
+	 "capture": true,
+	 "systems": ["ALL"]
+     },{
+	 "name": "HammerCloud GoeGrid PFT Test 1",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "HammerCloud_GoeGrid_Monitoring_PFT_Test_1", 
+	 "link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?site=GoeGrid&days=0&templateType=isGolden",
+	 "capture": true,
+	 "systems": ["ALL"]
+     },{
+	 "name": "HammerCloud GoeGrid Analysis Test",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "HammerCloud_GoeGrid_Analysis_Test", 
+	 "link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?queue=ANALY_GOEGRID&days=0",
+	 "capture": true,
+	 "systems": ["ALL"]
+     },{
+	 "name": "HammerCloud GoeGrid Production Test",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "HammerCloud_GoeGrid_Production_Test", 
+	 "link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?queue=GoeGrid&days=0",
+	 "capture": true,
+	 "systems": ["ALL"]
+     },{
+	 "name": "HammerCloud GoeGrid Production Mcore Test",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "HammerCloud_GoeGrid_Production_Mcore_Test",
+	 "link": "http://hammercloud.cern.ch/hc/app/atlas/siteoverview/?queue=GoeGrid_MCORE&days=0&templateType=functional",
+	 "capture": true,
+	 "systems": ["ALL"]
+     }]
+ },
 
 
-	{
-		"name": "Warning Line",
-		"text": "Need to check them",
-		"level": "Warning",
-		"urls": [
-		{
-			"name": "Rucio Web UI GoeGrid RSE Usage",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "Rucio_Web_UI_GoeGrid_RSE_Usage", 
-	     		"link": "https://rucio-ui.cern.ch/rse_usage?rses=GOEGRID_DATADISK,GOEGRID_DET-INDET,GOEGRID_LOCALGROUPDISK,GOEGRID_PHYS-EXOTICS,GOEGRID_PHYS-HIGGS,GOEGRID_SCRATCHDISK",
-	    		"capture": true,
-	    		"systems": ["se"]
-		},
-		{
-			"name": "GoeGrid Localgroupdisk Monitor",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_Localgroupdisk_Monitor", 
-	     		"link": "http://localgroupdisk.pleiades.uni-wuppertal.de:8080/atlasmonitor-0.1/usage/users?diskName=GOEGRID_LOCALGROUPDISK",
-	    		"capture": true,
-	    		"systems": ["se"]
-		},
-		{
-			"name": "GoeGrid Analysis jobs last 6 hours",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_Analysis_jobs_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?computingsite=ANALY_GOEGRID&hours=6&display_limit=100",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "GoeGrid failed Analysis jobs last 6 hours",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_failed_Analysis_jobs_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/errors/?computingsite=ANALY_GOEGRID&hours=6",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "GoeGrid Production jobs last 6 hours",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_Production_jobs_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid&hours=6&display_limit=100",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "GoeGrid failed Production jobs last 6 hours",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_failed_Production_jobs_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/errors/?computingsite=GoeGrid&hours=6",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "GoeGrid Mcore Production jobs last 6 hours",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_MCore_Production_jobs_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid&hours=6&display_limit=100",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-			"name": "GoeGrid Mcore failed Production jobs last 6 hours",
-			"xdisplay_name": "middle",
-	    		"file_prefix": "GoeGrid_Mcore_failed_Production_jobs_last_6h", 
-	     		"link": "http://bigpanda.cern.ch/errors/?computingsite=GoeGrid&hours=6",
-	    		"capture": true,
-	    		"systems": ["se"]
-		}, 
-		{
-		    "name": "GoeGrid Nagios Nagios",
-		    "file_prefix": "GoeGrid_Nagios_Nagios", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=nagios",
-		    "capture": true,
-		    "systems": ["nagios"]
-		},
-		{
-		    "name": "GoeGrid Ganglia Main",
-		    "file_prefix": "GoeGrid_Ganglia_Main", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/",
-		    "capture": true,
-		    "systems": ["ganglia"]
-		},
-		{
-		    "name": "GoeGrid Ganglia Network usage",
-		    "file_prefix": "GoeGrid_Ganglia_Network_Usage_1day", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/graph.php?g=network_report&z=large&c=GoeGrid_Server&m=load_one&r=day&s=descending&hc=4&mc=2&st=1444396692",
-		    "capture": true,
-		    "systems": ["ganglia"]
-		},
-		{
-		    "name": "GoeGrid Nagios Virt1",
-		    "file_prefix": "GoeGrid_Nagios_Virt1", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt1",
-		    "capture": true,
-		    "systems": ["virt1"]
-		},
-		{
-		    "name": "GoeGrid Nagios Virt2",
-		    "file_prefix": "GoeGrid_Nagios_Virt2", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt2",
-		    "capture": true,
-		    "systems": ["virt2"]
-		},
-		{
-		    "name": "GoeGrid Nagios Virt3",
-		    "file_prefix": "GoeGrid_Nagios_Virt3", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt3",
-		    "capture": true,
-		    "systems": ["virt3"]
-		},
-		{
-		    "name": "GoeGrid Nagios Virt4",
-		    "file_prefix": "GoeGrid_Nagios_Virt4", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt4",
-		    "capture": true,
-		    "systems": ["virt4"]
-		},
-		{
-		    "name": "GoeGrid Nagios Virt5",
-		    "file_prefix": "GoeGrid_Nagios_Virt5", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt5",
-		    "capture": true,
-		    "systems": ["virt5"]
-		},
-		{
-		    "name": "GoeGrid Nagios Virt6",
-		    "file_prefix": "GoeGrid_Nagios_Virt6", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt6",
-		    "capture": true,
-		    "systems": ["virt6"]
-		},
-		{
-		    "name": "GoeGrid Nagios Apel",
-		    "file_prefix": "GoeGrid_Nagios_Apel", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=apel",
-		    "capture": true,
-		    "systems": ["apel"]
-		},
-		{
-		    "name": "GoeGrid Nagios BDII",
-		    "file_prefix": "GoeGrid_Nagios_BDII", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=bdii",
-		    "capture": true,
-		    "systems": ["bdii"]
-		},
-		{
-		    "name": "GoeGrid Nagios CE2",
-		    "file_prefix": "GoeGrid_Nagios_CREAMCE2", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=creamce2",
-		    "capture": true,
-		    "systems": ["creamce2"]
-		},
-		{
-		    "name": "GoeGrid Nagios CE3",
-		    "file_prefix": "GoeGrid_Nagios_CREAMCE3", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=creamce3",
-		    "capture": true,
-		    "systems": ["creamce3"]
-		},
-		{
-		    "name": "GoeGrid Nagios PBS",
-		    "file_prefix": "GoeGrid_Nagios_PBS", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=pbs",
-		    "capture": true,
-		    "systems": ["pbs"]
-		},
-		{
-		    "name": "GoeGrid Nagios Rocks6",
-		    "file_prefix": "GoeGrid_Nagios_ROCKS6", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=rocks6",
-		    "capture": true,
-		    "systems": ["rocks"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE",
-		    "file_prefix": "GoeGrid_Nagios_SE", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se",
-		    "capture": true,
-		    "systems": ["se"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE2",
-		    "file_prefix": "GoeGrid_Nagios_SE2", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se2",
-		    "capture": true,
-		    "systems": ["se2"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE3",
-		    "file_prefix": "GoeGrid_Nagios_SE3", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se3",
-		    "capture": true,
-		    "systems": ["se3"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE4",
-		    "file_prefix": "GoeGrid_Nagios_SE4", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se4",
-		    "capture": true,
-		    "systems": ["se4"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE5",
-		    "file_prefix": "GoeGrid_Nagios_SE5", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se5",
-		    "capture": true,
-		    "systems": ["se5"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE6",
-		    "file_prefix": "GoeGrid_Nagios_SE6", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se6",
-		    "capture": true,
-		    "systems": ["se6"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE7",
-		    "file_prefix": "GoeGrid_Nagios_SE7", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se7",
-		    "capture": true,
-		    "systems": ["se7"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE8",
-		    "file_prefix": "GoeGrid_Nagios_SE8", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se8",
-		    "capture": true,
-		    "systems": ["se8"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE9",
-		    "file_prefix": "GoeGrid_Nagios_SE9", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se9",
-		    "capture": true,
-		    "systems": ["se9"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE10",
-		    "file_prefix": "GoeGrid_Nagios_SE10", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se10",
-		    "capture": true,
-		    "systems": ["se10"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE11",
-		    "file_prefix": "GoeGrid_Nagios_SE11", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se11",
-		    "capture": true,
-		    "systems": ["se11"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE12",
-		    "file_prefix": "GoeGrid_Nagios_SE12", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se12",
-		    "capture": true,
-		    "systems": ["se12"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE13",
-		    "file_prefix": "GoeGrid_Nagios_SE13", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se13",
-		    "capture": true,
-		    "systems": ["se13"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE14",
-		    "file_prefix": "GoeGrid_Nagios_SE14", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se14",
-		    "capture": true,
-		    "systems": ["se14"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE15",
-		    "file_prefix": "GoeGrid_Nagios_SE15", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se15",
-		    "capture": true,
-		    "systems": ["se15"]
-		},
-		{
-		    "name": "GoeGrid Nagios SE16",
-		    "file_prefix": "GoeGrid_Nagios_SE16", 
-		     "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se16",
-		    "capture": true,
-		    "systems": ["se16"]
-		},
-		{
-		    "name": "GoeGrid Ganglia virt1",
-		    "file_prefix": "GoeGrid_Ganglia_Virt1", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt1.local",
-		    "capture": true,
-		    "systems": ["virt1"]
-		},
-		{
-		    "name": "GoeGrid Ganglia virt2",
-		    "file_prefix": "GoeGrid_Ganglia_Virt2", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt2.local",
-		    "capture": true,
-		    "systems": ["virt2"]
-		},
-		{
-		    "name": "GoeGrid Ganglia virt3",
-		    "file_prefix": "GoeGrid_Ganglia_Virt3", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt3.local",
-		    "capture": true,
-		    "systems": ["virt3"]
-		},
-		{
-		    "name": "GoeGrid Ganglia virt4",
-		    "file_prefix": "GoeGrid_Ganglia_Virt4", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt4.local",
-		    "capture": true,
-		    "systems": ["virt4"]
-		},
-		{
-		    "name": "GoeGrid Ganglia virt5",
-		    "file_prefix": "GoeGrid_Ganglia_Virt5", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt5.local",
-		    "capture": true,
-		    "systems": ["virt5"]
-		},
-		{
-		    "name": "GoeGrid Ganglia virt6",
-		    "file_prefix": "GoeGrid_Ganglia_Virt6", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt6.local",
-		    "capture": true,
-		    "systems": ["virt6"]
-		},
-		{
-		    "name": "GoeGrid Ganglia Cream CE2",
-		    "file_prefix": "GoeGrid_Ganglia_CREAMCE2", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=creamce2.local",
-		    "capture": true,
-		    "systems": ["creamce2"]
-		},
-		{
-		    "name": "GoeGrid Ganglia Cream CE3",
-		    "file_prefix": "GoeGrid_Ganglia_CREAMCE3", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=creamce3.local",
-		    "capture": true,
-		    "systems": ["creamce3"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE",
-		    "file_prefix": "GoeGrid_Ganglia_SE", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se-goegrid.local",
-		    "capture": true,
-		    "systems": ["se"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE Load",
-		    "file_prefix": "GoeGrid_Ganglia_SE_Load", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/graph.php?g=cpu_report&z=large&c=GoeGrid_Server&h=se-goegrid.local&m=load_one&r=day&s=descending&hc=4&mc=2&st=1444407423",
-		    "capture": true,
-		    "systems": ["se"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE Memory Load",
-		    "file_prefix": "GoeGrid_Ganglia_SE_Memory_Load", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/graph.php?g=mem_report&z=large&c=GoeGrid_Server&h=se-goegrid.local&m=load_one&r=hour&s=descending&hc=4&mc=2&st=1467715952",
-		    "capture": true,
-		    "systems": ["se"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE2",
-		    "file_prefix": "GoeGrid_Ganglia_SE2", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se2-goegrid.local",
-		    "capture": true,
-		    "systems": ["se2"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE4",
-		    "file_prefix": "GoeGrid_Ganglia_SE4", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se4-goegrid.local",
-		    "capture": true,
-		    "systems": ["se4"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE5",
-		    "file_prefix": "GoeGrid_Ganglia_SE5", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se5-goegrid.local",
-		    "capture": true,
-		    "systems": ["se5"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE6",
-		    "file_prefix": "GoeGrid_Ganglia_SE6", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se6-goegrid.local",
-		    "capture": true,
-		    "systems": ["se6"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE7",
-		    "file_prefix": "GoeGrid_Ganglia_SE7", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se7-goegrid.local",
-		    "capture": true,
-		    "systems": ["se7"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE8",
-		    "file_prefix": "GoeGrid_Ganglia_SE8", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se8-goegrid.local",
-		    "capture": true,
-		    "systems": ["se8"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE9",
-		    "file_prefix": "GoeGrid_Ganglia_SE9", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se9-goegrid.local",
-		    "capture": true,
-		    "systems": ["se9"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE10",
-		    "file_prefix": "GoeGrid_Ganglia_SE10", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se10-goegrid.local",
-		    "capture": true,
-		    "systems": ["se10"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE11",
-		    "file_prefix": "GoeGrid_Ganglia_SE11", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se11-goegrid.local",
-		    "capture": true,
-		    "systems": ["se11"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE12",
-		    "file_prefix": "GoeGrid_Ganglia_SE12", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se12-goegrid.local",
-		    "capture": true,
-		    "systems": ["se12"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE13",
-		    "file_prefix": "GoeGrid_Ganglia_SE13", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se13-goegrid.local",
-		    "capture": true,
-		    "systems": ["se13"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE14",
-		    "file_prefix": "GoeGrid_Ganglia_SE14", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se14-goegrid.local",
-		    "capture": true,
-		    "systems": ["se14"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE15",
-		    "file_prefix": "GoeGrid_Ganglia_SE15", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se15-goegrid.local",
-		    "capture": true,
-		    "systems": ["se15"]
-		},
-		{
-		    "name": "GoeGrid Ganglia SE16",
-		    "file_prefix": "GoeGrid_Ganglia_SE16", 
-		     "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se16-goegrid.local",
-		    "capture": true,
-		    "systems": ["se16"]
-		},
-		{
-			"name": "d-cache monitoring",
-	    		"file_prefix": "dCache_Monitoring_Mainpage", 
-	     		"link": "http://se-goegrid.gwdg.de:2288/",
-	    		"capture": true,
-	    		"systems": ["se", "dcache"]
-		},
-		{
-			"name": "d-cache monitoring Active Transfers",
-	    		"file_prefix": "dCache_Monitoring_Active_Transfers", 
-	     		"link": "http://se-goegrid.gwdg.de:2288/webadmin/transfers",
-	    		"capture": true,
-	    		"systems": ["se", "dcache"]
-		},
-		{
-			"name": "d-cache monitoring Disk Usage",
-	    		"file_prefix": "dCache_Monitoring_Disk_Usage", 
-	     		"link": "http://se-goegrid.gwdg.de:2288/webadmin/usageinfo",
-	    		"capture": true,
-	    		"systems": ["se", "dcache"]
-		},
-		{
-			"name": "d-cache monitoring Request Queues",
-	    		"file_prefix": "dCache_Monitoring_Request_Queues", 
-	     		"link": "http://se-goegrid.gwdg.de:2288/webadmin/queueinfo",
-	    		"capture": true,
-	    		"systems": ["se", "dcache"]
-		},
-		{
-			"name": "d-cache monitoring dCap",
-	    		"file_prefix": "dCache_Monitoring_dcap", 
-	     		"link": "http://se-goegrid.gwdg.de:2288/webadmin/cellinfo",
-	    		"capture": true,
-	    		"systems": ["se", "dcache"]
-		}
-		]
-	},
+ {
+     "name": "Warning Line",
+     "text": "Need to check them",
+     "level": "Warning",
+     "urls": [{
+	 "name": "Rucio Web UI GoeGrid RSE Usage",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "Rucio_Web_UI_GoeGrid_RSE_Usage", 
+	 "link": "https://rucio-ui.cern.ch/rse_usage?rses=GOEGRID_DATADISK,GOEGRID_DET-INDET,GOEGRID_LOCALGROUPDISK,GOEGRID_PHYS-EXOTICS,GOEGRID_PHYS-HIGGS,GOEGRID_SCRATCHDISK",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Localgroupdisk Monitor",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_Localgroupdisk_Monitor", 
+	 "link": "http://localgroupdisk.pleiades.uni-wuppertal.de:8080/atlasmonitor-0.1/usage/users?diskName=GOEGRID_LOCALGROUPDISK",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Analysis jobs last 6 hours",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_Analysis_jobs_last_6h", 
+	 "link": "http://bigpanda.cern.ch/jobs/?computingsite=ANALY_GOEGRID&hours=6&display_limit=100",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid failed Analysis jobs last 6 hours",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_failed_Analysis_jobs_last_6h", 
+	 "link": "http://bigpanda.cern.ch/errors/?computingsite=ANALY_GOEGRID&hours=6",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Production jobs last 6 hours",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_Production_jobs_last_6h", 
+	 "link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid&hours=6&display_limit=100",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid failed Production jobs last 6 hours",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_failed_Production_jobs_last_6h", 
+	 "link": "http://bigpanda.cern.ch/errors/?computingsite=GoeGrid&hours=6",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Mcore Production jobs last 6 hours",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_MCore_Production_jobs_last_6h", 
+	 "link": "http://bigpanda.cern.ch/jobs/?computingsite=GoeGrid&hours=6&display_limit=100",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Mcore failed Production jobs last 6 hours",
+	 "xdisplay_name": "middle",
+	 "file_prefix": "GoeGrid_Mcore_failed_Production_jobs_last_6h", 
+	 "link": "http://bigpanda.cern.ch/errors/?computingsite=GoeGrid&hours=6",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Nagios Nagios",
+	 "file_prefix": "GoeGrid_Nagios_Nagios", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=nagios",
+	 "capture": true,
+	 "systems": ["nagios"]
+     },{
+	 "name": "GoeGrid Ganglia Main",
+	 "file_prefix": "GoeGrid_Ganglia_Main", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/",
+	 "capture": true,
+	 "systems": ["ganglia"]
+     },{
+	 "name": "GoeGrid Ganglia Network usage",
+	 "file_prefix": "GoeGrid_Ganglia_Network_Usage_1day", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/graph.php?g=network_report&z=large&c=GoeGrid_Server&m=load_one&r=day&s=descending&hc=4&mc=2&st=1444396692",
+	 "capture": true,
+	 "systems": ["ganglia"]
+     },{
+	 "name": "GoeGrid Nagios Virt1",
+	 "file_prefix": "GoeGrid_Nagios_Virt1", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt1",
+	 "capture": true,
+	 "systems": ["virt1"]
+     },{
+	 "name": "GoeGrid Nagios Virt2",
+	 "file_prefix": "GoeGrid_Nagios_Virt2", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt2",
+	 "capture": true,
+	 "systems": ["virt2"]
+     },{
+	 "name": "GoeGrid Nagios Virt3",
+	 "file_prefix": "GoeGrid_Nagios_Virt3", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt3",
+	 "capture": true,
+	 "systems": ["virt3"]
+     },{
+	 "name": "GoeGrid Nagios Virt4",
+	 "file_prefix": "GoeGrid_Nagios_Virt4", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt4",
+	 "capture": true,
+	 "systems": ["virt4"]
+     },{
+	 "name": "GoeGrid Nagios Virt5",
+	 "file_prefix": "GoeGrid_Nagios_Virt5", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt5",
+	 "capture": true,
+	 "systems": ["virt5"]
+     },{
+	 "name": "GoeGrid Nagios Virt6",
+	 "file_prefix": "GoeGrid_Nagios_Virt6", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=virt6",
+	 "capture": true,
+	 "systems": ["virt6"]
+     },{
+	 "name": "GoeGrid Nagios Apel",
+	 "file_prefix": "GoeGrid_Nagios_Apel", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=apel",
+	 "capture": true,
+	 "systems": ["apel"]
+     },{
+	 "name": "GoeGrid Nagios BDII",
+	 "file_prefix": "GoeGrid_Nagios_BDII", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=bdii",
+	 "capture": true,
+	 "systems": ["bdii"]
+     },{
+	 "name": "GoeGrid Nagios CE2",
+	 "file_prefix": "GoeGrid_Nagios_CREAMCE2", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=creamce2",
+	 "capture": true,
+	 "systems": ["creamce2"]
+     },{
+	 "name": "GoeGrid Nagios CE3",
+	 "file_prefix": "GoeGrid_Nagios_CREAMCE3", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=creamce3",
+	 "capture": true,
+	 "systems": ["creamce3"]
+     },{
+	 "name": "GoeGrid Nagios PBS",
+	 "file_prefix": "GoeGrid_Nagios_PBS", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=pbs",
+	 "capture": true,
+	 "systems": ["pbs"]
+     },{
+	 "name": "GoeGrid Nagios Rocks6",
+	 "file_prefix": "GoeGrid_Nagios_ROCKS6", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=rocks6",
+	 "capture": true,
+	 "systems": ["rocks"]
+     },{
+	 "name": "GoeGrid Nagios SE",
+	 "file_prefix": "GoeGrid_Nagios_SE", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Nagios SE2",
+	 "file_prefix": "GoeGrid_Nagios_SE2", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se2",
+	 "capture": true,
+	 "systems": ["se2"]
+     },{
+	 "name": "GoeGrid Nagios SE3",
+	 "file_prefix": "GoeGrid_Nagios_SE3", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se3",
+	 "capture": true,
+	 "systems": ["se3"]
+     },{
+	 "name": "GoeGrid Nagios SE4",
+	 "file_prefix": "GoeGrid_Nagios_SE4", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se4",
+	 "capture": true,
+	 "systems": ["se4"]
+     },{
+	 "name": "GoeGrid Nagios SE5",
+	 "file_prefix": "GoeGrid_Nagios_SE5", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se5",
+	 "capture": true,
+	 "systems": ["se5"]
+     },{
+	 "name": "GoeGrid Nagios SE6",
+	 "file_prefix": "GoeGrid_Nagios_SE6", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se6",
+	 "capture": true,
+	 "systems": ["se6"]
+     },{
+	 "name": "GoeGrid Nagios SE7",
+	 "file_prefix": "GoeGrid_Nagios_SE7", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se7",
+	 "capture": true,
+	 "systems": ["se7"]
+     },{
+	 "name": "GoeGrid Nagios SE8",
+	 "file_prefix": "GoeGrid_Nagios_SE8", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se8",
+	 "capture": true,
+	 "systems": ["se8"]
+     },{
+	 "name": "GoeGrid Nagios SE9",
+	 "file_prefix": "GoeGrid_Nagios_SE9", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se9",
+	 "capture": true,
+	 "systems": ["se9"]
+     },{
+	 "name": "GoeGrid Nagios SE10",
+	 "file_prefix": "GoeGrid_Nagios_SE10", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se10",
+	 "capture": true,
+	 "systems": ["se10"]
+     },{
+	 "name": "GoeGrid Nagios SE11",
+	 "file_prefix": "GoeGrid_Nagios_SE11", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se11",
+	 "capture": true,
+	 "systems": ["se11"]
+     },{
+	 "name": "GoeGrid Nagios SE12",
+	 "file_prefix": "GoeGrid_Nagios_SE12", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se12",
+	 "capture": true,
+	 "systems": ["se12"]
+     },{
+	 "name": "GoeGrid Nagios SE13",
+	 "file_prefix": "GoeGrid_Nagios_SE13", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se13",
+	 "capture": true,
+	 "systems": ["se13"]
+     },{
+	 "name": "GoeGrid Nagios SE14",
+	 "file_prefix": "GoeGrid_Nagios_SE14", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se14",
+	 "capture": true,
+	 "systems": ["se14"]
+     },{
+	 "name": "GoeGrid Nagios SE15",
+	 "file_prefix": "GoeGrid_Nagios_SE15", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se15",
+	 "capture": true,
+	 "systems": ["se15"]
+     },{
+	 "name": "GoeGrid Nagios SE16",
+	 "file_prefix": "GoeGrid_Nagios_SE16", 
+	 "link": "http://happyface-goegrid.gwdg.de/nagios/cgi-bin/status.cgi?host=se16",
+	 "capture": true,
+	 "systems": ["se16"]
+     },{
+	 "name": "GoeGrid Ganglia virt1",
+	 "file_prefix": "GoeGrid_Ganglia_Virt1", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt1.local",
+	 "capture": true,
+	 "systems": ["virt1"]
+     },{
+	 "name": "GoeGrid Ganglia virt2",
+	 "file_prefix": "GoeGrid_Ganglia_Virt2", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt2.local",
+	 "capture": true,
+	 "systems": ["virt2"]
+     },{
+	 "name": "GoeGrid Ganglia virt3",
+	 "file_prefix": "GoeGrid_Ganglia_Virt3", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt3.local",
+	 "capture": true,
+	 "systems": ["virt3"]
+     },{
+	 "name": "GoeGrid Ganglia virt4",
+	 "file_prefix": "GoeGrid_Ganglia_Virt4", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt4.local",
+	 "capture": true,
+	 "systems": ["virt4"]
+     },{
+	 "name": "GoeGrid Ganglia virt5",
+	 "file_prefix": "GoeGrid_Ganglia_Virt5", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt5.local",
+	 "capture": true,
+	 "systems": ["virt5"]
+     },{
+	 "name": "GoeGrid Ganglia virt6",
+	 "file_prefix": "GoeGrid_Ganglia_Virt6", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=virt6.local",
+	 "capture": true,
+	 "systems": ["virt6"]
+     },{
+	 "name": "GoeGrid Ganglia Cream CE2",
+	 "file_prefix": "GoeGrid_Ganglia_CREAMCE2", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=creamce2.local",
+	 "capture": true,
+	 "systems": ["creamce2"]
+     },{
+	 "name": "GoeGrid Ganglia Cream CE3",
+	 "file_prefix": "GoeGrid_Ganglia_CREAMCE3", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=creamce3.local",
+	 "capture": true,
+	 "systems": ["creamce3"]
+     },{
+	 "name": "GoeGrid Ganglia SE",
+	 "file_prefix": "GoeGrid_Ganglia_SE", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se-goegrid.local",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Ganglia SE Load",
+	 "file_prefix": "GoeGrid_Ganglia_SE_Load", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/graph.php?g=cpu_report&z=large&c=GoeGrid_Server&h=se-goegrid.local&m=load_one&r=day&s=descending&hc=4&mc=2&st=1444407423",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Ganglia SE Memory Load",
+	 "file_prefix": "GoeGrid_Ganglia_SE_Memory_Load", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/graph.php?g=mem_report&z=large&c=GoeGrid_Server&h=se-goegrid.local&m=load_one&r=hour&s=descending&hc=4&mc=2&st=1467715952",
+	 "capture": true,
+	 "systems": ["se"]
+     },{
+	 "name": "GoeGrid Ganglia SE2",
+	 "file_prefix": "GoeGrid_Ganglia_SE2", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se2-goegrid.local",
+	 "capture": true,
+	 "systems": ["se2"]
+     },{
+	 "name": "GoeGrid Ganglia SE4",
+	 "file_prefix": "GoeGrid_Ganglia_SE4", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se4-goegrid.local",
+	 "capture": true,
+	 "systems": ["se4"]
+     },{
+	 "name": "GoeGrid Ganglia SE5",
+	 "file_prefix": "GoeGrid_Ganglia_SE5", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se5-goegrid.local",
+	 "capture": true,
+	 "systems": ["se5"]
+     },{
+	 "name": "GoeGrid Ganglia SE6",
+	 "file_prefix": "GoeGrid_Ganglia_SE6", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se6-goegrid.local",
+	 "capture": true,
+	 "systems": ["se6"]
+     },{
+	 "name": "GoeGrid Ganglia SE7",
+	 "file_prefix": "GoeGrid_Ganglia_SE7", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se7-goegrid.local",
+	 "capture": true,
+	 "systems": ["se7"]
+     },{
+	 "name": "GoeGrid Ganglia SE8",
+	 "file_prefix": "GoeGrid_Ganglia_SE8", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se8-goegrid.local",
+	 "capture": true,
+	 "systems": ["se8"]
+     },{
+	 "name": "GoeGrid Ganglia SE9",
+	 "file_prefix": "GoeGrid_Ganglia_SE9", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se9-goegrid.local",
+	 "capture": true,
+	 "systems": ["se9"]
+     },{
+	 "name": "GoeGrid Ganglia SE10",
+	 "file_prefix": "GoeGrid_Ganglia_SE10", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se10-goegrid.local",
+	 "capture": true,
+	 "systems": ["se10"]
+     },{
+	 "name": "GoeGrid Ganglia SE11",
+	 "file_prefix": "GoeGrid_Ganglia_SE11", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se11-goegrid.local",
+	 "capture": true,
+	 "systems": ["se11"]
+     },{
+	 "name": "GoeGrid Ganglia SE12",
+	 "file_prefix": "GoeGrid_Ganglia_SE12", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se12-goegrid.local",
+	 "capture": true,
+	 "systems": ["se12"]
+     },{
+	 "name": "GoeGrid Ganglia SE13",
+	 "file_prefix": "GoeGrid_Ganglia_SE13", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se13-goegrid.local",
+	 "capture": true,
+	 "systems": ["se13"]
+     },{
+	 "name": "GoeGrid Ganglia SE14",
+	 "file_prefix": "GoeGrid_Ganglia_SE14", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se14-goegrid.local",
+	 "capture": true,
+	 "systems": ["se14"]
+     },{
+	 "name": "GoeGrid Ganglia SE15",
+	 "file_prefix": "GoeGrid_Ganglia_SE15", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se15-goegrid.local",
+	 "capture": true,
+	 "systems": ["se15"]
+     },{
+	 "name": "GoeGrid Ganglia SE16",
+	 "file_prefix": "GoeGrid_Ganglia_SE16", 
+	 "link": "http://happyface-goegrid.gwdg.de/ganglia/?p=2&c=GoeGrid_Server&h=se16-goegrid.local",
+	 "capture": true,
+	 "systems": ["se16"]
+     },{
+	 "name": "d-cache monitoring",
+	 "file_prefix": "dCache_Monitoring_Mainpage", 
+	 "link": "http://se-goegrid.gwdg.de:2288/",
+	 "capture": true,
+	 "systems": ["se", "dcache"]
+     },{
+	 "name": "d-cache monitoring Active Transfers",
+	 "file_prefix": "dCache_Monitoring_Active_Transfers", 
+	 "link": "http://se-goegrid.gwdg.de:2288/webadmin/transfers",
+	 "capture": true,
+	 "systems": ["se", "dcache"]
+     },{
+	 "name": "d-cache monitoring Disk Usage",
+	 "file_prefix": "dCache_Monitoring_Disk_Usage", 
+	 "link": "http://se-goegrid.gwdg.de:2288/webadmin/usageinfo",
+	 "capture": true,
+	 "systems": ["se", "dcache"]
+     },{
+	 "name": "d-cache monitoring Request Queues",
+	 "file_prefix": "dCache_Monitoring_Request_Queues", 
+	 "link": "http://se-goegrid.gwdg.de:2288/webadmin/queueinfo",
+	 "capture": true,
+	 "systems": ["se", "dcache"]
+     },{
+	 "name": "d-cache monitoring dCap",
+	 "file_prefix": "dCache_Monitoring_dcap", 
+	 "link": "http://se-goegrid.gwdg.de:2288/webadmin/cellinfo",
+	 "capture": true,
+	 "systems": ["se", "dcache"]
+     }]
+ },
 
 
-	{
-		"name": "Controller",
-		"text": "",
-		"level": null,
-		"urls": [{
-				"name": "GoeGrid GOCDB",
-	    			"file_prefix": null, 
-	     			"link": "https://goc.egi.eu/portal/index.php?Page_Type=Site&id=248",
-	    			"capture": false,
-	    			"systems": []
-			}]
-	}
+ {
+     "name": "Controller",
+     "text": "",
+     "level": null,
+     "urls": [{
+	 "name": "GoeGrid GOCDB",
+	 "file_prefix": null, 
+	 "link": "https://goc.egi.eu/portal/index.php?Page_Type=Site&id=248",
+	 "capture": false,
+	 "systems": []
+     }]
+ }
 
 ]

@@ -18,7 +18,6 @@ var configJson = "config.json";
 var monitoringUrlsJson = "monitoring-urls.json";
 var systemsJson = "systems.json";
 var logsJson = "logs.json";
-var humansJson = "humans.json";
 
 var LIMIT_LOG_LINES = 1000;
 var COMMAND_MAXBUFFER = 2000 * 1024;
@@ -39,9 +38,10 @@ function fileExists(filePath){
 
 
 function my_exec(commandLine){
-    a = exec(commandLine, {maxBuffer: COMMAND_MAXBUFFER});
-    a.stdout.pipe(process.stdout);
-    a.stderr.pipe(process.stderr);
+  console.log("Executing ... [" + commandLine + "]");
+  a = exec(commandLine, {maxBuffer: COMMAND_MAXBUFFER});
+  a.stdout.pipe(process.stdout);
+  a.stderr.pipe(process.stderr);
 }
 
 
@@ -53,6 +53,50 @@ function readJSON(jsonFile) {
 function makeDefaultSite(dir){
   // default site_dir dir does not exist, so make it
   if (!fileExists("sites/default")) my_exec("ln -vs " + dir.split('/').reverse()[0] + " sites/default");
+};
+
+
+function run_madfox(dir, config, action) {
+  // Calling madfox Meta-Browser daemon
+  var commandLine = "madfox"
+                  + " -L " + config.log_level
+	          + " -x :1000"
+	          + " -c " + dir + "/" + configJson
+	          + " -u " + dir + "/" + monitoringUrlsJson
+	          + " -f " + config.firefox_profile
+	          + " -o ."
+                  + " -a " + action;
+  return commandLine;
+};
+
+
+function run_madanalyzer(dir, config, action) {
+  // Calling madanalyzer analytics mediator
+  var commandLine = "madanalyzer"
+                  + " -o ."
+                  + " -s " + dir
+                  + " -a " + action;
+  return commandLine;
+};
+
+
+function run_build_command(platform, cordova_ver, sdk_bin, apks, apk_dir) {
+  // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
+  var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
+                  + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
+                  + "if ! which " + platform + "; then"
+                  + " echo '[" + platform + "] command does not exist';"
+                  + "else"
+                  + " test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
+                  + " ionic cordova platform remove " + platform + ";"
+                  + " ionic cordova platform add " + platform + "@" + cordova_ver + ";"
+                  + " rm -v www/data;"
+                  + " ionic cordova build " + platform + " && ionic cordova build " + platform + " --prod --release;"
+                  + " ln -vs ../data www/data;"
+                        + " cp -v " + apks + " " + apk_dir + ";"
+                  + "fi";
+
+  return commandLine;
 };
 
 
@@ -71,19 +115,20 @@ module.exports = {
     ionic: function (dir, config, logdir, piddir) {
       makeDefaultSite(dir);
 
-      console.log("Starting madmask server: port = " + config.port);
+      var ionic_port = config.ionic_port;
+
+      console.log("Starting madmask server: port = " + ionic_port);
 
       // Setting up LOG and PID files
-      var pidfile = piddir + "/ionic-server." + config.port;
+      var pidfile = piddir + "/ionic-server." + ionic_port;
       if (fileExists(pidfile)){
 	console.log("pidfile exists! [" + pidfile + "]");
 	process.exit(-1);
       }
-      var logfile = logdir + "/ionic-server." + config.port + ".log";
+      var logfile = logdir + "/ionic-server." + ionic_port + ".log";
 
       // Starting an Ionic server by the "forever" library. The "forever" command is calling lib/ionic-server.js
-      var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + config.port;
-      console.log("Executing ... [" + commandLine + "]");
+      var commandLine = "forever start -a -l " + logfile + " --pidFile " + pidfile + " lib/ionic-server.js -p " + ionic_port;
       console.log(" * To list the running Ionic servers:  forever list");
       console.log(" * To stop the running Ionic servers:  forever stopall");
       my_exec(commandLine);
@@ -116,23 +161,42 @@ module.exports = {
             return self.indexOf(x) === i; });
 
       // Generating a [system.json] template
+      var forecast_default_items = "0,1,2,3,4";
+
       console.log("Number of the basic system components = " + unique_systems.length);
       var template = "[{\n";
       for (var k = 0; k < unique_systems.length; k++){
-        //console.log(unique_systems[k]);
+        var systems_item = unique_systems[k];
         // Output the following basic element
         template = template
-                 + "\t\"name\": \"" + unique_systems[k] + "\",\n"
-                 + "\t\"text\": \"System [" + unique_systems[k] + "]\",\n"
+                 + "\t\"name\": \"" + systems_item + "\",\n"
+                 + "\t\"text\": \"System [" + systems_item + "]\",\n"
                  + "\t\"img\":  \"img/default_server.png\",\n"
                  + "\t\"dependent\":  [],\n"
+                 + "\t\"happyface\":  [],\n"
+                 + "\t\"elasticsearch\":  [],\n"
+                 + "\t\"forecast\":  ["+ forecast_default_items + "],\n"
                  + "\t\"services\": [{\n"
+                 + "\t\t\"type\": \"email\",\n"
+                 + "\t\t\"name\": \"E-mail\",\n"
+                 + "\t\t\"text\": \"Send an email to [" + systems_item + "] administrator(s)\",\n"
+                 + "\t\t\"command\": \"mail:admin@noemail.dummy\"\n"
+                 + "\t\t},{\n"
+                 + "\t\t\"type\": \"ticket\",\n"
+                 + "\t\t\"name\": \"Ticket\",\n"
+                 + "\t\t\"text\": \"Open a ticket to [" + systems_item + "] administrator(s)\",\n"
+                 + "\t\t\"command\": \"url:https://www.google.com\"\n"
+                 + "\t\t},{\n"
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Restart\",\n"
-                 + "\t\t\"command\": \"" + unique_systems[k] + " restart\"\n"
-                 + "\t\t}]\n";
-
-
+                 + "\t\t\"text\": \"Send a restart command to [" + systems_item + "] via ssh\",\n"
+                 + "\t\t\"command\": \"restart " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t\t},{\n"
+                 + "\t\t\"type\": \"ssh\",\n"
+                 + "\t\t\"name\": \"Start\",\n"
+                 + "\t\t\"text\": \"Send a start command to [" + systems_item + "] via ssh\",\n"
+                 + "\t\t\"command\": \"start " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t}]\n";
         if (k < unique_systems.length - 1) template = template + "  },{\n";
       }
       template = template + "\n}]\n";
@@ -160,18 +224,7 @@ module.exports = {
         process.exit(-1);
       }
 
-      // Command: madfox -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -f $MADFOXD_FIREFOX_PROFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action
-      // Calling madfox exec
-      var commandLine = "madfox"
-                      + " -L " + config.log_level
-	              + " -x :1000"
-	              + " -c " + dir + "/" + configJson
-	              + " -u " + dir + "/" + monitoringUrlsJson
-	              + " -f " + config.firefox_profile
-	              + " -o ."
-                      + " -a " + action;
-
-      console.log("Executing ... [" + commandLine + "]");
+      var commandLine = run_madfox(dir, config, action);
       my_exec(commandLine);
     },
 
@@ -188,16 +241,42 @@ module.exports = {
         process.exit(-1);
       }
 
-      // Calling madanalyzer analytics mediator
-      var commandLine = "madanalyzer"
-                      + " -o ."
-                      + " -s " + dir
-                      + " -a " + action
-
-      console.log("Executing ... [" + commandLine + "]");
+      var commandLine = run_madanalyzer(dir, config, action);
       my_exec(commandLine);
     },
 
+    /*
+     * MadBrowser and MadAnalyzer mediators called by CRON jobs
+     */
+    call_cronRun(dir, config) {
+      console.log("Running a CRON job ...");
+      makeDefaultSite(dir);
+
+      var commandLine = 'time eval \"';
+
+      // Reload & Import
+      commandLine = commandLine + run_madfox(dir, config, 'reload') + ';';
+      commandLine = commandLine + run_madfox(dir, config, 'import') + ';';
+
+      // Analyze
+      commandLine = commandLine + run_madanalyzer(dir, config, 'all') + ';';
+
+      // Capture for next
+      commandLine = commandLine + run_madfox(dir, config, 'capture');
+
+      // end
+      commandLine = commandLine + '\"';
+
+      // Exec
+      my_exec(commandLine);
+    },
+
+    call_happyface(dir, config) {
+      console.log("Running a HappyFace CRON job ...");
+      var HAPPYFACE_HOME = "/var/lib/HappyFace";
+      var commandLine = "cd " + HAPPYFACE_HOME + " && time python acquire.py";
+      my_exec(commandLine);
+    },
 
     /*
      * Log Collector. The original log files are defined by "logs.json".
@@ -224,7 +303,6 @@ module.exports = {
         if (! fileExists(src_logfile)) {
           console.log("LogCollector: [" + src_logfile + "] does not exist");
         } else {
-          console.log("LogCollector: " + commandLine);
           my_exec(commandLine);
         }
       }
@@ -232,31 +310,32 @@ module.exports = {
 
 
     /*
-     * Android Application APK builder.
+     * Mobile Application builder.
      */
-    build_android_apk: function (dir, config) {
-      console.log("Building Android Application ...");
+    build_mobile_application: function (dir, config, platform) {
+      console.log("Building Mobile Application for [" + platform + "] ...");
 
       // Creating apk dir in data dir (typically data/site_name/application/*apk)
       var apk_dir = config.data_dir + "/application";
-      if (!fileExists(apk_dir)) my_exec("mkdir -v " + apk_dir);
 
-      // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
-      var apks = "platforms/android/build/outputs/apk/*.apk";
-      var cordova_android_ver = "6.1.0";
-      var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
-                        + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
-                        + "if ! which android; then"
-                        + " echo '[android] command does not exist';"
-                        + "else"
-                        + " ionic cordova platform remove android;"
-                        + " ionic cordova platform add android@" + cordova_android_ver + ";"
-                        + " rm -v www/data;"
-                        + " ionic cordova build android && ionic cordova build android --prod --release;"
-                        + " ln -vs ../data www/data;"
-                        + " cp -v " + apks + " " + apk_dir + ";"
-                        + "fi";
-      console.log("Debug & Release Apks Builder: " + commandLine);
+      if ((platform != 'android') && (platform != 'ios')) {
+	console.error("Error: Platform [" + platform + "] is not defined!");
+        process.exit(-1);
+      }
+
+      // Making Build command
+      var commandLine = "";
+      if (platform == 'android') {
+        var apks = "platforms/android/build/outputs/apk/*.apk";
+        commandLine = run_build_command(platform, "6.1.0", "android", apks, apk_dir);
+      }
+
+      if (platform == 'ios') {
+        var apks = "platforms/ios/build/outputs/apk/*.apk";
+        commandLine = run_build_command(platform, "4.5.4", "xcode", apks, apk_dir);
+      }
+
+      // Building
       my_exec(commandLine);
     },
 

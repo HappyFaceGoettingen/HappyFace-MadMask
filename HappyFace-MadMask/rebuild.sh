@@ -8,7 +8,7 @@ PRJ_DIR=$PWD/..
 usage="./rebuild.sh [options]
 
    -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
-   -b:    build {madmask|devel|madmodules|rlibs|madfoxd|android-sdk|all}
+   -b:    build {hf|hf_atlas|madmask|devel|madmodules|rlibs|madfoxd|android-sdk|all}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -48,6 +48,34 @@ make_rpmdirs(){
     ## Copying SPEC files
     cp -v $BUILDER_DIR/SPECS/* SPECS
 
+}
+
+happyface_zip(){
+    ## Consts
+    GIT_GROUP=HappyFaceGoettingen
+    GIT_PROJECT=HappyFaceCore
+    GIT_BRANCH=master
+
+    ## HappyFaceCore.zip
+    pushd $PRJ_DIR
+    echo "Archiving $WORK_DIR/SOURCES/${GIT_PROJECT}.zip <-- ${GIT_PROJECT}"
+    GIT_ZIP="https://codeload.github.com/${GIT_GROUP}/${GIT_PROJECT}/zip"
+    wget -q $GIT_ZIP/$GIT_BRANCH -O $WORK_DIR/SOURCES/${GIT_PROJECT}.zip
+    popd
+}
+
+happyface_atlas_zip(){
+    ## Consts
+    GIT_GROUP=HappyFaceGoettingen
+    GIT_PROJECT=HappyFaceATLASModules
+    GIT_BRANCH=Lino201506
+
+    ## HappyFaceCore.zip
+    pushd $PRJ_DIR
+    echo "Archiving $WORK_DIR/SOURCES/${GIT_PROJECT}.zip <-- ${GIT_PROJECT}"
+    GIT_ZIP="https://codeload.github.com/${GIT_GROUP}/${GIT_PROJECT}/zip"
+    wget -q $GIT_ZIP/$GIT_BRANCH -O $WORK_DIR/SOURCES/${GIT_PROJECT}.zip
+    popd
 }
 
 
@@ -107,8 +135,17 @@ android_sdk_zip(){
 
 build_packages(){
     local package=$1
+    echo "Starting a build process for a package [$package] ..."
 
     case "$package" in 
+	hf)
+	    happyface_zip
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFaceCore.spec
+	    ;;
+	hf_atlas)
+	    happyface_atlas_zip
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-ATLAS.spec
+	    ;;
 	madmask)
 	    madmask_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadMask.spec
@@ -171,6 +208,8 @@ set_workdir(){
 
 test_install(){
     yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
+    rpm -q HappyFaceCore || yum -y install RPMS/x86_64/HappyFaceCore-*.rpm
+    rpm -q HappyFace-ATLAS || yum -y install RPMS/x86_64/HappyFace-ATLAS-*.rpm
     yum -y install RPMS/x86_64/MadFoxd-*.rpm
     yum -y install RPMS/x86_64/HappyFace-*.rpm
     ls RPMS/x86_64/android-sdk-*.rpm && yum -y install RPMS/x86_64/android-sdk-*.rpm

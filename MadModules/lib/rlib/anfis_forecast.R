@@ -1,4 +1,4 @@
-library(forecast)
+require(forecast)
 
 get.sample.data <- function(){
   x <- c(1774, 1706, 1288, 1276, 2350, 1821, 1712, 1654, 1680, 1451,
@@ -36,9 +36,15 @@ get.sample.data <- function(){
 }
 
 
-run.plot.forecast <- function(plot.dir, plot.file, main){
+run.plot.forecast <- function(input.data, plot.dir, plot.file, main){
   plot.file <- paste(c(plot.dir, "/", plot.file), collapse="")
-  x <- get.sample.data()
+
+  ## Reading time series input
+  if (!file.exists(input.data)) {
+    x <- get.sample.data()
+  } else {
+    x <- read.table(inptu.data)
+  }
   
   message("Plotting [", plot.file, "] ...")
   png(filename = plot.file, width = WIDTH, height = HEIGHT)
@@ -49,11 +55,11 @@ run.plot.forecast <- function(plot.dir, plot.file, main){
 }
 
 
-## Run Forecast
-run.plot.forecast(output.dir, "0.png", "Forecast of ANFIS (pool_p1_12)")
-run.plot.forecast(output.dir, "1.png", "Forecast of ANFIS (pool_p1_13)")
-run.plot.forecast(output.dir, "2.png", "Forecast of ANFIS (pool_p1_14)")
-run.plot.forecast(output.dir, "3.png", "Forecast of ANFIS (pool_d1_15)")
-run.plot.forecast(output.dir, "4.png", "Forecast of ANFIS (pool_d1_16)")
+## Forecast I/O
+input.data <- str.concat("", file.prefix, ".csv")
+output.png <- str.concat(file.prefix, ".png")
+main <- str.concat("Forecast of ANFIS (", file.prefix, ")")
 
+# Run Forecast
+run.plot.forecast(input.data, output.dir, output.png, main)
 
