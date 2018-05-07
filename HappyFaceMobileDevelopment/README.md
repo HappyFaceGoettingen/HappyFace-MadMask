@@ -10,12 +10,12 @@
 * IDE: JetBrains WebStorm 2018.1 (best IDE ever ;) )
 
 ## Usage of TypeScript
-    Typescript is very similar to Java, so being familiar with that help a lot.
-    A good beginners tutorial can be found here: [TutorialsPoint.com](https://www.tutorialspoint.com/typescript/index.htm)
-    Since its the required language for `ionic` and `angularJS` there are many Tutorials available, specifically recommended
-    should be [this one](https://angularjs.de/artikel/ionic2-tutorial-deutsch).
-    It's important to note that the ionic framework changed a lot between `ionic 1` and `ionic 2`, but not much between 
-    `ionic 2` and `ionic 3`, so any `ionic 2` or `3` tutorial should be sufficient.
+Typescript is very similar to Java, so being familiar with that help a lot.
+A good beginners tutorial can be found here: [TutorialsPoint.com](https://www.tutorialspoint.com/typescript/index.htm)
+Since its the required language for `ionic` and `angularJS` there are many Tutorials available, specifically recommended
+should be [this one](https://angularjs.de/artikel/ionic2-tutorial-deutsch).
+It's important to note that the ionic framework changed a lot between `ionic 1` and `ionic 2`, but not much between 
+`ionic 2` and `ionic 3`, so any `ionic 2` or `3` tutorial should be sufficient.
 
 ## Some examples
 A Component (basis for a view in angular/ionic) is build by a class with the component decorator (@ Notation).
