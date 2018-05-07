@@ -159,7 +159,7 @@ export class MonitoringPage {
 
         for (let i: number = 0; i < this.model.monitoringUrls.length; i++) {
             for (let j: number = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
+                if (this.model.monitoringUrls[i].urls[j].file_prefix == null) {
                     this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
                     this.model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
                     this.model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
@@ -184,7 +184,7 @@ export class MonitoringPage {
         let model:DataModel = DataModel.getInstance();
         for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
             for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
-                if ((model.monitoringUrls[i].urls[j].file_prefix == null) || (! model.monitoringUrls[i].urls[j].capture)){
+                if (model.monitoringUrls[i].urls[j].file_prefix == null){
                     //logger.debug("nop");
                     console.log("DEBUG: nop");
                 } else {
@@ -200,7 +200,7 @@ export class MonitoringPage {
         //let model:DataModel = DataModel.getInstance();
         for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
             for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (! this.model.monitoringUrls[i].urls[j].capture)){
+                if (this.model.monitoringUrls[i].urls[j].file_prefix == null){
                     //logger.debug("nop");
                     console.log("DEBUG: nop");
                 } else {
