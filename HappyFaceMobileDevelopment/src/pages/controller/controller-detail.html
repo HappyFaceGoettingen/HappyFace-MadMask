@@ -16,10 +16,13 @@
         </ion-item>
     </ion-card>-->
     <ion-card>
-        <ion-item-divider>Service</ion-item-divider>
-        <ion-item *ngFor="let service of system.services" text-wrap>
-            <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>
-        </ion-item>
+        <ion-card-header style="background: #e2e4e2">Services</ion-card-header>
+        <ion-card-content>
+            <br>
+            <span *ngFor="let service of system.services" padding-left="15px" text-wrap>
+                <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>
+            </span>
+        </ion-card-content>
     </ion-card>
 
 </ion-content>

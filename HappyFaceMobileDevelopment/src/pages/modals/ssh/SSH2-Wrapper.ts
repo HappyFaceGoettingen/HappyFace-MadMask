@@ -24,7 +24,7 @@ export class SSH2Wrapper
         }
     }
 
-    connect()
+    connect(keepOpen:boolean)
     {
         if(this.clientFailure) return;
         if(this.host == "") {
@@ -49,7 +49,7 @@ export class SSH2Wrapper
             console.log("SSH: ERROR Connection error " + error);
         }, this.host, this.port, this.username, this.password, 100, 80);
 
-        this.startLoop();
+        if(keepOpen) this.startLoop();
     }
 
     startLoop()
@@ -90,5 +90,11 @@ export class SSH2Wrapper
 
         (<any>window).sshWrite((success) => {},
             (error) => { console.log("SSH: ERROR Write error"); if(this.onError != null) this.onError("WRITE ERROR");}, this.conn, str);
+    }
+
+    close()
+    {
+        if(this.clientFailure || this.conn == null || this.conn == undefined || !this.connectionOpen) return;
+        (<any>window).sshClose((success) => {}, (error) => { console.log("SSH ERROR Close error"); });
     }
 }
