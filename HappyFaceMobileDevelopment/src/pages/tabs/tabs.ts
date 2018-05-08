@@ -7,7 +7,7 @@ import {VisualizersPage} from "../visualizers/visualizers";
 import {HumansPage} from "../humans/humans";
 import {WorkingPage} from "../working/working";
 import {ConfigPage} from "../modals/config/config";
-import {AnalyzerPage2} from "../analyzer/analyzer2";
+import {AnalyzerPage} from "../analyzer/analyzer";
 
 /**
  * Generated class for the TabsPage page.
@@ -24,7 +24,7 @@ import {AnalyzerPage2} from "../analyzer/analyzer2";
 export class TabsPage {
 
   tabMonitoring: any = MonitoringPage;
-  tabAnalyzer  : any = AnalyzerPage2;
+  tabAnalyzer  : any = AnalyzerPage;
   tabSystems   : any = ControllerPage;
   tabVisualizer: any = VisualizersPage;
   tabLogs      : any = LogsPage;

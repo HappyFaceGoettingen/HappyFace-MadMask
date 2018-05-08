@@ -1,6 +1,8 @@
 import {Component} from "@angular/core";
-import {ConfigPage} from "./config";
 import {NavParams, ViewController} from "ionic-angular";
+import {InstancesBrowserComponent} from "./instances.browser.component";
+import {DataModel} from "../../../data/DataModel";
+import {ConfigPage} from "./config";
 
 @Component({
     templateUrl: 'modal.html'
@@ -8,10 +10,11 @@ import {NavParams, ViewController} from "ionic-angular";
 
 export class ModalPage
 {
-    rootPage:any = ConfigPage;
+    rootPage:any = null; // ConfigPage;
     rootParams:any = null;
 
-    constructor(navParams: NavParams, viewCtrl: ViewController) {
+    constructor(model:DataModel, navParams: NavParams, viewCtrl: ViewController) {
+        this.rootPage = model.isHost() ? InstancesBrowserComponent : ConfigPage;
         this.rootParams = Object.assign({}, navParams.data, {viewCtrl: viewCtrl});
     }
 }

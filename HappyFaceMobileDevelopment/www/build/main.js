@@ -1,92 +1,12 @@
 webpackJsonp([0],{
 
-/***/ 103:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfigPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__instances_component__ = __webpack_require__(204);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var ConfigPage = /** @class */ (function () {
-    function ConfigPage(model, navCtrl, navParams) {
-        this.model = model;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.automaticFetch = true;
-        this.interval = 1;
-        this.automaticRotation = false;
-        this.detectOnlyChange = true;
-        this.enableMadVision = true;
-        this.enableTextSpeech = true;
-        this.enableAutoReadout = false;
-        this.speakInterval = 1;
-        this.happyFaceCompatible = false;
-        this.automaticFetch = this.model.configuration.get().automaticFetch;
-        this.interval = this.model.configuration.get().reloadInterval;
-        this.automaticRotation = this.model.configuration.get().automaticRotation;
-        this.detectOnlyChange = this.model.configuration.get().detectOnlyChange;
-        this.enableTextSpeech = this.model.configuration.get().enableTextSpeech;
-        this.enableAutoReadout = this.model.configuration.get().enableAutoReadout;
-        this.speakInterval = this.model.configuration.get().speakInterval;
-        this.happyFaceCompatible = this.model.configuration.get().happyFaceCompatible;
-    }
-    ConfigPage.prototype.notify = function () {
-        //let model:DataModel = DataModel.getInstance();
-        this.model.configuration.setAutomaticFetch(this.automaticFetch);
-        this.model.configuration.setAutomaticRotation(this.automaticRotation);
-        this.model.configuration.setDetectOnlyChange(this.detectOnlyChange);
-        this.model.configuration.setEnableMadVision(this.enableMadVision);
-        this.model.configuration.setEnableTextSpeech(this.enableTextSpeech);
-        this.model.configuration.setHappyFaceCompatible(this.happyFaceCompatible);
-        this.model.configuration.setEnableAutoReadout(this.enableAutoReadout);
-        this.model.configuration.setReloadInterval(this.interval);
-        this.model.configuration.setSpeakInterval(this.speakInterval);
-        this.model.updateLoop();
-    };
-    ConfigPage.prototype.chooseInstance = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__instances_component__["a" /* InstancesComponent */], { "viewCtrl": this.navParams.get('viewCtrl') });
-    };
-    ConfigPage.prototype.closeModal = function () {
-        var viewCtrl = this.navParams.get('viewCtrl');
-        viewCtrl.dismiss();
-    };
-    ConfigPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Configuration</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list>\n\n        <ion-item (click)="chooseInstance()">\n\n            <!-- Move to Instance selection page -->\n\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Automatic rotation</ion-label>\n\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Automatic fetch</ion-label>\n\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-list-header *ngIf="automaticFetch">\n\n            Reload Interval:\n\n            <ion-badge item-end>{{interval}} min</ion-badge>\n\n        </ion-list-header>\n\n        <ion-item *ngIf="automaticFetch">\n\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n\n                <ion-icon range-left name="time"></ion-icon>\n\n            </ion-range>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Detect only change</ion-label>\n\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable Mad Vision</ion-label>\n\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable Text speech</ion-label>\n\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable automatic voice readout</ion-label>\n\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-list-header *ngIf="enableAutoReadout">\n\n            Readout Interval:\n\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n\n        </ion-list-header>\n\n        <ion-item *ngIf="enableAutoReadout">\n\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n\n                <ion-icon range-left name="time"></ion-icon>\n\n            </ion-range>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>HappyFace compatible</ion-label>\n\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */]])
-    ], ConfigPage);
-    return ConfigPage;
-}());
-
-//# sourceMappingURL=config.js.map
-
-/***/ }),
-
 /***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HFCategoriesPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hf_modules__ = __webpack_require__(214);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PassModal; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98,59 +18,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-
-var HFCategoriesPage = /** @class */ (function () {
-    function HFCategoriesPage(classicModel, navCtrl) {
-        this.classicModel = classicModel;
-        this.navCtrl = navCtrl;
-        this.IMG_HAPPY = "assets/arrows/arrow-up.svg";
-        this.IMG_WARNING = "assets/arrows/arrow-right.svg";
-        this.IMG_CRITICAL = "assets/arrows/arrow-down.svg";
-        this.IMG_ERROR = "assets/arrows/cross.svg";
-        this.isLoading = true;
-        this.outdated = false;
-        this.outdateHandler = 0;
-        this.data_time = "sometime";
-        this.categories = null;
+var PassModal = /** @class */ (function () {
+    function PassModal(viewCtrl) {
+        this.viewCtrl = viewCtrl;
+        this.host = "";
+        this.port = 22;
+        this.user = "";
+        this.pass = "";
     }
-    HFCategoriesPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
-        if (!this.classicModel.isLoading())
-            this.loadingFinishedListener();
-        this.outdateHandler = window.setInterval(function () { _this.outdated = true; }, 1200000);
+    PassModal.prototype.closeModal = function () {
+        this.viewCtrl.dismiss({ enter: false, host: "", port: 0, user: "", pass: "" });
     };
-    HFCategoriesPage.prototype.loadingFinishedListener = function () {
-        this.isLoading = false;
-        this.categories = this.classicModel.categories;
-        this.data_time = this.classicModel.lastRefreshed.toLocaleString();
+    PassModal.prototype.enter = function () {
+        this.viewCtrl.dismiss({ enter: true, host: this.host, port: this.port, user: this.user, pass: this.pass });
     };
-    HFCategoriesPage.prototype.reload = function () {
-        var _this = this;
-        clearInterval(this.outdateHandler);
-        this.outdateHandler = window.setInterval(function () { _this.outdated = true; }, 1200000);
-        this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
-        if (!this.classicModel.isLoading())
-            this.loadingFinishedListener();
-        this.classicModel.reload();
-    };
-    HFCategoriesPage.prototype.imgForCategory = function (cat) {
-        return cat.status == 1.0 ? this.IMG_HAPPY : (cat.status == 0.5 ? this.IMG_WARNING : (cat.status == 0.0 ? this.IMG_CRITICAL : this.IMG_ERROR));
-    };
-    HFCategoriesPage.prototype.categorySelected = function (cat) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__hf_modules__["a" /* HFModulesPage */], { 'category': cat });
-    };
-    HFCategoriesPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-hf-categories",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-categories.html"*/'<!--<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Categories</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>-->\n\n\n\n<style>.scroll-content {\n\n    padding: 0 !important;\n\n}</style>\n\n\n\n<ion-content>\n\n    <div text-center padding *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <div class="complete-overlay" padding *ngIf="outdated && !isLoading">\n\n        <h1 class="outdated">Outdated</h1>\n\n    </div>\n\n    <div class="complete-overlay" padding *ngIf="false && !isLoading">\n\n        <h1 class="no-active-instance">No Active Instance</h1>\n\n    </div>\n\n\n\n    <div text-center *ngIf="!isLoading" no-padding><h5>data from {{data_time}}</h5></div>\n\n\n\n    <ion-grid *ngIf="!isLoading">\n\n        <ion-row>\n\n            <ion-col col-6 col-sm *ngFor="let category of categories">\n\n                <ion-card (click)="categorySelected(category)">\n\n                    <ion-card-content>\n\n                        <img src="{{imgForCategory(category)}}" height="50px" width="50px"/><br/>\n\n                        <div class="cat-title"><h2>{{category.title}}</h2></div>\n\n                    </ion-card-content>\n\n                </ion-card>\n\n            </ion-col>\n\n        </ion-row>\n\n    </ion-grid>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-categories.html"*/
+    PassModal = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\pass-modal.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Login</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <p>Please provide login information:</p>\n\n\n\n    <ion-item>\n\n        <ion-label fixed>Host: </ion-label>\n\n        <ion-input [(ngModel)]="host"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label fixed>Port: </ion-label>\n\n        <ion-input type="number" [(ngModel)]="port"></ion-input>\n\n    </ion-item>\n\n    <p></p>\n\n    <ion-item>\n\n        <ion-label fixed>Username: </ion-label>\n\n        <ion-input [(ngModel)]="user"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label fixed>Password: </ion-label>\n\n        <ion-input type="password" [(ngModel)]="pass"></ion-input>\n\n    </ion-item>\n\n</ion-content>\n\n\n\n<ion-footer>\n\n    <ion-toolbar>\n\n        <ion-buttons end>\n\n            <button ion-button (click)="enter()">Enter</button>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\pass-modal.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]])
-    ], HFCategoriesPage);
-    return HFCategoriesPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* ViewController */]])
+    ], PassModal);
+    return PassModal;
 }());
 
-//# sourceMappingURL=hf-categories.js.map
+//# sourceMappingURL=pass-modal.js.map
 
 /***/ }),
 
@@ -161,7 +51,7 @@ var HFCategoriesPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ClassicalDataModel; });
 /* unused harmony export XML2JSON */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -287,46 +177,7 @@ var XML2JSON = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 106:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalyzerDetailPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AnalyzerDetailPage = /** @class */ (function () {
-    function AnalyzerDetailPage(navParams) {
-        this.navParams = navParams;
-        this.url = this.navParams.get('url');
-        if (this.url == null || this.url == undefined) {
-            this.url = { "name": "", "analysis_plot": "http://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg" };
-        }
-    }
-    AnalyzerDetailPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-analyzer-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{url.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img style="margin-left: auto; margin-right: auto; max-width: 100%;" src="{{url.plot}}"/>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer-detail.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
-    ], AnalyzerDetailPage);
-    return AnalyzerDetailPage;
-}());
-
-//# sourceMappingURL=analyzer-detail.js.map
-
-/***/ }),
-
-/***/ 115:
+/***/ 114:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -339,11 +190,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 115;
+webpackEmptyAsyncContext.id = 114;
 
 /***/ }),
 
-/***/ 13:
+/***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -355,8 +206,8 @@ webpackEmptyAsyncContext.id = 115;
 /* unused harmony export ConfigurationObject */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__ = __webpack_require__(200);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -457,6 +308,7 @@ var DataModel = /** @class */ (function () {
             this.readFileListAsync(urls, this.finishingCallback.bind(this));
         }*/
         this.errors = [];
+        this.plot_name = "analysis";
         // Loop
         this.loopHandler = null;
         this.loopCounter = 0;
@@ -646,6 +498,56 @@ var DataModel = /** @class */ (function () {
     DataModel.prototype.pushError = function (website, code) {
         this.errors.push({ "url": this.getRemoteURL() + this.currentlyActive.dir + "/" + website, "code": code });
     };
+    DataModel.prototype.setLinks = function (datetime_dir) {
+        //let model:DataModel = DataModel.getInstance();
+        var remote_url = this.getRemoteURL();
+        var config = this.config;
+        var capture_dir = config.data_dir + "/capture";
+        var thumbnail_dir = config.data_dir + "/thumbnail";
+        var analysis_dir = config.data_dir + "/analysis";
+        if (this.configuration.get().enableMadVision) {
+            capture_dir = analysis_dir + "/madvision";
+            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
+        }
+        var plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
+        var plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
+        for (var i = 0; i < this.monitoringUrls.length; i++) {
+            for (var j = 0; j < this.monitoringUrls[i].urls.length; j++) {
+                if ((this.monitoringUrls[i].urls[j].file_prefix == null)) {
+                    this.monitoringUrls[i].urls[j].thumbnail = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].image = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].analysis_plot = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].plot_pathway = remote_url + "assets/img/img-missing.svg";
+                    this.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "assets/img/img-missing.svg";
+                }
+                else {
+                    this.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
+                    this.setPlots(this.plot_name);
+                }
+            }
+        }
+    };
+    DataModel.prototype.setPlots = function (plot_name) {
+        for (var i = 0; i < this.monitoringUrls.length; i++) {
+            for (var j = 0; j < this.monitoringUrls[i].urls.length; j++) {
+                if ((this.monitoringUrls[i].urls[j].file_prefix == null)) {
+                    console.log("DEBUG: nop");
+                }
+                else {
+                    if (plot_name == "analysis")
+                        this.monitoringUrls[i].urls[j].analysis_plot = this.monitoringUrls[i].urls[j].plot_analysis;
+                    if (plot_name == "pathway")
+                        this.monitoringUrls[i].urls[j].analysis_plot = this.monitoringUrls[i].urls[j].plot_pathway;
+                    if (plot_name == "overall_pathway")
+                        this.monitoringUrls[i].urls[j].analysis_plot = this.monitoringUrls[i].urls[j].plot_overall_pathway;
+                }
+            }
+        }
+    };
     DataModel.prototype.speakSummary = function () {
         if (this.configuration == null || this.summary == null || this.summary.text == null)
             return;
@@ -700,9 +602,7 @@ var DataModel = /** @class */ (function () {
             this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
-            /*this.loadConfig();
-            this.currentlyActive.name = this.config.site_name;*/
-            this.reload();
+            //this.reload();
         }
         else {
             // Initial configuration
@@ -711,13 +611,13 @@ var DataModel = /** @class */ (function () {
             this.currentlyActive.mobile_port = "20200";
             this.currentlyActive.web_port = "10200";
             this.currentlyActive.dir = "sites/default";
-            this.storage.get('instance').then(function (value) {
-                if (!(value == null || value == undefined))
-                    _this.currentlyActive = value;
-                console.log("Saved Instance is: " + JSON.stringify(value));
-                _this.reload();
-            });
         }
+        this.storage.get('instance').then(function (value) {
+            if (!(value == null || value == undefined))
+                _this.currentlyActive = value;
+            console.log("Saved Instance is: " + JSON.stringify(value));
+            _this.reload();
+        });
     };
     // Determinations.
     // isMobilePhone() is used to rearrange the UI based on the smaller screen size on mobile phones
@@ -730,8 +630,8 @@ var DataModel = /** @class */ (function () {
     // Determine whether this instance should show content hosted by itself or should connect to a remote host
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     DataModel.prototype.isHost = function () {
-        return DataModel_1.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb');
-        //return false;
+        return (!DataModel_1.FORCE_CLIENT_FUNCTION)
+            && (DataModel_1.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb'));
     };
     DataModel.prototype.isAndroid = function () {
         return this.plt.is('android');
@@ -744,8 +644,9 @@ var DataModel = /** @class */ (function () {
     // public  static getInstance() { if(this._instance == null) return (this._instance = new DataModel()); else return this._instance;}
     // { return this._instance || (this._instance = new DataModel()); };
     // Debug switches
-    DataModel.FORCE_SELFHOST_DEBUG = false;
+    DataModel.FORCE_SELFHOST_DEBUG = true;
     DataModel.FORCE_MOBILE_VISION = false;
+    DataModel.FORCE_CLIENT_FUNCTION = false;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
     // Seed node (unused)
@@ -820,7 +721,7 @@ var InstanceObject = /** @class */ (function () {
 
 var ConfigurationObject = /** @class */ (function () {
     function ConfigurationObject() {
-        this._automaticFetch = true;
+        this._automaticFetch = false;
         this._reloadInterval = 10;
         this._automaticRotation = false;
         this._detectOnlyChange = true;
@@ -859,7 +760,7 @@ var ConfigurationObject = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 156:
+/***/ 155:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -872,25 +773,25 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 156;
+webpackEmptyAsyncContext.id = 155;
 
 /***/ }),
 
-/***/ 199:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__monitoring_monitoring__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__monitoring_monitoring__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controller_controller__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__logs_logs__ = __webpack_require__(209);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__visualizers_visualizers__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__humans_humans__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__working_working__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modals_config_config__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__analyzer_analyzer2__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modals_config_config__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__analyzer_analyzer__ = __webpack_require__(213);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -922,7 +823,7 @@ var TabsPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.tabMonitoring = __WEBPACK_IMPORTED_MODULE_2__monitoring_monitoring__["a" /* MonitoringPage */];
-        this.tabAnalyzer = __WEBPACK_IMPORTED_MODULE_9__analyzer_analyzer2__["a" /* AnalyzerPage2 */];
+        this.tabAnalyzer = __WEBPACK_IMPORTED_MODULE_9__analyzer_analyzer__["a" /* AnalyzerPage */];
         this.tabSystems = __WEBPACK_IMPORTED_MODULE_3__controller_controller__["a" /* ControllerPage */];
         this.tabVisualizer = __WEBPACK_IMPORTED_MODULE_5__visualizers_visualizers__["a" /* VisualizersPage */];
         this.tabLogs = __WEBPACK_IMPORTED_MODULE_4__logs_logs__["a" /* LogsPage */];
@@ -946,16 +847,16 @@ var TabsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 200:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MonitoringPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__monitoring_webview__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_config_modal__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__monitoring_webview__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_config_modal__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -981,8 +882,6 @@ var MonitoringPage = /** @class */ (function () {
         this.statusImg = "https://i.ytimg.com/vi/RqRNd4UyA4c/maxresdefault.jpg";
         this.statusColor = "item-calm";
         this.statusText = "World wide Atlas Distributed Computing System";
-        // Helper
-        this.plot_name = "analysis";
     }
     MonitoringPage.prototype.ngOnInit = function () {
         //DataModel.getInstance().addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
@@ -998,7 +897,8 @@ var MonitoringPage = /** @class */ (function () {
             this.isLoading = false;
             this.setHistory();
             this.setStatusCard();
-            this.setLinks("latest");
+            this.model.setLinks("latest");
+            this.monitoringURLs = this.model.monitoringUrls;
         }
     };
     MonitoringPage.prototype.onLoadingStartedListener = function () {
@@ -1027,7 +927,8 @@ var MonitoringPage = /** @class */ (function () {
         this.model.reload();
     };
     MonitoringPage.prototype.historyChanged = function (event) {
-        this.setLinks(event);
+        this.model.setLinks(event);
+        this.monitoringURLs = this.model.monitoringUrls;
     };
     MonitoringPage.prototype.setStatusCard = function () {
         //this.statusText  = DataModel.getInstance().summary.text;
@@ -1069,79 +970,9 @@ var MonitoringPage = /** @class */ (function () {
         //DataModel.getInstance().speakSummary();
         this.model.speakSummary();
     };
-    // Helper functions
-    MonitoringPage.prototype.setLinks = function (datetime_dir) {
-        //let model:DataModel = DataModel.getInstance();
-        var remote_url = this.model.getRemoteURL();
-        var config = this.model.config;
-        var capture_dir = config.data_dir + "/capture";
-        var thumbnail_dir = config.data_dir + "/thumbnail";
-        var analysis_dir = config.data_dir + "/analysis";
-        if (this.model.configuration.get().enableMadVision) {
-            capture_dir = analysis_dir + "/madvision";
-            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
-        }
-        var plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
-        var plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
-        for (var i = 0; i < this.model.monitoringUrls.length; i++) {
-            for (var j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
-                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "img/not_captured.png";
-                }
-                else {
-                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
-                    this.model.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
-                    this.model.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
-                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
-                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
-                    this.setPlots(this.plot_name);
-                }
-            }
-        }
-        //console.log(JSON.stringify(this.model.monitoringUrls));
-        this.monitoringURLs = this.model.monitoringUrls;
-    };
-    /*static setPlots(plot_name:string){
-        let model:DataModel = DataModel.getInstance();
-        for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
-            for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
-                if ((model.monitoringUrls[i].urls[j].file_prefix == null) || (! model.monitoringUrls[i].urls[j].capture)){
-                    //logger.debug("nop");
-                    console.log("DEBUG: nop");
-                } else {
-                    if (plot_name == "analysis" ) model.monitoringUrls[i].urls[j].analysis_plot = model.monitoringUrls[i].urls[j].plot_analysis;
-                    if (plot_name == "pathway" ) model.monitoringUrls[i].urls[j].analysis_plot = model.monitoringUrls[i].urls[j].plot_pathway;
-                    if (plot_name == "overall_pathway" ) model.monitoringUrls[i].urls[j].analysis_plot = model.monitoringUrls[i].urls[j].plot_overall_pathway;
-                }
-            }
-        }
-    }*/
-    MonitoringPage.prototype.setPlots = function (plot_name) {
-        //let model:DataModel = DataModel.getInstance();
-        for (var i = 0; i < this.model.monitoringUrls.length; i++) {
-            for (var j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
-                    //logger.debug("nop");
-                    console.log("DEBUG: nop");
-                }
-                else {
-                    if (plot_name == "analysis")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
-                    if (plot_name == "pathway")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
-                    if (plot_name == "overall_pathway")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_overall_pathway;
-                }
-            }
-        }
-    };
     MonitoringPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-buttons left>\n\n            <button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>\n\n        </ion-buttons>\n\n        <ion-title>Happy Meta-Monitoring</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-more"></ion-icon></button>\n\n        </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card-header>\n\n                Status: {{statusLevel}}\n\n            </ion-card-header>\n\n            <ion-card-content no-padding>\n\n                <ion-item color="{{statusColor}}" text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <!-- History chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>History:</ion-label>\n\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n        <!-- Content list -->\n\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n\n            <ion-card no-padding no-margin>\n\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                <ion-card-content no-padding>\n\n                    <ion-grid>\n\n                        <ion-row>\n\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                <div class="launchpad">\n\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                </div>\n\n                            </ion-col>\n\n                        </ion-row>\n\n                    </ion-grid>\n\n                </ion-card-content>\n\n            </ion-card>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
+            selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-buttons left>\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-cog"></ion-icon></button>\n        </ion-buttons>\n        <ion-title>Happy Meta-Monitoring</ion-title>\n        <ion-buttons end>\n            <!--<button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>-->\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n        </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <ion-list [hidden]="isLoading" no-padding>\n        <!-- Status card -->\n        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card color="{{statusColor}}">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- History chooser -->\n        <ion-item no-padding>\n            <ion-label>History:</ion-label>\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n        <!-- Content list -->\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n            <ion-card no-padding no-margin>\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                <ion-card-content no-padding>\n                    <ion-grid no-padding>\n                        <ion-row class="group" no-padding no-margin>\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                <div class="launchpad">\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                </div>\n                            </ion-col>\n                        </ion-row>\n                    </ion-grid>\n                </ion-card-content>\n            </ion-card>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* ModalController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
     ], MonitoringPage);
@@ -1152,7 +983,7 @@ var MonitoringPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 201:
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1212,7 +1043,7 @@ var ConnectionErrorPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 202:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1252,14 +1083,16 @@ var MonitoringWebviewPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 203:
+/***/ 202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModalPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__instances_browser_component__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_DataModel__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(51);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1272,21 +1105,104 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ModalPage = /** @class */ (function () {
-    function ModalPage(navParams, viewCtrl) {
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* ConfigPage */];
+    function ModalPage(model, navParams, viewCtrl) {
+        this.rootPage = null; // ConfigPage;
         this.rootParams = null;
+        this.rootPage = model.isHost() ? __WEBPACK_IMPORTED_MODULE_2__instances_browser_component__["a" /* InstancesBrowserComponent */] : __WEBPACK_IMPORTED_MODULE_4__config__["a" /* ConfigPage */];
         this.rootParams = Object.assign({}, navParams.data, { viewCtrl: viewCtrl });
     }
     ModalPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\modal.html"*/'<ion-nav [root]="rootPage" [rootParams]="rootParams"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\modal.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* ViewController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ViewController */]])
     ], ModalPage);
     return ModalPage;
 }());
 
 //# sourceMappingURL=modal.js.map
+
+/***/ }),
+
+/***/ 203:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InstancesBrowserComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(51);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var InstancesBrowserComponent = /** @class */ (function () {
+    function InstancesBrowserComponent(model, navParams, navCtrl) {
+        this.model = model;
+        this.navParams = navParams;
+        this.navCtrl = navCtrl;
+        this.instances = [];
+        this.isLoading = true;
+    }
+    InstancesBrowserComponent.prototype.ngOnInit = function () {
+        this.model.addLoadingStartedCallback(this.loadingFinished.bind(this));
+        if (!this.model.isLoading())
+            this.loadingFinished();
+    };
+    InstancesBrowserComponent.prototype.loadingFinished = function () {
+        var _this = this;
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                _this.updateList(req.response);
+                _this.isLoading = false;
+            }
+        };
+        req.open("GET", this.model.getRemoteURL() + "sites/default/meta-meta.json");
+        req.send();
+    };
+    InstancesBrowserComponent.prototype.updateList = function (str) {
+        var json = JSON.parse(str);
+        for (var i = 0; i < json.length; i++) {
+            var obj = json[i];
+            this.instances.push(obj);
+        }
+        if (this.instances.length == 1 && this.instances[0].constructor === Object)
+            this.instances = [];
+    };
+    InstancesBrowserComponent.choose = function (inst) {
+        console.log("OPEN: " + inst.name);
+        window.open("http://" + inst.host + ":" + inst.mobile_port + "/", "_blank");
+        window.focus();
+    };
+    InstancesBrowserComponent.prototype.extSettings = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* ConfigPage */], { "viewCtrl": this.navParams.get('viewCtrl') });
+    };
+    InstancesBrowserComponent.prototype.close = function () {
+        var viewCtrl = this.navParams.get('viewCtrl');
+        viewCtrl.dismiss();
+    };
+    InstancesBrowserComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Settings</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list-header>\n\n        Choose Instance\n\n    </ion-list-header>\n\n\n\n    <div text-center *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n    <ion-list *ngIf="!isLoading">\n\n        <ng-container *ngFor="let inst of instances">\n\n            <button ion-item detail-none (click)="choose(inst)">\n\n                {{inst.name}}\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ng-container>\n\n        <ion-item *ngIf="instances.length == 0">\n\n            There are no subinstances here.\n\n        </ion-item>\n\n        <ion-item>\n\n            <button ion-item detail-none (click)="extSettings()">\n\n                Advanced Settings\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]])
+    ], InstancesBrowserComponent);
+    return InstancesBrowserComponent;
+}());
+
+//# sourceMappingURL=instances.browser.component.js.map
 
 /***/ }),
 
@@ -1297,8 +1213,8 @@ var ModalPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InstancesComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1346,7 +1262,7 @@ var InstancesComponent = /** @class */ (function () {
         else
             this.headURL = "http://141.5.108.29:20100/sites/default/meta-meta.json";
         */
-        this.headURL = "http://www.atopion.com/apps/hf/metadata/adc-meta-meta.json";
+        this.headURL = "https://raw.githubusercontent.com/HappyFaceGoettingen/HappyFace-MadMask/master/HappyFaceMobile/sites/top.json";
         this.isLoading = true;
         var req = new XMLHttpRequest();
         req.addEventListener("load", function () {
@@ -1452,10 +1368,10 @@ var InstancesComponent = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ControllerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controller_detail__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_ssh_ssh_terminal__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_ssh_ssh_terminal__ = __webpack_require__(208);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1530,6 +1446,9 @@ var ControllerPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ControllerDetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_ssh_SSH2_Wrapper__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_ssh_pass_modal__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1541,29 +1460,114 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var ControllerDetailPage = /** @class */ (function () {
-    function ControllerDetailPage(navParams) {
+    function ControllerDetailPage(navParams, alertCtrl, modalCtrl, model) {
+        this.alertCtrl = alertCtrl;
+        this.modalCtrl = modalCtrl;
+        this.model = model;
         this.system = null;
+        this.sshWrapper = null;
+        this.serviceTMP = null;
         this.system = navParams.get('system');
         if (this.system == null || this.system == undefined) {
-            this.system = { 'name': "Galaxy Controller", "text": "Restart Galaxy: Milky Way?",
+            this.system = {
+                'name': "Galaxy Controller", "text": "Restart Galaxy: Milky Way?",
                 "img": "http://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg",
-                "services": [{ "name": "Restart Mass Portals" }, { "name": "Stop Reapers" }] };
+                "services": [{ "name": "Restart Mass Portals" }, { "name": "Stop Reapers" }]
+            };
         }
+        else if (!this.system.services && this.system.actions)
+            this.system.services = this.system.actions;
+        else if (!this.system.services)
+            this.system.services = [];
     }
     ControllerDetailPage.prototype.serviceStart = function (service) {
         if (service.type != null && service.type != undefined) {
-            if (service.type)
-                window.open(service.command, "_blank");
+            switch (service.type) {
+                case "email":
+                    window.location.href = service.command.replace("mail:", "mailto:");
+                    break;
+                case "ticket":
+                    window.open(service.command.replace("url:", ""), "_blank");
+                    break;
+                case "ssh":
+                    this.openSSHCommand(service);
+                    break;
+            }
         }
+    };
+    ControllerDetailPage.prototype.openSSHCommand = function (service) {
+        try {
+            this.sshWrapper = new __WEBPACK_IMPORTED_MODULE_2__modals_ssh_SSH2_Wrapper__["a" /* SSH2Wrapper */]();
+        }
+        catch (error) {
+            if (this.alertCtrl != null) {
+                if (this.model.isAndroid()) {
+                    var alert = this.alertCtrl.create({
+                        title: "SSH not available",
+                        subTitle: "An unknown error makes SSH Cordova plugin unavailable.\nPlease use external " +
+                            "clients like JuiceSSH, ConnectBot or Terminus.",
+                        cssClass: "alertText",
+                        buttons: ["OK"]
+                    });
+                    alert.present();
+                }
+                else if (this.model.isiOS()) {
+                    var alert = this.alertCtrl.create({
+                        title: "SSH not available (yet)",
+                        subTitle: "The SSH plugin is not available in iOS for now. Our intelligent (and extraordinary good looking) " +
+                            "team is already working on it, but for now please use external ssh clients like Terminus or iTerminal",
+                        cssClass: "alertText",
+                        buttons: ["OK"]
+                    });
+                    alert.present();
+                }
+                else {
+                    var alert = this.alertCtrl.create({
+                        title: "SSH not available (yet)",
+                        subTitle: "The SSH client is in this version of HappyFaceMobile (probably the browser version) not available. " +
+                            "Due to the limitations of portable web apps (pwa), this feature might not be included at all. Please use your " +
+                            "linux terminal to connect.",
+                        cssClass: "alertText",
+                        buttons: ["OK"]
+                    });
+                    alert.present();
+                }
+            }
+            else {
+                console.log("ERROR: SSH plugin is missing.");
+            }
+            this.sshWrapper = null;
+            return;
+        }
+        this.serviceTMP = service;
+        var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__modals_ssh_pass_modal__["a" /* PassModal */]);
+        modal.onDidDismiss(this.gotSSHPass.bind(this));
+        modal.present();
+    };
+    ControllerDetailPage.prototype.gotSSHPass = function (data) {
+        if (data == null || data.enter == undefined || !data.enter)
+            return;
+        this.sshWrapper.host = data.host;
+        this.sshWrapper.port = data.port;
+        this.sshWrapper.username = data.user;
+        this.sshWrapper.password = data.pass;
+        this.sshWrapper.connect(false);
+        this.sshWrapper.write(this.serviceTMP.command + "\n");
+        this.sshWrapper.close();
+        this.serviceTMP = null;
     };
     ControllerDetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{system.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n\n    <h2>{{system.text}}</h2>\n\n\n\n    <!--<ion-card>\n\n        <ion-item-divider>Power</ion-item-divider>\n\n        <ion-item text-wrap>\n\n            <button ion-button class="button-outline">Cold reboot</button>\n\n            <button ion-button class="button-outline">Warm reboot</button>\n\n        </ion-item>\n\n    </ion-card>-->\n\n    <ion-card>\n\n        <ion-item-divider>Service</ion-item-divider>\n\n        <ion-item *ngFor="let service of system.services" text-wrap>\n\n            <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n\n        </ion-item>\n\n    </ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
+            selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>{{system.name}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n    <h2>{{system.text}}</h2>\n\n    <!--<ion-card>\n        <ion-item-divider>Power</ion-item-divider>\n        <ion-item text-wrap>\n            <button ion-button class="button-outline">Cold reboot</button>\n            <button ion-button class="button-outline">Warm reboot</button>\n        </ion-item>\n    </ion-card>-->\n    <ion-card>\n        <ion-card-header style="background: #e2e4e2">Services</ion-card-header>\n        <ion-card-content>\n            <br>\n            <span *ngFor="let service of system.services" padding-left="15px" text-wrap>\n                <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n            </span>\n        </ion-card-content>\n    </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__data_DataModel__["a" /* DataModel */]) === "function" && _d || Object])
     ], ControllerDetailPage);
     return ControllerDetailPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=controller-detail.js.map
@@ -1574,11 +1578,106 @@ var ControllerDetailPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SSH2Wrapper; });
+var SSH2Wrapper = /** @class */ (function () {
+    function SSH2Wrapper() {
+        this.conn = null;
+        this.clientFailure = false;
+        this.connectionOpen = false;
+        this.loopHandler = null;
+        this.host = "141.5.108.29";
+        this.port = 22;
+        this.username = "test";
+        this.password = "passATLAS01";
+        this.onData = null;
+        this.onError = null;
+        if (window.sshClient == null || window.sshClient == undefined) {
+            this.clientFailure = true;
+            throw new Error("NO CLIENT");
+        }
+    }
+    SSH2Wrapper.prototype.connect = function (keepOpen) {
+        var _this = this;
+        if (this.clientFailure)
+            return;
+        if (this.host == "") {
+            console.error("SSH: ERROR No host provided");
+            return;
+        }
+        else if (this.port == 0 || this.port >= 65356) {
+            console.error("SSH: ERROR Undefined port");
+            return;
+        }
+        window.sshClient.sshOpenSession(function (success) {
+            console.log("SSH: Connection success");
+            _this.conn = success;
+            window.sshClient.sshVerifyHost(function (success) {
+                console.log("SSH: Hostkey saved in known_hosts file");
+            }, function (error) {
+                console.log("SSH: ERROR Connection error " + error);
+            }, _this.host, _this.port, true);
+            _this.connectionOpen = true;
+        }, function (error) {
+            console.log("SSH: ERROR Connection error " + error);
+        }, this.host, this.port, this.username, this.password, 100, 80);
+        if (keepOpen)
+            this.startLoop();
+    };
+    SSH2Wrapper.prototype.startLoop = function () {
+        if (!this.clientFailure && this.connectionOpen && this.conn != null) {
+            this.loopHandler = window.setInterval(this.runLoop.bind(this), 200);
+        }
+    };
+    SSH2Wrapper.prototype.runLoop = function () {
+        var _this = this;
+        if (!this.connectionOpen || this.conn == null)
+            return;
+        window.sshRead(function (success) {
+            if (_this.onData != null)
+                _this.onData(success);
+        }, function (error) {
+            if (_this.onError != null)
+                _this.onError(error);
+        }, this.conn);
+    };
+    SSH2Wrapper.prototype.write = function (str) {
+        var _this = this;
+        if (this.clientFailure) {
+            console.log("SSH: ERROR No client.");
+            return;
+        }
+        else if (this.conn == null || this.conn == undefined) {
+            console.log("SSH: ERROR No connection open");
+            return;
+        }
+        else if (!this.connectionOpen) {
+            console.log("SSH: ERROR No connection open");
+            return;
+        }
+        window.sshWrite(function (success) { }, function (error) { console.log("SSH: ERROR Write error"); if (_this.onError != null)
+            _this.onError("WRITE ERROR"); }, this.conn, str);
+    };
+    SSH2Wrapper.prototype.close = function () {
+        if (this.clientFailure || this.conn == null || this.conn == undefined || !this.connectionOpen)
+            return;
+        window.sshClose(function (success) { }, function (error) { console.log("SSH ERROR Close error"); });
+    };
+    return SSH2Wrapper;
+}());
+
+//# sourceMappingURL=SSH2-Wrapper.js.map
+
+/***/ }),
+
+/***/ 208:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SSHTerminalPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Terminal2__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Terminal2__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1629,57 +1728,13 @@ var SSHTerminalPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 208:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PassModal; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var PassModal = /** @class */ (function () {
-    function PassModal(viewCtrl) {
-        this.viewCtrl = viewCtrl;
-        this.host = "";
-        this.port = 22;
-        this.user = "";
-        this.pass = "";
-    }
-    PassModal.prototype.closeModal = function () {
-        this.viewCtrl.dismiss({ enter: false, host: "", port: 0, user: "", pass: "" });
-    };
-    PassModal.prototype.enter = function () {
-        this.viewCtrl.dismiss({ enter: true, host: this.host, port: this.port, user: this.user, pass: this.pass });
-    };
-    PassModal = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\pass-modal.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Login</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <p>Please provide login information:</p>\n\n\n\n    <ion-item>\n\n        <ion-label fixed>Host: </ion-label>\n\n        <ion-input [(ngModel)]="host"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label fixed>Port: </ion-label>\n\n        <ion-input type="number" [(ngModel)]="port"></ion-input>\n\n    </ion-item>\n\n    <p></p>\n\n    <ion-item>\n\n        <ion-label fixed>Username: </ion-label>\n\n        <ion-input [(ngModel)]="user"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label fixed>Password: </ion-label>\n\n        <ion-input type="password" [(ngModel)]="pass"></ion-input>\n\n    </ion-item>\n\n</ion-content>\n\n\n\n<ion-footer>\n\n    <ion-toolbar>\n\n        <ion-buttons end>\n\n            <button ion-button (click)="enter()">Enter</button>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\ssh\pass-modal.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* ViewController */]])
-    ], PassModal);
-    return PassModal;
-}());
-
-//# sourceMappingURL=pass-modal.js.map
-
-/***/ }),
-
 /***/ 209:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LogsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1769,7 +1824,7 @@ var LogsPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VisualizersPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1855,7 +1910,7 @@ var VisualizersPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HumansPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1910,7 +1965,7 @@ var HumansPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WorkingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1968,12 +2023,12 @@ var WorkingPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalyzerPage2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalyzerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hf_classical_hf_categories__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hf_classical_hf_categories__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__analyzer_detail__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__analyzer_detail__ = __webpack_require__(217);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1988,8 +2043,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AnalyzerPage2 = /** @class */ (function () {
-    function AnalyzerPage2(model, navControl, componentFactoryResolver) {
+var AnalyzerPage = /** @class */ (function () {
+    function AnalyzerPage(model, navControl, componentFactoryResolver) {
         this.model = model;
         this.navControl = navControl;
         this.componentFactoryResolver = componentFactoryResolver;
@@ -2009,27 +2064,25 @@ var AnalyzerPage2 = /** @class */ (function () {
         ];
         this.selectedViewer = this.viewers.find(function (v) { return v.id === "overall_pathway"; });
     }
-    AnalyzerPage2.prototype.ngOnInit = function () {
+    AnalyzerPage.prototype.ngOnInit = function () {
         this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
         this.model.addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
         if (!this.model.isLoading())
             this.onReloadFinishedListener();
     };
-    AnalyzerPage2.prototype.onReloadFinishedListener = function () {
+    AnalyzerPage.prototype.onReloadFinishedListener = function () {
         if (this.dataExists()) {
             this.isLoading = false;
             this.setStatusCard();
-            //this.setPlots(this.selectedViewer.id);
             this.setPlots2();
-            //this.monitoringURLs = this.model.monitoringUrls;
             this.viewers.find(function (v) { return v.id === "overall_pathway"; }).src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
             this.setForecast();
         }
     };
-    AnalyzerPage2.prototype.onLoadingStartedListener = function () {
+    AnalyzerPage.prototype.onLoadingStartedListener = function () {
         this.isLoading = true;
     };
-    AnalyzerPage2.prototype.dataExists = function () {
+    AnalyzerPage.prototype.dataExists = function () {
         if (!(this.model.summary == null || this.model.summary == undefined)) {
             if (!(this.model.config == null || this.model.config == undefined)) {
                 if (!(this.model.config.status == null || this.model.config.status == undefined)) {
@@ -2041,7 +2094,7 @@ var AnalyzerPage2 = /** @class */ (function () {
         }
         return false;
     };
-    AnalyzerPage2.prototype.setStatusCard = function () {
+    AnalyzerPage.prototype.setStatusCard = function () {
         this.statusText = this.model.summary.text;
         this.statusLevel = this.model.summary.level;
         for (var i = 0; i < this.model.config.status.length; i++) {
@@ -2055,13 +2108,13 @@ var AnalyzerPage2 = /** @class */ (function () {
             }
         }
     };
-    AnalyzerPage2.prototype.reload = function () {
+    AnalyzerPage.prototype.reload = function () {
         if (this.isLoading)
             return;
         this.isLoading = true;
         this.model.reload();
     };
-    AnalyzerPage2.prototype.viewerChanged = function (event) {
+    AnalyzerPage.prototype.viewerChanged = function (event) {
         if (this.selectedViewer.type === 'page' && !this.pageHolder == undefined) {
             this.pageHolder.destroy();
         }
@@ -2074,32 +2127,14 @@ var AnalyzerPage2 = /** @class */ (function () {
                 this.pageHolder = this.parent.createComponent(this.componentFactoryResolver.resolveComponentFactory(this.selectedViewer.src));
         }
     };
-    AnalyzerPage2.prototype.speakSummary = function () {
+    AnalyzerPage.prototype.speakSummary = function () {
         this.setStatusCard();
         this.model.speakSummary();
     };
-    AnalyzerPage2.prototype.openPage = function (url) {
+    AnalyzerPage.prototype.openPage = function (url) {
         this.navControl.push(__WEBPACK_IMPORTED_MODULE_4__analyzer_detail__["a" /* AnalyzerDetailPage */], { 'url': url });
     };
-    AnalyzerPage2.prototype.setPlots = function (plot_name) {
-        for (var i = 0; i < this.model.monitoringUrls.length; i++) {
-            for (var j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
-                    //logger.debug("nop");
-                    console.log("DEBUG: nop");
-                }
-                else {
-                    if (plot_name == "analysis")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
-                    if (plot_name == "pathway")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
-                    if (plot_name == "overall_pathway")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_overall_pathway;
-                }
-            }
-        }
-    };
-    AnalyzerPage2.prototype.setPlots2 = function () {
+    AnalyzerPage.prototype.setPlots2 = function () {
         // Generate array
         this.viewers[0].src = { "monitoringURLs": [] };
         this.viewers[1].src = { "monitoringURLs": [] };
@@ -2117,7 +2152,7 @@ var AnalyzerPage2 = /** @class */ (function () {
             this.viewers[0].src.monitoringURLs[i].name = this.model.monitoringUrls[i].name;
             this.viewers[1].src.monitoringURLs[i].name = this.model.monitoringUrls[i].name;
             for (var j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture))
+                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null))
                     console.log("DEBUG: 1nop");
                 else {
                     this.viewers[0].src.monitoringURLs[i].urls[j].plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
@@ -2130,7 +2165,7 @@ var AnalyzerPage2 = /** @class */ (function () {
             }
         }
     };
-    AnalyzerPage2.prototype.setForecast = function () {
+    AnalyzerPage.prototype.setForecast = function () {
         var tmp = this.model.analysis[0].forecast;
         for (var i = 0; i < tmp.length; i++)
             tmp[i] = this.model.getRemoteURL() + this.model.analysis[0].forecast[i].substring(1);
@@ -2139,18 +2174,18 @@ var AnalyzerPage2 = /** @class */ (function () {
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["_8" /* ViewChild */])('parent', { read: __WEBPACK_IMPORTED_MODULE_3__angular_core__["_10" /* ViewContainerRef */] }),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["_10" /* ViewContainerRef */])
-    ], AnalyzerPage2.prototype, "parent", void 0);
-    AnalyzerPage2 = __decorate([
+    ], AnalyzerPage.prototype, "parent", void 0);
+    AnalyzerPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["m" /* Component */])({
-            selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer2.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <ion-list [hidden]="isLoading" no-padding>\n        <!-- Status card -->\n        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card-header>\n                Status: {{statusLevel}}\n            </ion-card-header>\n            <ion-card-content no-padding>\n                <ion-item color="{{statusColor}}" text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n\n        <!-- Viewer chooser -->\n        <ion-item no-padding>\n            <ion-label>Viewer:</ion-label>\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n\n        <!-- TYPE == plots -->\n        <ng-container *ngIf="(selectedViewer.type === \'plots\')">\n            <ion-item *ngFor="let monitoringURL of selectedViewer.src.monitoringURLs" no-padding no-margin text-wrap>\n                <ion-card no-padding no-margin>\n                    <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                    <ion-card-content no-padding>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                    <div class="launchpad">\n                                        <div class="logo"><img src="{{url.plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n                                        <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-card-content>\n                </ion-card>\n            </ion-item>\n        </ng-container>\n\n\n        <!-- TYPE == img -->\n        <ion-item *ngIf="(selectedViewer.type === \'img\')">\n            <img src="{{selectedViewer.src}}"/>\n        </ion-item>\n\n        <!-- TYPE == imgs -->\n        <ion-item *ngIf="(selectedViewer.type === \'imgs\')">\n            <ion-row>\n                <ion-col col-sm-4 *ngFor="let src of selectedViewer.src">\n                    <img src="{{src}}">\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-list>\n\n    <!-- TYPE == page -->\n    <span [hidden]="!(selectedViewer.type === \'page\')">\n        <ng-container #parent></ng-container>\n    </span>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer2.html"*/
+            selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card color="{{statusColor}}">\n\n                <ion-card-header>\n\n                    Status: {{statusLevel}}\n\n                </ion-card-header>\n\n            </ion-card>\n\n            <ion-card-content no-padding>\n\n                <ion-item text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n        <br>\n\n\n\n        <!-- Viewer chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>Viewer:</ion-label>\n\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n\n\n        <!-- TYPE == plots -->\n\n        <ng-container *ngIf="(selectedViewer.type === \'plots\')">\n\n            <ion-item *ngFor="let monitoringURL of selectedViewer.src.monitoringURLs" no-padding no-margin text-wrap>\n\n                <ion-card no-padding no-margin>\n\n                    <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                    <ion-card-content no-padding>\n\n                        <ion-grid no-padding>\n\n                            <ion-row class="group" no-padding no-margin>\n\n                                <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                    <div class="launchpad">\n\n                                        <div class="logo"><img src="{{url.plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n\n                                        <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                    </div>\n\n                                </ion-col>\n\n                            </ion-row>\n\n                        </ion-grid>\n\n                    </ion-card-content>\n\n                </ion-card>\n\n            </ion-item>\n\n        </ng-container>\n\n\n\n\n\n        <!-- TYPE == img -->\n\n        <ion-item *ngIf="(selectedViewer.type === \'img\')">\n\n            <img src="{{selectedViewer.src}}"/>\n\n        </ion-item>\n\n\n\n        <!-- TYPE == imgs -->\n\n        <ion-item *ngIf="(selectedViewer.type === \'imgs\')">\n\n            <ion-row>\n\n                <ion-col col-sm-4 *ngFor="let src of selectedViewer.src">\n\n                    <img src="{{src}}">\n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <!-- TYPE == page -->\n\n    <span [hidden]="!(selectedViewer.type === \'page\')">\n\n        <ng-container #parent></ng-container>\n\n    </span>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_3__angular_core__["o" /* ComponentFactoryResolver */]])
-    ], AnalyzerPage2);
-    return AnalyzerPage2;
+    ], AnalyzerPage);
+    return AnalyzerPage;
 }());
 
-//# sourceMappingURL=analyzer2.js.map
+//# sourceMappingURL=analyzer.js.map
 
 /***/ }),
 
@@ -2158,11 +2193,87 @@ var AnalyzerPage2 = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HFCategoriesPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hf_modules__ = __webpack_require__(215);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var HFCategoriesPage = /** @class */ (function () {
+    function HFCategoriesPage(classicModel, navCtrl) {
+        this.classicModel = classicModel;
+        this.navCtrl = navCtrl;
+        this.IMG_HAPPY = "assets/arrows/arrow-up.svg";
+        this.IMG_WARNING = "assets/arrows/arrow-right.svg";
+        this.IMG_CRITICAL = "assets/arrows/arrow-down.svg";
+        this.IMG_ERROR = "assets/arrows/cross.svg";
+        this.isLoading = true;
+        this.outdated = false;
+        this.outdateHandler = 0;
+        this.data_time = "sometime";
+        this.categories = null;
+    }
+    HFCategoriesPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
+        if (!this.classicModel.isLoading())
+            this.loadingFinishedListener();
+        this.outdateHandler = window.setInterval(function () { _this.outdated = true; }, 1200000);
+    };
+    HFCategoriesPage.prototype.loadingFinishedListener = function () {
+        this.isLoading = false;
+        this.categories = this.classicModel.categories;
+        this.data_time = this.classicModel.lastRefreshed.toLocaleString();
+    };
+    HFCategoriesPage.prototype.reload = function () {
+        var _this = this;
+        clearInterval(this.outdateHandler);
+        this.outdateHandler = window.setInterval(function () { _this.outdated = true; }, 1200000);
+        this.classicModel.addLoadingFinishedCallback(this.loadingFinishedListener.bind(this));
+        if (!this.classicModel.isLoading())
+            this.loadingFinishedListener();
+        this.classicModel.reload();
+    };
+    HFCategoriesPage.prototype.imgForCategory = function (cat) {
+        return cat.status == 1.0 ? this.IMG_HAPPY : (cat.status == 0.5 ? this.IMG_WARNING : (cat.status == 0.0 ? this.IMG_CRITICAL : this.IMG_ERROR));
+    };
+    HFCategoriesPage.prototype.categorySelected = function (cat) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__hf_modules__["a" /* HFModulesPage */], { 'category': cat });
+    };
+    HFCategoriesPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: "page-hf-categories",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-categories.html"*/'<!--<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Categories</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>-->\n\n\n\n<style>.scroll-content {\n\n    padding: 0 !important;\n\n}</style>\n\n\n\n<ion-content>\n\n    <div text-center padding *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <div class="complete-overlay" padding *ngIf="outdated && !isLoading">\n\n        <h1 class="outdated">Outdated</h1>\n\n    </div>\n\n    <div class="complete-overlay" padding *ngIf="false && !isLoading">\n\n        <h1 class="no-active-instance">No Active Instance</h1>\n\n    </div>\n\n\n\n    <div text-center *ngIf="!isLoading" no-padding><h5>data from {{data_time}}</h5></div>\n\n\n\n    <ion-grid *ngIf="!isLoading">\n\n        <ion-row>\n\n            <ion-col col-6 col-sm *ngFor="let category of categories">\n\n                <ion-card (click)="categorySelected(category)">\n\n                    <ion-card-content>\n\n                        <img src="{{imgForCategory(category)}}" height="50px" width="50px"/><br/>\n\n                        <div class="cat-title"><h2>{{category.title}}</h2></div>\n\n                    </ion-card-content>\n\n                </ion-card>\n\n            </ion-col>\n\n        </ion-row>\n\n    </ion-grid>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-categories.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]])
+    ], HFCategoriesPage);
+    return HFCategoriesPage;
+}());
+
+//# sourceMappingURL=hf-categories.js.map
+
+/***/ }),
+
+/***/ 215:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HFModulesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__ = __webpack_require__(216);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2259,13 +2370,52 @@ var HFModulesPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 216:
+/***/ 217:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalyzerDetailPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AnalyzerDetailPage = /** @class */ (function () {
+    function AnalyzerDetailPage(navParams) {
+        this.navParams = navParams;
+        this.url = this.navParams.get('url');
+        if (this.url == null || this.url == undefined) {
+            this.url = { "name": "", "analysis_plot": "http://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg" };
+        }
+    }
+    AnalyzerDetailPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-analyzer-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{url.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img style="margin-left: auto; margin-right: auto; max-width: 100%;" src="{{url.plot}}"/>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer-detail.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    ], AnalyzerDetailPage);
+    return AnalyzerDetailPage;
+}());
+
+//# sourceMappingURL=analyzer-detail.js.map
+
+/***/ }),
+
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(241);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -2273,7 +2423,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 239:
+/***/ 241:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2281,33 +2431,33 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_analyzer_analyzer_detail__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_visualizers_visualizers__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_logs_logs__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_humans_humans__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_working_working__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_config__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_instances_component__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_modals_config_modal__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__data_DataModel__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_storage__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_ClassicalDataModel__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_categories__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_hf_classical_hf_modules__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_analyzer_analyzer2__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_modals_error_connection_error__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_ssh_terminal__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_modals_ssh_pass_modal__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_in_app_browser__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer_detail__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_controller_controller__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller_detail__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_visualizers_visualizers__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_logs_logs__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_humans_humans__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_working_working__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_modals_config_config__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_instances_component__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_modal__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__data_DataModel__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_storage__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_analyzer_hf_classical_ClassicalDataModel__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_hf_categories__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_modules__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_analyzer__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_modals_error_connection_error__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_modals_ssh_ssh_terminal__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_pass_modal__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_in_app_browser__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_modals_config_instances_browser_component__ = __webpack_require__(203);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2354,30 +2504,30 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__["a" /* TabsPage */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__["a" /* MonitoringPage */],
                 __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__["a" /* MonitoringWebviewPage */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__["a" /* AnalyzerPage */],
-                __WEBPACK_IMPORTED_MODULE_25__pages_analyzer_analyzer2__["a" /* AnalyzerPage2 */],
-                __WEBPACK_IMPORTED_MODULE_10__pages_analyzer_analyzer_detail__["a" /* AnalyzerDetailPage */],
-                __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__["a" /* ControllerPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__["a" /* ControllerDetailPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_visualizers_visualizers__["a" /* VisualizersPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_logs_logs__["a" /* LogsPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_humans_humans__["a" /* HumansPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_config__["a" /* ConfigPage */],
-                __WEBPACK_IMPORTED_MODULE_19__pages_modals_config_modal__["a" /* ModalPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_instances_component__["a" /* InstancesComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_working_working__["a" /* WorkingPage */],
-                __WEBPACK_IMPORTED_MODULE_26__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */],
-                __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_ssh_terminal__["a" /* SSHTerminalPage */],
-                __WEBPACK_IMPORTED_MODULE_28__pages_modals_ssh_pass_modal__["a" /* PassModal */],
-                __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_categories__["a" /* HFCategoriesPage */],
-                __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_hf_classical_hf_modules__["a" /* HFModulesPage */]
+                __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_analyzer__["a" /* AnalyzerPage */],
+                __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer_detail__["a" /* AnalyzerDetailPage */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_controller_controller__["a" /* ControllerPage */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller_detail__["a" /* ControllerDetailPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_visualizers_visualizers__["a" /* VisualizersPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_logs_logs__["a" /* LogsPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_humans_humans__["a" /* HumansPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_modals_config_config__["a" /* ConfigPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_modal__["a" /* ModalPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_instances_component__["a" /* InstancesComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_modals_config_instances_browser_component__["a" /* InstancesBrowserComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_working_working__["a" /* WorkingPage */],
+                __WEBPACK_IMPORTED_MODULE_25__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */],
+                __WEBPACK_IMPORTED_MODULE_26__pages_modals_ssh_ssh_terminal__["a" /* SSHTerminalPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_pass_modal__["a" /* PassModal */],
+                __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_hf_categories__["a" /* HFCategoriesPage */],
+                __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_modules__["a" /* HFModulesPage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* HappyFaceApp */], {}, {
                     links: []
                 }),
-                __WEBPACK_IMPORTED_MODULE_21__ionic_storage__["a" /* IonicStorageModule */].forRoot()
+                __WEBPACK_IMPORTED_MODULE_20__ionic_storage__["a" /* IonicStorageModule */].forRoot()
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
@@ -2385,31 +2535,31 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__["a" /* TabsPage */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__["a" /* MonitoringPage */],
                 __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__["a" /* MonitoringWebviewPage */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__["a" /* AnalyzerPage */],
-                __WEBPACK_IMPORTED_MODULE_25__pages_analyzer_analyzer2__["a" /* AnalyzerPage2 */],
-                __WEBPACK_IMPORTED_MODULE_10__pages_analyzer_analyzer_detail__["a" /* AnalyzerDetailPage */],
-                __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__["a" /* ControllerPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__["a" /* ControllerDetailPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_visualizers_visualizers__["a" /* VisualizersPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_logs_logs__["a" /* LogsPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_humans_humans__["a" /* HumansPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_config__["a" /* ConfigPage */],
-                __WEBPACK_IMPORTED_MODULE_19__pages_modals_config_modal__["a" /* ModalPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_instances_component__["a" /* InstancesComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_working_working__["a" /* WorkingPage */],
-                __WEBPACK_IMPORTED_MODULE_26__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */],
-                __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_ssh_terminal__["a" /* SSHTerminalPage */],
-                __WEBPACK_IMPORTED_MODULE_28__pages_modals_ssh_pass_modal__["a" /* PassModal */],
-                __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_categories__["a" /* HFCategoriesPage */],
-                __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_hf_classical_hf_modules__["a" /* HFModulesPage */]
+                __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_analyzer__["a" /* AnalyzerPage */],
+                __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer_detail__["a" /* AnalyzerDetailPage */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_controller_controller__["a" /* ControllerPage */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller_detail__["a" /* ControllerDetailPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_visualizers_visualizers__["a" /* VisualizersPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_logs_logs__["a" /* LogsPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_humans_humans__["a" /* HumansPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_modals_config_config__["a" /* ConfigPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_modals_config_modal__["a" /* ModalPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_modals_config_instances_component__["a" /* InstancesComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_modals_config_instances_browser_component__["a" /* InstancesBrowserComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_working_working__["a" /* WorkingPage */],
+                __WEBPACK_IMPORTED_MODULE_25__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */],
+                __WEBPACK_IMPORTED_MODULE_26__pages_modals_ssh_ssh_terminal__["a" /* SSHTerminalPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_pass_modal__["a" /* PassModal */],
+                __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_hf_categories__["a" /* HFCategoriesPage */],
+                __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_modules__["a" /* HFModulesPage */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_20__data_DataModel__["a" /* DataModel */],
-                __WEBPACK_IMPORTED_MODULE_29__ionic_native_in_app_browser__["a" /* InAppBrowser */],
-                __WEBPACK_IMPORTED_MODULE_22__pages_analyzer_hf_classical_ClassicalDataModel__["a" /* ClassicalDataModel */]
+                __WEBPACK_IMPORTED_MODULE_19__data_DataModel__["a" /* DataModel */],
+                __WEBPACK_IMPORTED_MODULE_28__ionic_native_in_app_browser__["a" /* InAppBrowser */],
+                __WEBPACK_IMPORTED_MODULE_21__pages_analyzer_hf_classical_ClassicalDataModel__["a" /* ClassicalDataModel */]
             ]
         })
     ], AppModule);
@@ -2420,16 +2570,16 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 290:
+/***/ 292:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HappyFaceApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(198);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2466,13 +2616,13 @@ var HappyFaceApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 294:
+/***/ 296:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Terminal2; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SSH2_Wrapper__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pass_modal__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SSH2_Wrapper__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pass_modal__ = __webpack_require__(104);
 
 
 var Terminal2 = /** @class */ (function () {
@@ -2764,7 +2914,7 @@ var Terminal2 = /** @class */ (function () {
         this.sshWrapper.password = data.pass;
         this.sshWrapper.onData = function (data) { _this.output(data); };
         this.sshWrapper.onError = function (error) { console.log("SSH ERROR: " + error); };
-        this.sshWrapper.connect();
+        this.sshWrapper.connect(true);
         this.changePromt("[usr@ssh] # ");
         this.output("");
     };
@@ -2779,105 +2929,15 @@ var Terminal2 = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 295:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SSH2Wrapper; });
-var SSH2Wrapper = /** @class */ (function () {
-    function SSH2Wrapper() {
-        this.conn = null;
-        this.clientFailure = false;
-        this.connectionOpen = false;
-        this.loopHandler = null;
-        this.host = "141.5.108.29";
-        this.port = 22;
-        this.username = "test";
-        this.password = "passATLAS01";
-        this.onData = null;
-        this.onError = null;
-        if (window.sshClient == null || window.sshClient == undefined) {
-            this.clientFailure = true;
-            throw new Error("NO CLIENT");
-        }
-    }
-    SSH2Wrapper.prototype.connect = function () {
-        var _this = this;
-        if (this.clientFailure)
-            return;
-        if (this.host == "") {
-            console.error("SSH: ERROR No host provided");
-            return;
-        }
-        else if (this.port == 0 || this.port >= 65356) {
-            console.error("SSH: ERROR Undefined port");
-            return;
-        }
-        window.sshClient.sshOpenSession(function (success) {
-            console.log("SSH: Connection success");
-            _this.conn = success;
-            window.sshClient.sshVerifyHost(function (success) {
-                console.log("SSH: Hostkey saved in known_hosts file");
-            }, function (error) {
-                console.log("SSH: ERROR Connection error " + error);
-            }, _this.host, _this.port, true);
-            _this.connectionOpen = true;
-        }, function (error) {
-            console.log("SSH: ERROR Connection error " + error);
-        }, this.host, this.port, this.username, this.password, 100, 80);
-        this.startLoop();
-    };
-    SSH2Wrapper.prototype.startLoop = function () {
-        if (!this.clientFailure && this.connectionOpen && this.conn != null) {
-            this.loopHandler = window.setInterval(this.runLoop.bind(this), 200);
-        }
-    };
-    SSH2Wrapper.prototype.runLoop = function () {
-        var _this = this;
-        if (!this.connectionOpen || this.conn == null)
-            return;
-        window.sshRead(function (success) {
-            if (_this.onData != null)
-                _this.onData(success);
-        }, function (error) {
-            if (_this.onError != null)
-                _this.onError(error);
-        }, this.conn);
-    };
-    SSH2Wrapper.prototype.write = function (str) {
-        var _this = this;
-        if (this.clientFailure) {
-            console.log("SSH: ERROR No client.");
-            return;
-        }
-        else if (this.conn == null || this.conn == undefined) {
-            console.log("SSH: ERROR No connection open");
-            return;
-        }
-        else if (!this.connectionOpen) {
-            console.log("SSH: ERROR No connection open");
-            return;
-        }
-        window.sshWrite(function (success) { }, function (error) { console.log("SSH: ERROR Write error"); if (_this.onError != null)
-            _this.onError("WRITE ERROR"); }, this.conn, str);
-    };
-    return SSH2Wrapper;
-}());
-
-//# sourceMappingURL=SSH2-Wrapper.js.map
-
-/***/ }),
-
-/***/ 296:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnalyzerPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfigPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__analyzer_detail__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__hf_classical_hf_categories__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_DataModel__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__instances_component__ = __webpack_require__(204);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2891,139 +2951,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-var AnalyzerPage = /** @class */ (function () {
-    function AnalyzerPage(model, navControl, alertCtrl) {
+var ConfigPage = /** @class */ (function () {
+    function ConfigPage(model, navCtrl, navParams) {
         this.model = model;
-        this.navControl = navControl;
-        this.alertCtrl = alertCtrl;
-        this.isLoading = true;
-        this.statusLevel = "Normal";
-        this.statusImg = "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg";
-        this.statusColor = "item-calm";
-        this.statusText = "World wide Atlas Distributed Computing System";
-        this.HFClassical = __WEBPACK_IMPORTED_MODULE_4__hf_classical_hf_categories__["a" /* HFCategoriesPage */];
-        this.viewers = [
-            { "id": "analysis", "name": "Status Analysis", "multiplots": true, "spsrc": "" },
-            { "id": "pathway", "name": "Info Pathway", "multiplots": true, "spsrc": "" },
-            { "id": "overall_pathway", "name": "Overall Info Pathway", "multiplots": false, "spsrc": "" },
-            { "id": "happyface", "name": "HappyFace Classical Rating", "multiplots": false, "spsrc": "" },
-            { "id": "forecast", "name": "Happy Forecast", "multiplots": false, "spsrc": "assets/img/forecast.png" }
-        ];
-        this.selectedViewer = this.viewers.find(function (v) { return v.id === "overall_pathway"; });
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.isHost = false;
+        this.automaticFetch = true;
+        this.interval = 1;
+        this.automaticRotation = false;
+        this.detectOnlyChange = true;
+        this.enableMadVision = true;
+        this.enableTextSpeech = true;
+        this.enableAutoReadout = false;
+        this.speakInterval = 1;
+        this.happyFaceCompatible = false;
+        this.isHost = this.model.isHost();
+        this.automaticFetch = this.model.configuration.get().automaticFetch;
+        this.interval = this.model.configuration.get().reloadInterval;
+        this.automaticRotation = this.model.configuration.get().automaticRotation;
+        this.detectOnlyChange = this.model.configuration.get().detectOnlyChange;
+        this.enableTextSpeech = this.model.configuration.get().enableTextSpeech;
+        this.enableAutoReadout = this.model.configuration.get().enableAutoReadout;
+        this.speakInterval = this.model.configuration.get().speakInterval;
+        this.happyFaceCompatible = this.model.configuration.get().happyFaceCompatible;
     }
-    AnalyzerPage.prototype.ngOnInit = function () {
-        //DataModel.getInstance().addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
-        //DataModel.getInstance().addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
-        //if(!DataModel.getInstance().isLoading()) this.onReloadFinishedListener();
-        this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
-        this.model.addLoadingFinishedCallback(this.onReloadFinishedListener.bind(this));
-        if (!this.model.isLoading())
-            this.onReloadFinishedListener();
-    };
-    AnalyzerPage.prototype.onReloadFinishedListener = function () {
-        if (!this.connectionErrorPopup()) {
-            this.isLoading = false;
-            this.setStatusCard();
-            this.setPlots(this.selectedViewer.id);
-            //this.monitoringURLs = DataModel.getInstance().monitoringUrls;
-            this.monitoringURLs = this.model.monitoringUrls;
-            this.viewers.find(function (v) { return v.id === "overall_pathway"; }).spsrc = this.monitoringURLs[0].urls[0].plot_overall_pathway;
-        }
-    };
-    AnalyzerPage.prototype.onLoadingStartedListener = function () {
-        this.isLoading = true;
-    };
-    AnalyzerPage.prototype.connectionErrorPopup = function () {
+    ConfigPage.prototype.notify = function () {
         //let model:DataModel = DataModel.getInstance();
-        if (!(this.model.summary == null || this.model.summary == undefined)) {
-            if (!(this.model.config == null || this.model.config == undefined)) {
-                if (!(this.model.config.status == null || this.model.config.status == undefined)) {
-                    if (!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        var alert = this.alertCtrl.create({
-            title: '<b>Connection error</b>',
-            subTitle: 'Unable to  connect to given instance<br\>Host: ' + this.model.currentlyActive.host + '<br\>Port: ' + this.model.currentlyActive.mobile_port,
-            buttons: ['OK']
-        });
-        alert.present();
-        return true;
+        this.model.configuration.setAutomaticFetch(this.automaticFetch);
+        this.model.configuration.setAutomaticRotation(this.automaticRotation);
+        this.model.configuration.setDetectOnlyChange(this.detectOnlyChange);
+        this.model.configuration.setEnableMadVision(this.enableMadVision);
+        this.model.configuration.setEnableTextSpeech(this.enableTextSpeech);
+        this.model.configuration.setHappyFaceCompatible(this.happyFaceCompatible);
+        this.model.configuration.setEnableAutoReadout(this.enableAutoReadout);
+        this.model.configuration.setReloadInterval(this.interval);
+        this.model.configuration.setSpeakInterval(this.speakInterval);
+        this.model.updateLoop();
     };
-    AnalyzerPage.prototype.setStatusCard = function () {
-        //this.statusText  = DataModel.getInstance().summary.text;
-        //this.statusLevel = DataModel.getInstance().summary.level;
-        this.statusText = this.model.summary.text;
-        this.statusLevel = this.model.summary.level;
-        //let model:DataModel = DataModel.getInstance();
-        for (var i = 0; i < this.model.config.status.length; i++) {
-            if (this.model.config.status[i].name === this.statusLevel) {
-                this.statusImg = this.model.config.status[i].file;
-            }
-        }
-        for (var i = 0; i < this.model.config.status.length; i++) {
-            if (this.model.config.status[i].name === this.statusLevel) {
-                this.statusColor = this.model.config.status[i].color;
-            }
-        }
+    ConfigPage.prototype.chooseInstance = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__instances_component__["a" /* InstancesComponent */], { "viewCtrl": this.navParams.get('viewCtrl') });
     };
-    AnalyzerPage.prototype.reload = function () {
-        if (this.isLoading)
-            return;
-        this.isLoading = true;
-        //DataModel.getInstance().reload();
-        this.model.reload();
+    ConfigPage.prototype.closeModal = function () {
+        var viewCtrl = this.navParams.get('viewCtrl');
+        viewCtrl.dismiss();
     };
-    AnalyzerPage.prototype.viewerChanged = function (event) {
-        console.log("VIEWER CHANGED TO: " + JSON.stringify(event));
-        this.selectedViewer = event;
-        if (this.selectedViewer.multiplots) {
-            this.setPlots(this.selectedViewer.id);
-            this.monitoringURLs = this.model.monitoringUrls;
-        }
-    };
-    AnalyzerPage.prototype.speakSummary = function () {
-        this.setStatusCard();
-        //DataModel.getInstance().speakSummary();
-        this.model.speakSummary();
-    };
-    AnalyzerPage.prototype.openPage = function (url) {
-        this.navControl.push(__WEBPACK_IMPORTED_MODULE_3__analyzer_detail__["a" /* AnalyzerDetailPage */], { 'url': url });
-    };
-    AnalyzerPage.prototype.setPlots = function (plot_name) {
-        //let model:DataModel = DataModel.getInstance();
-        for (var i = 0; i < this.model.monitoringUrls.length; i++) {
-            for (var j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (!this.model.monitoringUrls[i].urls[j].capture)) {
-                    //logger.debug("nop");
-                    console.log("DEBUG: nop");
-                }
-                else {
-                    if (plot_name == "analysis")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
-                    if (plot_name == "pathway")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_pathway;
-                    if (plot_name == "overall_pathway")
-                        this.model.monitoringUrls[i].urls[j].analysis_plot = this.model.monitoringUrls[i].urls[j].plot_overall_pathway;
-                }
-            }
-        }
-    };
-    AnalyzerPage = __decorate([
+    ConfigPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card color="{{statusColor}}" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card-header>\n\n                Status: {{statusLevel}}\n\n            </ion-card-header>\n\n            <ion-card-content no-padding>\n\n                <ion-item color="{{statusColor}}" text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <!-- Viewer chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>Viewer:</ion-label>\n\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n        <!-- HappyFace Version1 Connector -->\n\n        <ion-item [hidden]="!selectedViewer.id === \'happyface\'">\n\n            <ion-tabs>\n\n                <ion-tab [root]="HFClassical"></ion-tab>\n\n            </ion-tabs>\n\n        </ion-item>\n\n\n\n        <!-- Single Plots, i.e. pictures -->\n\n        <ion-item [hidden]="selectedViewer.multiplots  || (selectedViewer.id === \'happyface\' )">\n\n            <img src="{{selectedViewer.spsrc}}"/>\n\n        </ion-item>\n\n\n\n        <!-- Multi Plots -->\n\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap [hidden]="!selectedViewer.multiplots || (selectedViewer.id === \'happyface\')">\n\n            <ion-card no-padding no-margin>\n\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                <ion-card-content no-padding>\n\n                    <ion-grid>\n\n                        <ion-row>\n\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                <div class="launchpad">\n\n                                    <div class="logo"><img src="{{url.analysis_plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                </div>\n\n                            </ion-col>\n\n                        </ion-row>\n\n                    </ion-grid>\n\n                </ion-card-content>\n\n            </ion-card>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/
+            selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title *ngIf="!isHost">Configuration</ion-title>\n\n        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list>\n\n        <ion-item (click)="chooseInstance()" *ngIf="!isHost">\n\n            <!-- Move to Instance selection page -->\n\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Automatic rotation</ion-label>\n\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Automatic fetch</ion-label>\n\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-list-header *ngIf="automaticFetch">\n\n            Reload Interval:\n\n            <ion-badge item-end>{{interval}} min</ion-badge>\n\n        </ion-list-header>\n\n        <ion-item *ngIf="automaticFetch">\n\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n\n                <ion-icon range-left name="time"></ion-icon>\n\n            </ion-range>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Detect only change</ion-label>\n\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable Mad Vision</ion-label>\n\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable Text speech</ion-label>\n\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>Enable automatic voice readout</ion-label>\n\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n\n\n        <ion-list-header *ngIf="enableAutoReadout">\n\n            Readout Interval:\n\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n\n        </ion-list-header>\n\n        <ion-item *ngIf="enableAutoReadout">\n\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n\n                <ion-icon range-left name="time"></ion-icon>\n\n            </ion-range>\n\n        </ion-item>\n\n\n\n        <ion-item>\n\n            <ion-label>HappyFace compatible</ion-label>\n\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
-    ], AnalyzerPage);
-    return AnalyzerPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */]])
+    ], ConfigPage);
+    return ConfigPage;
 }());
 
-//# sourceMappingURL=analyzer.js.map
+//# sourceMappingURL=config.js.map
 
 /***/ })
 
-},[216]);
+},[218]);
 //# sourceMappingURL=main.js.map

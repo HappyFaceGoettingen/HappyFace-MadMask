@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">
+        <ion-title style="padding-top: 15px">Settings</ion-title>
+    </ion-navbar>
+    <ion-navbar *ngIf="!isIOS">
+        <ion-title>Settings</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list-header>
+        Choose Instance
+    </ion-list-header>
+
+    <div text-center *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+    <ion-list *ngIf="!isLoading">
+        <ng-container *ngFor="let inst of instances">
+            <button ion-item detail-none (click)="choose(inst)">
+                {{inst.name}}
+                <div item-end text-center>
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                </div>
+            </button>
+        </ng-container>
+        <ion-item *ngIf="instances.length == 0">
+            There are no subinstances here.
+        </ion-item>
+        <ion-item>
+            <button ion-item detail-none (click)="extSettings()">
+                Advanced Settings
+                <div item-end text-center>
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                </div>
+            </button>
+        </ion-item>
+    </ion-list>
+</ion-content>

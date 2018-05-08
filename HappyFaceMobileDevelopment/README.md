@@ -3,20 +3,43 @@
 ## About TypeScript
 
 ## Development environments
-* OS:
-* TypeScript Version:
-* Ionic Version:
-* Test environments:
-* IDE: ?
+* OS: Windows 10 Pro Build 16299
+* TypeScript Version: 2.7.2
+* Ionic Version: 3.20.0
+* Test environments: Windows/Chrome, Windows/Firefox, Linux (CentOS 7)/Firefox
+* IDE: JetBrains WebStorm 2018.1 (best IDE ever ;) )
 
 ## Usage of TypeScript
-### 
+Typescript is very similar to Java, so being familiar with that help a lot.
+A good beginners tutorial can be found here: [TutorialsPoint.com](https://www.tutorialspoint.com/typescript/index.htm)
+Since its the required language for `ionic` and `angularJS` there are many Tutorials available, specifically recommended
+should be [this one](https://angularjs.de/artikel/ionic2-tutorial-deutsch).
+It's important to note that the ionic framework changed a lot between `ionic 1` and `ionic 2`, but not much between 
+`ionic 2` and `ionic 3`, so any `ionic 2` or `3` tutorial should be sufficient.
 
-## Some exapmles
+## Some examples
+A Component (basis for a view in angular/ionic) is build by a class with the component decorator (@ Notation).
+The decorator provides the connection to a `.html` file.
+```typescript
 
+@Component({
+    templateUrl: './file.html'
+})
+export class TestClass
+{
+    value:boolean = false;
+    field:any     = {};
+    array:any[]   = [];
+    
+    constructor() {}
+    
+    demoFunction() {
+        let variable:number = 5;
+        console.log(variable);
+    }
+}
 
-## Debug/Tips/Snippets etc..
-
+```
 
 # GWDG Cloud server
 ## Connecting to a VM via ssh

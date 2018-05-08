@@ -81,36 +81,47 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
  * Forecast improvement
       * The example forecast routine should be paralleled --> Done
       * Run HF CRON --> Done
-      * HF DB connector (simple one)
-      * Elasticsearch plugin (simple one)
 
 ## Profile
  * New firefox_profile with gantry  --> Done
  * Put firefox_profile (in madfoxd) --> Done
- * make a firefox_command routine)  --> Doing --> Done
+ * Make a firefox_command routine  --> Done --> TESTING
 
 ## PCATLAS11
  * Open ports in PCATLAS11 --> Doing --> Done
 
 ## VM OSX config
- * Apple ID --> Doing --> Done
- * ssh connection + ssh server in OSX
- * Automatic iOS builder in madmask
-
-## Implement new data importer for HF database
-   * In MadBrowser
-   * In MadAnalyzer
+ * Apple ID --> Done
+ * Collect testers --> Doing
+ * ssh connection + ssh server in OSX --> Done
+ * Automatic iOS builder in madmask --> DOING
 
 ## Change item names in JSON files
    * config.json:   "port" --> "ionic_port", added "version", "web_port", "mobile_port"
-   * ==> Implement config.json version, web_port, mobile_port in mad-gantry => Doing
+   *  ==> Implement config.json version, web_port, mobile_port in mad-gantry => Doing
    * top.json:   Added onto GitHub => Done
    * systems.json:   "services" --> "actions" => Done
    * monitoring-urls.json:   Remove 'capture' completely. When file.prefix is null, then not capture => Done
+   * summary.json:   Added new attributes "systems" and "urls" ==> Done
+
+## HappyFace Instance
+   * Allowing CORS:   DOING
+
 
 ## Mad-Gantry site builder second step
  * Cloud Host selector --> Done
  * Connecting to AGIS, more sites with configs (level0, level1, level2, Goettingen Internal)
+
+
+## Kibana
+   * Test deployments
+
+## Implement new data importer for HF database
+   * HF DB connector (simple one)
+   * Elasticsearch plugin (simple one)
+
+   * In MadBrowser
+   * In MadAnalyzer
 
 
 ## MadAnalyzer lib should be re-written in Python

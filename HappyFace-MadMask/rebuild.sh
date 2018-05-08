@@ -8,7 +8,7 @@ PRJ_DIR=$PWD/..
 usage="./rebuild.sh [options]
 
    -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
-   -b:    build {hf|hf_atlas|madmask|devel|madmodules|rlibs|madfoxd|android-sdk|all}
+   -b:    build {hf|hf_atlas|hf_extra|madmask|devel|madmodules|rlibs|madfoxd|android-sdk}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -70,12 +70,17 @@ happyface_atlas_zip(){
     GIT_PROJECT=HappyFaceATLASModules
     GIT_BRANCH=Lino201506
 
-    ## HappyFaceCore.zip
+    ## HappyFaceATLASModules.zip
     pushd $PRJ_DIR
     echo "Archiving $WORK_DIR/SOURCES/${GIT_PROJECT}.zip <-- ${GIT_PROJECT}"
     GIT_ZIP="https://codeload.github.com/${GIT_GROUP}/${GIT_PROJECT}/zip"
     wget -q $GIT_ZIP/$GIT_BRANCH -O $WORK_DIR/SOURCES/${GIT_PROJECT}.zip
     popd
+}
+
+
+happyface_extra_zip(){
+    echo "MOCK"
 }
 
 
@@ -133,6 +138,9 @@ android_sdk_zip(){
 }
 
 
+#-----------------------------------
+# Build main
+#-----------------------------------
 build_packages(){
     local package=$1
     echo "Starting a build process for a package [$package] ..."
@@ -145,6 +153,10 @@ build_packages(){
 	hf_atlas)
 	    happyface_atlas_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-ATLAS.spec
+	    ;;
+	hf_extra)
+	    happyface_extra_zip
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-extra.spec
 	    ;;
 	madmask)
 	    madmask_zip
@@ -174,25 +186,13 @@ build_packages(){
 	    android_sdk_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/android-sdk.spec
 	    ;;
-	all)
-	    ## MadMask
-	    madmask_zip
-	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadMask.spec
-	    
-	    ## Madfox
-	    madfoxd_zip
-	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/MadFoxd.spec
-
-	    ## MadModules
-	    madmodules_zip
-	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/HappyFace-MadModules.spec
-	    ;;
 	*)
 	    echo "-b [$package] does not exist"
 	    exit -1
 	    ;;
     esac
 }
+
 
 copy_prebuilt_packages(){
     ## Copying pre-built packages

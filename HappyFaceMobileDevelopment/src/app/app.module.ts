@@ -8,7 +8,6 @@ import { HappyFaceApp } from './app.component';
 import {TabsPage} from "../pages/tabs/tabs";
 import {MonitoringPage} from "../pages/monitoring/monitoring";
 import {MonitoringWebviewPage} from "../pages/monitoring/monitoring-webview";
-import {AnalyzerPage} from "../pages/analyzer/analyzer";
 import {AnalyzerDetailPage} from "../pages/analyzer/analyzer-detail";
 import {ControllerPage} from "../pages/controller/controller";
 import {ControllerDetailPage} from "../pages/controller/controller-detail";
@@ -24,11 +23,12 @@ import {IonicStorageModule} from "@ionic/storage";
 import {ClassicalDataModel} from "../pages/analyzer/hf-classical/ClassicalDataModel";
 import {HFCategoriesPage} from "../pages/analyzer/hf-classical/hf-categories";
 import {HFModulesPage} from "../pages/analyzer/hf-classical/hf-modules";
-import {AnalyzerPage2} from "../pages/analyzer/analyzer2";
+import {AnalyzerPage} from "../pages/analyzer/analyzer";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {InstancesBrowserComponent} from "../pages/modals/config/instances.browser.component";
 
 @NgModule({
     declarations: [
@@ -37,7 +37,6 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
         MonitoringPage,
         MonitoringWebviewPage,
         AnalyzerPage,
-        AnalyzerPage2,
         AnalyzerDetailPage,
         ControllerPage,
         ControllerDetailPage,
@@ -47,6 +46,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
         ConfigPage,
         ModalPage,
         InstancesComponent,
+        InstancesBrowserComponent,
         WorkingPage,
         ConnectionErrorPage,
         SSHTerminalPage,
@@ -66,7 +66,6 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
         MonitoringPage,
         MonitoringWebviewPage,
         AnalyzerPage,
-        AnalyzerPage2,
         AnalyzerDetailPage,
         ControllerPage,
         ControllerDetailPage,
@@ -76,6 +75,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
         ConfigPage,
         ModalPage,
         InstancesComponent,
+        InstancesBrowserComponent,
         WorkingPage,
         ConnectionErrorPage,
         SSHTerminalPage,

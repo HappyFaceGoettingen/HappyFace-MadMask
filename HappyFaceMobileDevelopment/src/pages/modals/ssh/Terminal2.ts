@@ -329,7 +329,7 @@ export class Terminal2
         this.sshWrapper.password = data.pass;
         this.sshWrapper.onData = (data:string) => { this.output(data); };
         this.sshWrapper.onError = (error:string) => { console.log("SSH ERROR: " + error);};
-        this.sshWrapper.connect();
+        this.sshWrapper.connect(true);
         this.changePromt("[usr@ssh] # ");
         this.output("");
     }
