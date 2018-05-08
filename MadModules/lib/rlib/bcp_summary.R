@@ -12,6 +12,8 @@ run.bcp.summary <- function(detection.method="bcp.detect.one.exceeds", bcp.thres
   present.level <<- level.name
   url.names <<-c()
   system.names <<- c()
+  all.url.names <<-c()
+  all.system.names <<- c()
   combined.score <<- 1
 
   ## For each level in a monitorig url json file
@@ -34,6 +36,8 @@ bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.ou
     present.level <<- level.name
     url.names <<- c()
     system.names <<- c()
+    all.url.names <<- c()
+    all.system.names <<- c()
     combined.score <<- 0
   }
   
@@ -63,6 +67,9 @@ bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.ou
   
   ## Status changed --> Making lists and changing a summary template
   if (latest.bcp.pp >= bcp.threshold) {
+    all.url.names <<- unique(append(all.url.names, url.name))
+    all.system.names <<- unique(append(all.system.names, systems))
+
     if((length(url.names) < max.url.outputs))
       url.names <<- unique(append(url.names, url.name))
     
@@ -72,25 +79,43 @@ bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.ou
 }
 
 
+
 change.template.json <- function(combined.threshold){
+
   summary.template <<- str.concat(output.dir, "/", present.level, ".json")
   if (!file.exists(summary.template)){
     message("[", summary.template, "] does not exist")
     return(-1)
   }
 
+  ## An inner function to change array c(a, b, c) --> ["a", "b", "c"]
+  get.array.str <- function(items){
+    if (length(items) == 0){
+      "[]"
+    } else {
+      inner.str <- paste(items, collapse='\\\", \\\"')
+      paste(c("[\\\"", inner.str, "\\\"]"), collapse="")
+    }
+  }
+  
   ## Changing to comma separated strings
   c.url.names <- paste(url.names, collapse=", ")
   c.system.names <- paste(system.names, collapse=", ")
+  a.url.names <- get.array.str(all.url.names)
+  a.system.names <- get.array.str(all.system.names)
   
   ## Changing __LEVEL__, __SCORE__, __URLS__, __SYSTEMS__
   message("Applying (__LEVEL__, __SCORE, __URLS__, __SYSTEMS__) = (",
           present.level, ", ", combined.score, ", \"", c.url.names, "\", \"", c.system.names, "\") to [", summary.template, "] ...")
+  message("   * __URLS_ARRAY__ = ", a.url.names)
+  message("   * __SYSTEMS_ARRAY__ = ", a.system.names)
 
   system(str.concat("sed -e \"s/__LEVEL__/", present.level, "/g\" -i ", summary.template))
   system(str.concat("sed -e \"s/__SCORE__/", combined.score, "/g\" -i ", summary.template))
   system(str.concat("sed -e \"s/__URLS__/", c.url.names, "/g\" -i ", summary.template))
   system(str.concat("sed -e \"s/__SYSTEMS__/", c.system.names, "/g\" -i ", summary.template))
+  system(str.concat("sed -e \"s/__URLS_ARRAY__/", a.url.names, "/g\" -i ", summary.template))
+  system(str.concat("sed -e \"s/__SYSTEMS_ARRAY__/", a.system.names, "/g\" -i ", summary.template))
   
   ## Making a symlink to summary.json
   if (combined.score >= combined.threshold) {

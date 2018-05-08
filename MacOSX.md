@@ -11,7 +11,9 @@
 * In Mac: [Apple Icon] --> System Preference --> Sharing --> Enable 'Remote Login'
 
 ### SSh port forwarding (10.0.2.2 is a VM host/gantry node)
-     $ ssh -R 10000:localhost:22 10.0.2.2
+     ## For VM
+     $ remote_host=10.0.2.2
+     $ ssh -R 10000:localhost:22 $remote_host
 
 
 ## Installing NPM and Nodejs (https://treehouse.github.io/installation-guides/mac/homebrew)
@@ -24,4 +26,5 @@
      $ sudo npm install -g cordova@8.0.0
      $ sudo npm install -g ionic@3.20.0
 
+## Install Xcode 9.2
 

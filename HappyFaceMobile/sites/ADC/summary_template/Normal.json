@@ -2,7 +2,7 @@
     "text": "Hello, __MYNAME__ checked status of __SITE__ at __TIME__. Status level is __LEVEL__.",
     "level": "__LEVEL__",
     "score": "__SCORE__",
-    "systems": "__SYSTEMS__",
-    "urls": "__URLS__",
+    "systems": __SYSTEMS_ARRAY__,
+    "urls": __URLS_ARRAY__,
     "history": "__HISTORY__"
 }
