@@ -972,7 +972,7 @@ var MonitoringPage = /** @class */ (function () {
     };
     MonitoringPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-buttons left>\n\n            <!--<button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>-->\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n        <ion-title>Happy Meta-Monitoring</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-cog"></ion-icon></button>\n\n        </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content no-padding>\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <ion-list [hidden]="isLoading" no-padding>\n\n        <!-- Status card -->\n\n        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">\n\n            <ion-card color="{{statusColor}}">\n\n                <ion-card-header>\n\n                    Status: {{statusLevel}}\n\n                </ion-card-header>\n\n            </ion-card>\n\n            <ion-card-content no-padding>\n\n                <ion-item text-wrap>\n\n                    <ion-thumbnail item-start>\n\n                        <img src="{{statusImg}}">\n\n                    </ion-thumbnail>\n\n                    <h2>{{statusText}}</h2>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n        <br>\n\n\n\n        <!-- History chooser -->\n\n        <ion-item no-padding>\n\n            <ion-label>History:</ion-label>\n\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n\n\n        <!-- Content list -->\n\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n\n            <ion-card no-padding no-margin>\n\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n\n                <ion-card-content no-padding>\n\n                    <ion-grid no-padding>\n\n                        <ion-row class="group" no-padding no-margin>\n\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n\n                                <div class="launchpad">\n\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n\n                                </div>\n\n                            </ion-col>\n\n                        </ion-row>\n\n                    </ion-grid>\n\n                </ion-card-content>\n\n            </ion-card>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
+            selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-buttons left>\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-cog"></ion-icon></button>\n        </ion-buttons>\n        <ion-title>Happy Meta-Monitoring</ion-title>\n        <ion-buttons end>\n            <!--<button ion-button icon-only (click)="openHappyFaceCore()"><ion-icon name="md-happy"></ion-icon></button>-->\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n        </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <ion-list [hidden]="isLoading" no-padding>\n        <!-- Status card -->\n        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card color="{{statusColor}}">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- History chooser -->\n        <ion-item no-padding>\n            <ion-label>History:</ion-label>\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n        <!-- Content list -->\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n            <ion-card no-padding no-margin>\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                <ion-card-content no-padding>\n                    <ion-grid no-padding>\n                        <ion-row class="group" no-padding no-margin>\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                <div class="launchpad">\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                </div>\n                            </ion-col>\n                        </ion-row>\n                    </ion-grid>\n                </ion-card-content>\n            </ion-card>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* ModalController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
     ], MonitoringPage);
@@ -1479,6 +1479,10 @@ var ControllerDetailPage = /** @class */ (function () {
                 "services": [{ "name": "Restart Mass Portals" }, { "name": "Stop Reapers" }]
             };
         }
+        else if (!this.system.services && this.system.actions)
+            this.system.services = this.system.actions;
+        else if (!this.system.services)
+            this.system.services = [];
     }
     ControllerDetailPage.prototype.serviceStart = function (service) {
         if (service.type != null && service.type != undefined) {
@@ -1502,27 +1506,27 @@ var ControllerDetailPage = /** @class */ (function () {
         catch (error) {
             if (this.alertCtrl != null) {
                 if (this.model.isAndroid()) {
-                    var alert_1 = this.alertCtrl.create({
+                    var alert = this.alertCtrl.create({
                         title: "SSH not available",
                         subTitle: "An unknown error makes SSH Cordova plugin unavailable.\nPlease use external " +
                             "clients like JuiceSSH, ConnectBot or Terminus.",
                         cssClass: "alertText",
                         buttons: ["OK"]
                     });
-                    alert_1.present();
+                    alert.present();
                 }
                 else if (this.model.isiOS()) {
-                    var alert_2 = this.alertCtrl.create({
+                    var alert = this.alertCtrl.create({
                         title: "SSH not available (yet)",
                         subTitle: "The SSH plugin is not available in iOS for now. Our intelligent (and extraordinary good looking) " +
                             "team is already working on it, but for now please use external ssh clients like Terminus or iTerminal",
                         cssClass: "alertText",
                         buttons: ["OK"]
                     });
-                    alert_2.present();
+                    alert.present();
                 }
                 else {
-                    var alert_3 = this.alertCtrl.create({
+                    var alert = this.alertCtrl.create({
                         title: "SSH not available (yet)",
                         subTitle: "The SSH client is in this version of HappyFaceMobile (probably the browser version) not available. " +
                             "Due to the limitations of portable web apps (pwa), this feature might not be included at all. Please use your " +
@@ -1530,7 +1534,7 @@ var ControllerDetailPage = /** @class */ (function () {
                         cssClass: "alertText",
                         buttons: ["OK"]
                     });
-                    alert_3.present();
+                    alert.present();
                 }
             }
             else {
@@ -1560,9 +1564,10 @@ var ControllerDetailPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>{{system.name}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n    <h2>{{system.text}}</h2>\n\n    <!--<ion-card>\n        <ion-item-divider>Power</ion-item-divider>\n        <ion-item text-wrap>\n            <button ion-button class="button-outline">Cold reboot</button>\n            <button ion-button class="button-outline">Warm reboot</button>\n        </ion-item>\n    </ion-card>-->\n    <ion-card>\n        <ion-card-header style="background: #e2e4e2">Services</ion-card-header>\n        <ion-card-content>\n            <br>\n            <span *ngFor="let service of system.services" padding-left="15px" text-wrap>\n                <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n            </span>\n        </ion-card-content>\n    </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */], __WEBPACK_IMPORTED_MODULE_4__data_DataModel__["a" /* DataModel */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__data_DataModel__["a" /* DataModel */]) === "function" && _d || Object])
     ], ControllerDetailPage);
     return ControllerDetailPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=controller-detail.js.map
@@ -2851,27 +2856,27 @@ var Terminal2 = /** @class */ (function () {
             catch (error) {
                 if (this.alertCtrl != null) {
                     if (this.model.isAndroid()) {
-                        var alert = this.alertCtrl.create({
+                        var alert_1 = this.alertCtrl.create({
                             title: "SSH not available",
                             subTitle: "An unknown error makes SSH Cordova plugin unavailable.\nPlease use external " +
                                 "clients like JuiceSSH, ConnectBot or Terminus.",
                             cssClass: "alertText",
                             buttons: ["OK"]
                         });
-                        alert.present();
+                        alert_1.present();
                     }
                     else if (this.model.isiOS()) {
-                        var alert = this.alertCtrl.create({
+                        var alert_2 = this.alertCtrl.create({
                             title: "SSH not available (yet)",
                             subTitle: "The SSH plugin is not available in iOS for now. Our intelligent (and extraordinary good looking) " +
                                 "team is already working on it, but for now please use external ssh clients like Terminus or iTerminal",
                             cssClass: "alertText",
                             buttons: ["OK"]
                         });
-                        alert.present();
+                        alert_2.present();
                     }
                     else {
-                        var alert = this.alertCtrl.create({
+                        var alert_3 = this.alertCtrl.create({
                             title: "SSH not available (yet)",
                             subTitle: "The SSH client is in this version of HappyFaceMobile (probably the browser version) not available. " +
                                 "Due to the limitations of portable web apps (pwa), this feature might not be included at all. Please use your " +
@@ -2879,7 +2884,7 @@ var Terminal2 = /** @class */ (function () {
                             cssClass: "alertText",
                             buttons: ["OK"]
                         });
-                        alert.present();
+                        alert_3.present();
                     }
                 }
                 else {

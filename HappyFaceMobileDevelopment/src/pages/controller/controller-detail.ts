@@ -16,6 +16,7 @@ export class ControllerDetailPage {
 
     constructor(navParams: NavParams, private alertCtrl: AlertController, private modalCtrl: ModalController, private model: DataModel) {
         this.system = navParams.get('system');
+
         if (this.system == null || this.system == undefined) {
             this.system = {
                 'name': "Galaxy Controller", "text": "Restart Galaxy: Milky Way?",
@@ -23,6 +24,9 @@ export class ControllerDetailPage {
                 "services": [{"name": "Restart Mass Portals"}, {"name": "Stop Reapers"}]
             };
         }
+        else if(!this.system.services && this.system.actions)
+            this.system.services = this.system.actions;
+        else if(!this.system.services) this.system.services = [];
     }
 
     serviceStart(service: any) {
