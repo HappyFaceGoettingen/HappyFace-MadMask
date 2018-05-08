@@ -136,7 +136,7 @@ export class AnalyzerPage2
     setPlots(plot_name:string){
         for (let i:number = 0; i < this.model.monitoringUrls.length; i++) {
             for (let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++){
-                if (this.model.monitoringUrls[i].urls[j].file_prefix == null){
+                if ((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (! this.model.monitoringUrls[i].urls[j].capture)){
                     //logger.debug("nop");
                     console.log("DEBUG: nop");
                 } else {
@@ -172,7 +172,7 @@ export class AnalyzerPage2
             this.viewers[1].src.monitoringURLs[i].name = this.model.monitoringUrls[i].name;
             for(let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++)
             {
-                if(this.model.monitoringUrls[i].urls[j].file_prefix == null) console.log("DEBUG: 1nop");
+                if((this.model.monitoringUrls[i].urls[j].file_prefix == null) || (! this.model.monitoringUrls[i].urls[j].capture)) console.log("DEBUG: 1nop");
                 else {
                     this.viewers[0].src.monitoringURLs[i].urls[j].plot = this.model.monitoringUrls[i].urls[j].plot_analysis;
                     this.viewers[0].src.monitoringURLs[i].urls[j].name = this.model.monitoringUrls[i].urls[j].name;
