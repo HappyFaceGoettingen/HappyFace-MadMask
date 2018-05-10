@@ -17,4 +17,6 @@ done
 if [ -e $ANDROID_HOME/build-tools/android-4.4W ] && [ ! -e $ANDROID_HOME/build-tools/20 ]; then
     echo "Making [$ANDROID_HOME/build-tools/20] ..."
     rsync -avlogp $ANDROID_HOME/build-tools/android-4.4W $ANDROID_HOME/build-tools/20
+    echo "Making [$ANDROID_HOME/build-tools/20.0.0] ..."
+    rsync -avlogp $ANDROID_HOME/build-tools/android-4.4W $ANDROID_HOME/build-tools/20.0.0
 fi

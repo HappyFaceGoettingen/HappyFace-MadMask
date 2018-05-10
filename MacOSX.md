@@ -9,30 +9,56 @@
 
 
 ## Opening SSH server
+
 * In Mac: [Apple Icon] --> System Preference --> Sharing --> Enable 'Remote Login'
+* SSh port forwarding (10.0.2.2 is a VM host/gantry node)
 
+      $ remote_host=10.0.2.2   ## For a VM
+      $ reverse_port=10000
+      $ ssh -R $reverse_port:localhost:22 $remote_host
+      
 
-### SSh port forwarding (10.0.2.2 is a VM host/gantry node)
-     $ remote_host=10.0.2.2   ## For a VM
-     $ ssh -R 10000:localhost:22 $remote_host
+## Installing Nodejs, NPM, Cordova and Ionic (by using [Homebrew](https://treehouse.github.io/installation-guides/mac/homebrew))
 
+* Homebrew and Nodejs
 
-## Installing NPM and Nodejs (https://treehouse.github.io/installation-guides/mac/homebrew)
-### Homebrew and Nodejs
-     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-     $ brew	update
-     $ brew install node
-
+      $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      $ brew	update
+      $ brew install node
+      
      
-### Cordova and Ionic
-     $ sudo npm install -g cordova@8.0.0
-     $ sudo npm install -g ionic@3.20.0
+* Cordova and Ionic
+
+      $ sudo npm install -g cordova@8.0.0
+      $ sudo npm install -g ionic@3.20.0
 
 
-## Insttalling XCode Ver. 9.2
-      ## Extract Xcode_9.2.xip --> 'Xcode.app' is created
+## Installing XCode Ver. 9.2
+
+* Extract Xcode_9.2.xip --> 'Xcode.app' is created
+
       $ sudo mv Xcode.app /Library
       $ sudo chown -R root:wheel /Library/Xcode.app
       $ sudo xcode-select -s /Library/Xcode.app/Contents/Developer
+      
+* Execute Xcode at once, accept the license and install some required packages
 
 
+# A builder script in MacOSX
+
+In MacOSX, the following builder command can install the above-mentioned packages/platforms in OSX and can build an iOS application.
+
+     $ ./build-apk4ios.sh 
+     ./build-apk4ios.sh [options]
+     
+     * Preparation
+     -I:  install Ionic
+     -X:  install Xcode
+     
+     * Application Build
+     -i:  set a build ID [default: tmp.sxxXwiCX6p]
+     -B:  set a branch name [defaut: gen_development]
+     -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/tmp.sxxXwiCX6p]
+     
+     * Example
+     ./build-apk4ios.sh -b

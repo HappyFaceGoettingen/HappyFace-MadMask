@@ -27,9 +27,8 @@ run.bcp.summary <- function(detection.method="bcp.detect.one.exceeds", bcp.thres
 ## This function is called by monitoring.urls.caller() in run.bcp.summary function
 bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.outputs, max.system.outputs){
 
-  ## Init
+  ## Applying level, score and systems to a level template file
   if (present.level != level.name){
-    ## Applying level, score and systems to a level template file
     change.template.json(combined.threshold)
 
     ## Init
@@ -65,21 +64,21 @@ bcp.detect.one.exceeds <- function(bcp.threshold, combined.threshold, max.url.ou
   ##  (combined.score == max bcp score)
   if (latest.bcp.pp > combined.score) combined.score <<- latest.bcp.pp
   
-  ## Status changed --> Making lists and changing a summary template
+  ## Status changed --> Making lists and will change a summary template at the beginning of this function
   if (latest.bcp.pp >= bcp.threshold) {
     all.url.names <<- unique(append(all.url.names, url.name))
     all.system.names <<- unique(append(all.system.names, systems))
 
-    if((length(url.names) < max.url.outputs))
+    if (length(url.names) < max.url.outputs)
       url.names <<- unique(append(url.names, url.name))
     
-    if((length(system.names) < max.system.outputs))
+    if (length(system.names) < max.system.outputs)
       system.names <<- unique(append(system.names, systems))
   }
 }
 
 
-
+## This function is finally called by run.bcp.summary(). Changing the reserved variables such as __URLS__, __LEVEL__ and so on.
 change.template.json <- function(combined.threshold){
 
   summary.template <<- str.concat(output.dir, "/", present.level, ".json")

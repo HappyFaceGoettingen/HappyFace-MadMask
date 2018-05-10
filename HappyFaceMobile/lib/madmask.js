@@ -84,10 +84,11 @@ function run_build_command(platform, cordova_ver, sdk_bin, apks, apk_dir) {
   // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
   var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
                   + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
-                  + "if ! which " + platform + "; then"
-                  + " echo '[" + platform + "] command does not exist';"
+                  + "if ! which " + sdk_bin + "; then"
+                  + " echo '[" + sdk_bin + "] command does not exist';"
                   + "else"
                   + " test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
+                  + " chmod 1777 " + apk_dir + ";"
                   + " ionic cordova platform remove " + platform + ";"
                   + " ionic cordova platform add " + platform + "@" + cordova_ver + ";"
                   + " rm -v www/data;"
@@ -292,7 +293,7 @@ module.exports = {
 	process.exit(-1);
       }
       var log_dir = config.data_dir + "/log";
-      if (!fileExists(log_dir)) my_exec("mkdir -v " + log_dir);
+      if (!fileExists(log_dir)) my_exec("mkdir -v " + log_dir + "; chmod 1777 " + log_dir);
 
       // Collecting log files into log_dir
       var logs = readJSON(dir + "/" + logsJson);
@@ -300,7 +301,11 @@ module.exports = {
         var src_logfile = logs[i].file;
         var dst_logfile = log_dir + "/" + src_logfile.split('/').reverse()[0];
         var commandLine = "tail -n " + LIMIT_LOG_LINES + " " + src_logfile + " > " + dst_logfile;
-        if (! fileExists(src_logfile)) {
+        if ( src_logfile.startsWith("http://") || src_logfile.startsWith("https://") ) {
+          console.log("LogCollector: [" + src_logfile + "] is a URL");
+        } else if (! src_logfile.startsWith("/")) {
+          console.log("LogCollector: [" + src_logfile + "] is not an absolute path");
+        } else if (! fileExists(src_logfile)) {
           console.log("LogCollector: [" + src_logfile + "] does not exist");
         } else {
           my_exec(commandLine);
@@ -316,7 +321,7 @@ module.exports = {
       console.log("Building Mobile Application for [" + platform + "] ...");
 
       // Creating apk dir in data dir (typically data/site_name/application/*apk)
-      var apk_dir = config.data_dir + "/application";
+      var apk_dir = config.data_dir + "/application/" + platform;
 
       if ((platform != 'android') && (platform != 'ios')) {
 	console.error("Error: Platform [" + platform + "] is not defined!");
