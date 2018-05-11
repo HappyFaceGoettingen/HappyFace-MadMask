@@ -94,7 +94,7 @@ install_xcode(){
     ## Installing XCode 9.2
     XCODE_APP=Xcode.app
 
-    ## Set as the default xcodebuild tool
+    ## Extract Xcode XIP file
     [ ! -e $HOME/Downloads/$XCODE_APP ] && extract_xip
 
     ## Set as the default xcodebuild tool
@@ -150,15 +150,11 @@ prepare_ios_env(){
     cp -v $local_repo/HappyFaceMobile/madmask $tmp_dir
 
     pushd $tmp_dir
-
     echo "Installing [sync-request] ..."
     npm install sync-request@2.0.1
     echo "Rebuilding [node-sass] ..."
     npm rebuild node-sass --force
     popd
-
-
-
 }
 
 

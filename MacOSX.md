@@ -1,12 +1,12 @@
 # Building iPhone Application
 ## Build environments
- * OS:  OSX Sierra Ver. 10.12.6
- * XCode:  Ver. 9.2
- * Nodejs:  Ver. 10.0.0
- * NPM:  Ver. 5.6.0
- * Cordova:  Ver. 8.0.0
- * Ionic:  Ver. 3.20.0
- * cordova-ios plugin: Ver. 4.5.4
+ * OS:  OSX Sierra ver. 10.12.6
+ * XCode:  ver. 9.2
+ * Nodejs:  ver. 10.0.0
+ * NPM:  ver. 5.6.0
+ * Cordova:  ver. 8.0.0
+ * Ionic:  ver. 3.20.0
+ * cordova-ios plugin: ver. 4.5.4
 
 
 ## Opening SSH server
@@ -34,7 +34,7 @@
       $ sudo npm install -g ionic@3.20.0
 
 
-## Installing XCode Ver. 9.2
+## Installing XCode ver. 9.2
 
 * Extract Xcode_9.2.xip --> 'Xcode.app' is created
 
@@ -54,12 +54,16 @@ In Mac OSX, the following builder command can install the above-mentioned packag
        * Preparation
        -I:  install Ionic
        -X:  install Xcode
+       -U:  Update this script (/usr/bin/build-apk4ios.sh)
+      
+       * Git location
+       -R:  set a git repo [default: https://github.com/HappyFaceGoettingen/HappyFace-MadMask]
+       -B:  set a branch name [defaut: gen_development]
       
        * Application Build
-       -i:  set a build ID [default: 20180510-231852]
-       -B:  set a branch name [defaut: gen_development]
-       -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/ios/gen_development.20180510-231852]
+       -i:  set a build ID [default: 20180511-093337]
+       -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/ios/gen_development.20180511-093337]
       
        * Example
-       ./build-apk4ios.sh -b
+       ./build-apk4ios.sh -B master -b
       

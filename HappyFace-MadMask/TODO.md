@@ -94,7 +94,9 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
  * Apple ID --> Done
  * Collect testers --> Doing
  * ssh connection + ssh server in OSX --> Done
- * Automatic iOS builder in madmask --> DOING
+ * Automatic iOS builder in madmask --> DONE
+ * Automatic build with Macbook Pro (implementing it in mad-gantry) --> Doing
+
 
 ## Change item names in JSON files
    * config.json:   "port" --> "ionic_port", added "version", "web_port", "mobile_port"
@@ -103,6 +105,7 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
    * systems.json:   "services" --> "actions" => Done
    * monitoring-urls.json:   Remove 'capture' completely. When file.prefix is null, then not capture => Done
    * summary.json:   Added new attributes "systems" and "urls" ==> Done
+
 
 ## HappyFace Instance
    * Allowing CORS:   DOING
