@@ -337,7 +337,7 @@ module.exports = {
 
       if (platform == 'ios') {
         var apks = "platforms/ios/build/outputs/apk/*.apk";
-        commandLine = run_build_command(platform, "4.5.4", "xcode", apks, apk_dir);
+        commandLine = run_build_command(platform, "4.5.4", "xcodebuild", apks, apk_dir);
       }
 
       // Building

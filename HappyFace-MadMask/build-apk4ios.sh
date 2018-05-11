@@ -112,7 +112,7 @@ install_xcode(){
 
 update_script(){
     local url=https://raw.githubusercontent.com/HappyFaceGoettingen/HappyFace-MadMask/${GIT_BRANCH}/HappyFace-MadMask/build-apk4ios.sh
-    curl -fsSL $url -o /usr/bin/$(basename $url) && chmod 755 /usr/bin/$(basename $url)
+    curl -fsSL $url -o /usr/local/bin/$(basename $url) && chmod 755 /usr/local/bin/$(basename $url)
 }
 
 
@@ -134,7 +134,7 @@ build_iphone_app(){
     prepare_ios_env
 
     ## Calling madmask builder
-    $tmp_dir/madmask -b ios
+    /usr/local/bin/node $tmp_dir/madmask -b ios
     return $?
 }
 
