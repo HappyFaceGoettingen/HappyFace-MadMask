@@ -46,19 +46,19 @@
 
 # A builder script in MacOSX
 
-In MacOSX, the following builder command can install the above-mentioned packages/platforms in OSX and can build an iOS application.
+In Mac OSX, the following builder command can install the above-mentioned packages/platforms and can build an iPhone application.
 
-     $ ./build-apk4ios.sh 
-     ./build-apk4ios.sh [options]
-     
-     * Preparation
-     -I:  install Ionic
-     -X:  install Xcode
-     
-     * Application Build
-     -i:  set a build ID [default: tmp.sxxXwiCX6p]
-     -B:  set a branch name [defaut: gen_development]
-     -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/tmp.sxxXwiCX6p]
-     
-     * Example
-     ./build-apk4ios.sh -b
+       $ ./build-apk4ios.sh [options]
+      
+       * Preparation
+       -I:  install Ionic
+       -X:  install Xcode
+      
+       * Application Build
+       -i:  set a build ID [default: 20180510-231852]
+       -B:  set a branch name [defaut: gen_development]
+       -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/ios/gen_development.20180510-231852]
+      
+       * Example
+       ./build-apk4ios.sh -b
+      

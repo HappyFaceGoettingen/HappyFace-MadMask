@@ -2,7 +2,9 @@
 
 TMP_DIR=/tmp/HappyFace-MadMask4iOS
 [ ! -e $TMP_DIR ] && mkdir -pv $TMP_DIR && chmod 1777 $TMP_DIR
-BUILD_ID=$(basename $(mktemp -u))
+[ ! -e $TMP_DIR/ios ] && mkdir -pv $TMP_DIR/ios && chmod 1777 $TMP_DIR/ios
+BUILD_ID=$(date -u +%Y%m%d-%H%M%S)
+
 
 ## Git location
 GIT_REPO=https://github.com/HappyFaceGoettingen/HappyFace-MadMask
@@ -14,14 +16,18 @@ usage="$0 [options]
  * Preparation
  -I:  install Ionic
  -X:  install Xcode
+ -U:  Update this script (/usr/bin/$(basename $0))
+
+ * Git location
+ -R:  set a git repo [default: $GIT_REPO]
+ -B:  set a branch name [defaut: $GIT_BRANCH]
 
  * Application Build
  -i:  set a build ID [default: $BUILD_ID]
- -B:  set a branch name [defaut: $GIT_BRANCH]
- -b:  build iPhone App in a tmp dir [$TMP_DIR/$BUILD_ID]
+ -b:  build iPhone App in a tmp dir [$TMP_DIR/ios/${GIT_BRANCH}.${BUILD_ID}]
 
  * Example
- $0 -b
+ $0 -B master -b
 
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch> 
@@ -104,54 +110,69 @@ install_xcode(){
 }
 
 
+update_script(){
+    local url=https://raw.githubusercontent.com/HappyFaceGoettingen/HappyFace-MadMask/${GIT_BRANCH}/HappyFace-MadMask/build-apk4ios.sh
+    curl -fsSL $url -o /usr/bin/$(basename $url) && chmod 755 /usr/bin/$(basename $url)
+}
+
+
 build_iphone_app(){
-    local tmp_dir=$TMP_DIR/$BUILD_ID
+    local local_repo=$TMP_DIR/$(basename $GIT_REPO).$GIT_BRANCH
+    local tmp_dir=$TMP_DIR/ios/${GIT_BRANCH}.${BUILD_ID}
 
-    echo "Cloning [$(basename $GIT_REPO)] - [$GIT_BRANCH] into [$tmp_dir] ..."
-    git clone $GIT_REPO -b $GIT_BRANCH $tmp_dir
-
-    [ ! -e $tmp_dir ] && echo "[$tmp_dir] does not exist" && return 1
-    echo "Entering [$tmp_dir] ..."
-    cd $tmp_dir
+    if [ ! -e "$local_repo" ]; then 
+	echo "Cloning [$(basename $GIT_REPO)] - [$GIT_BRANCH] into [$local_repo] ..."
+	git clone $GIT_REPO -b $GIT_BRANCH $local_repo
+	[ ! -e $local_repo ] && echo "[$local_repo] does not exist" && return 1
+    else
+	pushd $local_repo
+	git pull origin $GIT_BRANCH
+	popd
+    fi
 
     ## Prepare devel env for MacOSX
-    ./HappyFace-MadMask/build-apk4ios.sh -i $BUILD_ID -p
+    prepare_ios_env
 
     ## Calling madmask builder
-    ./HappyFaceMobile4iOS/madmask -b ios
+    $tmp_dir/madmask -b ios
     return $?
 }
 
 
 ## Internal command for building devel env
 prepare_ios_env(){
-    local tmp_dir=$TMP_DIR/$BUILD_ID
     echo "Preparing env in [$tmp_dir] ..."
-    cd $tmp_dir
-    cp -r HappyFaceMobileDevelopment HappyFaceMobile4iOS
-    cp -r HappyFaceMobile/lib HappyFaceMobile4iOS
-    cp -v HappyFaceMobile/madmask HappyFaceMobile4iOS
-    cp -r HappyFaceMobile/sites HappyFaceMobile4iOS
-    rsync -avlp --delete HappyFaceMobile/resources HappyFaceMobile4iOS
+    rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
+    rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
+    rsync -alp --delete $local_repo/HappyFaceMobile/lib $tmp_dir
+    rsync -alp --delete $local_repo/HappyFaceMobile/sites $tmp_dir
+
+    pushd $tmp_dir
+    npm install sync-request@2.0.1
+    popd
+
+    cp -v $local_repo/HappyFaceMobile/madmask $tmp_dir
+
 }
 
 
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "IXi:B:pbphv" op
+while getopts "IXUi:R:B:bphv" op
   do
   case $op in
       I) install_ionic
 	  ;;
       X) install_xcode
 	  ;;
+      U) update_script
+	  ;;
       i) BUILD_ID="$OPTARG"
 	  ;;
-      B) GIT_BRANCH="$OPTARG"
+      R) GIT_REPO="$OPTARG"
 	  ;;
-      p) prepare_ios_env
-	  exit 0
+      B) GIT_BRANCH="$OPTARG"
 	  ;;
       b) build_iphone_app
 	  exit $?
