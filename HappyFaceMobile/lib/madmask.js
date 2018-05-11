@@ -82,19 +82,19 @@ function run_madanalyzer(dir, config, action) {
 
 function run_build_command(platform, cordova_ver, sdk_bin, apks, apk_dir) {
   // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
-  var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
+  var commandLine = "ls " +  apk_dir + "/*.ap? &> /dev/null && rm -v " + apk_dir + "/*.ap?;"
                   + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
                   + "if ! which " + sdk_bin + "; then"
-                  + " echo '[" + sdk_bin + "] command does not exist';"
+                  + "  echo '[" + sdk_bin + "] command does not exist';"
                   + "else"
-                  + " test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
-                  + " chmod 1777 " + apk_dir + ";"
-                  + " ionic cordova platform remove " + platform + ";"
-                  + " ionic cordova platform add " + platform + "@" + cordova_ver + ";"
-                  + " rm -v www/data;"
-                  + " ionic cordova build " + platform + " && ionic cordova build " + platform + " --prod --release;"
-                  + " ln -vs ../data www/data;"
-                        + " cp -v " + apks + " " + apk_dir + ";"
+                  + "  test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
+                  + "  chmod 1777 " + apk_dir + ";"
+                  + "  ionic cordova platform remove " + platform + ";"
+                  + "  ionic cordova platform add " + platform + "@" + cordova_ver + ";"
+                  + "  rm -v www/data;"
+                  + "  ionic cordova build " + platform + " && ionic cordova build " + platform + " --prod --release;"
+                  + "  ln -vs ../data www/data;"
+                  + "  cp -v " + apks + " " + apk_dir + ";"
                   + "fi";
 
   return commandLine;
@@ -336,7 +336,7 @@ module.exports = {
       }
 
       if (platform == 'ios') {
-        var apks = "platforms/ios/build/outputs/apk/*.apk";
+        var apks = "platforms/ios/build/emulator/*.app";
         commandLine = run_build_command(platform, "4.5.4", "xcodebuild", apks, apk_dir);
       }
 

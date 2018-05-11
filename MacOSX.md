@@ -6,6 +6,7 @@
  * NPM:  Ver. 5.6.0
  * Cordova:  Ver. 8.0.0
  * Ionic:  Ver. 3.20.0
+ * cordova-ios plugin: Ver. 4.5.4
 
 
 ## Opening SSH server
