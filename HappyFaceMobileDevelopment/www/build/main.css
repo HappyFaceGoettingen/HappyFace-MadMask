@@ -36544,6 +36544,10 @@ ion-navbar.toolbar {
   font-style: italic;
 }
 
+.alertText {
+  color: #000000;
+}
+
 ::-moz-selection {
   background: #FF5E99;
 }

@@ -1,18 +1,21 @@
+import {BaseWidget} from "../BaseWidget.js";
 
 export function cls()
 {
     return ClockWidget;
 }
 
-export function template()
+export class ClockWidget extends BaseWidget
 {
-    return "<ion-content>\n" +
+    width = 200;
+    height = 170;
+
+    static template = "<ion-content>\n" +
         "    <span style=\"font-weight: bold\">{{time}}</span>\n" +
         "</ion-content>";
-}
 
-export class ClockWidget
-{
+    name = "Clock";
+
     time:string = "";
 
     hours:number = 0;
@@ -21,11 +24,17 @@ export class ClockWidget
 
     constructor()
     {
-        setInterval(this.setTime(), 500);
+        super();
+    }
+
+    onInit()
+    {
+        this.baseWindow.setTimeout(this.setTime(), 12000);
     }
 
     setTime()
     {
+        console.log("New Time");
         let d:Date = new Date();
         this.hours = d.getHours();
         this.minutes = d.getMinutes();

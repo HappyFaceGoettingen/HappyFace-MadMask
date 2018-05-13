@@ -1,8 +1,17 @@
 
 export abstract class BaseWidget
 {
-    title:string;
-    content:string;
+    static style:string = null;
+    static template:string = null;
+    static templateUrl:string = null;
+
+    name:string = null;
+    abstract width:number = null;
+    abstract height:number = null;
+
+    baseWindow = null;
+
+    onInit() {}
 
     protected constructor() {}
 

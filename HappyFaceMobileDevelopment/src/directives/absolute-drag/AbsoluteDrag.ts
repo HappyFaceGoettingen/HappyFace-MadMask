@@ -1,5 +1,4 @@
-import {Directive, Input, ElementRef, Renderer, Renderer2} from '@angular/core';
-import { DomController } from 'ionic-angular';
+import {Directive, Input, ElementRef, Renderer} from '@angular/core';
 
 @Directive({
     selector: '[absolute-drag]'
@@ -13,7 +12,7 @@ export class AbsoluteDrag {
     private lastY:number = 0;
     private isDragging:boolean = false;
 
-    constructor(public element: ElementRef, public renderer: Renderer, public domCtrl: DomController, private r2: Renderer2) {}
+    constructor(public element: ElementRef, public renderer: Renderer) {}
 
     ngAfterViewInit()
     {

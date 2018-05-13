@@ -31,6 +31,7 @@ import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {HomePage, WidgetCard} from "../pages/home/home";
 import {HttpClientModule} from "@angular/common/http";
 import {AbsoluteDrag} from "../directives/absolute-drag/AbsoluteDrag";
+import {Position} from "../directives/position/Position";
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import {AbsoluteDrag} from "../directives/absolute-drag/AbsoluteDrag";
         HFModulesPage,
         HomePage,
         AbsoluteDrag,
-        WidgetCard
+        Position,
+        WidgetCard,
     ],
     imports: [
         BrowserModule,
