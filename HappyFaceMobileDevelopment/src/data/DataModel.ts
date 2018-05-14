@@ -14,7 +14,7 @@ export class DataModel
     // { return this._instance || (this._instance = new DataModel()); };
 
     // Debug switches
-    static FORCE_SELFHOST_DEBUG:boolean = true;
+    static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
     static FORCE_CLIENT_FUNCTION:boolean = false;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
@@ -434,6 +434,16 @@ export class DataModel
     // Initial configuration
     findInitialConfiguration()
     {
+        let req:XMLHttpRequest = new XMLHttpRequest();
+        req.onreadystatechange = () => {
+            if(req.readyState == 4)
+            {
+                console.log("STATUS CODE: " + req.status);
+            }
+        };
+        req.open("GET", "www.google.de", false);
+        req.send();
+
         // App running on a webserver:
         if(this.isHost())
         {
@@ -458,9 +468,10 @@ export class DataModel
         }
 
         this.storage.get('instance').then((value) => {
-            if(!(value == null || value == undefined))
+            if(value !== null && value !== undefined)
                 this.currentlyActive = value;
             console.log("Saved Instance is: " + JSON.stringify(value));
+            console.log("Running instance: " + JSON.stringify(this.currentlyActive));
             this.reload();
         });
     }

@@ -3,6 +3,7 @@ import {DataModel} from "../../../data/DataModel";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {InstancesComponent} from "./instances.component";
 import {InstancesBrowserComponent} from "./instances.browser.component";
+import {AboutPage} from "../about/about";
 
 @Component({
     selector: 'page-config',
@@ -56,6 +57,11 @@ export class ConfigPage
     chooseInstance()
     {
         this.navCtrl.push(InstancesComponent, {"viewCtrl": this.navParams.get('viewCtrl')});
+    }
+
+    about()
+    {
+        this.navCtrl.push(AboutPage, {"viewCtrl" : this.navParams.get('viewCtrl')});
     }
 
     closeModal()

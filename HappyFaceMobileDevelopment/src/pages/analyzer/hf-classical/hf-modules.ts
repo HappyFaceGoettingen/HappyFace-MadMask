@@ -63,27 +63,30 @@ export class HFModulesPage
     moduleSelected(mod:any)
     {
         //window.open(mod.link, "_blank");
-        this.plt.ready().then(() => {
-            let options: InAppBrowserOptions = {
-                location: 'yes',//Or 'no'
-                hidden: 'no', //Or  'yes'
-                clearcache: 'yes',
-                clearsessioncache: 'yes',
-                zoom: 'yes',//Android only ,shows browser zoom controls
-                hardwareback: 'yes',
-                mediaPlaybackRequiresUserAction: 'no',
-                shouldPauseOnSuspend: 'no', //Android only
-                closebuttoncaption: 'Close', //iOS only
-                disallowoverscroll: 'no', //iOS only
-                toolbar: 'yes', //iOS only
-                enableViewportScale: 'no', //iOS only
-                allowInlineMediaPlayback: 'no',//iOS only
-                presentationstyle: 'pagesheet',//iOS only
-                fullscreen: 'yes',//Windows only
-            };
+        if(!this.iab || !this.plt) window.open(mod.link, "_blank");
+        else {
+            this.plt.ready().then(() => {
+                let options: InAppBrowserOptions = {
+                    location: 'yes',//Or 'no'
+                    hidden: 'no', //Or  'yes'
+                    clearcache: 'yes',
+                    clearsessioncache: 'yes',
+                    zoom: 'yes',//Android only ,shows browser zoom controls
+                    hardwareback: 'yes',
+                    mediaPlaybackRequiresUserAction: 'no',
+                    shouldPauseOnSuspend: 'no', //Android only
+                    closebuttoncaption: 'Close', //iOS only
+                    disallowoverscroll: 'no', //iOS only
+                    toolbar: 'yes', //iOS only
+                    enableViewportScale: 'no', //iOS only
+                    allowInlineMediaPlayback: 'no',//iOS only
+                    presentationstyle: 'pagesheet',//iOS only
+                    fullscreen: 'yes',//Windows only
+                };
 
-            const browser = this.iab.create(mod.link, "_blank", options);
-            //browser.on("loadstop").subscribe(()=> console.log("loadstop"));
-        });
+                const browser = this.iab.create(mod.link, "_blank", options);
+                //browser.on("loadstop").subscribe(()=> console.log("loadstop"));
+            });
+        }
     }
 }

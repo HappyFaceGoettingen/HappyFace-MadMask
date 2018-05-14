@@ -53,7 +53,7 @@ export class ControllerDetailPage {
             if (this.alertCtrl != null) {
                 if (this.model.isAndroid()) {
                     let alert = this.alertCtrl.create({
-                        title: "SSH not available",
+                        title: "Secure connection not available",
                         subTitle: "An unknown error makes SSH Cordova plugin unavailable.\nPlease use external " +
                         "clients like JuiceSSH, ConnectBot or Terminus.",
                         cssClass: "alertText",
@@ -63,7 +63,7 @@ export class ControllerDetailPage {
                 }
                 else if (this.model.isiOS()) {
                     let alert = this.alertCtrl.create({
-                        title: "SSH not available (yet)",
+                        title: "Secure connection not available",
                         subTitle: "The SSH plugin is not available in iOS for now. Our intelligent (and extraordinary good looking) " +
                         "team is already working on it, but for now please use external ssh clients like Terminus or iTerminal",
                         cssClass: "alertText",
@@ -73,7 +73,7 @@ export class ControllerDetailPage {
                 }
                 else {
                     let alert = this.alertCtrl.create({
-                        title: "SSH not available (yet)",
+                        title: "Secure connection not available",
                         subTitle: "The SSH client is in this version of HappyFaceMobile (probably the browser version) not available. " +
                         "Due to the limitations of portable web apps (pwa), this feature might not be included at all. Please use your " +
                         "linux terminal to connect.",

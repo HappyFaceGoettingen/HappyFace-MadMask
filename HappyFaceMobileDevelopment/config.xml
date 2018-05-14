@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="2.1.2">
+<widget id="io.ionic.starter" version="2.1.3">
     <name>HappyFace2</name>
     <description>HappyFace Meta-Monitoring System</description>
     <author email="timon.vogt@stud.uni-goettingen.de" href="https://www.uni-goettingen.de/de/550181.html">Timon Vogt and Gen Kawamura</author>
@@ -81,9 +81,10 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="latest" />
-    <plugin name="cordova-plugin-sshclient" spec="https://github.com/R3nPi2/cordova-plugin-sshclient.git" />
     <plugin name="cordova-plugin-tts" spec="^0.2.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <plugin name="cordova-plugin-sshclient" spec="https://github.com/R3nPi2/cordova-plugin-sshclient.git" />
+    <allow-navigation href="http://192.168.0.248:8100" />
+    <allow-navigation href="http://10.8.8.31:8100" />
+    <engine name="ios" spec="4.5.4" />
 </widget>

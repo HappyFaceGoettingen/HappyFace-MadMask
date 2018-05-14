@@ -36544,6 +36544,18 @@ ion-navbar.toolbar {
   font-style: italic;
 }
 
+.logos {
+  display: inline-block;
+}
+
+.app-logo {
+  padding-left: 10px;
+}
+
+.uni-logo {
+  margin-left: 20px;
+}
+
 ::-moz-selection {
   background: #FF5E99;
 }

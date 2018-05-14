@@ -139,6 +139,7 @@ export class Terminal2
 
     processNewCommand_(e)
     {
+        console.log("KEYCODE: " + e.keyCode);
         if(e.keyCode == 9) // TAB
             e.preventDefault();
         else if(e.keyCode == 13) // ENTER
