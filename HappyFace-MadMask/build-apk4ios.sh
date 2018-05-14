@@ -7,7 +7,8 @@ BUILD_ID=$(date -u +%Y%m%d-%H%M%S)
 
 
 ## Git location
-GIT_REPO=https://github.com/HappyFaceGoettingen/HappyFace-MadMask
+GIT_DIR=HappyFaceGoettingen/HappyFace-MadMask
+GIT_REPO=https://github.com/$GIT_DIR
 GIT_BRANCH=gen_development
 
 ## Usage
@@ -111,7 +112,7 @@ install_xcode(){
 
 
 update_script(){
-    local url=https://raw.githubusercontent.com/HappyFaceGoettingen/HappyFace-MadMask/${GIT_BRANCH}/HappyFace-MadMask/build-apk4ios.sh
+    local url=https://raw.githubusercontent.com/${GIT_DIR}/${GIT_BRANCH}/HappyFace-MadMask/build-apk4ios.sh
     curl -fsSL $url -o /usr/local/bin/$(basename $url) && chmod 755 /usr/local/bin/$(basename $url)
 }
 

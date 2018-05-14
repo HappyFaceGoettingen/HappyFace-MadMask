@@ -29,6 +29,8 @@ import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {InstancesBrowserComponent} from "../pages/modals/config/instances.browser.component";
+import {AboutPage} from "../pages/modals/about/about";
+import {SpeechKit} from "@ionic-native/speechkit";
 
 @NgModule({
     declarations: [
@@ -47,6 +49,7 @@ import {InstancesBrowserComponent} from "../pages/modals/config/instances.browse
         ModalPage,
         InstancesComponent,
         InstancesBrowserComponent,
+        AboutPage,
         WorkingPage,
         ConnectionErrorPage,
         SSHTerminalPage,
@@ -76,6 +79,7 @@ import {InstancesBrowserComponent} from "../pages/modals/config/instances.browse
         ModalPage,
         InstancesComponent,
         InstancesBrowserComponent,
+        AboutPage,
         WorkingPage,
         ConnectionErrorPage,
         SSHTerminalPage,
@@ -89,6 +93,7 @@ import {InstancesBrowserComponent} from "../pages/modals/config/instances.browse
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
         InAppBrowser,
+        SpeechKit,
         ClassicalDataModel
     ]
 })

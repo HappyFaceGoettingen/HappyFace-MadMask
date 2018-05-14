@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>About</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="ios7-grey-bg" padding="10px">
+    <div class="logos">
+        <span class="app-logo" >                      <img height="60px" src="assets/img/iTunesArtwork@2x.png"/> </span>
+        <span class="uni-logo" ng-click="openSite()"> <img height="60px" src="assets/img/logoGoe.png"/> </span>
+    </div>
+
+    <br>
+    <div class="settings-explanation credits">
+        <div>
+            <b>HappyFace Meta-Monitoring-Tool</b><br>
+            <b>Mobile Application</b>, version {{versionCode}}
+        </div>
+
+        <br>
+        <div class="row" style="text-align: left;">
+            <div class="col col-top">Developed by</div>
+            <div class="col col-67">
+                Timon Vogt<br>
+                Dr. Gen Kawamura<br>
+                Prof. Dr. Arnulf Quadt<br>
+            </div>
+        </div>
+        <div class="row" style="text-align: left;">
+            <div class="col col-top">Coded by</div>
+            <div class="col col-67">
+                Timon Vogt<br>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="settings-explanation">
+        <b>Georg-August-Universität Göttingen</b><br>
+        Wilhelmsplatz 1<br>
+        37073 Göttingen<br>
+        Germany<br>
+        Tel. +49 551 39-0<br>
+        Fax +49 551 39-9612<br>
+        pressestelle@uni-goettingen.de
+    </div>
+    <br>
+    <div class="settings-explanation padding-top">
+        <b>Responsible for content:</b><br>
+        Prof. Dr. Arnulf Quadt<br>
+        II. Physikalisches Institut<br>
+        Friedrich-Hund-Platz 1<br>
+        37077 Göttingen<br>
+        Germany<br>
+        aquadt@uni-goettingen.de
+    </div>
+    <br>
+    <div class="padding-top padding-bottom settings-explanation">
+        Portions of the app are Apache 2.0 licensed.
+        <br>
+        Portions of the app are MIT licensed.
+        <br>
+        Some icons in this app are made by FreePik from <a href="www.flaticon.com">FlatIcon</a>
+
+    </div>
+</ion-content>

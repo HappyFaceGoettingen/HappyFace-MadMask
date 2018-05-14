@@ -12,7 +12,7 @@ import {DataModel} from "../../../data/DataModel";
 export class SSHTerminalPage
 {
     term:Terminal2 = null;
-    promt:string = "[usr@html5] #";
+    promt:string = "[usr@happy] #";
 
     constructor(private viewCtrl:ViewController, private alertCtrl: AlertController, private model:DataModel,
                 private modalCtrl: ModalController) { }

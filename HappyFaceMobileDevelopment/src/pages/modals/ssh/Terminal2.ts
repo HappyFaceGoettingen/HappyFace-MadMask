@@ -50,7 +50,7 @@ export class Terminal2
         }, false);*/
 
         //this.cmdLine_.addEventListener('click', this.inputTextClick_.bind(this), false);
-        this.cmdLine_.addEventListener('keypress', this.valueHandler.bind(this), false);
+        this.cmdLine_.addEventListener('keyup'  , this.valueHandler.bind(this), false);
         this.cmdLine_.addEventListener('keydown', this.backspaceHandler.bind(this), false);
         this.cmdLine_.addEventListener('keydown', this.historyHandler_.bind(this), false);
         this.cmdLine_.addEventListener('keydown', this.processNewCommand_.bind(this), false);
@@ -97,11 +97,12 @@ export class Terminal2
             }
         }*/
 
+
         if(!this.outlet)
         {
             if(e.key.length != null || e.key.length != undefined)
             {
-                if(e.key.length == 1) this.value = this.value + e.key;
+                this.value = this.value + e.target.value.charAt(e.target.value.length -1);
             }
             //console.log("KEY WAS: " + e.key + "  AND VALUE IS: " + this.value);
         }

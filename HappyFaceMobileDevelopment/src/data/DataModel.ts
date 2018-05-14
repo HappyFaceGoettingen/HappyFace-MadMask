@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
+import {SpeechKit} from "@ionic-native/speechkit";
 
 export var modelCounter:number = 0;
 
@@ -14,7 +15,7 @@ export class DataModel
     // { return this._instance || (this._instance = new DataModel()); };
 
     // Debug switches
-    static FORCE_SELFHOST_DEBUG:boolean = true;
+    static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
     static FORCE_CLIENT_FUNCTION:boolean = false;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
@@ -58,7 +59,7 @@ export class DataModel
 
     configuration   :ConfigurationObject = new ConfigurationObject();
 
-    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController) {
+    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController, private speechkit:SpeechKit) {
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
         this.findInitialConfiguration();
@@ -385,15 +386,28 @@ export class DataModel
             {
                 if((<any>window).tts != null || (<any>window).tts != undefined)
                 {
+                    console.log("USING window.tts");
                     (<any>window).tts.speak({
                         text: this.summary.text,
                         locale: "en-GB",
                         rate: 0.75
                     })
                 }
+                else if(this.speechkit)
+                {
+                    console.log("USING this.speechkit.tts");
+                    this.speechkit.tts(this.summary.text, "ENG-GBR")
+                        .then((msg) => console.log(msg), (err) => console.log(err));
+                }
                 else console.log("PLUGIN ERROR: TTS not found in window");
             }
             else {
+                try { new SpeechSynthesisUtterance(); }
+                catch(error) {
+                    console.log("SpeechSynthesisUtterance not found. No voiceout possible. NOTE: SpeechSynthesis is not available in Firefox on Android");
+                    return;
+                }
+                console.log("USING SpeechSynthesisUtterance");
                 let u = new SpeechSynthesisUtterance();
                 u.text = this.summary.text;
                 u.lang = 'en-GB';
@@ -401,6 +415,7 @@ export class DataModel
             }
         }
     }
+
 
     // Loop
     loopHandler:number = null;
@@ -434,6 +449,16 @@ export class DataModel
     // Initial configuration
     findInitialConfiguration()
     {
+        let req:XMLHttpRequest = new XMLHttpRequest();
+        req.onreadystatechange = () => {
+            if(req.readyState == 4)
+            {
+                console.log("STATUS CODE: " + req.status);
+            }
+        };
+        req.open("GET", "www.google.de", false);
+        req.send();
+
         // App running on a webserver:
         if(this.isHost())
         {
@@ -458,9 +483,10 @@ export class DataModel
         }
 
         this.storage.get('instance').then((value) => {
-            if(!(value == null || value == undefined))
+            if(value !== null && value !== undefined)
                 this.currentlyActive = value;
             console.log("Saved Instance is: " + JSON.stringify(value));
+            console.log("Running instance: " + JSON.stringify(this.currentlyActive));
             this.reload();
         });
     }
@@ -486,12 +512,12 @@ export class DataModel
 
     isAndroid()
     {
-        return this.plt.is('android');
+        return !this.isHost() && this.plt.is('android');
     }
 
     isiOS()
     {
-        return this.plt.is('ios');
+        return !this.isHost() && this.plt.is('ios');
     }
 
     /* Deprecated
