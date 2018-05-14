@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {NavParams, ViewController} from "ionic-angular";
+import {DataModel} from "../../../data/DataModel";
 
 @Component({
     selector: "about-page",
@@ -8,8 +9,17 @@ import {NavParams, ViewController} from "ionic-angular";
 
 export class AboutPage
 {
-    versionCode:string = "2.0.1";
-    constructor(private navParams:NavParams) {}
+    versionCode:string = "fetching version number ...";
+    constructor(private navParams:NavParams, private model:DataModel)
+    {
+        this.model.addLoadingFinishedCallback(this.loadingFinished.bind(this));
+        if(!this.model.isLoading()) this.loadingFinished();
+    }
+
+    loadingFinished()
+    {
+        this.versionCode = this.model.config.version;
+    }
 
     close()
     {
