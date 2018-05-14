@@ -2382,40 +2382,36 @@ var HFModulesPage = /** @class */ (function () {
     HFModulesPage.prototype.moduleSelected = function (mod) {
         var _this = this;
         //window.open(mod.link, "_blank");
-        if (!this.iab || !this.plt)
-            window.open(mod.link, "_blank");
-        else {
-            this.plt.ready().then(function () {
-                var options = {
-                    location: 'yes',
-                    hidden: 'no',
-                    clearcache: 'yes',
-                    clearsessioncache: 'yes',
-                    zoom: 'yes',
-                    hardwareback: 'yes',
-                    mediaPlaybackRequiresUserAction: 'no',
-                    shouldPauseOnSuspend: 'no',
-                    closebuttoncaption: 'Close',
-                    disallowoverscroll: 'no',
-                    toolbar: 'yes',
-                    enableViewportScale: 'no',
-                    allowInlineMediaPlayback: 'no',
-                    presentationstyle: 'pagesheet',
-                    fullscreen: 'yes',
-                };
-                var browser = _this.iab.create(mod.link, "_blank", options);
-                //browser.on("loadstop").subscribe(()=> console.log("loadstop"));
-            });
-        }
+        this.plt.ready().then(function () {
+            var options = {
+                location: 'yes',
+                hidden: 'no',
+                clearcache: 'yes',
+                clearsessioncache: 'yes',
+                zoom: 'yes',
+                hardwareback: 'yes',
+                mediaPlaybackRequiresUserAction: 'no',
+                shouldPauseOnSuspend: 'no',
+                closebuttoncaption: 'Close',
+                disallowoverscroll: 'no',
+                toolbar: 'yes',
+                enableViewportScale: 'no',
+                allowInlineMediaPlayback: 'no',
+                presentationstyle: 'pagesheet',
+                fullscreen: 'yes',
+            };
+            var browser = _this.iab.create(mod.link, "_blank", options);
+            //browser.on("loadstop").subscribe(()=> console.log("loadstop"));
+        });
     };
     HFModulesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "page-hf-modules",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-modules.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>\n\n            {{category.title}}\n\n        </ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="false"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <div text-center padding *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <div class="complete-overlay" padding *ngIf="outdated && !isLoading">\n\n        <h1 class="outdated">Outdated</h1>\n\n    </div>\n\n\n\n    <div class="no-modules" *ngIf="!modulesExisting"> No modules contained</div>\n\n\n\n    <ion-list *ngIf="modulesExisting">\n\n        <ng-container *ngFor="let module of category.module">\n\n            <ion-item *ngIf="module.title" (click)="moduleSelected(module)" style="padding: 0 !important">\n\n                <ion-thumbnail item-start style="min-width: 30px; min-height: 30px; width: 30px; height: 30px;">\n\n                    <img src="{{imgForModule(module)}}" style="width: 30px; height: 30px"/>\n\n                </ion-thumbnail>\n\n                <span padding-left text-wrap style="font-size: 20px" item-end>{{module.title}}</span>\n\n                <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>\n\n            </ion-item>\n\n        </ng-container>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\hf-classical\hf-modules.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* Platform */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ClassicalDataModel__["a" /* ClassicalDataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */],
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* Platform */]])
     ], HFModulesPage);
     return HFModulesPage;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=hf-modules.js.map
