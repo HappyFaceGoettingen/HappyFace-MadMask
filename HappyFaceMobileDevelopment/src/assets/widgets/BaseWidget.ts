@@ -9,7 +9,8 @@ export abstract class BaseWidget
     abstract width:number = null;
     abstract height:number = null;
 
-    baseWindow = null;
+    monitoringUrls:any = null;
+    summary:any = null;
 
     onInit() {}
 

@@ -69,6 +69,24 @@ export class CriticalUrlsWidget extends BaseWidget
         this.name = "Critical Urls";
         this.statusText = "Error";
         this.statusColor = "#FF0000";
+
+        /* Get images */
+        let img:string = "";
+        let title:string = "";
+        for(let i:number = 0; i < this.summary.urls.length(); i++)
+        {
+            for(let j:number = 0; j < this.monitoringUrls.length(); j++)
+            {
+                if(this.monitoringUrls[j].urls.indexOf(this.summary.urls[i]) > -1) {
+                    let pos:number = this.monitoringUrls[j].urls.indexOf(this.summary.urls[i]);
+                    img = this.monitoringUrls[j].urls[pos].link;
+                    title = this.monitoringUrls[j].urls[pos].name;
+                    console.log("IMG: " + img);
+                    this.imgList.push({src: img, title: title});
+                }
+            }
+        }
+        this.statusText = this.summary.level;
     }
 
     imgClicked(img:any)

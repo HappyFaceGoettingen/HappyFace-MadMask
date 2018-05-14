@@ -9,6 +9,7 @@ import {
 } from "@angular/core";
 import {AlertController, IonicPageModule} from "ionic-angular";
 import {BaseWidget} from "../../assets/widgets/BaseWidget";
+import {DataModel} from "../../data/DataModel";
 
 @Component({
     selector: "page-home",
@@ -33,12 +34,20 @@ export class HomePage
     @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
 
     constructor(private _compiler:Compiler, private _injector:Injector, private _m:NgModuleRef<any>,
-                private componentFactoryResolver: ComponentFactoryResolver, private alertCtrl:AlertController)
+                private componentFactoryResolver: ComponentFactoryResolver, private alertCtrl:AlertController,
+                private model:DataModel)
     {}
 
     ngOnInit()
     {
+        this.model.addLoadingStartedCallback(this.reloaded.bind(this));
+        if(!this.model.isLoading()) this.reloaded();
         this.reloadWidgets();
+    }
+
+    reloaded()
+    {
+
     }
 
     async reloadWidgets()
@@ -51,6 +60,13 @@ export class HomePage
                 console.log("MODULE: " + a);
                 await this.loadAndBuildWidget(a).then( (data:WidgetData) => { this.widgets.push(data); })
             }
+        }
+        for(let i:number = 0; i < this.widgets.length; i++)
+        {
+            let widget:WidgetData = this.widgets[i];
+            widget.baseWidget.monitoringUrls = this.model.monitoringUrls;
+            widget.baseWidget.summary = this.model.summary;
+            widget.baseWidget.onInit();
         }
     }
 
@@ -114,7 +130,8 @@ export class HomePage
 
             /* Add BaseWidget data */
             let baseWidget: BaseWidget = cmpRef.instance;
-            baseWidget.baseWindow = window;
+            baseWidget.monitoringUrls = this.model.monitoringUrls;
+            baseWidget.summary = this.model.summary;
 
             /* Init widget */
             baseWidget.onInit();
@@ -124,6 +141,7 @@ export class HomePage
             return {
                 cardRef: cardRef,
                 viewIndex: this.viewIndex,
+                baseWidget: baseWidget,
                 x: cardRef.instance.x,
                 y: cardRef.instance.y,
                 width: cardRef.instance.width,
@@ -235,7 +253,8 @@ export class HomePage
 
 export interface WidgetData
 {
-    cardRef:ComponentRef<WidgetCard>
+    cardRef:ComponentRef<WidgetCard>,
+    baseWidget:BaseWidget,
     viewIndex:number,
     x?:number; y?:number; width?:number; height?:number;
 }
@@ -248,7 +267,7 @@ export class TmpModule {}
     "       <ion-label no-padding>{{name}} </ion-label>" +
     "       <button class='closebutton' (click)='close()'><ion-icon name='close'></ion-icon></button>" +
     "    </div>" +
-    "    <ion-card-content no-padding>\n" +
+    "    <ion-card-content no-padding no-margin>\n" +
     "        <ng-container #card></ng-container>\n" +
     "    </ion-card-content>\n" +
     "</ion-card>\n",

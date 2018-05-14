@@ -281,7 +281,7 @@ export class DataModel
         const modal = this.modalCtrl.create(ConnectionErrorPage,
             {"host": this.currentlyActive.host, "port": this.currentlyActive.mobile_port, "errors" : this.errors});
         modal.onDidDismiss(data => {
-            if(data.retry) {
+            if(data && data.retry) {
                 this.currentlyActive.host = data.host;
                 this.currentlyActive.mobile_port = data.port;
                 this.reload();

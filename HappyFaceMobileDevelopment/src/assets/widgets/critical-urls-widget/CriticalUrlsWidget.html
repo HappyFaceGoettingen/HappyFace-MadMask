@@ -1,7 +1,6 @@
-<ion-header color="{{statusColor}}">
-    <ion-title>Status: {{statusText}}</ion-title>
-</ion-header>
-<ion-content>
+<ion-content no-margin>
+    <p style="font-weight: bold; font-size: 16pt;">Status: {{statusText}} </p>
+
     <ion-grid>
         <ion-row>
             <ion-col col-sm-4 *ngFor="let img of imgList">

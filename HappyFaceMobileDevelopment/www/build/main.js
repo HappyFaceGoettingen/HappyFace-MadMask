@@ -2158,6 +2158,7 @@ HFModulesPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return WidgetCard; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2169,13 +2170,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 let HomePage = class HomePage {
-    constructor(_compiler, _injector, _m, componentFactoryResolver, alertCtrl) {
+    constructor(_compiler, _injector, _m, componentFactoryResolver, alertCtrl, model) {
         this._compiler = _compiler;
         this._injector = _injector;
         this._m = _m;
         this.componentFactoryResolver = componentFactoryResolver;
         this.alertCtrl = alertCtrl;
+        this.model = model;
         this.widgets = [];
         this.widgetsSave = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
         this.components = [];
@@ -2189,7 +2192,12 @@ let HomePage = class HomePage {
         this.counter = 0;
     }
     ngOnInit() {
+        this.model.addLoadingStartedCallback(this.reloaded.bind(this));
+        if (!this.model.isLoading())
+            this.reloaded();
         this.reloadWidgets();
+    }
+    reloaded() {
     }
     async reloadWidgets() {
         for (let i = 0; i < this.widgetsSave.length; i++) {
@@ -2198,6 +2206,12 @@ let HomePage = class HomePage {
                 console.log("MODULE: " + a);
                 await this.loadAndBuildWidget(a).then((data) => { this.widgets.push(data); });
             }
+        }
+        for (let i = 0; i < this.widgets.length; i++) {
+            let widget = this.widgets[i];
+            widget.baseWidget.monitoringUrls = this.model.monitoringUrls;
+            widget.baseWidget.summary = this.model.summary;
+            widget.baseWidget.onInit();
         }
     }
     async loadAndBuildWidget(name) {
@@ -2223,6 +2237,7 @@ let HomePage = class HomePage {
                 declarations: [component],
                 imports: [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(component)]
             })(widgetModule);
+            const factories = await this._compiler.compileModuleAndAllComponentsAsync(module);
             const cardFactory = this.componentFactoryResolver.resolveComponentFactory(WidgetCard);
             const cardRef = cardFactory.create(this._injector);
             const cardView = cardRef.hostView;
@@ -2247,13 +2262,15 @@ let HomePage = class HomePage {
             cardRef.instance.card.insert(cmpRef.hostView, 0);
             /* Add BaseWidget data */
             let baseWidget = cmpRef.instance;
-            baseWidget.baseWindow = window;
+            baseWidget.monitoringUrls = this.model.monitoringUrls;
+            baseWidget.summary = this.model.summary;
             /* Init widget */
             baseWidget.onInit();
             console.log("Index: " + this.viewIndex + " X: " + cardRef.instance.x + " Y: " + cardRef.instance.y);
             return {
                 cardRef: cardRef,
                 viewIndex: this.viewIndex,
+                baseWidget: baseWidget,
                 x: cardRef.instance.x,
                 y: cardRef.instance.y,
                 width: cardRef.instance.width,
@@ -2341,9 +2358,9 @@ __decorate([
 ], HomePage.prototype, "vc", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n\n        <ion-buttons end>\n            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n        <!-- Headers --\n        <ion-card-header *ngIf="i.widget.title">\n            <div [innerHTML]="i.widget.title"></div>\n        </ion-card-header>\n\n        <!-- Content --\n        <ion-card-content *ngIf="i.widget.content">\n            <div [innerHTML]="i.widget.content"></div>\n        </ion-card-content>\n\n    </ion-card>-->\n\n    <ng-container #vc></ng-container>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
+        selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Widgets</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n\n\n        <!-- Headers --\n\n        <ion-card-header *ngIf="i.widget.title">\n\n            <div [innerHTML]="i.widget.title"></div>\n\n        </ion-card-header>\n\n\n\n        <!-- Content --\n\n        <ion-card-content *ngIf="i.widget.content">\n\n            <div [innerHTML]="i.widget.content"></div>\n\n        </ion-card-content>\n\n\n\n    </ion-card>-->\n\n\n\n    <ng-container #vc></ng-container>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */]) === "function" && _g || Object])
 ], HomePage);
 
 class TmpModule {
@@ -2371,7 +2388,7 @@ let WidgetCard = class WidgetCard {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('card', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _g || Object)
+    __metadata("design:type", typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _h || Object)
 ], WidgetCard.prototype, "card", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('cdire'),
@@ -2384,7 +2401,7 @@ WidgetCard = __decorate([
             "       <ion-label no-padding>{{name}} </ion-label>" +
             "       <button class='closebutton' (click)='close()'><ion-icon name='close'></ion-icon></button>" +
             "    </div>" +
-            "    <ion-card-content no-padding>\n" +
+            "    <ion-card-content no-padding no-margin>\n" +
             "        <ng-container #card></ng-container>\n" +
             "    </ion-card-content>\n" +
             "</ion-card>\n",
@@ -2394,7 +2411,7 @@ WidgetCard = __decorate([
     })
 ], WidgetCard);
 
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
