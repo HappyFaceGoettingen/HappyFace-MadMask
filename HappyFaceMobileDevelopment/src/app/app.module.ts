@@ -30,6 +30,7 @@ import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {InstancesBrowserComponent} from "../pages/modals/config/instances.browser.component";
 import {AboutPage} from "../pages/modals/about/about";
+import {SpeechKit} from "@ionic-native/speechkit";
 
 @NgModule({
     declarations: [
@@ -92,6 +93,7 @@ import {AboutPage} from "../pages/modals/about/about";
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
         InAppBrowser,
+        SpeechKit,
         ClassicalDataModel
     ]
 })

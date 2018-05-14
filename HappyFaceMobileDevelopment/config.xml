@@ -87,4 +87,8 @@
     <allow-navigation href="http://192.168.0.248:8100" />
     <allow-navigation href="http://10.8.8.31:8100" />
     <engine name="ios" spec="4.5.4" />
+    <plugin name="cordova-plugin-nuance-speechkit" spec="^1.0.14">
+        <variable name="URL" value="nmsps://NMDPTRIAL_niname408_googlemail_com20180514101447@sslsandbox-nmdp.nuancemobility.net:443" />
+        <variable name="APP_KEY" value="9344f5f436dd6b6262df512564d97f0dd6e7efef5d4fe8be8a5621dc71a1eb05e5e0f91bbd647d2043ce45a8a8c4b57eaba46d08f355c77dabe85a1c8945216f" />
+    </plugin>
 </widget>
