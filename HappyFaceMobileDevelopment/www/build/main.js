@@ -1221,7 +1221,7 @@ var InstancesBrowserComponent = /** @class */ (function () {
         viewCtrl.dismiss();
     };
     InstancesBrowserComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Settings</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list-header>\n\n        Choose Instance\n\n    </ion-list-header>\n\n\n\n    <div text-center *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n    <ion-list *ngIf="!isLoading">\n\n        <ng-container *ngFor="let inst of instances">\n\n            <button ion-item detail-none (click)="choose(inst)">\n\n                {{inst.name}}\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ng-container>\n\n        <ion-item *ngIf="instances.length == 0">\n\n            There are no subinstances here.\n\n        </ion-item>\n\n        <ion-item>\n\n            <button ion-item detail-none (click)="extSettings()">\n\n                Advanced Settings\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n    </ion-navbar>\n    <ion-navbar *ngIf="!isIOS">\n        <ion-title>Settings</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list-header>\n        Choose Instance\n    </ion-list-header>\n\n    <div text-center *ngIf="isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n    <ion-list *ngIf="!isLoading">\n        <ng-container *ngFor="let inst of instances">\n            <button ion-item detail-none (click)="choose(inst)">\n                {{inst.name}}\n                <div item-end text-center>\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n                </div>\n            </button>\n        </ng-container>\n        <ion-item *ngIf="instances.length == 0">\n            There are no subinstances here.\n        </ion-item>\n    </ion-list>\n    <ion-item>\n        <button ion-item detail-none (click)="extSettings()">\n            Advanced Settings\n            <div item-end text-center>\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n            </div>\n        </button>\n    </ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]])
     ], InstancesBrowserComponent);
@@ -1395,6 +1395,7 @@ var InstancesComponent = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1406,11 +1407,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var AboutPage = /** @class */ (function () {
-    function AboutPage(navParams) {
+    function AboutPage(navParams, model) {
         this.navParams = navParams;
-        this.versionCode = "2.0.1";
+        this.model = model;
+        this.versionCode = "fetching version number ...";
+        this.model.addLoadingFinishedCallback(this.loadingFinished.bind(this));
+        if (!this.model.isLoading())
+            this.loadingFinished();
     }
+    AboutPage.prototype.loadingFinished = function () {
+        this.versionCode = this.model.config.version;
+    };
     AboutPage.prototype.close = function () {
         var viewCtrl = this.navParams.get('viewCtrl');
         viewCtrl.dismiss();
@@ -1419,9 +1428,10 @@ var AboutPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "about-page",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\about\about.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>About</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="ios7-grey-bg" padding="10px">\n    <div class="logos">\n        <span class="app-logo" >                      <img height="60px" src="assets/img/iTunesArtwork@2x.png"/> </span>\n        <span class="uni-logo" ng-click="openSite()"> <img height="60px" src="assets/img/logoGoe.png"/> </span>\n    </div>\n\n    <br>\n    <div class="settings-explanation credits">\n        <div>\n            <b>HappyFace Meta-Monitoring-Tool</b><br>\n            <b>Mobile Application</b>, version {{versionCode}}\n        </div>\n\n        <br>\n        <div class="row" style="text-align: left;">\n            <div class="col col-top">Developed by</div>\n            <div class="col col-67">\n                Timon Vogt<br>\n                Dr. Gen Kawamura<br>\n                Prof. Dr. Arnulf Quadt<br>\n            </div>\n        </div>\n        <div class="row" style="text-align: left;">\n            <div class="col col-top">Coded by</div>\n            <div class="col col-67">\n                Timon Vogt<br>\n            </div>\n        </div>\n    </div>\n\n    <br>\n    <div class="settings-explanation">\n        <b>Georg-August-Universität Göttingen</b><br>\n        Wilhelmsplatz 1<br>\n        37073 Göttingen<br>\n        Germany<br>\n        Tel. +49 551 39-0<br>\n        Fax +49 551 39-9612<br>\n        pressestelle@uni-goettingen.de\n    </div>\n    <br>\n    <div class="settings-explanation padding-top">\n        <b>Responsible for content:</b><br>\n        Prof. Dr. Arnulf Quadt<br>\n        II. Physikalisches Institut<br>\n        Friedrich-Hund-Platz 1<br>\n        37077 Göttingen<br>\n        Germany<br>\n        aquadt@uni-goettingen.de\n    </div>\n    <br>\n    <div class="padding-top padding-bottom settings-explanation">\n        Portions of the app are Apache 2.0 licensed.\n        <br>\n        Portions of the app are MIT licensed.\n        <br>\n        Some icons in this app are made by FreePik from <a href="www.flaticon.com">FlatIcon</a>\n\n    </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\about\about.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */]) === "function" && _b || Object])
     ], AboutPage);
     return AboutPage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=about.js.map
