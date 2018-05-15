@@ -1,5 +1,5 @@
 [{
-    "name": "Critical Line",
+    "name": "Central Monitoring Systems at CERN",
     "text": "The most critical monitoring pages",
     "level": "Critical",
     "urls": [{
@@ -109,7 +109,7 @@
 
 
  {
-     "name": "Error Line",
+     "name": "Tier0 and National Clouds",
      "text": "Critical monitoring pages",
      "level": "Error",
      "urls": [{
@@ -413,7 +413,7 @@
 
 
  {
-     "name": "Warning Line",
+     "name": "ATLAS Distributed Job Management and Central Information Systems",
      "text": "Need to check them",
      "level": "Warning",
      "urls": [{
@@ -703,7 +703,7 @@
 
 
  {
-     "name": "Validation Line",
+     "name": "Ticket systems for Physics Tasks and Jobs",
      "text": "Physics Validation Tasks",
      "level": "Validation",
      "urls": [{
@@ -722,7 +722,7 @@
 
 
  {
-     "name": "Notification Line",
+     "name": "Online Report Systems and Wiki",
      "text": "Notification should be sent, when one is updated",
      "level": "Notification",
      "urls": [{
@@ -779,7 +779,7 @@
 
 
  {
-     "name": "HF Application",
+     "name": "HappyFace Builds",
      "text": "",
      "level": null,
      "urls": [{

@@ -29,9 +29,15 @@
    "mobile_port": "20100",
    "dir": "sites/ADC" 
 },{
-   "HFnet": "CMS KIT",
-   "host": "cms.kit.de",
+   "HFnet": "CMS KIT Tier-1",
+   "host": "happyface.ekp.kit.edu",
    "web_port": "80",
    "mobile_port": null,
-   "dir": null
+   "dir": "/HappyFace/gridka/category"
+},{
+   "HFnet": "CMS DESY-HH Tier-2",
+   "host": "www.iexp.uni-hamburg.de",
+   "web_port": "80",
+   "mobile_port": null,
+   "dir": "/groups/cms/tier2_monitoring/HappyFaceV2/trunk/webpage/index.php"
 }]
