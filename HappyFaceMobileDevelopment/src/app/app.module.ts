@@ -27,10 +27,15 @@ import {AnalyzerPage} from "../pages/analyzer/analyzer";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
-import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {InstancesBrowserComponent} from "../pages/modals/config/instances.browser.component";
 import {AboutPage} from "../pages/modals/about/about";
+import {HomePage, WidgetCard} from "../pages/home/home";
+import {AbsoluteDrag} from "../directives/absolute-drag/AbsoluteDrag";
+import {HomeDetailImagePage} from "../pages/home/home-detail-image";
+import {HttpClientModule} from "@angular/common/http";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {SpeechKit} from "@ionic-native/speechkit";
+import {Position} from "../directives/position/Position";
 
 @NgModule({
     declarations: [
@@ -55,10 +60,16 @@ import {SpeechKit} from "@ionic-native/speechkit";
         SSHTerminalPage,
         PassModal,
         HFCategoriesPage,
-        HFModulesPage
+        HFModulesPage,
+        HomePage,
+        AbsoluteDrag,
+        Position,
+        WidgetCard,
+        HomeDetailImagePage
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         IonicModule.forRoot(HappyFaceApp),
         IonicStorageModule.forRoot()
     ],
@@ -85,7 +96,10 @@ import {SpeechKit} from "@ionic-native/speechkit";
         SSHTerminalPage,
         PassModal,
         HFCategoriesPage,
-        HFModulesPage
+        HFModulesPage,
+        HomePage,
+        WidgetCard,
+        HomeDetailImagePage
     ],
     providers: [
         StatusBar,
@@ -94,7 +108,8 @@ import {SpeechKit} from "@ionic-native/speechkit";
         DataModel,
         InAppBrowser,
         SpeechKit,
-        ClassicalDataModel
+        ClassicalDataModel,
+        HttpClientModule
     ]
 })
 export class AppModule {}

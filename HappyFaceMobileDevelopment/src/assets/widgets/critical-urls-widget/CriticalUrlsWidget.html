@@ -1,0 +1,48 @@
+<style>
+    .card_temp {
+        width: 5em;
+        white-space: initial;
+        display: inline-grid;
+        word-wrap: break-spaces;
+    }
+
+    .horizontal-scroll {
+        height: 90%;
+        width: auto;
+        white-space: nowrap;
+        padding: 0;
+    }
+
+    .horizontal-content {
+        width: auto;
+    }
+</style>
+
+<ion-content class="temp_content">
+    <ion-card no-padding no-margin [ngStyle]="{'background-color': statusColor}">
+        <ion-card-header no-padding>
+            <p style="font-weight: bold; font-size: 16pt; padding-left: 5px">Status: {{statusText}} </p>
+        </ion-card-header>
+    </ion-card>
+    <ng-container *ngIf="imgList.length > 0">
+        <ion-scroll scrollX class="horizontal-scroll">
+            <div class="horizontal-content">
+                    <ion-col col-sm-4 *ngFor="let img of imgList" style="padding: 0">
+                        <div class="card_temp" (click)="imgClicked(img)" no-margin>
+                            <img src="{{img.src}}">
+                            <span style="font-size: 9px; width: 5em;">{{img.title}}</span>
+                        </div>
+                    </ion-col>
+            </div>
+        </ion-scroll>
+    </ng-container>
+    <ng-container *ngIf="imgList.length == 0">
+        <div style="position:relative; top:35%; transform: translateY(-50%)" padding-left="10px">
+            <div style="font-weight: bold; font-style: italic; font-size: 14pt; vertical-align: center">
+                Everything's cool.
+            </div>
+        </div>
+    </ng-container>
+</ion-content>
+
+

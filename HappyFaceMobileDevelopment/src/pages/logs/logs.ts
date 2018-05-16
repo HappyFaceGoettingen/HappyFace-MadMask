@@ -74,7 +74,7 @@ export class LogsPage
 
     logLoaded(log:string, statusCode:number)
     {
-        if(statusCode == 200) this.logText = log;
+        if(statusCode == 200) this.logText = log.replace(/\n/gm, "<br>");
         else this.logText = "ERROR: Log could not be loaded";
         this.isLoading = false;
     }
