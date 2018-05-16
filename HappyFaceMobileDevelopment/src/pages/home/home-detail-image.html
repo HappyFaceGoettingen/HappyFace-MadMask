@@ -1,0 +1,10 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title *ngIf="data != null">{{data.name}}</ion-title>
+        <ion-title *ngIf="data == null">Image</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <img *ngIf="data != null" style="margin-left: auto; margin-right:auto; max-width: 100%" src="{{data.image}}"/>
+</ion-content>

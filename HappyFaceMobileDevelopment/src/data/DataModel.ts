@@ -4,6 +4,7 @@ import {Storage} from "@ionic/storage";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SpeechKit} from "@ionic-native/speechkit";
 
+
 export var modelCounter:number = 0;
 
 @Injectable()
@@ -38,6 +39,7 @@ export class DataModel
     static meta_meta_json:string = "meta-meta.json";
     static summaryJson:string = "index/latest/summary.json";
     static analysisJson:string = "index/latest/analysis.json";
+
 
     // Data
     metaMetaSites:any;
@@ -449,17 +451,8 @@ export class DataModel
     // Initial configuration
     findInitialConfiguration()
     {
-        let req:XMLHttpRequest = new XMLHttpRequest();
-        req.onreadystatechange = () => {
-            if(req.readyState == 4)
-            {
-                console.log("STATUS CODE: " + req.status);
-            }
-        };
-        req.open("GET", "www.google.de", false);
-        req.send();
-
         // App running on a webserver:
+        console.log("SELFHOST: " + this.isHost() );
         if(this.isHost())
         {
             this.currentlyActive.host = window.location.hostname;
@@ -468,8 +461,9 @@ export class DataModel
             this.currentlyActive.dir = "sites/default";
 
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
-
-            //this.reload();
+            /*this.loadConfig();
+            this.currentlyActive.name = this.config.site_name;*/
+            this.reload();
         }
         // App running on a clients device
         else {
@@ -506,18 +500,18 @@ export class DataModel
     // NOTE: connect to host is most likely true for mobile applications and self hosted content is most likely true for browser applications
     isHost()
     {
-        return (!DataModel.FORCE_CLIENT_FUNCTION)
-            && (DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb'));
+        return (!DataModel.FORCE_CLIENT_FUNCTION) &&
+            (DataModel.FORCE_SELFHOST_DEBUG || this.plt.is('core') || this.plt.is('mobileweb'));
     }
 
     isAndroid()
     {
-        return !this.isHost() && this.plt.is('android');
+        return this.plt.is('android');
     }
 
     isiOS()
     {
-        return !this.isHost() && this.plt.is('ios');
+        return this.plt.is('ios');
     }
 
     /* Deprecated

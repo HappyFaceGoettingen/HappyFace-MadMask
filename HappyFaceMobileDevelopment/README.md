@@ -97,6 +97,8 @@ For example, <a href="http://141.5.108.29:20100">HappyFace Mobile: ADC</a></br>
 
 
  * Openssl client? + Definition of systems.json (or template generator) --> Done
+ 
+ * Started to work on a widget homepage ...
 
 
 ## RPM mobile apk builder (With Timon)

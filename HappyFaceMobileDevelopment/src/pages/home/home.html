@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Widgets</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <!--<ion-card *ngFor="let i of widgets">
+
+        <!-- Headers --
+        <ion-card-header *ngIf="i.widget.title">
+            <div [innerHTML]="i.widget.title"></div>
+        </ion-card-header>
+
+        <!-- Content --
+        <ion-card-content *ngIf="i.widget.content">
+            <div [innerHTML]="i.widget.content"></div>
+        </ion-card-content>
+
+    </ion-card>-->
+
+    <ng-container #vc></ng-container>
+
+</ion-content>

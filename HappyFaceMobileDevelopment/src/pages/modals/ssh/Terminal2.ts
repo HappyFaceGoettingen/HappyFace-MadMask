@@ -89,11 +89,15 @@ export class Terminal2
     valueHandler(e)
     {
         /* Deprecated
+        /* Deprecated
+        console.log("OUTLET: " + this.outlet + "  KEYCODE: " + e.key);
+
         if(!this.outlet)
         {
             if((e.keyCode > 31 && e.keyCode < 127) || (e.keyCode > 127 && e.keyCode < 255)) // Recognize only printable characters
             {
                 this.value = this.value + String.fromCharCode(e.keyCode);
+                console.log("NEW VALUE: " + this.value);
             }
         }*/
 
@@ -140,10 +144,12 @@ export class Terminal2
 
     processNewCommand_(e)
     {
+        console.log("KEYCODE: " + this.ssh);
         if(e.keyCode == 9) // TAB
             e.preventDefault();
         else if(e.keyCode == 13) // ENTER
         {
+            console.log("ENTER");
             // Save shell history.
             if (this.value) {
                 this.history_[this.history_.length] = this.value;
@@ -172,6 +178,7 @@ export class Terminal2
                 }
 
                 cmd = cmd.replace(/[^\x20-\x7F]/g, "");
+                console.log("CMD: " + this.value);
                 switch (cmd) {
                     case 'cat':
                         let url = args.join(' ');
