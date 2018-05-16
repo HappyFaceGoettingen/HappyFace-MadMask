@@ -486,7 +486,7 @@ export class InstanceObject
 
 export class ConfigurationObject
 {
-    private _automaticFetch:boolean = true;
+    private _automaticFetch:boolean = false;
     private _reloadInterval:number = 1;
     private _automaticRotation:boolean = false;
     private _detectOnlyChange:boolean = true;

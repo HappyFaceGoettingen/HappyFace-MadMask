@@ -43,21 +43,53 @@ var CriticalUrlsWidget = /** @class */ (function (_super) {
     __extends(CriticalUrlsWidget, _super);
     function CriticalUrlsWidget() {
         var _this = _super.call(this) || this;
-        _this.height = 170;
-        _this.width = 200;
+        _this.height = 250;
+        _this.width = 220;
         _this.imgList = [];
         _this.statusText = "";
         _this.statusColor = "";
         return _this;
     }
     CriticalUrlsWidget.prototype.onInit = function () {
-        this.imgList.push({ src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE" });
+        var _this = this;
+        /*this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});*/
         this.name = "Critical Urls";
         this.statusText = "Error";
         this.statusColor = "#FF0000";
+        /* Get images */
+        var img = "";
+        var title = "";
+        var image = "";
+        console.log("During init");
+        console.log(this.summary);
+        console.log(this.monitoringUrls);
+        console.log(this.config);
+        for (var j = 0; j < this.monitoringUrls.length; j++) {
+            this.monitoringUrls[j].urls.find(function (element) {
+                if (_this.summary.urls.indexOf(element.name) > -1) {
+                    img = element.thumbnail;
+                    title = element.name;
+                    image = element.image;
+                    console.log("IMG: " + img);
+                    _this.imgList.push({ src: img, title: title, image: image });
+                }
+            });
+        }
+        this.statusText = this.summary.level;
+        for (var i = 0; i < this.config.status.length; i++) {
+            if (this.config.status[i].name === this.statusText) {
+                this.statusColor = this.config.status[i].color;
+                this.statusColor = _super.prototype.getColor.call(this, this.statusColor);
+            }
+        }
     };
     CriticalUrlsWidget.prototype.imgClicked = function (img) {
         console.log(img.src);
+        this.openImageView({ name: img.title, image: img.image });
     };
     CriticalUrlsWidget.template = "<ion-content>\n" +
         "    <ion-grid>\n" +

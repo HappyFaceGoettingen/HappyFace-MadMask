@@ -586,7 +586,7 @@ let DataModel = DataModel_1 = class DataModel {
         console.log("ERROR initialized");
         const modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__["a" /* ConnectionErrorPage */], { "host": this.currentlyActive.host, "port": this.currentlyActive.mobile_port, "errors": this.errors });
         modal.onDidDismiss(data => {
-            if (data.retry) {
+            if (data && data.retry) {
                 this.currentlyActive.host = data.host;
                 this.currentlyActive.mobile_port = data.port;
                 this.reload();
@@ -1476,7 +1476,7 @@ ControllerDetailPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SSHTerminalPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Terminal2__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Terminal2__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_DataModel__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1642,7 +1642,7 @@ let LogsPage = class LogsPage {
     }
     logLoaded(log, statusCode) {
         if (statusCode == 200)
-            this.logText = log;
+            this.logText = log.replace(/\n/gm, "<br>");
         else
             this.logText = "ERROR: Log could not be loaded";
         this.isLoading = false;
@@ -1650,7 +1650,7 @@ let LogsPage = class LogsPage {
 };
 LogsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-logs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\logs\logs.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Logs Viewer</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-item no-padding>\n\n        <ion-label>Log:</ion-label>\n\n        <ion-select (ionChange)="logSelected($event)" interface="action-sheet" style="max-width: 85% !important;">\n\n            <ion-option *ngFor="let l of logs" [selected]="l == selectedLog" [value]="l">{{l.name}}</ion-option>\n\n        </ion-select>\n\n    </ion-item>\n\n\n\n    <div text-center padding [hidden]="!isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n\n\n    <div no-padding text-wrap [hidden]="isLoading">\n\n        <br/>\n\n        {{logText}}\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\logs\logs.html"*/
+        selector: 'page-logs',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\logs\logs.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Logs Viewer</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-item no-padding>\n        <ion-label>Log:</ion-label>\n        <ion-select (ionChange)="logSelected($event)" interface="action-sheet" style="max-width: 85% !important;">\n            <ion-option *ngFor="let l of logs" [selected]="l == selectedLog" [value]="l">{{l.name}}</ion-option>\n        </ion-select>\n    </ion-item>\n\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <div no-padding text-wrap [hidden]="isLoading">\n        <br/>\n        <div [innerHTML]="logText"></div>\n    </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\logs\logs.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]])
 ], LogsPage);
@@ -2159,6 +2159,7 @@ HFModulesPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_detail_image__ = __webpack_require__(219);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2171,14 +2172,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 let HomePage = class HomePage {
-    constructor(_compiler, _injector, _m, componentFactoryResolver, alertCtrl, model) {
+    constructor(_compiler, _injector, _m, componentFactoryResolver, alertCtrl, model, navCtrl) {
         this._compiler = _compiler;
         this._injector = _injector;
         this._m = _m;
         this.componentFactoryResolver = componentFactoryResolver;
         this.alertCtrl = alertCtrl;
         this.model = model;
+        this.navCtrl = navCtrl;
         this.widgets = [];
         this.widgetsSave = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
         this.components = [];
@@ -2192,12 +2195,12 @@ let HomePage = class HomePage {
         this.counter = 0;
     }
     ngOnInit() {
-        this.model.addLoadingStartedCallback(this.reloaded.bind(this));
-        if (!this.model.isLoading())
-            this.reloaded();
-        this.reloadWidgets();
+        this.model.addLoadingFinishedCallback(this.reloaded.bind(this));
     }
     reloaded() {
+        this.setLinks("latest");
+        this.clearWidgets();
+        this.reloadWidgets();
     }
     async reloadWidgets() {
         for (let i = 0; i < this.widgetsSave.length; i++) {
@@ -2206,12 +2209,6 @@ let HomePage = class HomePage {
                 console.log("MODULE: " + a);
                 await this.loadAndBuildWidget(a).then((data) => { this.widgets.push(data); });
             }
-        }
-        for (let i = 0; i < this.widgets.length; i++) {
-            let widget = this.widgets[i];
-            widget.baseWidget.monitoringUrls = this.model.monitoringUrls;
-            widget.baseWidget.summary = this.model.summary;
-            widget.baseWidget.onInit();
         }
     }
     async loadAndBuildWidget(name) {
@@ -2246,10 +2243,6 @@ let HomePage = class HomePage {
             this.vc.insert(cardView, this.viewIndex++);
             let dim = this.calcPositions(cmpRef.instance.width, cmpRef.instance.height);
             cardRef.instance.showHeaderOverlay = false;
-            /*cardRef.instance.x = this.columnIndex * width + this.columnIndex * this.viewSpacing;
-            cardRef.instance.y = this.lineIndex * 200 + this.lineIndex * this.viewSpacing;
-            cardRef.instance.width = width;
-            cardRef.instance.height = height;*/
             cardRef.instance.x = dim.x;
             cardRef.instance.y = dim.y;
             cardRef.instance.width = dim.width;
@@ -2264,7 +2257,9 @@ let HomePage = class HomePage {
             let baseWidget = cmpRef.instance;
             baseWidget.monitoringUrls = this.model.monitoringUrls;
             baseWidget.summary = this.model.summary;
+            baseWidget.openImageView = this.openImageView.bind(this);
             /* Init widget */
+            console.log(baseWidget.summary);
             baseWidget.onInit();
             console.log("Index: " + this.viewIndex + " X: " + cardRef.instance.x + " Y: " + cardRef.instance.y);
             return {
@@ -2279,8 +2274,17 @@ let HomePage = class HomePage {
         }
         catch (e) {
             this.showBuildErrorDialog(e.toString());
-            return null;
+            throw e;
+            //return null;
         }
+    }
+    clearWidgets() {
+        this.counter = 0;
+        this.viewIndex = 0;
+        for (let i = 0; i < this.widgets.length; i++) {
+            this.closeWidget(this.widgets[i].viewIndex);
+        }
+        this._compiler.clearCache();
     }
     closeWidget(index) {
         let ind = -1;
@@ -2291,12 +2295,10 @@ let HomePage = class HomePage {
             }
         if (ind > -1)
             this.widgets.splice(ind, 1);
-        console.log(this.widgets);
         for (let i = 0; i < this.widgets.length; i++) {
             this.widgets[i].cardRef.instance.viewIndex = i;
             this.widgets[i].viewIndex = i;
         }
-        console.log(this.widgets);
         this.reloadPositions();
     }
     reloadPositions() {
@@ -2331,7 +2333,7 @@ let HomePage = class HomePage {
             this.allX = 0;
             this.allY += this.maxHeight;
         }
-        const posX = this.allX + this.viewSpacing;
+        const posX = this.allX + (this.columnIndex != 0 ? this.viewSpacing : 0);
         const posY = this.allY + this.lineIndex * this.viewSpacing;
         this.allX = posX + width;
         this.maxHeight = height > this.maxHeight ? height : this.maxHeight;
@@ -2351,16 +2353,56 @@ let HomePage = class HomePage {
         });
         alert.present();
     }
+    openImageView(data) {
+        if (!data || !data.name || !data.image)
+            return;
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_detail_image__["a" /* HomeDetailImagePage */], { "data": data });
+    }
+    setLinks(datetime_dir) {
+        //let model:DataModel = DataModel.getInstance();
+        let remote_url = this.model.getRemoteURL();
+        let config = this.model.config;
+        let capture_dir = config.data_dir + "/capture";
+        let thumbnail_dir = config.data_dir + "/thumbnail";
+        let analysis_dir = config.data_dir + "/analysis";
+        if (this.model.configuration.get().enableMadVision) {
+            capture_dir = analysis_dir + "/madvision";
+            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
+        }
+        let plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
+        let plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
+        for (let i = 0; i < this.model.monitoringUrls.length; i++) {
+            for (let j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
+                if (this.model.monitoringUrls[i].urls[j].file_prefix == null) {
+                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + "img/not_captured.png";
+                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "img/not_captured.png";
+                }
+                else {
+                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.model.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
+                    this.model.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
+                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
+                }
+            }
+        }
+        //console.log(JSON.stringify(this.model.monitoringUrls));
+    }
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('vc', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
 ], HomePage.prototype, "vc", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Widgets</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n\n\n        <!-- Headers --\n\n        <ion-card-header *ngIf="i.widget.title">\n\n            <div [innerHTML]="i.widget.title"></div>\n\n        </ion-card-header>\n\n\n\n        <!-- Content --\n\n        <ion-card-content *ngIf="i.widget.content">\n\n            <div [innerHTML]="i.widget.content"></div>\n\n        </ion-card-content>\n\n\n\n    </ion-card>-->\n\n\n\n    <ng-container #vc></ng-container>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]])
 ], HomePage);
 
 class TmpModule {
@@ -2388,7 +2430,7 @@ let WidgetCard = class WidgetCard {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('card', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _h || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
 ], WidgetCard.prototype, "card", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('cdire'),
@@ -2407,11 +2449,11 @@ WidgetCard = __decorate([
             "</ion-card>\n",
         styles: ['.card { display: block; position: absolute; width: 200px; height: 170px }\n', '.card-content { height: 100%; width: 100% }',
             '.header-overlay { z-index: 20; font-weight: bold; top: 0; left: 0; position: inherit; width: 100%; height: 50px; background-color: #0a9dc7}',
-            '.label { padding-top: 5px; padding-left: 10px; display: inline-flex }', '.closebutton { position: absolute; right: 12px; top: 17px; background: transparent}'],
+            '.label { padding-top: 5px; padding-left: 10px; display: inline-flex }', '.closebutton { position: absolute; right: 12px; top: 17px; background: transparent}',
+            '.scroll-content { padding-left: 0 }'],
     })
 ], WidgetCard);
 
-var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -2420,9 +2462,46 @@ var _a, _b, _c, _d, _e, _f, _g, _h;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeDetailImagePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+let HomeDetailImagePage = class HomeDetailImagePage {
+    constructor(navParams) {
+        this.navParams = navParams;
+        this.data = this.navParams.get("data");
+        if (this.data == null || this.data == undefined)
+            this.data = null;
+    }
+};
+HomeDetailImagePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+        selector: "home-detail-image",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home-detail-image.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title *ngIf="data != null">{{data.name}}</ion-title>\n        <ion-title *ngIf="data == null">Image</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <img *ngIf="data != null" style="margin-left: auto; margin-right:auto; max-width: 100%" src="{{data.image}}"/>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home-detail-image.html"*/
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+], HomeDetailImagePage);
+
+//# sourceMappingURL=home-detail-image.js.map
+
+/***/ }),
+
+/***/ 220:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(241);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -2430,7 +2509,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 240:
+/***/ 241:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2440,11 +2519,11 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(291);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_analyzer_analyzer__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_analyzer_analyzer_detail__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_controller_controller__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_controller_controller_detail__ = __webpack_require__(209);
@@ -2465,15 +2544,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_modals_ssh_ssh_terminal__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_modals_ssh_pass_modal__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_home_home__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_common_http__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__directives_absolute_drag_AbsoluteDrag__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__directives_position_Position__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_common_http__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__directives_absolute_drag_AbsoluteDrag__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__directives_position_Position__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_home_home_detail_image__ = __webpack_require__(219);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -2537,6 +2618,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_31__directives_absolute_drag_AbsoluteDrag__["a" /* AbsoluteDrag */],
             __WEBPACK_IMPORTED_MODULE_32__directives_position_Position__["a" /* Position */],
             __WEBPACK_IMPORTED_MODULE_29__pages_home_home__["b" /* WidgetCard */],
+            __WEBPACK_IMPORTED_MODULE_33__pages_home_home_detail_image__["a" /* HomeDetailImagePage */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -2570,7 +2652,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_23__pages_analyzer_hf_classical_hf_categories__["a" /* HFCategoriesPage */],
             __WEBPACK_IMPORTED_MODULE_24__pages_analyzer_hf_classical_hf_modules__["a" /* HFModulesPage */],
             __WEBPACK_IMPORTED_MODULE_29__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_29__pages_home_home__["b" /* WidgetCard */]
+            __WEBPACK_IMPORTED_MODULE_29__pages_home_home__["b" /* WidgetCard */],
+            __WEBPACK_IMPORTED_MODULE_33__pages_home_home_detail_image__["a" /* HomeDetailImagePage */]
         ],
         providers: [
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
@@ -2587,7 +2670,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 290:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2632,11 +2715,11 @@ HappyFaceApp = __decorate([
 
 /***/ }),
 
-/***/ 294:
+/***/ 295:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SSH2_Wrapper__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SSH2_Wrapper__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pass_modal__ = __webpack_require__(211);
 
 
@@ -2956,7 +3039,7 @@ class Terminal2 {
 
 /***/ }),
 
-/***/ 295:
+/***/ 296:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3041,7 +3124,7 @@ class SSH2Wrapper {
 
 /***/ }),
 
-/***/ 296:
+/***/ 297:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3197,7 +3280,7 @@ AnalyzerPage = __decorate([
 
 /***/ }),
 
-/***/ 303:
+/***/ 304:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3268,7 +3351,7 @@ var AbsoluteDrag_1;
 
 /***/ }),
 
-/***/ 304:
+/***/ 305:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3331,5 +3414,5 @@ Position = __decorate([
 
 /***/ })
 
-},[219]);
+},[220]);
 //# sourceMappingURL=main.js.map

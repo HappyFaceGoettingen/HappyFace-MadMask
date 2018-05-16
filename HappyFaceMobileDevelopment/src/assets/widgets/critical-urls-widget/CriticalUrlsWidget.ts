@@ -50,8 +50,8 @@ export class CriticalUrlsWidget extends BaseWidget
 
     static templateUrl:string = "./assets/widgets/critical-urls-widget/CriticalUrlsWidget.html";
 
-    height:number = 170;
-    width:number = 200;
+    height:number = 250;
+    width:number = 220;
 
     imgList:any[] = [];
 
@@ -65,7 +65,11 @@ export class CriticalUrlsWidget extends BaseWidget
 
     onInit()
     {
+        /*this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
         this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
+        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});*/
         this.name = "Critical Urls";
         this.statusText = "Error";
         this.statusColor = "#FF0000";
@@ -73,24 +77,37 @@ export class CriticalUrlsWidget extends BaseWidget
         /* Get images */
         let img:string = "";
         let title:string = "";
-        for(let i:number = 0; i < this.summary.urls.length(); i++)
-        {
-            for(let j:number = 0; j < this.monitoringUrls.length(); j++)
-            {
-                if(this.monitoringUrls[j].urls.indexOf(this.summary.urls[i]) > -1) {
-                    let pos:number = this.monitoringUrls[j].urls.indexOf(this.summary.urls[i]);
-                    img = this.monitoringUrls[j].urls[pos].link;
-                    title = this.monitoringUrls[j].urls[pos].name;
+        let image:string = "";
+        console.log("During init");
+        console.log(this.summary);
+        console.log(this.monitoringUrls);
+        console.log(this.config);
+
+        for(let j:number = 0; j < this.monitoringUrls.length; j++) {
+            this.monitoringUrls[j].urls.find((element) => {
+                if (this.summary.urls.indexOf(element.name) > -1) {
+                    img = element.thumbnail;
+                    title = element.name;
+                    image = element.image;
                     console.log("IMG: " + img);
-                    this.imgList.push({src: img, title: title});
+                    this.imgList.push({src: img, title: title, image: image});
                 }
-            }
+            });
         }
         this.statusText = this.summary.level;
+
+        for (let i = 0; i < this.config.status.length; i++) {
+            if (this.config.status[i].name === this.statusText) {
+                this.statusColor = this.config.status[i].color;
+                this.statusColor = super.getColor(this.statusColor);
+            }
+        }
+
     }
 
     imgClicked(img:any)
     {
         console.log(img.src);
+        this.openImageView({ name: img.title, image: img.image })
     }
 }

@@ -32,6 +32,7 @@ import {HomePage, WidgetCard} from "../pages/home/home";
 import {HttpClientModule} from "@angular/common/http";
 import {AbsoluteDrag} from "../directives/absolute-drag/AbsoluteDrag";
 import {Position} from "../directives/position/Position";
+import {HomeDetailImagePage} from "../pages/home/home-detail-image";
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import {Position} from "../directives/position/Position";
         AbsoluteDrag,
         Position,
         WidgetCard,
+        HomeDetailImagePage
     ],
     imports: [
         BrowserModule,
@@ -91,7 +93,8 @@ import {Position} from "../directives/position/Position";
         HFCategoriesPage,
         HFModulesPage,
         HomePage,
-        WidgetCard
+        WidgetCard,
+        HomeDetailImagePage
     ],
     providers: [
         StatusBar,
