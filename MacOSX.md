@@ -67,3 +67,8 @@ In Mac OSX, the following builder command can install the above-mentioned packag
        * Example
        ./build-apk4ios.sh -B master -b
       
+
+# iTunes connect and Testflight
+* Open iTunes Connect https://itunesconnect.apple.com/
+* A video of TestFlight: https://itunespartner.apple.com/en/apps/overview#testflight-beta-testing
+
