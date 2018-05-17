@@ -3,6 +3,7 @@ import {DataModel} from "../../data/DataModel";
 import {AlertController, ModalController, NavController} from "ionic-angular";
 import {MonitoringWebviewPage} from "./monitoring-webview";
 import {ModalPage} from "../modals/config/modal";
+import {TourPage} from "../tour/tour";
 
 
 @Component({
@@ -139,5 +140,10 @@ export class MonitoringPage {
 
         //DataModel.getInstance().speakSummary();
         this.model.speakSummary();
+    }
+
+    openGuide()
+    {
+        this.navControl.push(TourPage, {});
     }
 }

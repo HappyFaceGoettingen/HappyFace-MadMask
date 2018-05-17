@@ -36,6 +36,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {SpeechKit} from "@ionic-native/speechkit";
 import {Position} from "../directives/position/Position";
+import {TourPage} from "../pages/tour/tour";
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import {Position} from "../directives/position/Position";
         HFCategoriesPage,
         HFModulesPage,
         HomePage,
+        TourPage,
         AbsoluteDrag,
         Position,
         WidgetCard,
@@ -98,6 +100,7 @@ import {Position} from "../directives/position/Position";
         HFCategoriesPage,
         HFModulesPage,
         HomePage,
+        TourPage,
         WidgetCard,
         HomeDetailImagePage
     ],
