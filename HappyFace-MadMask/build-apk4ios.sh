@@ -11,6 +11,7 @@ GIT_DIR=HappyFaceGoettingen/HappyFace-MadMask
 GIT_REPO=https://github.com/$GIT_DIR
 GIT_BRANCH=gen_development
 GIT_COMMIT=
+STABLE_GIT_COMMIT=36f66d208b8cc67ad4c5c5150085ff8300cf2228
 
 ## Usage
 usage="$0 [options]
@@ -25,6 +26,7 @@ usage="$0 [options]
  -R:  set a git repo [default: $GIT_REPO]
  -B:  set a branch name [defaut: $GIT_BRANCH]
  -C:  set a commit ID [default: $GIT_COMMIT]
+ -S:  set a stable commit [default: master - $STABLE_GIT_COMMIT]
 
  * Application Build
  -i:  set a build ID [default: $BUILD_ID]
@@ -32,6 +34,8 @@ usage="$0 [options]
 
  * Example
  $0 -B master -b
+
+ $0 -S -b
 
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch> 
@@ -197,7 +201,7 @@ open_ssh_reverse_port(){
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "IXUc:i:R:B:C:bphv" op
+while getopts "IXUc:i:R:B:C:Sbphv" op
   do
   case $op in
       I) install_ionic
@@ -215,6 +219,9 @@ while getopts "IXUc:i:R:B:C:bphv" op
       B) GIT_BRANCH="$OPTARG"
 	  ;;
       C) GIT_COMMIT="$OPTARG"
+	  ;;
+      S) GIT_BRANCH=master
+	  GIT_COMMIT="$STABLE_GIT_COMMIT"
 	  ;;
       b) build_iphone_app
 	  exit $?
