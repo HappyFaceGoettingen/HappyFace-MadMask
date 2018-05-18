@@ -91,7 +91,6 @@ ln -s ../data $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/data
 ln -s ../sites $RPM_BUILD_ROOT/%{_prefix}/MadMask/www/sites
 
 
-
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 

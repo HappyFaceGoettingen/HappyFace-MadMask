@@ -32,12 +32,11 @@ monitoring.urls.caller <- function(func=NULL, func.vars=list()){
 
     ## Loop over monitoring pages
     for (url.id in 1:length(urls)){
-      ## If capture == false, then call a function (default is 'capture == TRUE')
-      capture <- urls[[url.id]]$capture
-      if (!is.null(capture) && (!capture)) next
+      ## If file.prefix == false, then skipping ...
+      if (is.null(urls[[url.id]]$file_prefix)) next
 
       ## Running
-      file.prefix <<- urls[[url.id]]$file
+      file.prefix <<- urls[[url.id]]$file_prefix
       url.name <<- urls[[url.id]]$name
       systems <<- urls[[url.id]]$systems
       

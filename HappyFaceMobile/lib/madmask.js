@@ -82,18 +82,19 @@ function run_madanalyzer(dir, config, action) {
 
 function run_build_command(platform, cordova_ver, sdk_bin, apks, apk_dir) {
   // Removing a symlink (data) in 'www' dir, and building debug apk and release apk. Creating the symlink again
-  var commandLine =   "ls " +  apk_dir + "/*.apk &> /dev/null && rm -v " + apk_dir + "/*.apk;"
+  var commandLine = "ls " +  apk_dir + "/*.ap? &> /dev/null && rm -v " + apk_dir + "/*.ap?;"
                   + "ls " +  apks + " &> /dev/null && rm -v " + apks + ";"
-                  + "if ! which " + platform + "; then"
-                  + " echo '[" + platform + "] command does not exist';"
+                  + "if ! which " + sdk_bin + "; then"
+                  + "  echo '[" + sdk_bin + "] command does not exist';"
                   + "else"
-                  + " test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
-                  + " ionic cordova platform remove " + platform + ";"
-                  + " ionic cordova platform add " + platform + "@" + cordova_ver + ";"
-                  + " rm -v www/data;"
-                  + " ionic cordova build " + platform + " && ionic cordova build " + platform + " --prod --release;"
-                  + " ln -vs ../data www/data;"
-                        + " cp -v " + apks + " " + apk_dir + ";"
+                  + "  test -e " + apk_dir + " || mkdir -pv " + apk_dir + ";"
+                  + "  chmod 1777 " + apk_dir + ";"
+                  + "  ionic cordova platform remove " + platform + ";"
+                  + "  ionic cordova platform add " + platform + "@" + cordova_ver + ";"
+                  + "  rm -v www/data;"
+                  + "  ionic cordova build " + platform + " && ionic cordova build " + platform + " --prod --release;"
+                  + "  ln -vs ../data www/data;"
+                  + "  cp -v " + apks + " " + apk_dir + ";"
                   + "fi";
 
   return commandLine;
@@ -151,7 +152,7 @@ module.exports = {
       for (var i = 0; i < urls.length; i++){
         for (var j = 0; j < urls[i].urls.length; j++){
           var systems = urls[i].urls[j].systems;
-          if (systems.length != 0)
+          if ((systems) && (systems.length != 0))
             overall_systems = overall_systems.concat(systems);
         }
       }
@@ -176,7 +177,7 @@ module.exports = {
                  + "\t\"happyface\":  [],\n"
                  + "\t\"elasticsearch\":  [],\n"
                  + "\t\"forecast\":  ["+ forecast_default_items + "],\n"
-                 + "\t\"services\": [{\n"
+                 + "\t\"actions\": [{\n"
                  + "\t\t\"type\": \"email\",\n"
                  + "\t\t\"name\": \"E-mail\",\n"
                  + "\t\t\"text\": \"Send an email to [" + systems_item + "] administrator(s)\",\n"
@@ -190,12 +191,12 @@ module.exports = {
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Restart\",\n"
                  + "\t\t\"text\": \"Send a restart command to [" + systems_item + "] via ssh\",\n"
-                 + "\t\t\"command\": \"restart " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t\t\"command\": \"admin_command restart " + systems_item.replace(/ /g, "_") + "\"\n"
                  + "\t\t},{\n"
                  + "\t\t\"type\": \"ssh\",\n"
                  + "\t\t\"name\": \"Start\",\n"
                  + "\t\t\"text\": \"Send a start command to [" + systems_item + "] via ssh\",\n"
-                 + "\t\t\"command\": \"start " + systems_item.replace(/ /g, "_") + "\"\n"
+                 + "\t\t\"command\": \"admin_command start " + systems_item.replace(/ /g, "_") + "\"\n"
                  + "\t}]\n";
         if (k < unique_systems.length - 1) template = template + "  },{\n";
       }
@@ -292,7 +293,7 @@ module.exports = {
 	process.exit(-1);
       }
       var log_dir = config.data_dir + "/log";
-      if (!fileExists(log_dir)) my_exec("mkdir -v " + log_dir);
+      if (!fileExists(log_dir)) my_exec("mkdir -v " + log_dir + "; chmod 1777 " + log_dir);
 
       // Collecting log files into log_dir
       var logs = readJSON(dir + "/" + logsJson);
@@ -300,7 +301,11 @@ module.exports = {
         var src_logfile = logs[i].file;
         var dst_logfile = log_dir + "/" + src_logfile.split('/').reverse()[0];
         var commandLine = "tail -n " + LIMIT_LOG_LINES + " " + src_logfile + " > " + dst_logfile;
-        if (! fileExists(src_logfile)) {
+        if ( src_logfile.startsWith("http://") || src_logfile.startsWith("https://") ) {
+          console.log("LogCollector: [" + src_logfile + "] is a URL");
+        } else if (! src_logfile.startsWith("/")) {
+          console.log("LogCollector: [" + src_logfile + "] is not an absolute path");
+        } else if (! fileExists(src_logfile)) {
           console.log("LogCollector: [" + src_logfile + "] does not exist");
         } else {
           my_exec(commandLine);
@@ -316,7 +321,7 @@ module.exports = {
       console.log("Building Mobile Application for [" + platform + "] ...");
 
       // Creating apk dir in data dir (typically data/site_name/application/*apk)
-      var apk_dir = config.data_dir + "/application";
+      var apk_dir = config.data_dir + "/application/" + platform;
 
       if ((platform != 'android') && (platform != 'ios')) {
 	console.error("Error: Platform [" + platform + "] is not defined!");
@@ -331,8 +336,8 @@ module.exports = {
       }
 
       if (platform == 'ios') {
-        var apks = "platforms/ios/build/outputs/apk/*.apk";
-        commandLine = run_build_command(platform, "4.5.4", "xcode", apks, apk_dir);
+        var apks = "platforms/ios/build/emulator/*.app";
+        commandLine = run_build_command(platform, "4.5.4", "xcodebuild", apks, apk_dir);
       }
 
       // Building

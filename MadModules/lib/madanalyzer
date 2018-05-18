@@ -18,8 +18,8 @@ R_RUNTIME_LOADER="$MADANALYZER_LIB_DIR/rlib/runtime_loader.R"
 #------------------------------------------
 # Some system constrains
 #------------------------------------------
-## An acceptable load before starting analysis (=70%)
-SYSTEM_LOAD_MAX=70
+## An acceptable load before starting analysis (=75%)
+SYSTEM_LOAD_MAX=75
 
 ## Default Parallel runs (=25%)
 PARALLEL=$(($(nproc) / 4 ))

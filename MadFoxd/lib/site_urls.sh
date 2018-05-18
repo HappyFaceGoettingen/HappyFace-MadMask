@@ -3,7 +3,6 @@ LEVELS=()
 LINK_NAMES=()
 FILE_PREFIXES=()
 URLS=()
-CAPTURES=()
 FIREFOX_XDISPLAY_NAMES=()
 FIREFOX_COMMANDS=()
 
@@ -19,7 +18,6 @@ load_monitoringUrls_json(){
     LINK_NAMES=($(read_json ".[].urls[].name" $jsonfile))
     FILE_PREFIXES=($(read_json ".[].urls[].file_prefix" $jsonfile))
     URLS=($(read_json ".[].urls[].link" $jsonfile))
-    CAPTURES=($(read_json ".[].urls[].capture" $jsonfile))
     FIREFOX_XDISPLAY_NAMES=($(read_json ".[].urls[].xdisplay_name" $jsonfile))
     FIREFOX_COMMANDS=($(read_json ".[].urls[].firefox_command" $jsonfile))
 

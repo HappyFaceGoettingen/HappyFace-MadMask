@@ -5,7 +5,7 @@ read_json(){
     local json_query="$1"
     local json_file=$2
 
-    ## Don't know why we need 'cat' here, but stream output without cat is not displayed on a terminal
+    ## 'cat' is used to change colour to white text on a terminal view
     jq "$json_query" $json_file | sed "s/^\"\(.*\)\"$/\1/g" | cat
 }
 
