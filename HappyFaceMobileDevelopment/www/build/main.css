@@ -36792,6 +36792,10 @@ p b {
   color: #000000;
 }
 
+.alertText {
+  color: #000000;
+}
+
 img1_temp {
   border: 2px solid #BA55D3;
   border-radius: 50%;

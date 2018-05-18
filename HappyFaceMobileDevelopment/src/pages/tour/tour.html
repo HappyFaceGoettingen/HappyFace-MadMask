@@ -4,6 +4,7 @@
     </div>
 
     <ion-slides pager [hidden]="isLoading">
+        <!-- Guide slides -->
         <ion-slide *ngFor="let slide of slides">
             <ion-toolbar>
                 <ion-buttons end>
@@ -14,6 +15,7 @@
             <h2 class="slide-title" [innerHTML]="slide.title"></h2>
             <p [innerHTML]="slide.description"></p>
         </ion-slide>
+        <!-- Last slide -->
         <ion-slide>
             <ion-toolbar>
             </ion-toolbar>
