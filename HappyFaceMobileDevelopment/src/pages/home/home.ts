@@ -7,11 +7,12 @@ import {
     ViewChild,
     ViewContainerRef
 } from "@angular/core";
-import {AlertController, IonicPageModule, NavController} from "ionic-angular";
+import {AlertController, IonicPageModule, LoadingController, NavController} from "ionic-angular";
 import {BaseWidget} from "../../assets/widgets/BaseWidget";
 import {DataModel} from "../../data/DataModel";
-import {MonitoringPage} from "../monitoring/monitoring";
 import {HomeDetailImagePage} from "./home-detail-image";
+import {Position} from "../../directives/position/Position";
+import {Positions} from "./Positions";
 
 @Component({
     selector: "page-home",
@@ -24,22 +25,19 @@ export class HomePage
     widgetsSave:string[] = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
     components:any[] = [];
 
+    positions:Positions = new Positions();
+
     viewIndex   :number = 0;
-    columnIndex :number = 0;
-    lineIndex   :number = 0;
-    viewSpacing :number = 30;
-    allX        :number = 0;
-    allY        :number = 0;
-    maxHeight   :number = 0;
     counter     :number = 0;
 
     editMode    :boolean = false;
+    widgetListUrl:string = "http://localhost:8100/assets/widgets/list.json";
 
     @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
 
     constructor(private _compiler:Compiler, private _injector:Injector, private _m:NgModuleRef<any>,
                 private componentFactoryResolver: ComponentFactoryResolver, private alertCtrl:AlertController,
-                private model:DataModel, private navCtrl: NavController)
+                private model:DataModel, private navCtrl: NavController, private loadingCtrl:LoadingController)
     {}
 
     ngOnInit()
@@ -81,6 +79,8 @@ export class HomePage
     async loadAndBuildWidget(name:string):Promise<WidgetData>
     {
         try {
+            this._compiler.clearCache();
+
             const func = new Function("x", "return import(x)");
             const loader = await func(name);
 
@@ -117,7 +117,7 @@ export class HomePage
             const cmpRef = factory.create(this._injector, [], null, this._m);
             this.vc.insert(cardView, this.viewIndex++);
 
-            let dim = this.calcPositions(cmpRef.instance.width, cmpRef.instance.height);
+            let dim = this.positions.newPosition(cmpRef.instance.width, cmpRef.instance.height);
 
             cardRef.instance.showHeaderOverlay = false;
             cardRef.instance.x = dim.x;
@@ -148,6 +148,7 @@ export class HomePage
                 cardRef: cardRef,
                 viewIndex: this.viewIndex,
                 baseWidget: baseWidget,
+                path: name,
                 x: cardRef.instance.x,
                 y: cardRef.instance.y,
                 width: cardRef.instance.width,
@@ -182,7 +183,11 @@ export class HomePage
                 ind = i;
             }
 
-        if(ind > -1) this.widgets.splice(ind, 1);
+        if(ind > -1) {
+            this.widgets.splice(ind, 1);
+            this.viewIndex--;
+            this.counter--;
+        }
 
         for(let i:number = 0; i < this.widgets.length; i++)
         {
@@ -195,75 +200,15 @@ export class HomePage
 
     reloadPositions()
     {
-        this.columnIndex = 0;
-        this.lineIndex = 0;
-        this.allX = 0;
-        this.maxHeight = 0;
-        this.allY = 0;
-
-        for(let wid of this.widgets) {
-
-            const dim = this.calcPositions(wid.cardRef.instance.width, wid.cardRef.instance.height);
-            wid.cardRef.instance.x = dim.x;
-            wid.cardRef.instance.y = dim.y;
-        }
-
+        this.positions.reset();
         for(let wid of this.widgets)
         {
+            const dim = this.positions.newPosition(wid.cardRef.instance.width, wid.cardRef.instance.height);
+            wid.cardRef.instance.x = dim.x;
+            wid.cardRef.instance.y = dim.y;
+
             wid.cardRef.instance.updatePosition();
         }
-    }
-
-    calcPositions(instanceWidth:number, instanceHeight:number)
-    {
-        let width :number = instanceWidth;
-        let height:number = instanceHeight;
-
-        if(width > window.innerWidth)
-        {
-            const scale:number = window.innerWidth / width;
-            width = width * scale;
-            height = height * scale;
-        }
-
-        if(this.allX + this.columnIndex * this.viewSpacing + width > window.innerWidth)
-        {
-            this.lineIndex++;
-            this.columnIndex = 0;
-            this.allX = 0;
-            this.allY += this.maxHeight;
-        }
-
-        const posX  :number = this.allX + (this.columnIndex != 0 ? this.viewSpacing : 0);
-        const posY  :number = this.allY + this.lineIndex * this.viewSpacing;
-
-        this.allX           = posX + width;
-        this.maxHeight      = height > this.maxHeight ? height : this.maxHeight;
-
-        this.columnIndex++;
-
-        return { x: posX, y: posY, width: width, height: height }
-    }
-
-    findWidgets():Promise<any>
-    {
-        return new Promise<any>( (resolve, reject) => {
-            let req:XMLHttpRequest = new XMLHttpRequest();
-            req.onreadystatechange = () => {
-                if(req.readyState == 4) {
-                    if(req.status == 200) {
-                        this.widgetsSave = [];
-                        JSON.parse(req.response).widgets.filter((element) => {
-                            this.widgetsSave.push("/assets/widgets/" + element.src);
-                        });
-                        resolve();
-                    }
-                    else reject();
-                }
-            };
-            req.open("GET", this.model.getRemoteURL() + "assets/widgets/list.json", true);
-            req.send();
-        });
     }
 
     edit()
@@ -290,9 +235,70 @@ export class HomePage
         this.navCtrl.push(HomeDetailImagePage, {"data": data});
     }
 
-    addWidget()
+    addWidgetAlert()
     {
-        console.log("Add widget");
+        let widgetList:string[] = [];
+
+        let loading = this.loadingCtrl.create({
+            spinner: "dots",
+            content: "Searching for widgets"
+        });
+
+        loading.present();
+
+        let req:XMLHttpRequest = new XMLHttpRequest();
+        req.onreadystatechange = () => {
+            if(req.readyState == 4)
+            {
+                if(req.status == 200)
+                {
+                    JSON.parse(req.response).widgets.filter((element) => {
+                        widgetList.push("/assets/widgets/" + element.src);
+                    });
+                    loading.dismiss();
+
+
+                    console.log("Add widget");
+                    let alert = this.alertCtrl.create();
+                    alert.setTitle("Add Widget");
+                    alert.setSubTitle("Choose the widget you want to add:");
+                    alert.setCssClass('alertText');
+
+                    for(let s of widgetList)
+                    {
+                        /* Widgets already displaying cannot be choosen */
+                        let used:boolean = false;
+                        if(this.widgets.find((element) => element.path === s)) used = true;
+
+                        alert.addInput({
+                            type: 'checkbox',
+                            label: s.substring(s.lastIndexOf("/") +1, s.length),
+                            value: s,
+                            checked: used,
+                            disabled: used
+                        });
+                    }
+
+                    alert.addButton('Cancel');
+                    alert.addButton({
+                        text: 'Ok',
+                        handler: (data:Array<string>) => {
+                            /* Dont add widgets already displayed */
+                            data = data.filter((element) => this.widgets.find((e) => e.path === element) === undefined);
+                            for(let a of data)
+                                this.loadAndBuildWidget(a).then( (widgetData:WidgetData) => {
+                                    this.widgets.push(widgetData);
+                                    widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                                });
+                        }
+                    });
+
+                    alert.present();
+                }
+            }
+        };
+        req.open("GET", this.widgetListUrl, true);
+        req.send();
     }
 }
 
@@ -301,6 +307,7 @@ export interface WidgetData
     cardRef:ComponentRef<WidgetCard>,
     baseWidget:BaseWidget,
     viewIndex:number,
+    path:string,
     x?:number; y?:number; width?:number; height?:number;
 }
 
@@ -319,7 +326,7 @@ export class TmpModule {}
     styles: ['.card { display: block; position: absolute; width: 200px; height: 170px }\n', '.card-content { height: 100%; width: 100% }',
              '.header-overlay { z-index: 20; font-weight: bold; top: 0; left: 0; position: inherit; width: 100%; height: 50px; background-color: #0a9dc7}',
              '.label { padding-top: 5px; padding-left: 10px; display: inline-flex }', '.closebutton { position: absolute; right: 12px; top: 17px; background: transparent}',
-             '.scroll-content { padding-left: 0 }'],
+             'ion-content .scroll-content, .fixed-content { padding-left: 0; margin-bottom: 0px !important;}' ],
 })
 
 export class WidgetCard

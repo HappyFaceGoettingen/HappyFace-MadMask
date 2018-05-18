@@ -26,8 +26,8 @@
 
     <ng-container #vc></ng-container>
 
-    <ion-fab bottom right *ngIf="editMode && false">
-        <button ion-fab (click)="addWidget()"><ion-icon name="add"></ion-icon></button>
+    <ion-fab bottom right *ngIf="editMode">
+        <button ion-fab (click)="addWidgetAlert()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
 </ion-content>

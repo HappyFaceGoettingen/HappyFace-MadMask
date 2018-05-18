@@ -1,7 +1,8 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
-import {NavController} from "ionic-angular";
+import {AlertController, NavController} from "ionic-angular";
 import {MonitoringPage} from "../monitoring/monitoring";
+import {Storage} from "@ionic/storage";
 
 @Component({
     templateUrl: "tour.html"
@@ -14,7 +15,8 @@ export class TourPage
     slides:any = null;
     isLoading:boolean = false;
 
-    constructor(private model:DataModel, private navCtrl: NavController) {}
+    constructor(private model:DataModel, private navCtrl: NavController, private storage:Storage,
+                private alertCtrl:AlertController) {}
 
     ngOnInit()
     {
@@ -32,11 +34,24 @@ export class TourPage
     skip()
     {
         console.log("SKIP");
+        this.storage.set("startup", true);
+        this.navCtrl.pop();
     }
 
     continue()
     {
         console.log("CONTINUE");
-        this.navCtrl.push(MonitoringPage, {});
+        let alert = this.alertCtrl.create({
+            title: "Show guide on next startup ?",
+            buttons: [{
+                text: "Yes",
+                handler: () => { this.storage.set("startup", false); this.navCtrl.pop(); }
+            },{
+                text: "No",
+                handler: () => { this.storage.set("startup", true);  this.navCtrl.pop(); }
+            }]
+        });
+        alert.setCssClass("alertText");
+        alert.present();
     }
 }
