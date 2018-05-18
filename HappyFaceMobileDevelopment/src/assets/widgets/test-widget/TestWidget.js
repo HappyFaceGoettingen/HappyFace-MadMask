@@ -13,9 +13,11 @@ var TestWidget = /** @class */ (function (_super) {
     __extends(TestWidget, _super);
     function TestWidget() {
         var _this = _super.call(this) || this;
-        _this.title = "TITLE";
-        _this.content = "<img src='http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg' alt='No Image'>";
+        _this.height = 0;
+        _this.width = 0;
         return _this;
+        //this.title = "TITLE";
+        //this.content = "<img src='http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg' alt='No Image'>";
     }
     return TestWidget;
 }(BaseWidget));

@@ -50,13 +50,14 @@ export class CriticalUrlsWidget extends BaseWidget
 
     static templateUrl:string = "./assets/widgets/critical-urls-widget/CriticalUrlsWidget.html";
 
-    height:number = 250;
+    height:number = 200;
     width:number = 220;
 
     imgList:any[] = [];
 
     statusText:string = "";
     statusColor:string = "";
+    okText:string = "";
 
     constructor()
     {
@@ -65,23 +66,27 @@ export class CriticalUrlsWidget extends BaseWidget
 
     onInit()
     {
-        /*this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
-        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
-        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
-        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});
-        this.imgList.push({src: "http://img.youtube.com/vi/ttz4Sr0tZFg/maxresdefault.jpg", title: "IMG TITLE"});*/
         this.name = "Critical Urls";
-        this.statusText = "Error";
-        this.statusColor = "#FF0000";
+        this.statusText = "No Data";
+        this.statusColor = "#F1F1F1";
+        this.okText = "Everything's cool.";
 
-        /* Get images */
+    }
+
+    onReload()
+    {
         let img:string = "";
         let title:string = "";
         let image:string = "";
-        console.log("During init");
-        console.log(this.summary);
-        console.log(this.monitoringUrls);
-        console.log(this.config);
+
+        if(!this.summary || !this.monitoringUrls || !this.config) return;
+        if(!this.summary.urls) return;
+
+        console.log("on reload");
+
+        this.statusText = this.summary.level;
+        if(!Array.isArray(this.summary.urls)) this.okText = "No connection";
+        if(this.statusText === "No Data")     this.okText = "No connection";
 
         for(let j:number = 0; j < this.monitoringUrls.length; j++) {
             this.monitoringUrls[j].urls.find((element) => {
@@ -94,7 +99,6 @@ export class CriticalUrlsWidget extends BaseWidget
                 }
             });
         }
-        this.statusText = this.summary.level;
 
         for (let i = 0; i < this.config.status.length; i++) {
             if (this.config.status[i].name === this.statusText) {
@@ -102,7 +106,6 @@ export class CriticalUrlsWidget extends BaseWidget
                 this.statusColor = super.getColor(this.statusColor);
             }
         }
-
     }
 
     imgClicked(img:any)

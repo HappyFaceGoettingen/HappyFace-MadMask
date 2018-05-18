@@ -33,6 +33,8 @@ export class HomePage
     maxHeight   :number = 0;
     counter     :number = 0;
 
+    editMode    :boolean = false;
+
     @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
 
     constructor(private _compiler:Compiler, private _injector:Injector, private _m:NgModuleRef<any>,
@@ -43,25 +45,35 @@ export class HomePage
     ngOnInit()
     {
         this.model.addLoadingFinishedCallback(this.reloaded.bind(this));
+        this.initWidgets();
+    }
+
+    initWidgets()
+    {
+        this.clearWidgets();
+        this.loadWidgets();
+        //this.findWidgets().then(() => { console.log(this.widgetsSave); });
     }
 
     reloaded()
     {
-        this.setLinks("latest");
-        this.clearWidgets();
-        this.reloadWidgets();
+        this.model.setLinks("latest");
+        for(let i:number = 0; i < this.widgets.length; i++)
+        {
+            this.widgets[i].baseWidget.summary = this.model.summary;
+            this.widgets[i].baseWidget.monitoringUrls = this.model.monitoringUrls;
+            this.widgets[i].baseWidget.config = this.model.config;
+            this.widgets[i].baseWidget.onReload();
+        }
     }
 
-    async reloadWidgets()
+    async loadWidgets()
     {
         for(let i:number = 0; i < this.widgetsSave.length; i++)
         {
-            for(let x:number = 0; x < 1; x++)
-            {
-                let a:string = this.widgetsSave[i];
-                console.log("MODULE: " + a);
-                await this.loadAndBuildWidget(a).then( (data:WidgetData) => { this.widgets.push(data); })
-            }
+            let a:string = this.widgetsSave[i];
+            console.log("MODULE: " + a);
+            await this.loadAndBuildWidget(a).then( (data:WidgetData) => { this.widgets.push(data); });
         }
     }
 
@@ -196,11 +208,6 @@ export class HomePage
             wid.cardRef.instance.y = dim.y;
         }
 
-        this.repaint();
-    }
-
-    repaint()
-    {
         for(let wid of this.widgets)
         {
             wid.cardRef.instance.updatePosition();
@@ -238,8 +245,30 @@ export class HomePage
         return { x: posX, y: posY, width: width, height: height }
     }
 
+    findWidgets():Promise<any>
+    {
+        return new Promise<any>( (resolve, reject) => {
+            let req:XMLHttpRequest = new XMLHttpRequest();
+            req.onreadystatechange = () => {
+                if(req.readyState == 4) {
+                    if(req.status == 200) {
+                        this.widgetsSave = [];
+                        JSON.parse(req.response).widgets.filter((element) => {
+                            this.widgetsSave.push("/assets/widgets/" + element.src);
+                        });
+                        resolve();
+                    }
+                    else reject();
+                }
+            };
+            req.open("GET", this.model.getRemoteURL() + "assets/widgets/list.json", true);
+            req.send();
+        });
+    }
+
     edit()
     {
+        this.editMode = !this.editMode;
         for(let wid of this.widgets)
             wid.cardRef.instance.showHeaderOverlay = !wid.cardRef.instance.showHeaderOverlay;
     }
@@ -261,40 +290,9 @@ export class HomePage
         this.navCtrl.push(HomeDetailImagePage, {"data": data});
     }
 
-    setLinks(datetime_dir) {
-        //let model:DataModel = DataModel.getInstance();
-        let remote_url:string = this.model.getRemoteURL();
-        let config:any = this.model.config;
-
-        let capture_dir:string = config.data_dir + "/capture";
-        let thumbnail_dir:string = config.data_dir + "/thumbnail";
-        let analysis_dir:string = config.data_dir + "/analysis";
-        if (this.model.configuration.get().enableMadVision) {
-            capture_dir = analysis_dir + "/madvision";
-            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
-        }
-        let plot_analysis_dir:string = analysis_dir + "/plot_analysis/latest";
-        let plot_pathway_dir:string = analysis_dir + "/plot_pathway/latest";
-
-        for (let i: number = 0; i < this.model.monitoringUrls.length; i++) {
-            for (let j: number = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                if (this.model.monitoringUrls[i].urls[j].file_prefix == null) {
-                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].image = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].analysis_plot = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + "img/not_captured.png";
-                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + "img/not_captured.png";
-                } else {
-                    this.model.monitoringUrls[i].urls[j].thumbnail = remote_url + thumbnail_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
-                    this.model.monitoringUrls[i].urls[j].image = remote_url + capture_dir + "/" + datetime_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".jpg";
-                    this.model.monitoringUrls[i].urls[j].plot_analysis = remote_url + plot_analysis_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
-                    this.model.monitoringUrls[i].urls[j].plot_pathway = remote_url + plot_pathway_dir + "/" + this.model.monitoringUrls[i].urls[j].file_prefix + ".png";
-                    this.model.monitoringUrls[i].urls[j].plot_overall_pathway = remote_url + plot_pathway_dir + "/overall_pathway.png";
-
-                }
-            }
-        }
-        //console.log(JSON.stringify(this.model.monitoringUrls));
+    addWidget()
+    {
+        console.log("Add widget");
     }
 }
 

@@ -215,6 +215,10 @@ export class DataModel
         //if(statusCodes[0] == 200) this.config = JSON.parse(responses[0]);
         //else this.config = null;
 
+        // Prevent error through missing urls and systems
+        if(statusCodes[6] == 200 && responses[6])
+            responses[6] = responses[6].replace("__SYSTEMS_ARRAY__", "\"__SYSTEMS_ARRAY__\"").replace("__URLS_ARRAY__", "\"__URLS_ARRAY__\"");
+
         if(statusCodes[0] == 200) this.monitoringUrls = JSON.parse(responses[0]);
         else { this.monitoringUrls = null; this.pushError(DataModel.monitoringUrlsJson, statusCodes[0]); }
 
@@ -463,7 +467,7 @@ export class DataModel
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
             /*this.loadConfig();
             this.currentlyActive.name = this.config.site_name;*/
-            this.reload();
+            //this.reload();
         }
         // App running on a clients device
         else {

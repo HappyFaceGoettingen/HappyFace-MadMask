@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import {NavController, NavParams } from 'ionic-angular';
 import {MonitoringPage} from "../monitoring/monitoring";
 import {ControllerPage} from "../controller/controller";
@@ -9,6 +10,7 @@ import {WorkingPage} from "../working/working";
 import {ConfigPage} from "../modals/config/config";
 import {AnalyzerPage} from "../analyzer/analyzer";
 import {HomePage} from "../home/home";
+import {TourPage} from "../tour/tour";
 
 /**
  * Generated class for the TabsPage page.
@@ -34,11 +36,22 @@ export class TabsPage {
   tabConfig    : any = ConfigPage;
   tabWorking   : any = WorkingPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage:Storage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');
+
+      setTimeout(() => {
+          this.storage.get("startup").then((value) => {
+              if(value == null || value == undefined || !value){
+                  this.storage.set("startup", true);
+                  this.navCtrl.push(TourPage, {});
+                  console.log("Starting tour");
+              }
+              else this.storage.set("startup", false);
+          })
+      }, 500);
   }
 
 }

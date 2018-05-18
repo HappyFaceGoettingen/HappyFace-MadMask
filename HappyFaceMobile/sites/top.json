@@ -1,41 +1,41 @@
 [{
-   "HFnet": "ATLAS mainnet",
+   "name": "ATLAS mainnet",
    "host": "141.5.108.30",
    "web_port": "10100",
    "mobile_port": "20100",
    "dir": "sites/ADC" 
 },{
-   "HFnet": "ATLAS DE mainnet",
+   "name": "ATLAS DE mainnet",
    "host": "141.5.108.30",
    "web_port": "10110",
    "mobile_port": "20110",
    "dir": "sites/DE" 
 },{
-   "HFnet": "ATLAS testnet",
+   "name": "ATLAS testnet",
    "host": "141.5.108.29",
    "web_port": "10100",
    "mobile_port": "20100",
    "dir": "sites/ADC" 
 },{
-   "HFnet": "ATLAS DE testnet",
+   "name": "ATLAS DE testnet",
    "host": "141.5.108.29",
    "web_port": "10110",
    "mobile_port": "20110",
    "dir": "sites/DE" 
 },{
-   "HFnet": "ATLAS develnet",
+   "name": "ATLAS develnet",
    "host": "134.76.86.224",
    "web_port": "10100",
    "mobile_port": "20100",
    "dir": "sites/ADC" 
 },{
-   "HFnet": "CMS KIT Tier-1",
+   "name": "CMS KIT Tier-1",
    "host": "happyface.ekp.kit.edu",
    "web_port": "80",
    "mobile_port": null,
    "dir": "/HappyFace/gridka/category"
 },{
-   "HFnet": "CMS DESY-HH Tier-2",
+   "name": "CMS DESY-HH Tier-2",
    "host": "www.iexp.uni-hamburg.de",
    "web_port": "80",
    "mobile_port": null,

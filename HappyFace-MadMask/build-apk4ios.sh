@@ -17,7 +17,8 @@ usage="$0 [options]
  * Preparation
  -I:  install Ionic
  -X:  install Xcode
- -U:  Update this script (/usr/bin/$(basename $0))
+ -U:  Update this script (/usr/local/bin/$(basename $0))
+ -C:  Connect to [VMhost|GWDGCloud] via ssh
 
  * Git location
  -R:  set a git repo [default: $GIT_REPO]
@@ -159,10 +160,23 @@ prepare_ios_env(){
 }
 
 
+connect_via_ssh(){
+    local node="$1"
+    case $node in
+	VMhost)
+	    echo "mock"
+	    ;;
+	GWDGcloud)
+	    echo "mock"
+	    ;;
+    esac
+}
+
+
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "IXUi:R:B:bphv" op
+while getopts "IXUC:i:R:B:bphv" op
   do
   case $op in
       I) install_ionic
@@ -170,6 +184,8 @@ while getopts "IXUi:R:B:bphv" op
       X) install_xcode
 	  ;;
       U) update_script
+	  ;;
+      C) connect_via_ssh "$OPTARG"
 	  ;;
       i) BUILD_ID="$OPTARG"
 	  ;;
