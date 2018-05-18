@@ -31,7 +31,7 @@ export class HomePage
     counter     :number = 0;
 
     editMode    :boolean = false;
-    widgetListUrl:string = "http://localhost:8100/assets/widgets/list.json";
+    widgetListUrl:string = "assets/widgets/list.json";
 
     @ViewChild('vc', {read: ViewContainerRef}) vc: ViewContainerRef;
 
@@ -42,6 +42,7 @@ export class HomePage
 
     ngOnInit()
     {
+        this.widgetListUrl = this.model.getRemoteURL() + this.widgetListUrl;
         this.model.addLoadingFinishedCallback(this.reloaded.bind(this));
         this.initWidgets();
     }

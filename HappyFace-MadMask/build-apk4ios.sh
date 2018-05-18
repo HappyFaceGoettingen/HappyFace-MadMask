@@ -20,13 +20,13 @@ usage="$0 [options]
  -I:  install Ionic
  -X:  install Xcode
  -U:  Update this script (/usr/local/bin/$(basename $0))
- -c:  Connect to [vm|clouds] via ssh
+ -c:  Connect to [vm|ph2|clouds] via ssh
 
  * Git location
  -R:  set a git repo [default: $GIT_REPO]
  -B:  set a branch name [defaut: $GIT_BRANCH]
  -C:  set a commit ID [default: $GIT_COMMIT]
- -S:  set a stable commit [default: master - $STABLE_GIT_COMMIT]
+ -S:  set a nightly commit [default: master - $STABLE_GIT_COMMIT]
 
  * Application Build
  -i:  set a build ID [default: $BUILD_ID]
@@ -171,18 +171,43 @@ connect_via_ssh(){
 	vm)
 	    open_ssh_reverse_port gen 10.0.2.2 10000
 	    ;;
+	ph2)
+	    open_ssh_reverse_port gen 134.76.86.39 10002 24
+	    ;;
 	clouds)
-	    local users=(gen cloud cloud)
-	    local hosts=(134.76.86.39 141.5.108.29 141.5.108.30)
-	    local ports=(24 22 22)
-	    local rports=(10002 10001 10000)
+	    local users=(cloud cloud)
+	    local hosts=(141.5.108.29 141.5.108.30)
+	    local ports=(22 22)
+	    local rports=(10001 10000)
 	    for i in $(seq 0 $((${#hosts[*]} - 1)))
 	    do
-		open_ssh_reverse_port ${users[$i]} ${hosts[$i]} ${rports[$i]} ${ports[$i]}
+		keep_ssh ${users[$i]} ${hosts[$i]} ${rports[$i]} ${ports[$i]} &
 	    done
 	    ;;
     esac
 }
+
+
+keep_ssh(){
+    local user=$1
+    local host=$2
+    local rport=$3
+    local port=$4
+    [ ! -z "$port" ] && SSH_PORT="-p $port"
+
+    local proc=
+    while true
+    do
+	ssh $SSH_PORT -o ConnectTimeout=120 -o StrictHostKeyChecking=no $user@$host netstat -an | egrep "tcp .*:$rport.*LISTEN" &> /dev/null
+	if [ $? -ne 0 ]; then
+	    [ ! -z "$proc" ] && kill -kill $proc
+	    open_ssh_reverse_port $*
+	    proc=$?
+	fi
+	sleep 300
+    done
+}
+
 
 open_ssh_reverse_port(){
     local user=$1
@@ -191,10 +216,10 @@ open_ssh_reverse_port(){
     local port=$4
     [ ! -z "$port" ] && SSH_PORT="-p $port"
     #! ping -c 1 $host > /dev/null && echo "[$host] not available" && return 1
-    local com="ssh $SSH_PORT -f -N -R $rport:localhost:22 $user@$host"
+    local com="ssh $SSH_PORT -o StrictHostKeyChecking=no -f -N -R $rport:localhost:22 $user@$host"
     echo "Generating SSH reverse forwarding: [$com]"
     eval $com
-    return $?
+    return $!
 }
 
 
