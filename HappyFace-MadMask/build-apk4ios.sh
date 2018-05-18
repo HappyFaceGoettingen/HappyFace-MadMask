@@ -20,7 +20,7 @@ usage="$0 [options]
  -I:  install Ionic
  -X:  install Xcode
  -U:  Update this script (/usr/local/bin/$(basename $0))
- -c:  Connect to [vm|cloud] via ssh
+ -c:  Connect to [vm|clouds] via ssh
 
  * Git location
  -R:  set a git repo [default: $GIT_REPO]
@@ -34,9 +34,7 @@ usage="$0 [options]
 
  * Example
  $0 -B master -b
-
  $0 -S -b
-
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch> 
 "
@@ -171,27 +169,29 @@ connect_via_ssh(){
     local node="$1"
     case $node in
 	vm)
-	    open_ssh_reverse_port 10.0.2.2 10000
+	    open_ssh_reverse_port gen 10.0.2.2 10000
 	    ;;
 	clouds)
-	    local hosts=(141.5.108.30 141.5.108.29 134.76.86.39)
-	    local ports=(22 22 24)
-	    local rports=(10000 10001 10002)
-	    for i in $(0 $((${#hosts[*]} - 1)))
+	    local users=(gen cloud cloud)
+	    local hosts=(134.76.86.39 141.5.108.29 141.5.108.30)
+	    local ports=(24 22 22)
+	    local rports=(10002 10001 10000)
+	    for i in $(seq 0 $((${#hosts[*]} - 1)))
 	    do
-		open_ssh_reverse_port ${hosts[$i]} ${rports[$i]} ${ports[$i]}
+		open_ssh_reverse_port ${users[$i]} ${hosts[$i]} ${rports[$i]} ${ports[$i]}
 	    done
 	    ;;
     esac
 }
 
 open_ssh_reverse_port(){
-    local host=$1
-    local rport=$2
-    local port=$3
+    local user=$1
+    local host=$2
+    local rport=$3
+    local port=$4
     [ ! -z "$port" ] && SSH_PORT="-p $port"
-    ! ping -c 1 $host > /dev/null && echo "[$host] not available" && return 1
-    local com="ssh $SSH_PORT -f -N -R $rport:localhost:22 $host"
+    #! ping -c 1 $host > /dev/null && echo "[$host] not available" && return 1
+    local com="ssh $SSH_PORT -f -N -R $rport:localhost:22 $user@$host"
     echo "Generating SSH reverse forwarding: [$com]"
     eval $com
     return $?
