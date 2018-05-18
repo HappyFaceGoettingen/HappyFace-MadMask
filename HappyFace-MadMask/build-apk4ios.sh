@@ -10,6 +10,7 @@ BUILD_ID=$(date -u +%Y%m%d-%H%M%S)
 GIT_DIR=HappyFaceGoettingen/HappyFace-MadMask
 GIT_REPO=https://github.com/$GIT_DIR
 GIT_BRANCH=gen_development
+GIT_COMMIT=
 
 ## Usage
 usage="$0 [options]
@@ -18,11 +19,12 @@ usage="$0 [options]
  -I:  install Ionic
  -X:  install Xcode
  -U:  Update this script (/usr/local/bin/$(basename $0))
- -C:  Connect to [VMhost|GWDGCloud] via ssh
+ -c:  Connect to [vm|cloud] via ssh
 
  * Git location
  -R:  set a git repo [default: $GIT_REPO]
  -B:  set a branch name [defaut: $GIT_BRANCH]
+ -C:  set a commit ID [default: $GIT_COMMIT]
 
  * Application Build
  -i:  set a build ID [default: $BUILD_ID]
@@ -129,6 +131,7 @@ build_iphone_app(){
     else
 	pushd $local_repo
 	git pull origin $GIT_BRANCH
+	[ ! -z "$GIT_COMMIT" ] && git reset --hard $GIT_COMMIT
 	popd
     fi
 
@@ -163,20 +166,38 @@ prepare_ios_env(){
 connect_via_ssh(){
     local node="$1"
     case $node in
-	VMhost)
-	    echo "mock"
+	vm)
+	    open_ssh_reverse_port 10.0.2.2 10000
 	    ;;
-	GWDGcloud)
-	    echo "mock"
+	clouds)
+	    local hosts=(141.5.108.30 141.5.108.29 134.76.86.39)
+	    local ports=(22 22 24)
+	    local rports=(10000 10001 10002)
+	    for i in $(0 $((${#hosts[*]} - 1)))
+	    do
+		open_ssh_reverse_port ${hosts[$i]} ${rports[$i]} ${ports[$i]}
+	    done
 	    ;;
     esac
+}
+
+open_ssh_reverse_port(){
+    local host=$1
+    local rport=$2
+    local port=$3
+    [ ! -z "$port" ] && SSH_PORT="-p $port"
+    ! ping -c 1 $host > /dev/null && echo "[$host] not available" && return 1
+    local com="ssh $SSH_PORT -f -R $rport:localhost:22 $host"
+    echo "Generating SSH reverse forwarding: [$com]"
+    eval $com
+    return $?
 }
 
 
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "IXUC:i:R:B:bphv" op
+while getopts "IXUc:i:R:B:C:bphv" op
   do
   case $op in
       I) install_ionic
@@ -185,13 +206,15 @@ while getopts "IXUC:i:R:B:bphv" op
 	  ;;
       U) update_script
 	  ;;
-      C) connect_via_ssh "$OPTARG"
+      c) connect_via_ssh "$OPTARG"
 	  ;;
       i) BUILD_ID="$OPTARG"
 	  ;;
       R) GIT_REPO="$OPTARG"
 	  ;;
       B) GIT_BRANCH="$OPTARG"
+	  ;;
+      C) GIT_COMMIT="$OPTARG"
 	  ;;
       b) build_iphone_app
 	  exit $?
