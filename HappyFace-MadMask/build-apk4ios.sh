@@ -187,7 +187,7 @@ open_ssh_reverse_port(){
     local port=$3
     [ ! -z "$port" ] && SSH_PORT="-p $port"
     ! ping -c 1 $host > /dev/null && echo "[$host] not available" && return 1
-    local com="ssh $SSH_PORT -f -R $rport:localhost:22 $host"
+    local com="ssh $SSH_PORT -f -N -R $rport:localhost:22 $host"
     echo "Generating SSH reverse forwarding: [$com]"
     eval $com
     return $?
