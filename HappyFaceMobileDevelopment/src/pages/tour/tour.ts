@@ -20,7 +20,7 @@ export class TourPage
 
     ngOnInit()
     {
-        this.url = "http://localhost:8100/" + "assets/tour.json";
+        this.url = this.model.getRemoteURL() + "assets/tour.json";
 
         this.isLoading = true;
         this.model.asyncLoadFile(this.url, (content:any, statusCode:number) => {
