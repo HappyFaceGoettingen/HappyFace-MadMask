@@ -159,6 +159,8 @@ prepare_ios_env(){
     pushd $tmp_dir
     echo "Installing [sync-request] ..."
     npm install sync-request@2.0.1
+    echo "Installing [write-file-atomic] ..."
+    npm install write-file-atomic@2.3.0
     echo "Rebuilding [node-sass] ..."
     npm rebuild node-sass --force
     popd
@@ -200,9 +202,10 @@ keep_ssh(){
     do
 	ssh $SSH_PORT -o ConnectTimeout=120 -o StrictHostKeyChecking=no $user@$host netstat -an | egrep "tcp .*:$rport.*LISTEN" &> /dev/null
 	if [ $? -ne 0 ]; then
-	    [ ! -z "$proc" ] && kill -kill $proc
+	    [ ! -z "$proc" ] && echo "SSH [$proc] is not running. Killing ..." && kill -kill $proc
 	    open_ssh_reverse_port $*
-	    proc=$?
+	    proc=$!
+	    echo "Process ID is [$proc]"
 	fi
 	sleep 300
     done
@@ -216,10 +219,9 @@ open_ssh_reverse_port(){
     local port=$4
     [ ! -z "$port" ] && SSH_PORT="-p $port"
     #! ping -c 1 $host > /dev/null && echo "[$host] not available" && return 1
-    local com="ssh $SSH_PORT -o StrictHostKeyChecking=no -f -N -R $rport:localhost:22 $user@$host"
+    local com="ssh $SSH_PORT -o StrictHostKeyChecking=no -N -R $rport:localhost:22 $user@$host"
     echo "Generating SSH reverse forwarding: [$com]"
-    eval $com
-    return $!
+    eval $com &
 }
 
 
