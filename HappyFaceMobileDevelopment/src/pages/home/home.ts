@@ -25,6 +25,8 @@ export class HomePage
     widgetsSave:string[] = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
     components:any[] = [];
 
+    adding:boolean = false;
+
     positions:Positions = new Positions();
 
     viewIndex   :number = 0;
@@ -72,7 +74,7 @@ export class HomePage
         {
             let a:string = this.widgetsSave[i];
             console.log("MODULE: " + a);
-            await this.loadAndBuildWidget(a).then( (data:WidgetData) => { this.widgets.push(data); });
+            await this.loadAndBuildWidget(a).then( (data:WidgetData) => { if(data != null) this.widgets.push(data); });
         }
     }
 
@@ -81,6 +83,19 @@ export class HomePage
     {
         try {
             this._compiler.clearCache();
+
+            try{
+                eval("import('./Positions')");
+            } catch(e) {
+                console.log("dynamic import not supported");
+                if(this.adding) this.alertCtrl.create({
+                    title: "Widget build error",
+                    message: "Your browser version does not support dynamic importing of widgets. Because of that the widget system cannot be used. Consider updating to a newer browser or using the Smartphone application.",
+                    cssClass: "alertText",
+                    buttons: ["OK"]
+                }).present();
+                return null;
+            }
 
             const func = new Function("x", "return import(x)");
             const loader = await func(name);
@@ -284,13 +299,19 @@ export class HomePage
                     alert.addButton({
                         text: 'Ok',
                         handler: (data:Array<string>) => {
+                            this.adding = true;
                             /* Dont add widgets already displayed */
                             data = data.filter((element) => this.widgets.find((e) => e.path === element) === undefined);
                             for(let a of data)
                                 this.loadAndBuildWidget(a).then( (widgetData:WidgetData) => {
-                                    this.widgets.push(widgetData);
-                                    widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                                    if(widgetData != null)
+                                    {
+                                        this.widgets.push(widgetData);
+                                        widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                                    }
                                 });
+
+                            this.adding = false;
                         }
                     });
 

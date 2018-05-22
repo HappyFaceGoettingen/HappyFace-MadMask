@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { AbsoluteDrag } from './absolute-drag/AbsoluteDrag';
 import { Position } from './position/Position';
 @NgModule({
-    declarations: [AbsoluteDrag, Position],
+    declarations: [Position],
     imports: [],
-    exports: [AbsoluteDrag, Position]
+    exports: [Position]
 })
 export class DirectivesModule {}

@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
-import {SpeechKit} from "@ionic-native/speechkit";
 
 
 export var modelCounter:number = 0;
@@ -61,7 +60,7 @@ export class DataModel
 
     configuration   :ConfigurationObject = new ConfigurationObject();
 
-    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController, private speechkit:SpeechKit) {
+    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController) {
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
         this.findInitialConfiguration();
@@ -398,12 +397,6 @@ export class DataModel
                         locale: "en-GB",
                         rate: 0.75
                     })
-                }
-                else if(this.speechkit)
-                {
-                    console.log("USING this.speechkit.tts");
-                    this.speechkit.tts(this.summary.text, "ENG-GBR")
-                        .then((msg) => console.log(msg), (err) => console.log(err));
                 }
                 else console.log("PLUGIN ERROR: TTS not found in window");
             }

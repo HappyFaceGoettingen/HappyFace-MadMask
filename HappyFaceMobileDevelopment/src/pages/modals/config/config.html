@@ -16,7 +16,7 @@
             <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="false">
             <ion-label>Automatic rotation</ion-label>
             <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>
         </ion-item>
@@ -36,12 +36,12 @@
             </ion-range>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="false">
             <ion-label>Detect only change</ion-label>
             <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="false">
             <ion-label>Enable Mad Vision</ion-label>
             <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>
         </ion-item>
