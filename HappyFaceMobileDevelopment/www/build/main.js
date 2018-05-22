@@ -1172,10 +1172,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 let InstancesBrowserComponent = class InstancesBrowserComponent {
-    constructor(model, navParams, navCtrl) {
+    constructor(model, navParams, navCtrl, alertCtrl) {
         this.model = model;
         this.navParams = navParams;
         this.navCtrl = navCtrl;
+        this.alertCtrl = alertCtrl;
         this.instances = [];
         this.isLoading = true;
     }
@@ -1205,9 +1206,19 @@ let InstancesBrowserComponent = class InstancesBrowserComponent {
             this.instances = [];
     }
     choose(inst) {
-        console.log("OPEN: " + inst.name);
-        window.open("http://" + inst.host + ":" + inst.mobile_port + "/", "_blank");
-        window.focus();
+        if (inst.mobile_port == null || inst.web_port == null || inst.host == null) {
+            this.alertCtrl.create({
+                title: "Not supported",
+                message: "This instance is currently not supported in this application",
+                cssClass: "alertText",
+                buttons: ["OK"]
+            }).present();
+        }
+        else {
+            console.log("OPEN: " + inst.name);
+            window.open("http://" + inst.host + ":" + inst.mobile_port + "/", "_blank");
+            window.focus();
+        }
     }
     extSettings() {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* ConfigPage */], { "viewCtrl": this.navParams.get('viewCtrl') });
@@ -1220,7 +1231,7 @@ let InstancesBrowserComponent = class InstancesBrowserComponent {
 InstancesBrowserComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Settings</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list-header>\n\n        Choose Instance\n\n    </ion-list-header>\n\n\n\n    <div text-center *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n    <ion-list *ngIf="!isLoading">\n\n        <ng-container *ngFor="let inst of instances">\n\n            <button ion-item detail-none (click)="choose(inst)">\n\n                {{inst.name}}\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ng-container>\n\n        <ion-item *ngIf="instances.length == 0">\n\n            There are no subinstances here.\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-item>\n\n        <button ion-item detail-none (click)="extSettings()">\n\n            Advanced Settings\n\n            <div item-end text-center>\n\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n\n            </div>\n\n        </button>\n\n    </ion-item>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
 ], InstancesBrowserComponent);
 
 //# sourceMappingURL=instances.browser.component.js.map
@@ -1250,12 +1261,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 let InstancesComponent = class InstancesComponent {
-    constructor(model, navCtrl, plt, storage, navParams) {
+    constructor(model, navCtrl, plt, storage, navParams, alertCtrl) {
         this.model = model;
         this.navCtrl = navCtrl;
         this.plt = plt;
         this.storage = storage;
         this.navParams = navParams;
+        this.alertCtrl = alertCtrl;
         this.headURL = ""; //http://141.5.108.30:20100/sites/default/meta-meta.json";
         this.label = "";
         this.isLoading = false;
@@ -1298,8 +1310,18 @@ let InstancesComponent = class InstancesComponent {
         this.move(null);
     }
     itemClicked(loc) {
-        this.level++;
-        this.move(loc);
+        if (loc.host == null || loc.mobile_port == null || loc.web_port == null) {
+            this.alertCtrl.create({
+                title: "Not supported",
+                message: "This instance is currently not supported in this application",
+                cssClass: "alertText",
+                buttons: ["OK"]
+            }).present();
+        }
+        else {
+            this.level++;
+            this.move(loc);
+        }
     }
     move(loc) {
         this.locations = [];
@@ -1347,14 +1369,24 @@ let InstancesComponent = class InstancesComponent {
         }
     }
     choose(loc) {
-        this.model.currentlyActive = loc;
-        this.storage.set('instance', this.model.currentlyActive);
-        this.model.reload();
-        let viewCtrl = this.navParams.get("viewCtrl");
-        if (viewCtrl != null || viewCtrl != undefined)
-            viewCtrl.dismiss();
-        else
-            this.navCtrl.pop();
+        if (loc.mobile_port == null || loc.web_port == null || loc.host == null) {
+            this.alertCtrl.create({
+                title: "Not supported",
+                message: "This instance is currently not supported in this application",
+                cssClass: "alertText",
+                buttons: ["OK"]
+            }).present();
+        }
+        else {
+            this.model.currentlyActive = loc;
+            this.storage.set('instance', this.model.currentlyActive);
+            this.model.reload();
+            let viewCtrl = this.navParams.get("viewCtrl");
+            if (viewCtrl != null || viewCtrl != undefined)
+                viewCtrl.dismiss();
+            else
+                this.navCtrl.pop();
+        }
     }
     favorite(loc) {
         if (!(this.favorites.indexOf(loc) > -1)) {
@@ -1373,7 +1405,7 @@ InstancesComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Choose Instance</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="outer-content">\n\n  <ion-list-header>\n\n    Favorites\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let fav of favorites">\n\n      <button ion-item detail-none (click)="choose(fav)">\n\n        {{fav.name}}\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n\n\n    <br/>\n\n  <ion-list-header>\n\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n\n          <ion-icon name="ios-arrow-back"></ion-icon>\n\n      </button>\n\n      {{label}}\n\n  </ion-list-header>\n\n  <div text-center padding [hidden]="!isLoading">\n\n      <ion-spinner></ion-spinner>\n\n  </div>\n\n  <ion-list [hidden]="isLoading">\n\n      <ion-item-sliding *ngFor="let loc of locations">\n\n          <button ion-item detail-none (click)="choose(loc);">\n\n              {{loc.name}}\n\n              <div item-end text-center *ngIf="level < final_level">\n\n                  <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">\n\n                      <ion-icon name="arrow-forward"></ion-icon>\n\n                  </button>\n\n              </div>\n\n          </button>\n\n          <ion-item-options side="left">\n\n               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n\n          </ion-item-options>\n\n      </ion-item-sliding>\n\n  </ion-list>\n\n  <!--<span [innerHtml]="label"></span>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
 ], InstancesComponent);
 
 //# sourceMappingURL=instances.component.js.map
@@ -1735,7 +1767,7 @@ class SSH2Wrapper {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SSHTerminalPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Terminal2__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Terminal2__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_DataModel__ = __webpack_require__(11);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2520,7 +2552,7 @@ AnalyzerDetailPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_detail_image__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Positions__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Positions__ = __webpack_require__(301);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2549,7 +2581,7 @@ let HomePage = class HomePage {
         this.widgetsSave = ["/assets/widgets/critical-urls-widget/CriticalUrlsWidget.js"];
         this.components = [];
         this.adding = false;
-        this.positions = new __WEBPACK_IMPORTED_MODULE_4__Positions__["Positions"]();
+        this.positions = new __WEBPACK_IMPORTED_MODULE_4__Positions__["a" /* Positions */]();
         this.viewIndex = 0;
         this.counter = 0;
         this.editMode = false;
@@ -2578,14 +2610,15 @@ let HomePage = class HomePage {
         for (let i = 0; i < this.widgetsSave.length; i++) {
             let a = this.widgetsSave[i];
             console.log("MODULE: " + a);
-            await this.loadAndBuildWidget(a).then((data) => { this.widgets.push(data); });
+            await this.loadAndBuildWidget(a).then((data) => { if (data != null)
+                this.widgets.push(data); });
         }
     }
     async loadAndBuildWidget(name) {
         try {
             this._compiler.clearCache();
             try {
-                new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 225));
+                eval("import('./Positions')");
             }
             catch (e) {
                 console.log("dynamic import not supported");
@@ -2596,7 +2629,7 @@ let HomePage = class HomePage {
                         cssClass: "alertText",
                         buttons: ["OK"]
                     }).present();
-                return;
+                return null;
             }
             const func = new Function("x", "return import(x)");
             const loader = await func(name);
@@ -2761,8 +2794,10 @@ let HomePage = class HomePage {
                             data = data.filter((element) => this.widgets.find((e) => e.path === element) === undefined);
                             for (let a of data)
                                 this.loadAndBuildWidget(a).then((widgetData) => {
-                                    this.widgets.push(widgetData);
-                                    widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                                    if (widgetData != null) {
+                                        this.widgets.push(widgetData);
+                                        widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                                    }
                                 });
                             this.adding = false;
                         }
@@ -2883,60 +2918,8 @@ HomeDetailImagePage = __decorate([
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-class Positions {
-    constructor(viewSpacing) {
-        this.columnIndex = 0;
-        this.lineIndex = 0;
-        this.viewSpacing = 30;
-        this.allX = 0;
-        this.allY = 0;
-        this.maxHeight = 0;
-        this.counter = 0;
-        if (viewSpacing)
-            this.viewSpacing = viewSpacing;
-    }
-    newPosition(instanceWidth, instanceHeight) {
-        let width = instanceWidth;
-        let height = instanceHeight;
-        if (width > window.innerWidth) {
-            const scale = window.innerWidth / width;
-            width = width * scale;
-            height = height * scale;
-        }
-        if (this.allX + this.columnIndex * this.viewSpacing + width > window.innerWidth) {
-            this.lineIndex++;
-            this.columnIndex = 0;
-            this.allX = 0;
-            this.allY += this.maxHeight;
-        }
-        const posX = this.allX + (this.columnIndex != 0 ? this.viewSpacing : 0);
-        const posY = this.allY + this.lineIndex * this.viewSpacing;
-        this.allX = posX + width;
-        this.maxHeight = height > this.maxHeight ? height : this.maxHeight;
-        this.columnIndex++;
-        return { x: posX, y: posY, width: width, height: height };
-    }
-    reset() {
-        this.allX = 0;
-        this.allY = 0;
-        this.columnIndex = 0;
-        this.lineIndex = 0;
-        this.maxHeight = 0;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["Positions"] = Positions;
-
-//# sourceMappingURL=Positions.js.map
-
-/***/ }),
-
-/***/ 226:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(246);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -2944,7 +2927,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 247:
+/***/ 246:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2954,7 +2937,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_monitoring_monitoring__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_monitoring_monitoring_webview__ = __webpack_require__(205);
@@ -3113,7 +3096,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 297:
+/***/ 296:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3158,7 +3141,7 @@ HappyFaceApp = __decorate([
 
 /***/ }),
 
-/***/ 301:
+/***/ 300:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3475,6 +3458,57 @@ class Terminal2 {
 
 /***/ }),
 
+/***/ 301:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Positions {
+    constructor(viewSpacing) {
+        this.columnIndex = 0;
+        this.lineIndex = 0;
+        this.viewSpacing = 30;
+        this.allX = 0;
+        this.allY = 0;
+        this.maxHeight = 0;
+        this.counter = 0;
+        if (viewSpacing)
+            this.viewSpacing = viewSpacing;
+    }
+    newPosition(instanceWidth, instanceHeight) {
+        let width = instanceWidth;
+        let height = instanceHeight;
+        if (width > window.innerWidth) {
+            const scale = window.innerWidth / width;
+            width = width * scale;
+            height = height * scale;
+        }
+        if (this.allX + this.columnIndex * this.viewSpacing + width > window.innerWidth) {
+            this.lineIndex++;
+            this.columnIndex = 0;
+            this.allX = 0;
+            this.allY += this.maxHeight;
+        }
+        const posX = this.allX + (this.columnIndex != 0 ? this.viewSpacing : 0);
+        const posY = this.allY + this.lineIndex * this.viewSpacing;
+        this.allX = posX + width;
+        this.maxHeight = height > this.maxHeight ? height : this.maxHeight;
+        this.columnIndex++;
+        return { x: posX, y: posY, width: width, height: height };
+    }
+    reset() {
+        this.allX = 0;
+        this.allY = 0;
+        this.columnIndex = 0;
+        this.lineIndex = 0;
+        this.maxHeight = 0;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Positions;
+
+//# sourceMappingURL=Positions.js.map
+
+/***/ }),
+
 /***/ 308:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3704,7 +3738,7 @@ let TourPage = class TourPage {
             },
             {
                 title: "The widget page",
-                description: "This page gives you a lot of possibilities to display the information you need from this app and you can reorder them as you like, so it fits your workflow. If you don't find what you are looking for you can even build your own widgets.",
+                description: "This page gives you a lot of possibilities to display the information you need from this app and you can reorder them as you like, so it fits your workflow. To modify the widgets you can click on the configuration icon on the top right corner, from there you can also add new ones. If you don't find what you are looking for you can even build your own widgets.",
                 image: "assets/img/tour/happyface-tour-8.png"
             }
         ];
@@ -3742,5 +3776,5 @@ TourPage = __decorate([
 
 /***/ })
 
-},[226]);
+},[225]);
 //# sourceMappingURL=main.js.map
