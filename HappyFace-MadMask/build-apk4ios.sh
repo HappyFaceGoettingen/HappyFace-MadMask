@@ -200,14 +200,14 @@ keep_ssh(){
     local proc=
     while true
     do
-	ssh $SSH_PORT -o ConnectTimeout=120 -o StrictHostKeyChecking=no $user@$host netstat -an | egrep "tcp .*:$rport.*LISTEN" &> /dev/null
+	ssh $SSH_PORT -o ConnectTimeout=30 -o PasswordAuthentication=no -o StrictHostKeyChecking=no $user@$host netstat -an | egrep "tcp .*:$rport.*LISTEN" &> /dev/null
 	if [ $? -ne 0 ]; then
-	    [ ! -z "$proc" ] && echo "SSH [$proc] is not running. Killing ..." && kill -kill $proc
+	    [ ! -z "$proc" ] && echo "$(date): SSH [$proc] is not running. Killing ..." && kill -kill $proc
 	    open_ssh_reverse_port $*
 	    proc=$!
-	    echo "Process ID is [$proc]"
+	    echo "$(date): Process ID is [$proc]"
 	fi
-	sleep 300
+	sleep 180
     done
 }
 
