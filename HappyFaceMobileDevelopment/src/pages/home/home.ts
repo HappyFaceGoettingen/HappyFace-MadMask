@@ -173,8 +173,8 @@ export class HomePage
 
         } catch (e) {
             this.showBuildErrorDialog(e.toString());
-            throw e;
-            //return null;
+            //throw e;
+            return null;
         }
     }
 
