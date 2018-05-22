@@ -71,6 +71,12 @@
             <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>
         </ion-item>
 
+        <ion-item (click)="tour()">
+            <!-- Start tour page again -->
+            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Tour </span>
+            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>
+        </ion-item>
+
         <ion-item (click)="about()">
             <!-- Move to Impressum page -->
             <span style="float: left; padding-top: 10px; padding-bottom: 10px"> About </span>
