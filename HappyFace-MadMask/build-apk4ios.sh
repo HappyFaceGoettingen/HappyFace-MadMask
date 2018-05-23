@@ -202,7 +202,7 @@ keep_ssh(){
     do
 	ssh $SSH_PORT -o ConnectTimeout=30 -o PasswordAuthentication=no -o StrictHostKeyChecking=no $user@$host netstat -an | egrep "tcp .*:$rport.*LISTEN" &> /dev/null
 	if [ $? -ne 0 ]; then
-	    [ ! -z "$proc" ] && echo "$(date): SSH [$proc] is not running. Killing ..." && kill -kill $proc
+	    [ ! -z "$proc" ] && echo "$(date): SSH [$proc] to [$host] is not running. Killing ..." && kill -kill $proc
 	    open_ssh_reverse_port $*
 	    proc=$!
 	    echo "$(date): Process ID is [$proc]"
@@ -225,10 +225,17 @@ open_ssh_reverse_port(){
 }
 
 
+kill_ssh(){
+    local ps=$(ps ax | grep build-apk4ios.sh | grep -v grep | awk '{print $1}')
+    kill -kill $ps
+    killall ssh
+}
+
+
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "IXUc:i:R:B:C:Sbphv" op
+while getopts "IXUc:ki:R:B:C:Sbphv" op
   do
   case $op in
       I) install_ionic
@@ -238,6 +245,8 @@ while getopts "IXUc:i:R:B:C:Sbphv" op
       U) update_script
 	  ;;
       c) connect_via_ssh "$OPTARG"
+	  ;;
+      k) kill_ssh
 	  ;;
       i) BUILD_ID="$OPTARG"
 	  ;;
