@@ -80,7 +80,7 @@ run.madvision <- function(bcp.threshold=0.7){
   data1[["text1"]] <- bcp.posterior.prob[len:len.end]
   data1[["text2"]] <- "■ Status Changed"
   len <- length(info.gain.df$info.gain)
-  data1[["text3"]] <- c("Mad Vision v0.30", "-------------------------", info.gain.df$info.gain[len:len.end])
+  data1[["text3"]] <- c("InfoGain", "-------------------------", info.gain.df$info.gain[len:len.end])
   
   ## Plotting here
   generate.terminator.vision(img, mad.vision.file, data1)

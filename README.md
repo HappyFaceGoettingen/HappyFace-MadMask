@@ -35,8 +35,8 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 
 
 --------------------------
-## PackageBuildeer
-The RPM and Android/iOS application builders. The RPM package builder can generate some RPMs containing HappyFace modules, Mobile components, services and some dependent libraries. The resulting packages, after executing PackageBuilder/build-rpms, are HappyFace-MadMask, MadMask-MadModules and MadFoxd RPM packages under RPMS directory. 
+## PackageBuilder
+The RPM and Android/iOS application builders. The RPM package builder can generate some RPMs containing HappyFace core, HappyFace modules, Mobile components, services and some dependent libraries. The resulting packages, after executing PackageBuilder/build-rpms.sh, are HappyFaceCore, HappyFace-MadMask, MadMask-MadModules and MadFoxd RPM packages. 
 
 ### How to build RPMs
      $ ./build-rpms.sh -b hf

@@ -9,6 +9,8 @@
     "data_dir": "data/ADC",
     "keep_data_days": 7,
     "log_level": "INFO",
+    "detector_algorithm": "BCP",
+    "forecast_algorithm": "ANFIS",
     "firefox_profile": "/usr/share/madfoxd/firefox_profiles/pre-configured_firefox_profile_with_MadFox.default",
     "status": [{
 	"name": "Normal",
