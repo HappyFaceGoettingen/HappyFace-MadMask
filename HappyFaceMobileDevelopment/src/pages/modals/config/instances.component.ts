@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, NavParams, Platform, ViewController} from "ionic-angular";
+import {AlertController, NavController, NavParams, Platform, ViewController} from "ionic-angular";
 import {DataModel, InstanceObject} from "../../../data/DataModel";
 import {Storage} from "@ionic/storage";
 
@@ -23,7 +23,7 @@ export class InstancesComponent
     isIOS:boolean = false;
 
     constructor(private model: DataModel, private navCtrl:NavController, private plt: Platform, private storage:Storage,
-                private navParams: NavParams)
+                private navParams: NavParams, private alertCtrl:AlertController)
             { this.isIOS = this.plt.is('ios'); }
 
     ngOnInit()
@@ -61,8 +61,19 @@ export class InstancesComponent
 
     itemClicked(loc:InstanceObject)
     {
-        this.level++;
-        this.move(loc);
+        if(loc.host == null || loc.mobile_port == null ||loc.web_port == null)
+        {
+            this.alertCtrl.create({
+                title: "Not supported",
+                message: "This instance is currently not supported in this application",
+                cssClass: "alertText",
+                buttons: ["OK"]
+            }).present();
+        }
+        else {
+            this.level++;
+            this.move(loc);
+        }
     }
 
     move(loc:InstanceObject)
@@ -115,12 +126,23 @@ export class InstancesComponent
 
     choose(loc: InstanceObject)
     {
-        this.model.currentlyActive = loc;
-        this.storage.set('instance', this.model.currentlyActive);
-        this.model.reload();
-        let viewCtrl:ViewController = this.navParams.get("viewCtrl");
-        if(viewCtrl != null || viewCtrl != undefined) viewCtrl.dismiss();
-        else this.navCtrl.pop();
+        if(loc.mobile_port == null || loc.web_port == null || loc.host == null)
+        {
+            this.alertCtrl.create({
+                title: "Not supported",
+                message: "This instance is currently not supported in this application",
+                cssClass: "alertText",
+                buttons: ["OK"]
+            }).present();
+        }
+        else {
+            this.model.currentlyActive = loc;
+            this.storage.set('instance', this.model.currentlyActive);
+            this.model.reload();
+            let viewCtrl:ViewController = this.navParams.get("viewCtrl");
+            if(viewCtrl != null || viewCtrl != undefined) viewCtrl.dismiss();
+            else this.navCtrl.pop();
+        }
     }
 
     favorite(loc: InstanceObject)

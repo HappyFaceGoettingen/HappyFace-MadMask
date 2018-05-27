@@ -108,6 +108,7 @@ install_xcode(){
 	echo "Installing [$HOME/Downloads/$XCODE_APP] to [/Library] ..."
 	sudo mv $HOME/Downloads/$XCODE_APP /Library
 	sudo chown -R root:wheel /Library/Xcode.app
+	sudo ln -vs /Library/Xcode.app /Application/Xcode.app
 	sudo xcode-select -s /Library/Xcode.app/Contents/Developer
 	sudo xcodebuild -license
 	echo "Execute Xcode at once and install required packages"

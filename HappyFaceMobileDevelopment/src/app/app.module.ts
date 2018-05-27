@@ -30,11 +30,9 @@ import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {InstancesBrowserComponent} from "../pages/modals/config/instances.browser.component";
 import {AboutPage} from "../pages/modals/about/about";
 import {HomePage, WidgetCard} from "../pages/home/home";
-import {AbsoluteDrag} from "../directives/absolute-drag/AbsoluteDrag";
 import {HomeDetailImagePage} from "../pages/home/home-detail-image";
 import {HttpClientModule} from "@angular/common/http";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
-import {SpeechKit} from "@ionic-native/speechkit";
 import {Position} from "../directives/position/Position";
 import {TourPage} from "../pages/tour/tour";
 
@@ -64,7 +62,6 @@ import {TourPage} from "../pages/tour/tour";
         HFModulesPage,
         HomePage,
         TourPage,
-        AbsoluteDrag,
         Position,
         WidgetCard,
         HomeDetailImagePage
@@ -110,7 +107,6 @@ import {TourPage} from "../pages/tour/tour";
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
         InAppBrowser,
-        SpeechKit,
         ClassicalDataModel,
         HttpClientModule
     ]
