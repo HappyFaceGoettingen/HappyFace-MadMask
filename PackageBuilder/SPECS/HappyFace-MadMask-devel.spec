@@ -127,14 +127,15 @@ which forever || npm install -g forever@0.15.2 &> /dev/null
 pushd %{_prefix}/MadMask
 npm install sync-request@2.0.1
 npm install write-file-atomic@2.3.0
-npm install commander@2.9.0
-npm install readable-stream@2.3.6
-npm install process-nextick-args@2.0.0
-npm install inherits@2.0.3
-npm install isarray@2.0.4
-npm install core-util-is@1.0.2
-npm install caseless@0.11.0
-npm install qs@6.5.2
+
+#npm install commander@2.9.0
+#npm install readable-stream@2.3.6
+#npm install process-nextick-args@2.0.0
+#npm install inherits@2.0.3
+#npm install isarray@2.0.4
+#npm install core-util-is@1.0.2
+#npm install caseless@0.11.0
+#npm install qs@6.5.2
 popd
 
 
