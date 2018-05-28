@@ -158,10 +158,18 @@ prepare_ios_env(){
     cp -v $local_repo/HappyFaceMobile/madmask $tmp_dir
 
     pushd $tmp_dir
-    echo "Installing [sync-request] ..."
+    echo "Installing [NPM packages] ..."
     npm install sync-request@2.0.1
-    echo "Installing [write-file-atomic] ..."
     npm install write-file-atomic@2.3.0
+    npm install commander@2.9.0
+    npm install readable-stream@2.3.6
+    npm install process-nextick-args@2.0.0
+    npm install inherits@2.0.3
+    npm install isarray@2.0.4
+    npm install core-util-is@1.0.2
+    npm install caseless@0.11.0
+    npm install qs@6.5.2
+
     echo "Rebuilding [node-sass] ..."
     npm rebuild node-sass --force
     popd

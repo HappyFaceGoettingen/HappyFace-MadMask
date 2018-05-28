@@ -126,6 +126,7 @@ which forever || npm install -g forever@0.15.2 &> /dev/null
 ## Installing sync-request for madmask command
 pushd %{_prefix}/MadMask
 npm install sync-request@2.0.1
+npm install write-file-atomic@2.3.0
 npm install commander@2.9.0
 npm install readable-stream@2.3.6
 npm install process-nextick-args@2.0.0
