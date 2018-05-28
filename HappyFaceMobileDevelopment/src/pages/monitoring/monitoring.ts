@@ -14,6 +14,7 @@ import {TourPage} from "../tour/tour";
 export class MonitoringPage {
 
     isLoading:boolean = true;
+    loadingFailed:boolean = false;
 
     statusLevel:string = "Warning";
     statusImg  :string = "https://i.ytimg.com/vi/RqRNd4UyA4c/maxresdefault.jpg";
@@ -42,13 +43,16 @@ export class MonitoringPage {
 
     onReloadFinishedListener()
     {
+        this.isLoading = false;
         if(this.dataExists()) {
-            this.isLoading = false;
+            this.loadingFailed = false;
             this.setHistory();
             this.setStatusCard();
             this.model.setLinks("latest");
             this.monitoringURLs = this.model.monitoringUrls;
         }
+        else
+            this.loadingFailed = true;
     }
 
     onLoadingStartedListener()

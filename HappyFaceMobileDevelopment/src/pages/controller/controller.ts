@@ -12,6 +12,7 @@ import {SSHTerminalPage} from "../modals/ssh/ssh-terminal";
 export class ControllerPage
 {
     isLoading:boolean = true;
+    loadingFailed:boolean = false;
     systems:any[] = [];
 
     constructor(private model: DataModel, private navCtrl : NavController, private modalCtrl:ModalController) {}
@@ -34,11 +35,14 @@ export class ControllerPage
     reloadingFinishedCallback()
     {
         this.systems = [];
+        this.isLoading = false;
         if(!(this.model.systems == null || this.model.systems == undefined))
         {
             this.systems = this.model.systems;
-            this.isLoading = false;
+            this.loadingFailed = false;
         }
+        else
+            this.loadingFailed = true;
     }
 
     reload()

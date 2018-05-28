@@ -110,6 +110,7 @@ export class DataModel
     private loadingFinishedCallbacks:( () => void )[] = [];
     private loadingStartedCallbacks: ( () => void )[] = [];
     private loading:boolean = false;
+    private loadingFailed:boolean = false;
 
     addLoadingFinishedCallback(callback: () => void) { this.loadingFinishedCallbacks.push(callback); }
     removeLoadingFinishedCallback(callback: () => void) {
@@ -122,6 +123,8 @@ export class DataModel
     }
 
     isLoading() { return this.loading; }
+
+    isLoadingFailed() { return this.loadingFailed; }
 
     /* Deprecated
     reload2()
@@ -155,6 +158,7 @@ export class DataModel
     reload()
     {
         this.loading = true;
+        this.loadingFailed = false;
         this.errors = [];
         for(let i:number = 0; i < this.loadingStartedCallbacks.length; i++)
         {
@@ -170,6 +174,13 @@ export class DataModel
         else {
             this.errors.push({"url" : this.getRemoteURL() + this.currentlyActive.dir + "/" + DataModel.configJson, "code" : statusCode});
             this.initError();
+            this.loadingFailed = true;
+            this.loading = false;
+            for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
+            {
+                console.log("Started finished callback");
+                this.loadingFinishedCallbacks[i]();
+            }
             return;
         }
         let urls:string[] = [ DataModel.monitoringUrlsJson, DataModel.systemsJson, DataModel.visualizersJson,
@@ -243,6 +254,13 @@ export class DataModel
         else { this.analysis = null; this.pushError(DataModel.analysisJson, statusCodes[7])}
 
         this.loading = false;
+        this.loadingFailed = this.errors.length > 6;
+
+        if(this.loadingFailed)
+        {
+            this.loading = false;
+            this.initError();
+        }
 
         for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
         {
@@ -331,6 +349,7 @@ export class DataModel
     private plot_name:string = "analysis";
 
     setLinks(datetime_dir) {
+        if(!this.config) return;
         //let model:DataModel = DataModel.getInstance();
         let remote_url:string = this.getRemoteURL();
         let config:any = this.config;

@@ -13,6 +13,7 @@ export class LogsPage
     logText:string = "";
 
     isLoading:boolean = false;
+    loadingFailed:boolean = false;
 
     constructor(private model: DataModel) {}
 
@@ -52,6 +53,7 @@ export class LogsPage
     loadSelectedLog()
     {
         this.isLoading = true;
+        this.loadingFailed = this.model.isLoadingFailed();
         //DataModel.getInstance().asyncLoadFile(this.selectedLog.file, this.logLoaded.bind(this))
         this.model.asyncLoadFile(this.selectedLog.file, this.logLoaded.bind(this));
     }

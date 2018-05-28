@@ -8,8 +8,28 @@
 </ion-header>
 
 <ion-content padding>
-    <p>Please provide login information:</p>
+    <span>Please provide login information:</span>
 
+    <br><br>
+
+    <ion-list-header (click)="toogleGateway()" padding>
+        <button (click)="toogleGateway()" item-left class="button-icon" style="background-color: transparent">
+            <ion-icon name="ios-arrow-dropright" *ngIf="!gateway"></ion-icon>
+            <ion-icon name="ios-arrow-dropdown" *ngIf="gateway"></ion-icon>
+        </button>
+        Gateway
+    </ion-list-header>
+    <ion-list *ngIf="gateway" padding>
+        <ion-item>
+            <ion-label fixed>Gateway Host: </ion-label>
+            <ion-input [(ngModel)]="gatewayHost"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label fixed>Gateway Port:</ion-label>
+            <ion-input type="number" [(ngModel)]="gatewayPort"></ion-input>
+        </ion-item>
+    </ion-list>
+    <p></p>
     <ion-item>
         <ion-label fixed>Host: </ion-label>
         <ion-input [(ngModel)]="host"></ion-input>
@@ -23,9 +43,30 @@
         <ion-label fixed>Username: </ion-label>
         <ion-input [(ngModel)]="user"></ion-input>
     </ion-item>
+    <br>
+
+    <!--<p *ngIf="isAndroid">You can either login via password or key file:</p>-
+    <p *ngIf="isHost">You can login via password (for security reasons, key files are not supported):</p>
+    <p *ngIf="isiOS">You can login via password (key files are not supported on iOS):</p>
     <ion-item>
         <ion-label fixed>Password: </ion-label>
         <ion-input type="password" [(ngModel)]="pass"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item *ngIf="isAndroid">
+        <ion-label fixed>Key file: </ion-label>
+        <button ion-button (click)="selectFile()">Choose</button>
+    </ion-item>-->
+    <!-- Key files not supported -->
+    <p>You can login via password (key files are not yet supported):</p>
+    <ion-item>
+        <ion-label fixed>Password: </ion-label>
+        <ion-input type="password" [(ngModel)]="pass"></ion-input>
+    </ion-item>
+    <p></p>
+    <ion-item>
+        <ion-label>Save configuration: </ion-label>
+        <ion-toggle [(ngModel)]="saveConfig"></ion-toggle>
     </ion-item>
 </ion-content>
 

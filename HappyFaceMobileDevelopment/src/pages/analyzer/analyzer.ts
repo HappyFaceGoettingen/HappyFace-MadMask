@@ -18,6 +18,7 @@ export class AnalyzerPage
     statusText :string = "World wide Atlas Distributed Computing System";
 
     isLoading:boolean = true;
+    loadingFailed:boolean = false;
 
     // Page plugin
     @ViewChild('parent', {read: ViewContainerRef}) parent: ViewContainerRef;
@@ -46,14 +47,17 @@ export class AnalyzerPage
 
     onReloadFinishedListener()
     {
+        this.isLoading = false;
         if(this.dataExists())
         {
-            this.isLoading = false;
+            this.loadingFailed = false;
             this.setStatusCard();
             this.setPlots2();
             this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
             this.setForecast();
         }
+        else
+            this.loadingFailed = true;
     }
 
     onLoadingStartedListener()

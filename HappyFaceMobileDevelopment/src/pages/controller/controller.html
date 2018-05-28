@@ -13,7 +13,11 @@
         <ion-spinner></ion-spinner>
     </div>
 
-    <ion-list no-padding [hidden]="isLoading">
+    <div text-center padding [hidden]="!loadingFailed || isLoading">
+        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>
+    </div>
+
+    <ion-list no-padding [hidden]="isLoading || loadingFailed">
         <ion-item *ngFor="let system of systems" text-wrap no-padding (click)="openPage(system)">
             <ion-avatar item-left>
                 <img src="assets/{{system.img}}"/>

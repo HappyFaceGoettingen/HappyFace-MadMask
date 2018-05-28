@@ -35,6 +35,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {Position} from "../directives/position/Position";
 import {TourPage} from "../pages/tour/tour";
+import {File} from "@ionic-native/file";
+import {FileChooser} from "@ionic-native/file-chooser";
 
 @NgModule({
     declarations: [
@@ -107,6 +109,8 @@ import {TourPage} from "../pages/tour/tour";
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
         InAppBrowser,
+        File,
+        FileChooser,
         ClassicalDataModel,
         HttpClientModule
     ]

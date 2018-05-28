@@ -12,14 +12,18 @@
         <ion-spinner></ion-spinner>
     </div>
 
-    <ion-item no-padding [hidden]="isLoading">
+    <div text-center padding [hidden]="!loadingFailed || isLoading">
+        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>
+    </div>
+
+    <ion-item no-padding [hidden]="isLoading || loadingFailed">
         <ion-label>Diagram:</ion-label>
         <ion-select (ionChange)="visualizerSelected($event)" interface="action-sheet" style="max-width: 75% !important;">
             <ion-option *ngFor="let v of visualizers" [value]="v">{{v.name}}</ion-option>
         </ion-select>
     </ion-item>
 
-    <ion-item no-padding style="margin-left: auto; margin-right: auto; max-width: 100%;" [hidden]="isLoading">
+    <ion-item no-padding style="margin-left: auto; margin-right: auto; max-width: 100%;" *ngIf="!isLoading && !loadingFailed">
         <img src="{{selectedVisualizer.file}}"/>
     </ion-item>
 </ion-content>
