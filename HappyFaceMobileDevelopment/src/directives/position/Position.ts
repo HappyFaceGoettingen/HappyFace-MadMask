@@ -28,5 +28,7 @@ export class Position {
         this.renderer.setElementStyle(this.element.nativeElement, 'top', y + 'px');
         this.renderer.setElementStyle(this.element.nativeElement, 'width', width + 'px');
         this.renderer.setElementStyle(this.element.nativeElement, 'height', height + 'px');
+        
+        
     }
 }
