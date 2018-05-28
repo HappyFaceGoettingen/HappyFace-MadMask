@@ -11,7 +11,6 @@ import {AlertController, IonicPageModule, LoadingController, NavController} from
 import {BaseWidget} from "../../assets/widgets/BaseWidget";
 import {DataModel} from "../../data/DataModel";
 import {HomeDetailImagePage} from "./home-detail-image";
-import {Position} from "../../directives/position/Position";
 import {Positions} from "./Positions";
 
 @Component({
@@ -85,7 +84,7 @@ export class HomePage
             this._compiler.clearCache();
 
             try{
-                eval("import('./Positions')");
+                eval("import('/assets/widgets/BaseWidget.js')");
             } catch(e) {
                 console.log("dynamic import not supported");
                 if(this.adding) this.alertCtrl.create({

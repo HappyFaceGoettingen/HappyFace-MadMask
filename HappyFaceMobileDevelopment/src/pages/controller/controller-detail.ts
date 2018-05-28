@@ -3,6 +3,7 @@ import {AlertController, ModalController, NavParams} from "ionic-angular";
 import {SSH2Wrapper} from "../modals/ssh/SSH2-Wrapper";
 import {PassModal} from "../modals/ssh/pass-modal";
 import {DataModel} from "../../data/DataModel";
+import {SSH3Wrapper} from "../modals/ssh/SSH3-Wrapper";
 
 @Component({
     selector: 'page-controller-detail',
@@ -12,6 +13,7 @@ import {DataModel} from "../../data/DataModel";
 export class ControllerDetailPage {
     system: any = null;
     sshWrapper: SSH2Wrapper = null;
+    ssh: SSH3Wrapper = null;
     serviceTMP:any = null;
 
     constructor(navParams: NavParams, private alertCtrl: AlertController, private modalCtrl: ModalController, private model: DataModel) {
@@ -39,77 +41,58 @@ export class ControllerDetailPage {
                     window.open(service.command.replace("url:", ""), "_blank");
                     break;
                 case "ssh":
-                    this.openSSHCommand(service);
+                    this.openSSH(service);
                     break;
             }
         }
     }
 
-    openSSHCommand(service: any) {
-        try {
-            this.sshWrapper = new SSH2Wrapper();
-        }
-        catch (error) {
-            if (this.alertCtrl != null) {
-                if (this.model.isAndroid()) {
-                    let alert = this.alertCtrl.create({
-                        title: "Secure connection not available",
-                        subTitle: "An unknown error makes SSH Cordova plugin unavailable.\nPlease use external " +
-                        "clients like JuiceSSH, ConnectBot or Terminus.",
-                        cssClass: "alertText",
-                        buttons: ["OK"]
-                    });
-                    alert.present();
-                }
-                else if (this.model.isiOS()) {
-                    let alert = this.alertCtrl.create({
-                        title: "Secure connection not available",
-                        subTitle: "The SSH plugin is not available in iOS for now. Our intelligent (and extraordinary good looking) " +
-                        "team is already working on it, but for now please use external ssh clients like Terminus or iTerminal",
-                        cssClass: "alertText",
-                        buttons: ["OK"]
-                    });
-                    alert.present();
-                }
-                else {
-                    let alert = this.alertCtrl.create({
-                        title: "Secure connection not available",
-                        subTitle: "The SSH client is in this version of HappyFaceMobile (probably the browser version) not available. " +
-                        "Due to the limitations of portable web apps (pwa), this feature might not be included at all. Please use your " +
-                        "linux terminal to connect.",
-                        cssClass: "alertText",
-                        buttons: ["OK"]
-                    });
-                    alert.present();
-                }
-            }
-            else {
-                console.log("ERROR: SSH plugin is missing.");
-            }
-            this.sshWrapper = null;
-            return;
-        }
+    private activeService:any = null;
 
-        this.serviceTMP = service;
+    openSSH(service:any)
+    {
+        this.activeService = service;
+        this.askForCredentials();
+    }
 
+    askForCredentials()
+    {
         let modal = this.modalCtrl.create(PassModal);
-        modal.onDidDismiss(this.gotSSHPass.bind(this));
+        modal.onDidDismiss(this.gotCredentials.bind(this));
         modal.present();
     }
 
-    gotSSHPass(data:any)
+    gotCredentials(data:any)
     {
         if(data == null || data.enter == undefined || !data.enter)
+        {
             return;
+        }
 
-        this.sshWrapper.host = data.host;
-        this.sshWrapper.port = data.port;
-        this.sshWrapper.username = data.user;
-        this.sshWrapper.password = data.pass;
-        this.sshWrapper.connect(false);
-        this.sshWrapper.write(this.serviceTMP.command + "\n");
-        this.sshWrapper.close();
+        this.ssh = new SSH3Wrapper(this, null, this.connReady.bind(this), {
+            host: data.host,
+            port: data.port,
+            username: data.user,
+            password: data.pass
+        });
+    }
 
-        this.serviceTMP = null;
+    connReady()
+    {
+        if(this.activeService)
+            this.ssh.sendRaw(this.activeService.command + "\n").then(() => { this.ssh.close(); });
+        else this.ssh.close();
+
+        this.activeService = null;
+    }
+
+    write(data:string)
+    {
+        console.log(data);
+    }
+
+    writeln(data:string)
+    {
+        this.write(data + "\n");
     }
 }

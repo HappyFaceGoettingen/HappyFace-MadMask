@@ -16,7 +16,11 @@
         <ion-spinner></ion-spinner>
     </div>
 
-    <ion-list [hidden]="isLoading" no-padding>
+    <div text-center padding [hidden]="!loadingFailed || isLoading">
+        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>
+    </div>
+
+    <ion-list [hidden]="isLoading || loadingFailed" no-padding>
         <!-- Status card -->
         <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">
             <ion-card color="{{statusColor}}">

@@ -12,6 +12,7 @@ export class VisualizersPage
     selectedVisualizer:any = null;
 
     isLoading:boolean = true;
+    loadingFailed:boolean = false;
 
     constructor(private model:DataModel) {}
 
@@ -25,13 +26,16 @@ export class VisualizersPage
     reloadingFinishedListener()
     {
         this.visualizers = [];
+        this.isLoading = false;
         if(!(this.model.visualizers == null || this.model.visualizers == undefined))
         {
+            this.loadingFailed = false;
             this.visualizers = this.model.visualizers;
-            this.isLoading = false;
             this.modifyLinks();
             this.selectedVisualizer = this.visualizers[0];
         }
+        else
+            this.loadingFailed = true;
     }
 
     onLoadingStartedListener()
