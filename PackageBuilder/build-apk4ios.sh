@@ -118,7 +118,7 @@ install_xcode(){
 
 
 update_script(){
-    local url=https://raw.githubusercontent.com/${GIT_DIR}/${GIT_BRANCH}/HappyFace-MadMask/build-apk4ios.sh
+    local url=https://raw.githubusercontent.com/${GIT_DIR}/${GIT_BRANCH}/PackageBuilder/build-apk4ios.sh
     curl -fsSL $url -o /usr/local/bin/$(basename $url) && chmod 755 /usr/local/bin/$(basename $url)
 }
 
