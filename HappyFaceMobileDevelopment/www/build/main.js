@@ -1645,73 +1645,6 @@ let ControllerDetailPage = class ControllerDetailPage {
         this.sshWrapper = null;
         this.ssh = null;
         this.serviceTMP = null;
-        /*openSSHCommand(service: any) {
-            try {
-                this.sshWrapper = new SSH2Wrapper();
-            }
-            catch (error) {
-                if (this.alertCtrl != null) {
-                    if (this.model.isAndroid()) {
-                        let alert = this.alertCtrl.create({
-                            title: "Secure connection not available",
-                            subTitle: "An unknown error makes SSH Cordova plugin unavailable.\nPlease use external " +
-                            "clients like JuiceSSH, ConnectBot or Terminus.",
-                            cssClass: "alertText",
-                            buttons: ["OK"]
-                        });
-                        alert.present();
-                    }
-                    else if (this.model.isiOS()) {
-                        let alert = this.alertCtrl.create({
-                            title: "Secure connection not available",
-                            subTitle: "The SSH plugin is not available in iOS for now. Our intelligent (and extraordinary good looking) " +
-                            "team is already working on it, but for now please use external ssh clients like Terminus or iTerminal",
-                            cssClass: "alertText",
-                            buttons: ["OK"]
-                        });
-                        alert.present();
-                    }
-                    else {
-                        let alert = this.alertCtrl.create({
-                            title: "Secure connection not available",
-                            subTitle: "The SSH client is in this version of HappyFaceMobile (probably the browser version) not available. " +
-                            "Due to the limitations of portable web apps (pwa), this feature might not be included at all. Please use your " +
-                            "linux terminal to connect.",
-                            cssClass: "alertText",
-                            buttons: ["OK"]
-                        });
-                        alert.present();
-                    }
-                }
-                else {
-                    console.log("ERROR: SSH plugin is missing.");
-                }
-                this.sshWrapper = null;
-                return;
-            }
-    
-            this.serviceTMP = service;
-    
-            let modal = this.modalCtrl.create(PassModal);
-            modal.onDidDismiss(this.gotSSHPass.bind(this));
-            modal.present();
-        }
-    
-        gotSSHPass(data:any)
-        {
-            if(data == null || data.enter == undefined || !data.enter)
-                return;
-    
-            this.sshWrapper.host = data.host;
-            this.sshWrapper.port = data.port;
-            this.sshWrapper.username = data.user;
-            this.sshWrapper.password = data.pass;
-            this.sshWrapper.connect(false);
-            this.sshWrapper.write(this.serviceTMP.command + "\n");
-            this.sshWrapper.close();
-    
-            this.serviceTMP = null;
-        }*/
         this.activeService = null;
         this.system = navParams.get('system');
         if (this.system == null || this.system == undefined) {
@@ -1742,6 +1675,7 @@ let ControllerDetailPage = class ControllerDetailPage {
         }
     }
     openSSH(service) {
+        this.activeService = service;
         this.askForCredentials();
     }
     askForCredentials() {
@@ -1763,6 +1697,9 @@ let ControllerDetailPage = class ControllerDetailPage {
     connReady() {
         if (this.activeService)
             this.ssh.sendRaw(this.activeService.command + "\n").then(() => { this.ssh.close(); });
+        else
+            this.ssh.close();
+        this.activeService = null;
     }
     write(data) {
         console.log(data);
@@ -3141,13 +3078,15 @@ let HomePage = class HomePage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('vc', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
 ], HomePage.prototype, "vc", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n\n        <ion-buttons end>\n            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n        <!-- Headers --\n        <ion-card-header *ngIf="i.widget.title">\n            <div [innerHTML]="i.widget.title"></div>\n        </ion-card-header>\n\n        <!-- Content --\n        <ion-card-content *ngIf="i.widget.content">\n            <div [innerHTML]="i.widget.content"></div>\n        </ion-card-content>\n\n    </ion-card>-->\n\n    <ng-container #vc></ng-container>\n\n    <ion-fab bottom right *ngIf="editMode">\n        <button ion-fab (click)="addWidgetAlert()"><ion-icon name="add"></ion-icon></button>\n    </ion-fab>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _j || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
 ], HomePage);
 
 class TmpModule {
@@ -3175,7 +3114,7 @@ let WidgetCard = class WidgetCard {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('card', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _k || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
 ], WidgetCard.prototype, "card", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('cdire'),
@@ -3199,7 +3138,6 @@ WidgetCard = __decorate([
     })
 ], WidgetCard);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -3517,9 +3455,9 @@ class Terminal3 {
         term.prompt = function () {
             term.write('\r\n' + _self.shellprompt);
         };
-        term.writeln('Welcome to xterm.js');
-        term.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
-        term.writeln('Type some keys and commands to play around.');
+        term.writeln('Welcome to the ssh terminal');
+        term.writeln('It uses xterm.js as a local terminal emulation.');
+        term.writeln('Type "ssh" to start a ssh connection,.');
         term.writeln('');
         term.prompt();
         term.on('key', (key, ev) => {
