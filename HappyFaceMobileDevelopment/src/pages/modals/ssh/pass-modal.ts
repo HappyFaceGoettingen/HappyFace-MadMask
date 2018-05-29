@@ -21,8 +21,8 @@ export class PassModal
     pass:string = "";
 
     gateway:boolean = false;
-    gatewayHost:string = "127.0.0.1";
-    gatewayPort:string = "1510";
+    gatewayHost:string = "134.76.86.224";
+    gatewayPort:string = "10101";
 
     saveConfig:boolean = false;
 

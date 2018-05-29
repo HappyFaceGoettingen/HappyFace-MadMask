@@ -54,21 +54,42 @@ In Mac OSX, the following builder command can install the above-mentioned packag
        * Preparation
        -I:  install Ionic
        -X:  install Xcode
-       -U:  Update this script (/usr/bin/build-apk4ios.sh)
+       -U:  Update this script (/usr/local/bin/build-apk4ios.sh)
+       -c:  Connect to [vm|ph2|clouds] via ssh
       
        * Git location
        -R:  set a git repo [default: https://github.com/HappyFaceGoettingen/HappyFace-MadMask]
        -B:  set a branch name [defaut: gen_development]
+       -C:  set a commit ID [default: ]
+       -S:  set a stable nightly commit [default: gen_development - 4185dbaef0a65a81103135dd122d0f73cfd0e056]
       
        * Application Build
-       -i:  set a build ID [default: 20180511-093337]
-       -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/ios/gen_development.20180511-093337]
+       -i:  set a build ID [default: 20180529-105519]
+       -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/ios/gen_development.20180529-105519]
       
        * Example
        ./build-apk4ios.sh -B master -b
+       ./build-apk4ios.sh -S -b
+
       
 
 # iTunes connect and Testflight
 * Open iTunes Connect https://itunesconnect.apple.com/
 * A video of TestFlight: https://itunespartner.apple.com/en/apps/overview#testflight-beta-testing
 
+## A procedure to upload a iPhone application onto iTunes Conenct
+After running and validating a build process of the iPhone application produced by the above mentioned script (build-apk4ios.sh), one can find a Xcode project file in the platform directory (e.g. /tmp/HappyFace-MadMask4iOS/ios/gen_development.20180529-105519/platform/ios) in Mac. A procedure putting the final application onto iTunes connect is the following:
+
+0. Copy build files (e.g. to $HOME/Documents/ios)
+1. Open XCode application
+2. "File" --> "Open" a project file (typically, ios/HappyFace2.xcodeproj)
+3. Put Bundle ID (see a configuration of HappyFace2 in iTunes Connect)
+4. "General" --> "Signing" --> Select "Automatic"
+5. "General" --> "Signing" --> Select a certificate (an official iPhone developer key)
+6. Select "Build"
+6. "Production" --> "Archive"
+7. "Validate"
+8. "Upload XCode App"
+
+
+Note: select a given certificate by an iPhone developer in the Apple Developer portal (https://developer.apple.com/account/ios/certificate).

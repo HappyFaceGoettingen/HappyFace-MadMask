@@ -11,7 +11,11 @@ GIT_DIR=HappyFaceGoettingen/HappyFace-MadMask
 GIT_REPO=https://github.com/$GIT_DIR
 GIT_BRANCH=gen_development
 GIT_COMMIT=
-STABLE_GIT_COMMIT=36f66d208b8cc67ad4c5c5150085ff8300cf2228
+
+## Buildable version
+STABLE_GIT_BRANCH=gen_development
+STABLE_GIT_COMMIT=4185dbaef0a65a81103135dd122d0f73cfd0e056
+
 
 ## Usage
 usage="$0 [options]
@@ -26,7 +30,7 @@ usage="$0 [options]
  -R:  set a git repo [default: $GIT_REPO]
  -B:  set a branch name [defaut: $GIT_BRANCH]
  -C:  set a commit ID [default: $GIT_COMMIT]
- -S:  set a nightly commit [default: master - $STABLE_GIT_COMMIT]
+ -S:  set a stable nightly commit [default: $STABLE_GIT_BRANCH - $STABLE_GIT_COMMIT]
 
  * Application Build
  -i:  set a build ID [default: $BUILD_ID]
@@ -265,7 +269,7 @@ while getopts "IXUc:ki:R:B:C:Sbphv" op
 	  ;;
       C) GIT_COMMIT="$OPTARG"
 	  ;;
-      S) GIT_BRANCH=master
+      S) GIT_BRANCH="$STABLE_GIT_BRANCH"
 	  GIT_COMMIT="$STABLE_GIT_COMMIT"
 	  ;;
       b) build_iphone_app

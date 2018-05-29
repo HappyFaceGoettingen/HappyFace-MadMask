@@ -92,7 +92,7 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 ## VM OSX config
  * Apple ID --> Done
- * Collect testers --> Doing
+ * Collect testers --> Done
  * ssh connection + ssh server in OSX --> Done
  * Automatic iOS builder in madmask --> DONE
  * Automatic build with Macbook Pro (implementing it in mad-gantry) --> Doing
@@ -106,6 +106,9 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
    * monitoring-urls.json:   Remove 'capture' completely. When file.prefix is null, then not capture => Done
    * summary.json:   Added new attributes "systems" and "urls" ==> Done
 
+## Implementaiton of Admin-server
+   * RPM + Docker template --> Doing
+   * Daemonized web2ssh-gateway.js
 
 ## HappyFace Instance
    * Allowing CORS:   DOING
@@ -117,7 +120,7 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
 
 
 ## Kibana
-   * Test deployments
+   * Test deployments --> Reading
 
 ## Implement new data importer for HF database
    * HF DB connector (simple one)

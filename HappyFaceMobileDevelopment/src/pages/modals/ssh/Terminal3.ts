@@ -143,8 +143,9 @@ export class Terminal3
 
     controlC()
     {
-        if(this.sshInteractive)
+        if(this.ssh && this.sshInteractive)
             this.ssh.close();
+        else this.term.promt();
     }
 
     askForCredentials()
@@ -168,7 +169,9 @@ export class Terminal3
             host: data.host,
             port: data.port,
             username: data.user,
-            password: data.pass
+            password: data.pass,
+            gatewayHost: data.ghost,
+            gatewayPort: data.gport
         });
         this.shellprompt = "";
         this.activeProg = this.ssh.send;

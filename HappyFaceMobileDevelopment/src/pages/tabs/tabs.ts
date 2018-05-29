@@ -49,7 +49,6 @@ export class TabsPage {
                   this.navCtrl.push(TourPage, {});
                   console.log("Starting tour");
               }
-              else this.storage.set("startup", false);
           })
       }, 500);
   }

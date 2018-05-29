@@ -73,7 +73,9 @@ export class ControllerDetailPage {
             host: data.host,
             port: data.port,
             username: data.user,
-            password: data.pass
+            password: data.pass,
+            gatewayHost: data.ghost,
+            gatewayPort: data.gport
         });
     }
 
@@ -89,6 +91,12 @@ export class ControllerDetailPage {
     write(data:string)
     {
         console.log(data);
+        if(data.startsWith("Connection failed:"))
+            this.alertCtrl.create({
+                title: "SSH connection failed",
+                message: "Failed to connect to the ssh admin server. The command was not executed",
+                buttons: ["OK"]
+            }).present();
     }
 
     writeln(data:string)

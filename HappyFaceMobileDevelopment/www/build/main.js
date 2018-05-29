@@ -117,8 +117,10 @@ let DataModel = DataModel_1 = class DataModel {
         this.loopCounter = 0;
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
-        this.findInitialConfiguration();
-        this.initLoop();
+        this.plt.ready().then(_ => {
+            this.findInitialConfiguration();
+            this.initLoop();
+        });
     }
     addLoadingFinishedCallback(callback) { this.loadingFinishedCallbacks.push(callback); }
     removeLoadingFinishedCallback(callback) {
@@ -422,17 +424,21 @@ let DataModel = DataModel_1 = class DataModel {
     // Initial configuration
     findInitialConfiguration() {
         // App running on a webserver:
-        console.log("SELFHOST: " + this.isHost());
-        if (this.isHost()) {
+        /* Deprecated
+        console.log("SELFHOST: " + this.isHost() );
+        if(this.isHost())
+        {
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
             this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
+
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
             /*this.loadConfig();
-            this.currentlyActive.name = this.config.site_name;*/
+            this.currentlyActive.name = this.config.site_name;
             //this.reload();
         }
+        // App running on a clients device
         else {
             // Initial configuration
             this.currentlyActive.name = "GoeGrid";
@@ -440,14 +446,39 @@ let DataModel = DataModel_1 = class DataModel {
             this.currentlyActive.mobile_port = "20200";
             this.currentlyActive.web_port = "10200";
             this.currentlyActive.dir = "sites/default";
+
         }
+
         this.storage.get('instance').then((value) => {
-            if (value !== null && value !== undefined)
+            if(value !== null && value !== undefined)
                 this.currentlyActive = value;
             console.log("Saved Instance is: " + JSON.stringify(value));
             console.log("Running instance: " + JSON.stringify(this.currentlyActive));
             this.reload();
-        });
+        }); */
+        if (!this.isCordova()) {
+            this.currentlyActive.name = window.location.hostname;
+            this.currentlyActive.host = window.location.hostname;
+            this.currentlyActive.mobile_port = window.location.port;
+            this.currentlyActive.web_port = window.location.port;
+            this.currentlyActive.dir = "sites/default";
+            console.log("Position: " + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port);
+            this.reload();
+        }
+        else {
+            // Initial configuration
+            this.currentlyActive.name = "GoeGrid";
+            this.currentlyActive.host = "141.5.108.30";
+            this.currentlyActive.mobile_port = "20200";
+            this.currentlyActive.web_port = "10100";
+            this.currentlyActive.dir = "sites/default";
+            this.storage.get('instance').then((value) => {
+                if (value !== null && value !== undefined)
+                    this.currentlyActive = value;
+                console.log("Using saved instance: " + JSON.stringify(this.currentlyActive));
+                this.reload();
+            });
+        }
     }
     // Determinations.
     // isMobilePhone() is used to rearrange the UI based on the smaller screen size on mobile phones
@@ -468,6 +499,9 @@ let DataModel = DataModel_1 = class DataModel {
     }
     isiOS() {
         return this.plt.is('ios');
+    }
+    isCordova() {
+        return this.plt.is('cordova');
     }
 };
 // Singletone Depreceated
@@ -630,8 +664,8 @@ let PassModal = class PassModal {
         this.user = "";
         this.pass = "";
         this.gateway = false;
-        this.gatewayHost = "127.0.0.1";
-        this.gatewayPort = "1510";
+        this.gatewayHost = "134.76.86.224";
+        this.gatewayPort = "10101";
         this.saveConfig = false;
     }
     ngOnInit() {
@@ -918,8 +952,6 @@ let TabsPage = class TabsPage {
                     this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_12__tour_tour__["a" /* TourPage */], {});
                     console.log("Starting tour");
                 }
-                else
-                    this.storage.set("startup", false);
             });
         }, 500);
     }
@@ -1295,13 +1327,18 @@ let InstancesBrowserComponent = class InstancesBrowserComponent {
     extSettings() {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* ConfigPage */], { "viewCtrl": this.navParams.get('viewCtrl') });
     }
+    webBackend() {
+        if (!this.model.config || !this.model.config.web_port)
+            return;
+        window.open("http://" + this.model.currentlyActive.host + ":" + this.model.config.web_port + "/", "_blank");
+    }
     close() {
         let viewCtrl = this.navParams.get('viewCtrl');
         viewCtrl.dismiss();
     }
 };
 InstancesBrowserComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Settings</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list-header>\n\n        Choose Instance\n\n    </ion-list-header>\n\n\n\n    <div text-center *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n    <ion-list *ngIf="!isLoading">\n\n        <ng-container *ngFor="let inst of instances">\n\n            <button ion-item detail-none (click)="choose(inst)">\n\n                {{inst.name}}\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ng-container>\n\n        <ion-item *ngIf="instances.length == 0">\n\n            There are no subinstances here.\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-item>\n\n        <button ion-item detail-none (click)="extSettings()">\n\n            Advanced Settings\n\n            <div item-end text-center>\n\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n\n            </div>\n\n        </button>\n\n    </ion-item>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n    </ion-navbar>\n    <ion-navbar *ngIf="!isIOS">\n        <ion-title>Settings</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list-header>\n        Choose Instance\n    </ion-list-header>\n\n    <div text-center *ngIf="isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n    <ion-list *ngIf="!isLoading">\n        <ng-container *ngFor="let inst of instances">\n            <button ion-item detail-none (click)="choose(inst)">\n                {{inst.name}}\n                <div item-end text-center>\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n                </div>\n            </button>\n        </ng-container>\n        <ion-item *ngIf="instances.length == 0">\n            There are no subinstances here.\n        </ion-item>\n    </ion-list>\n    <ion-item>\n        <button ion-item detail-none no-lines (click)="extSettings()">\n            Advanced Settings\n            <div item-end text-center>\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n            </div>\n        </button>\n    </ion-item>\n    <ion-item>\n        <button ion-item detail-none no-lines (click)="webBackend()">\n            HappyFace backend web\n            <div item-end text-center>\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n            </div>\n        </button>\n    </ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
 ], InstancesBrowserComponent);
@@ -1691,7 +1728,9 @@ let ControllerDetailPage = class ControllerDetailPage {
             host: data.host,
             port: data.port,
             username: data.user,
-            password: data.pass
+            password: data.pass,
+            gatewayHost: data.ghost,
+            gatewayPort: data.gport
         });
     }
     connReady() {
@@ -1703,6 +1742,12 @@ let ControllerDetailPage = class ControllerDetailPage {
     }
     write(data) {
         console.log(data);
+        if (data.startsWith("Connection failed:"))
+            this.alertCtrl.create({
+                title: "SSH connection failed",
+                message: "Failed to connect to the ssh admin server. The command was not executed",
+                buttons: ["OK"]
+            }).present();
     }
     writeln(data) {
         this.write(data + "\n");
@@ -1712,9 +1757,10 @@ ControllerDetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{system.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n\n    <h2>{{system.text}}</h2>\n\n\n\n    <!--<ion-card>\n\n        <ion-item-divider>Power</ion-item-divider>\n\n        <ion-item text-wrap>\n\n            <button ion-button class="button-outline">Cold reboot</button>\n\n            <button ion-button class="button-outline">Warm reboot</button>\n\n        </ion-item>\n\n    </ion-card>-->\n\n    <ion-card>\n\n        <ion-card-header style="background: #e2e4e2">Services</ion-card-header>\n\n        <ion-card-content>\n\n            <br>\n\n            <span *ngFor="let service of system.services" padding-left="15px" text-wrap>\n\n                <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n\n            </span>\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]) === "function" && _d || Object])
 ], ControllerDetailPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=controller-detail.js.map
 
 /***/ }),
@@ -1728,8 +1774,8 @@ ControllerDetailPage = __decorate([
 class SSH3Wrapper {
     constructor(term, onConnectionEnd, onConnectionReady, cred) {
         /* GATEWAY */
-        this.gatewayHost = "127.0.0.1";
-        this.gatewayPort = "1510";
+        this.gatewayHost = "134.76.86.224";
+        this.gatewayPort = "10101";
         /* SSH CONNECTION */
         this.host = null;
         this.port = null;
@@ -1750,6 +1796,8 @@ class SSH3Wrapper {
             this.port = cred.port;
             this.username = cred.username;
             this.password = cred.password;
+            this.gatewayHost = cred.gatewayHost;
+            this.gatewayPort = cred.gatewayPort;
         }
         this.crypt = new __WEBPACK_IMPORTED_MODULE_0__Crypt__["a" /* Crypt */]();
         this.crypt.send = this.sendClear.bind(this);
@@ -3537,8 +3585,10 @@ class Terminal3 {
         this.term.prompt();
     }
     controlC() {
-        if (this.sshInteractive)
+        if (this.ssh && this.sshInteractive)
             this.ssh.close();
+        else
+            this.term.promt();
     }
     askForCredentials() {
         this.term.write("Start ssh connection");
@@ -3555,7 +3605,9 @@ class Terminal3 {
             host: data.host,
             port: data.port,
             username: data.user,
-            password: data.pass
+            password: data.pass,
+            gatewayHost: data.ghost,
+            gatewayPort: data.gport
         });
         this.shellprompt = "";
         this.activeProg = this.ssh.send;
@@ -9093,9 +9145,12 @@ let ConfigPage = class ConfigPage {
     }
     tour() {
         setTimeout(() => {
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__tour_tour__["a" /* TourPage */], {});
-            console.log("Starting tour");
-        }, 500);
+            this.closeModal();
+            setTimeout(() => {
+                this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__tour_tour__["a" /* TourPage */], {});
+                console.log("Starting tour");
+            }, 500);
+        }, 50);
     }
     about() {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__about_about__["a" /* AboutPage */], { "viewCtrl": this.navParams.get('viewCtrl') });

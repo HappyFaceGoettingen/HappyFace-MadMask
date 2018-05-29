@@ -1,1 +1,1 @@
-2.0.5 Beta Release
+2.0.6 Beta Release
