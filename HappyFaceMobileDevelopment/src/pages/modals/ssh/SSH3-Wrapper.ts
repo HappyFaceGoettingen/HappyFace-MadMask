@@ -5,8 +5,8 @@ import {ModalController} from "ionic-angular";
 export class SSH3Wrapper
 {
     /* GATEWAY */
-    gatewayHost:string = "127.0.0.1";
-    gatewayPort:string = "1510";
+    gatewayHost:string = "134.76.86.224";
+    gatewayPort:string = "10101";
 
     /* SSH CONNECTION */
     host:string = null;
@@ -35,6 +35,9 @@ export class SSH3Wrapper
             this.port     = cred.port;
             this.username = cred.username;
             this.password = cred.password;
+
+            this.gatewayHost = cred.gatewayHost;
+            this.gatewayPort = cred.gatewayPort;
         }
 
         this.crypt = new Crypt();
@@ -205,4 +208,6 @@ interface SSHCredentials
     port:string;
     username:string;
     password:string;
+    gatewayHost:string;
+    gatewayPort:string;
 }

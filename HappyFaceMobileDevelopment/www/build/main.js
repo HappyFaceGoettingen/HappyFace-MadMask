@@ -532,7 +532,7 @@ DataModel.summaryJson = "index/latest/summary.json";
 DataModel.analysisJson = "index/latest/analysis.json";
 DataModel = DataModel_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]])
 ], DataModel);
 
 class ConfigObject {
@@ -618,7 +618,7 @@ class ConfigurationObject {
 }
 /* unused harmony export ConfigurationObject */
 
-var DataModel_1, _a, _b, _c;
+var DataModel_1;
 //# sourceMappingURL=DataModel.js.map
 
 /***/ }),
@@ -664,8 +664,8 @@ let PassModal = class PassModal {
         this.user = "";
         this.pass = "";
         this.gateway = false;
-        this.gatewayHost = "127.0.0.1";
-        this.gatewayPort = "1510";
+        this.gatewayHost = "134.76.86.224";
+        this.gatewayPort = "10101";
         this.saveConfig = false;
     }
     ngOnInit() {
@@ -1327,6 +1327,11 @@ let InstancesBrowserComponent = class InstancesBrowserComponent {
     extSettings() {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* ConfigPage */], { "viewCtrl": this.navParams.get('viewCtrl') });
     }
+    webBackend() {
+        if (!this.model.config || !this.model.config.web_port)
+            return;
+        window.open("http://" + this.model.currentlyActive.host + ":" + this.model.config.web_port + "/", "_blank");
+    }
     close() {
         let viewCtrl = this.navParams.get('viewCtrl');
         viewCtrl.dismiss();
@@ -1723,7 +1728,9 @@ let ControllerDetailPage = class ControllerDetailPage {
             host: data.host,
             port: data.port,
             username: data.user,
-            password: data.pass
+            password: data.pass,
+            gatewayHost: data.ghost,
+            gatewayPort: data.gport
         });
     }
     connReady() {
@@ -1735,6 +1742,12 @@ let ControllerDetailPage = class ControllerDetailPage {
     }
     write(data) {
         console.log(data);
+        if (data.startsWith("Connection failed:"))
+            this.alertCtrl.create({
+                title: "SSH connection failed",
+                message: "Failed to connect to the ssh admin server. The command was not executed",
+                buttons: ["OK"]
+            }).present();
     }
     writeln(data) {
         this.write(data + "\n");
@@ -1744,9 +1757,10 @@ ControllerDetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{system.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n\n    <h2>{{system.text}}</h2>\n\n\n\n    <!--<ion-card>\n\n        <ion-item-divider>Power</ion-item-divider>\n\n        <ion-item text-wrap>\n\n            <button ion-button class="button-outline">Cold reboot</button>\n\n            <button ion-button class="button-outline">Warm reboot</button>\n\n        </ion-item>\n\n    </ion-card>-->\n\n    <ion-card>\n\n        <ion-card-header style="background: #e2e4e2">Services</ion-card-header>\n\n        <ion-card-content>\n\n            <br>\n\n            <span *ngFor="let service of system.services" padding-left="15px" text-wrap>\n\n                <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n\n            </span>\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]) === "function" && _d || Object])
 ], ControllerDetailPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=controller-detail.js.map
 
 /***/ }),
@@ -1760,8 +1774,8 @@ ControllerDetailPage = __decorate([
 class SSH3Wrapper {
     constructor(term, onConnectionEnd, onConnectionReady, cred) {
         /* GATEWAY */
-        this.gatewayHost = "127.0.0.1";
-        this.gatewayPort = "1510";
+        this.gatewayHost = "134.76.86.224";
+        this.gatewayPort = "10101";
         /* SSH CONNECTION */
         this.host = null;
         this.port = null;
@@ -1782,6 +1796,8 @@ class SSH3Wrapper {
             this.port = cred.port;
             this.username = cred.username;
             this.password = cred.password;
+            this.gatewayHost = cred.gatewayHost;
+            this.gatewayPort = cred.gatewayPort;
         }
         this.crypt = new __WEBPACK_IMPORTED_MODULE_0__Crypt__["a" /* Crypt */]();
         this.crypt.send = this.sendClear.bind(this);
@@ -3569,8 +3585,10 @@ class Terminal3 {
         this.term.prompt();
     }
     controlC() {
-        if (this.sshInteractive)
+        if (this.ssh && this.sshInteractive)
             this.ssh.close();
+        else
+            this.term.promt();
     }
     askForCredentials() {
         this.term.write("Start ssh connection");
@@ -3587,7 +3605,9 @@ class Terminal3 {
             host: data.host,
             port: data.port,
             username: data.user,
-            password: data.pass
+            password: data.pass,
+            gatewayHost: data.ghost,
+            gatewayPort: data.gport
         });
         this.shellprompt = "";
         this.activeProg = this.ssh.send;
@@ -9144,10 +9164,9 @@ ConfigPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title *ngIf="!isHost">Configuration</ion-title>\n        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <ion-item (click)="chooseInstance()" *ngIf="!isHost">\n            <!-- Move to Instance selection page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Automatic rotation</ion-label>\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Automatic fetch</ion-label>\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="automaticFetch">\n            Reload Interval:\n            <ion-badge item-end>{{interval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="automaticFetch">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Detect only change</ion-label>\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Enable Mad Vision</ion-label>\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable Text speech</ion-label>\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable automatic voice readout</ion-label>\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="enableAutoReadout">\n            Readout Interval:\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="enableAutoReadout">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>HappyFace compatible</ion-label>\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item (click)="tour()">\n            <!-- Start tour page again -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Tour </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="about()">\n            <!-- Move to Impressum page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> About </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]])
 ], ConfigPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=config.js.map
 
 /***/ }),
