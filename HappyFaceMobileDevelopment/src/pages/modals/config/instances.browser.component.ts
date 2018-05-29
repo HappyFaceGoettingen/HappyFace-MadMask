@@ -70,6 +70,12 @@ export class InstancesBrowserComponent
         this.navCtrl.push(ConfigPage, {"viewCtrl": this.navParams.get('viewCtrl')});
     }
 
+    webBackend()
+    {
+        if(!this.model.config || !this.model.config.web_port) return;
+        window.open("http://" + this.model.currentlyActive.host + ":" + this.model.config.web_port + "/", "_blank");
+    }
+
     close()
     {
         let viewCtrl:ViewController = this.navParams.get('viewCtrl');

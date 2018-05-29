@@ -32,8 +32,16 @@
         </ion-item>
     </ion-list>
     <ion-item>
-        <button ion-item detail-none (click)="extSettings()">
+        <button ion-item detail-none no-lines (click)="extSettings()">
             Advanced Settings
+            <div item-end text-center>
+                <ion-icon name="ios-arrow-forward"></ion-icon>
+            </div>
+        </button>
+    </ion-item>
+    <ion-item>
+        <button ion-item detail-none no-lines (click)="webBackend()">
+            HappyFace backend web
             <div item-end text-center>
                 <ion-icon name="ios-arrow-forward"></ion-icon>
             </div>

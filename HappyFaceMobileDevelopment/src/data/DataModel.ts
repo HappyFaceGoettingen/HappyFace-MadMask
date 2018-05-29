@@ -63,8 +63,10 @@ export class DataModel
     constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController) {
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
-        this.findInitialConfiguration();
-        this.initLoop();
+        this.plt.ready().then(_ => {
+            this.findInitialConfiguration();
+            this.initLoop();
+        });
     }
 
     // Deprecated
@@ -468,6 +470,7 @@ export class DataModel
     findInitialConfiguration()
     {
         // App running on a webserver:
+        /* Deprecated
         console.log("SELFHOST: " + this.isHost() );
         if(this.isHost())
         {
@@ -478,7 +481,7 @@ export class DataModel
 
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
             /*this.loadConfig();
-            this.currentlyActive.name = this.config.site_name;*/
+            this.currentlyActive.name = this.config.site_name;
             //this.reload();
         }
         // App running on a clients device
@@ -498,7 +501,35 @@ export class DataModel
             console.log("Saved Instance is: " + JSON.stringify(value));
             console.log("Running instance: " + JSON.stringify(this.currentlyActive));
             this.reload();
-        });
+        }); */
+
+        if(!this.isCordova())
+        {
+            this.currentlyActive.name = window.location.hostname;
+            this.currentlyActive.host = window.location.hostname;
+            this.currentlyActive.mobile_port = window.location.port;
+            this.currentlyActive.web_port = window.location.port;
+            this.currentlyActive.dir = "sites/default";
+
+            console.log("Position: " + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port);
+
+            this.reload();
+        }
+        else {
+            // Initial configuration
+            this.currentlyActive.name = "GoeGrid";
+            this.currentlyActive.host = "141.5.108.30";
+            this.currentlyActive.mobile_port = "20200";
+            this.currentlyActive.web_port = "10100";
+            this.currentlyActive.dir = "sites/default";
+
+            this.storage.get('instance').then((value) => {
+                if(value !== null && value !== undefined) this.currentlyActive = value;
+
+                console.log("Using saved instance: " + JSON.stringify(this.currentlyActive));
+                this.reload();
+            });
+        }
     }
 
     // Determinations.
@@ -528,6 +559,11 @@ export class DataModel
     isiOS()
     {
         return this.plt.is('ios');
+    }
+
+    isCordova()
+    {
+        return this.plt.is('cordova');
     }
 
     /* Deprecated

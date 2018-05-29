@@ -117,8 +117,10 @@ let DataModel = DataModel_1 = class DataModel {
         this.loopCounter = 0;
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
-        this.findInitialConfiguration();
-        this.initLoop();
+        this.plt.ready().then(_ => {
+            this.findInitialConfiguration();
+            this.initLoop();
+        });
     }
     addLoadingFinishedCallback(callback) { this.loadingFinishedCallbacks.push(callback); }
     removeLoadingFinishedCallback(callback) {
@@ -422,17 +424,21 @@ let DataModel = DataModel_1 = class DataModel {
     // Initial configuration
     findInitialConfiguration() {
         // App running on a webserver:
-        console.log("SELFHOST: " + this.isHost());
-        if (this.isHost()) {
+        /* Deprecated
+        console.log("SELFHOST: " + this.isHost() );
+        if(this.isHost())
+        {
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
             this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
+
             console.log("POSITION: " + window.location.hostname + ":" + window.location.port);
             /*this.loadConfig();
-            this.currentlyActive.name = this.config.site_name;*/
+            this.currentlyActive.name = this.config.site_name;
             //this.reload();
         }
+        // App running on a clients device
         else {
             // Initial configuration
             this.currentlyActive.name = "GoeGrid";
@@ -440,14 +446,39 @@ let DataModel = DataModel_1 = class DataModel {
             this.currentlyActive.mobile_port = "20200";
             this.currentlyActive.web_port = "10200";
             this.currentlyActive.dir = "sites/default";
+
         }
+
         this.storage.get('instance').then((value) => {
-            if (value !== null && value !== undefined)
+            if(value !== null && value !== undefined)
                 this.currentlyActive = value;
             console.log("Saved Instance is: " + JSON.stringify(value));
             console.log("Running instance: " + JSON.stringify(this.currentlyActive));
             this.reload();
-        });
+        }); */
+        if (!this.isCordova()) {
+            this.currentlyActive.name = window.location.hostname;
+            this.currentlyActive.host = window.location.hostname;
+            this.currentlyActive.mobile_port = window.location.port;
+            this.currentlyActive.web_port = window.location.port;
+            this.currentlyActive.dir = "sites/default";
+            console.log("Position: " + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port);
+            this.reload();
+        }
+        else {
+            // Initial configuration
+            this.currentlyActive.name = "GoeGrid";
+            this.currentlyActive.host = "141.5.108.30";
+            this.currentlyActive.mobile_port = "20200";
+            this.currentlyActive.web_port = "10100";
+            this.currentlyActive.dir = "sites/default";
+            this.storage.get('instance').then((value) => {
+                if (value !== null && value !== undefined)
+                    this.currentlyActive = value;
+                console.log("Using saved instance: " + JSON.stringify(this.currentlyActive));
+                this.reload();
+            });
+        }
     }
     // Determinations.
     // isMobilePhone() is used to rearrange the UI based on the smaller screen size on mobile phones
@@ -468,6 +499,9 @@ let DataModel = DataModel_1 = class DataModel {
     }
     isiOS() {
         return this.plt.is('ios');
+    }
+    isCordova() {
+        return this.plt.is('cordova');
     }
 };
 // Singletone Depreceated
@@ -498,7 +532,7 @@ DataModel.summaryJson = "index/latest/summary.json";
 DataModel.analysisJson = "index/latest/analysis.json";
 DataModel = DataModel_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object])
 ], DataModel);
 
 class ConfigObject {
@@ -584,7 +618,7 @@ class ConfigurationObject {
 }
 /* unused harmony export ConfigurationObject */
 
-var DataModel_1;
+var DataModel_1, _a, _b, _c;
 //# sourceMappingURL=DataModel.js.map
 
 /***/ }),
@@ -918,8 +952,6 @@ let TabsPage = class TabsPage {
                     this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_12__tour_tour__["a" /* TourPage */], {});
                     console.log("Starting tour");
                 }
-                else
-                    this.storage.set("startup", false);
             });
         }, 500);
     }
@@ -1301,7 +1333,7 @@ let InstancesBrowserComponent = class InstancesBrowserComponent {
     }
 };
 InstancesBrowserComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Settings</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <ion-list-header>\n\n        Choose Instance\n\n    </ion-list-header>\n\n\n\n    <div text-center *ngIf="isLoading">\n\n        <ion-spinner></ion-spinner>\n\n    </div>\n\n    <ion-list *ngIf="!isLoading">\n\n        <ng-container *ngFor="let inst of instances">\n\n            <button ion-item detail-none (click)="choose(inst)">\n\n                {{inst.name}}\n\n                <div item-end text-center>\n\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n\n                </div>\n\n            </button>\n\n        </ng-container>\n\n        <ion-item *ngIf="instances.length == 0">\n\n            There are no subinstances here.\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-item>\n\n        <button ion-item detail-none (click)="extSettings()">\n\n            Advanced Settings\n\n            <div item-end text-center>\n\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n\n            </div>\n\n        </button>\n\n    </ion-item>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/'<ion-header>\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n        <ion-title style="padding-top: 15px">Settings</ion-title>\n    </ion-navbar>\n    <ion-navbar *ngIf="!isIOS">\n        <ion-title>Settings</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list-header>\n        Choose Instance\n    </ion-list-header>\n\n    <div text-center *ngIf="isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n    <ion-list *ngIf="!isLoading">\n        <ng-container *ngFor="let inst of instances">\n            <button ion-item detail-none (click)="choose(inst)">\n                {{inst.name}}\n                <div item-end text-center>\n                    <ion-icon name="ios-arrow-forward"></ion-icon>\n                </div>\n            </button>\n        </ng-container>\n        <ion-item *ngIf="instances.length == 0">\n            There are no subinstances here.\n        </ion-item>\n    </ion-list>\n    <ion-item>\n        <button ion-item detail-none no-lines (click)="extSettings()">\n            Advanced Settings\n            <div item-end text-center>\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n            </div>\n        </button>\n    </ion-item>\n    <ion-item>\n        <button ion-item detail-none no-lines (click)="webBackend()">\n            HappyFace backend web\n            <div item-end text-center>\n                <ion-icon name="ios-arrow-forward"></ion-icon>\n            </div>\n        </button>\n    </ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.browser.component.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]])
 ], InstancesBrowserComponent);
@@ -9093,9 +9125,12 @@ let ConfigPage = class ConfigPage {
     }
     tour() {
         setTimeout(() => {
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__tour_tour__["a" /* TourPage */], {});
-            console.log("Starting tour");
-        }, 500);
+            this.closeModal();
+            setTimeout(() => {
+                this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__tour_tour__["a" /* TourPage */], {});
+                console.log("Starting tour");
+            }, 500);
+        }, 50);
     }
     about() {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__about_about__["a" /* AboutPage */], { "viewCtrl": this.navParams.get('viewCtrl') });
@@ -9109,9 +9144,10 @@ ConfigPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title *ngIf="!isHost">Configuration</ion-title>\n        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <ion-item (click)="chooseInstance()" *ngIf="!isHost">\n            <!-- Move to Instance selection page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Automatic rotation</ion-label>\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Automatic fetch</ion-label>\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="automaticFetch">\n            Reload Interval:\n            <ion-badge item-end>{{interval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="automaticFetch">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Detect only change</ion-label>\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Enable Mad Vision</ion-label>\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable Text speech</ion-label>\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable automatic voice readout</ion-label>\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="enableAutoReadout">\n            Readout Interval:\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="enableAutoReadout">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>HappyFace compatible</ion-label>\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item (click)="tour()">\n            <!-- Start tour page again -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Tour </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="about()">\n            <!-- Move to Impressum page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> About </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]) === "function" && _c || Object])
 ], ConfigPage);
 
+var _a, _b, _c;
 //# sourceMappingURL=config.js.map
 
 /***/ }),

@@ -36595,7 +36595,7 @@ ion-navbar.toolbar {
 /*
  *  Default style for xterm.js
  */
-.scroll-content {
+#modal-wrapper .scroll-content {
   overflow-y: hidden;
 }
 
