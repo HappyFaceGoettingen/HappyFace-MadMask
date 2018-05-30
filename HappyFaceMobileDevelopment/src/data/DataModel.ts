@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
+import {SearchData} from "./SearchData";
 
 
 export var modelCounter:number = 0;
@@ -269,6 +270,9 @@ export class DataModel
             console.log("Started finished callback");
             this.loadingFinishedCallbacks[i]();
         }
+
+        let d = new SearchData(this);
+        d.updateData();
     }
 
     // Asynchronous load file
@@ -389,7 +393,7 @@ export class DataModel
 
     setPlots(plot_name:string){
         for (let i:number = 0; i < this.monitoringUrls.length; i++) {
-            for (let j:number = 0; j < this.monitoringUrls[i].urls.length; j++){
+            for (let j:number = 0; j < this.monitoringUrls[i].urls.length; j++) {
                 if ((this.monitoringUrls[i].urls[j].file_prefix == null)){
                     console.log("DEBUG: nop");
                 } else {

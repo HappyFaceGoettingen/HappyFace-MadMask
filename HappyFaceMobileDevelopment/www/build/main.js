@@ -10,6 +10,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_modals_error_connection_error__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__SearchData__ = __webpack_require__(303);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,6 +20,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -254,6 +256,8 @@ let DataModel = DataModel_1 = class DataModel {
             console.log("Started finished callback");
             this.loadingFinishedCallbacks[i]();
         }
+        let d = new __WEBPACK_IMPORTED_MODULE_4__SearchData__["a" /* SearchData */](this);
+        d.updateData();
     }
     // Asynchronous load file
     asyncLoadFile(url, callback) {
@@ -1757,10 +1761,9 @@ ControllerDetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-controller-detail',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{system.name}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <img src="assets/{{system.img}}" style="width: 64px; height: 64px">\n\n    <h2>{{system.text}}</h2>\n\n\n\n    <!--<ion-card>\n\n        <ion-item-divider>Power</ion-item-divider>\n\n        <ion-item text-wrap>\n\n            <button ion-button class="button-outline">Cold reboot</button>\n\n            <button ion-button class="button-outline">Warm reboot</button>\n\n        </ion-item>\n\n    </ion-card>-->\n\n    <ion-card>\n\n        <ion-card-header style="background: #e2e4e2">Services</ion-card-header>\n\n        <ion-card-content>\n\n            <br>\n\n            <span *ngFor="let service of system.services" padding-left="15px" text-wrap>\n\n                <button ion-button class="button-outline" (click)="serviceStart(service)">{{service.name}}</button>\n\n            </span>\n\n        </ion-card-content>\n\n    </ion-card>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\controller\controller-detail.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]])
 ], ControllerDetailPage);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=controller-detail.js.map
 
 /***/ }),
@@ -2068,7 +2071,7 @@ class Crypt {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Terminal3__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Terminal3__ = __webpack_require__(304);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2866,7 +2869,7 @@ AnalyzerDetailPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_detail_image__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Positions__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Positions__ = __webpack_require__(306);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3278,9 +3281,9 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_modals_about_about__ = __webpack_require__(209);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_home_home__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_home_home_detail_image__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_common_http__ = __webpack_require__(306);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_common_http__ = __webpack_require__(307);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_in_app_browser__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__directives_position_Position__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__directives_position_Position__ = __webpack_require__(313);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_tour_tour__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_file__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_file_chooser__ = __webpack_require__(213);
@@ -3454,9 +3457,10 @@ let HappyFaceApp = class HappyFaceApp {
 HappyFaceApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _c || Object])
 ], HappyFaceApp);
 
+var _a, _b, _c;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -3465,7 +3469,93 @@ HappyFaceApp = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__exterm_js__ = __webpack_require__(304);
+class SearchData {
+    constructor(model) {
+        this.model = model;
+        this.monitoring_urls = [];
+        this.history = [];
+    }
+    updateData() {
+        if (this.model.monitoringUrls && this.model.summary) {
+            this.history = this.model.summary.history.split(' ');
+            for (let i = 0; i < this.model.monitoringUrls.length; i++) {
+                for (let j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
+                    let url = this.model.monitoringUrls[i].urls[j];
+                    url.level = i;
+                    for (let time of this.history)
+                        url = this.generateURLS(time, url);
+                    this.monitoring_urls.push(url);
+                }
+            }
+            console.log(this.monitoring_urls);
+        }
+    }
+    generateURLS(time, url) {
+        if (!this.model.config)
+            return url;
+        const remote_url = this.model.getRemoteURL();
+        const config = this.model.config;
+        let capture_dir = config.data_dir + "/capture";
+        let thumbnail_dir = config.data_dir + "/thumbnail";
+        const analysis_dir = config.data_dir + "/analysis";
+        if (this.model.configuration.get().enableMadVision) {
+            capture_dir = analysis_dir + "/madvision";
+            thumbnail_dir = analysis_dir + "/madvision_thumbnail";
+        }
+        const plot_analysis_dir = analysis_dir + "/plot_analysis/latest";
+        const plot_pathway_dir = analysis_dir + "/plot_pathway/latest";
+        if (!url.thumbnail)
+            url.thumbnail = [];
+        else if (!Array.isArray(url.thumbnail))
+            url.thumbnail = [url.thumbnail];
+        if (!url.image)
+            url.image = [];
+        else if (!Array.isArray(url.image))
+            url.image = [url.image];
+        if (!url.analysis_plot)
+            url.analysis_plot = [];
+        else if (!Array.isArray(url.analysis_plot))
+            url.analysis_plot = [url.analysis_plot];
+        if (!url.plot_analysis)
+            url.plot_analysis = [];
+        else if (!Array.isArray(url.plot_analysis))
+            url.plot_analysis = [url.plot_analysis];
+        if (!url.plot_pathway)
+            url.plot_pathway = [];
+        else if (!Array.isArray(url.plot_pathway))
+            url.plot_pathway = [url.plot_pathway];
+        if (!url.plot_overall_pathway)
+            url.plot_overall_pathway = [];
+        else if (!Array.isArray(url.plot_overall_pathway))
+            url.plot_overall_pathway = [url.plot_overall_pathway];
+        if ((url.file_prefix == null)) {
+            url.thumbnail.push({ time: time, url: remote_url + "assets/img/img-missing.svg" });
+            url.image.push({ time: time, url: remote_url + "assets/img/img-missing.svg" });
+            url.analysis_plot.push({ time: time, url: remote_url + "assets/img/img-missing.svg" });
+            url.plot_pathway.push({ time: time, url: remote_url + "assets/img/img-missing.svg" });
+            url.plot_overall_pathway.push({ time: time, url: remote_url + "assets/img/img-missing.svg" });
+        }
+        else {
+            url.thumbnail.push({ time: time, url: remote_url + thumbnail_dir + "/" + time + "/" + url.file_prefix + ".jpg" });
+            url.image.push({ time: time, url: remote_url + capture_dir + "/" + time + "/" + url.file_prefix + ".jpg" });
+            url.plot_analysis.push({ time: time, url: remote_url + plot_analysis_dir + "/" + url.file_prefix + ".png" });
+            url.plot_pathway.push({ time: time, url: remote_url + plot_pathway_dir + "/" + url.file_prefix + ".png" });
+            url.plot_overall_pathway.push({ time: time, url: remote_url + plot_pathway_dir + "/overall_pathway.png" });
+        }
+        return url;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SearchData;
+
+//# sourceMappingURL=SearchData.js.map
+
+/***/ }),
+
+/***/ 304:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__exterm_js__ = __webpack_require__(305);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__exterm_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__exterm_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SSH3_Wrapper__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Crypt__ = __webpack_require__(215);
@@ -3620,7 +3710,7 @@ class Terminal3 {
 
 /***/ }),
 
-/***/ 304:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;(function(f) {
@@ -8962,7 +9052,7 @@ term.on('paste', function (data, ev) {
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9013,7 +9103,7 @@ class Positions {
 
 /***/ }),
 
-/***/ 312:
+/***/ 313:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
