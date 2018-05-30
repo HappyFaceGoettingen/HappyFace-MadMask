@@ -202,8 +202,8 @@ open_firefox_tabs(){
 	## Run 'firefox_command' 
 	local fcommand="${FIREFOX_COMMANDS[$i]}"
 	if [ ! -z "$fcommand" ] && [ "$fcommand" != "null" ]; then
-	    sleep $WAIT_FIREFOX_COMMAND
 	    INFO "Pushing [$fcommand] for Firefox (waiting [$WAIT_FIREFOX_COMMAND] sec)"
+	    sleep $WAIT_FIREFOX_COMMAND
 	    send_firefox_command "$fcommand"
 	fi
 

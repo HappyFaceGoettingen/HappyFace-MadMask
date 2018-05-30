@@ -161,6 +161,13 @@ prepare_ios_env(){
     rsync -alp --delete $local_repo/HappyFaceMobile/sites $tmp_dir
     cp -v $local_repo/HappyFaceMobile/madmask $tmp_dir
 
+    pushd $local_repo &> /dev/null
+    #local version="$(cat Version.txt) - Git $(git log -1 | grep "^commit")"
+    local version=$(cat Version.txt | cut -d " " -f 1)
+    popd &> /dev/null
+    echo "Changing version --> [$version]"
+    sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$version\"/" -i $tmp_dir/package.json
+
     pushd $tmp_dir
     echo "Installing [NPM packages] ..."
     npm install sync-request@2.0.1

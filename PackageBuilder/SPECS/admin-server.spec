@@ -30,7 +30,7 @@ Requires: npm
 
 
 %description
-Admin server can provide 2 ways of connectivities into a large system: one is a secure web gateway socket, second is a standard openssl server. The admin server system must be protected by robust security mechanisms, e.g. used by HappyFace Mobile client. These demands are accompalished by a layer from the secure web (https) gateway socket to the openssl server.
+Admin server can provide 2 ways of connections into a large system; one is a secure web gateway, and second is a standard openssl server. The admin server system must be protected by robust security mechanisms, e.g. also because of use of HappyFace Mobile client. This security layer is accomplished by a socket from the secure web (https) gateway to the openssl server.
 
 
 %prep
