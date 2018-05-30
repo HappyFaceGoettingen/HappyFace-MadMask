@@ -73,23 +73,26 @@ In Mac OSX, the following builder command can install the above-mentioned packag
 
       
 
-# iTunes connect and Testflight
-* Open iTunes Connect https://itunesconnect.apple.com/
-* A video of TestFlight: https://itunespartner.apple.com/en/apps/overview#testflight-beta-testing
+# iTunes Connect and Testflight
+* iTunes Connect: https://itunesconnect.apple.com
+* Apple Developer: https://developer.apple.com
+* TestFlight Overview: https://itunespartner.apple.com/en/apps/overview#testflight-beta-testing
 
-## A procedure to upload a iPhone application onto iTunes Conenct
+## A procedure to upload a iPhone application onto iTunes Connect
 After running and validating a build process of the iPhone application produced by the above mentioned script (build-apk4ios.sh), one can find a Xcode project file in the platform directory (e.g. /tmp/HappyFace-MadMask4iOS/ios/gen_development.20180529-105519/platform/ios) in Mac. A procedure putting the final application onto iTunes connect is the following:
 
 0. Copy build files (e.g. to $HOME/Documents/ios)
-1. Open XCode application
-2. "File" --> "Open" a project file (typically, ios/HappyFace2.xcodeproj)
+1. Open XCode (ver. 9.2)
+2. "File" -> "Open" a project file (typically, ios/HappyFace2.xcodeproj)
 3. Put Bundle ID (see a configuration of HappyFace2 in iTunes Connect)
-4. "General" --> "Signing" --> Select "Automatic"
-5. "General" --> "Signing" --> Select a certificate (an official iPhone developer key)
-6. Select "Build"
-6. "Production" --> "Archive"
-7. "Validate"
-8. "Upload XCode App"
+4. On top left panel, select 'Generic iOS Device'
+5. "General" -> "Signing" -> Select 'Automaticaly manage signing' (= Default)
+6. "General" -> "Signing" -> "Team" -> Set an official iPhone developer key
+7. "Build Settings" -> "Code Signing Identity" -> Select 'iOS Developer' (for all)
+8. "Product" -> "Archive" (=> Get a message 'Build Succeeds')
+9. "Validate" -> Push "Next" -> Push "Next" (Automatically manage signing) -> Push "Validate" (=> 'Validation Successful') -> "Done"
+10. "Upload to App Store" -> Push "Next" -> Push "Next" (Automatically manage signing) -> "Upload" (=> 'Upload Successful') -> "Done"
+11. In iTunes Connect -> "TestFlight" -> "iOS" -> Select one version you want to test, add a test group
 
 
 Note: select a given certificate by an iPhone developer in the Apple Developer portal (https://developer.apple.com/account/ios/certificate).

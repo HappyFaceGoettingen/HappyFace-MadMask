@@ -8,7 +8,7 @@ PRJ_DIR=$PWD/..
 usage="./rebuild.sh [options]
 
    -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
-   -b:    build {hf|hf_atlas|hf_extra|madmask|devel|madmodules|rlibs|madfoxd|android-sdk}
+   -b:    build {hf|hf_atlas|hf_extra|madmask|devel|madmodules|rlibs|madfoxd|android-sdk|admin-server}
    -t:    test installation
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
@@ -138,6 +138,15 @@ android_sdk_zip(){
 }
 
 
+admin_server_zip(){
+    ## admin-server.zip
+    pushd $BUILDER_DIR/SOURCES
+    echo "Archiving $WORK_DIR/SOURCES/admin-server.zip <-- admin-server"
+    tar zcf $WORK_DIR/SOURCES/admin-server.zip admin-server
+    popd
+}
+
+
 #-----------------------------------
 # Build main
 #-----------------------------------
@@ -185,6 +194,10 @@ build_packages(){
 	android-sdk)
 	    android_sdk_zip
 	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/android-sdk.spec
+	    ;;
+	admin-server)
+	    admin_server_zip
+	    rpmbuild --define "debug_package %{nil}" --clean -bb SPECS/admin-server.spec
 	    ;;
 	*)
 	    echo "-b [$package] does not exist"
