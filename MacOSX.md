@@ -86,13 +86,14 @@ After running and validating a build process of the iPhone application produced 
 2. "File" -> "Open" a project file (typically, ios/HappyFace2.xcodeproj)
 3. Put Bundle ID (see a configuration of HappyFace2 in iTunes Connect)
 4. On top left panel, select 'Generic iOS Device'
-5. "General" -> "Signing" -> Select 'Automaticaly manage signing' (= Default)
-6. "General" -> "Signing" -> "Team" -> Set an official iPhone developer key
-7. "Build Settings" -> "Code Signing Identity" -> Select 'iOS Developer' (for all)
-8. "Product" -> "Archive" (=> Get a message 'Build Succeeds')
-9. "Validate" -> Push "Next" -> Push "Next" (Automatically manage signing) -> Push "Validate" (=> 'Validation Successful') -> "Done"
-10. "Upload to App Store" -> Push "Next" -> Push "Next" (Automatically manage signing) -> "Upload" (=> 'Upload Successful') -> "Done"
-11. In iTunes Connect -> "TestFlight" -> "iOS" -> Select one version you want to test, add a test group
+5. "General" -> "Signing" -> Unselect 'Automaticaly manage signing'
+6. "General" -> "Signing" -> Select 'Automaticaly manage signing'
+7. "General" -> "Signing" -> "Team" -> Set an official iPhone developer key
+8. "Build Settings" -> "Code Signing Identity" -> Select 'iOS Developer' (for all)
+9. "Product" -> "Archive" (=> Get a message 'Build Succeeds')
+10. "Validate" -> Push "Next" -> Push "Next" (Automatically manage signing) -> Push "Validate" (=> 'Validation Successful') -> "Done"
+11. "Upload to App Store" -> Push "Next" -> Push "Next" (Automatically manage signing) -> "Upload" (=> 'Upload Successful') -> "Done"
+12. In iTunes Connect -> "TestFlight" -> "iOS" -> Select one version you want to test, add a test group
 
 
 Note: select a given certificate by an iPhone developer in the Apple Developer portal (https://developer.apple.com/account/ios/certificate).
