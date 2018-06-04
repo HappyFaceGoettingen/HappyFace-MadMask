@@ -165,7 +165,6 @@ export class DataModel
         this.errors = [];
         for(let i:number = 0; i < this.loadingStartedCallbacks.length; i++)
         {
-            console.log("Started start callback");
             this.loadingStartedCallbacks[i]();
         }
         this.asyncLoadFile(this.getRemoteURL() + this.currentlyActive.dir + "/" + DataModel.configJson, this.reload_next.bind(this));
@@ -181,7 +180,6 @@ export class DataModel
             this.loading = false;
             for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
             {
-                console.log("Started finished callback");
                 this.loadingFinishedCallbacks[i]();
             }
             return;
@@ -267,7 +265,6 @@ export class DataModel
 
         for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
         {
-            console.log("Started finished callback");
             this.loadingFinishedCallbacks[i]();
         }
 
@@ -467,7 +464,6 @@ export class DataModel
     {
         if(!this.loopHandler == null) clearInterval(this.loopHandler);
         this.initLoop();
-        console.log("Updated Loop");
     }
 
     // Initial configuration

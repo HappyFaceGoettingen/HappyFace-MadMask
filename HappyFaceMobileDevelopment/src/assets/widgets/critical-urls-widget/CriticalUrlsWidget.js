@@ -55,7 +55,7 @@ var CriticalUrlsWidget = /** @class */ (function (_super) {
         this.name = "Critical Urls";
         this.statusText = "No Data";
         this.statusColor = "#F1F1F1";
-        this.okText = "Everything's cool.";
+        this.okText = "No connection";
     };
     CriticalUrlsWidget.prototype.onReload = function () {
         var _this = this;
@@ -66,19 +66,13 @@ var CriticalUrlsWidget = /** @class */ (function (_super) {
             return;
         if (!this.summary.urls)
             return;
-        console.log("on reload");
         this.statusText = this.summary.level;
-        if (!Array.isArray(this.summary.urls))
-            this.okText = "No connection";
-        if (this.statusText === "No Data")
-            this.okText = "No connection";
         for (var j = 0; j < this.monitoringUrls.length; j++) {
             this.monitoringUrls[j].urls.find(function (element) {
                 if (_this.summary.urls.indexOf(element.name) > -1) {
                     img = element.thumbnail;
                     title = element.name;
                     image = element.image;
-                    console.log("IMG: " + img);
                     _this.imgList.push({ src: img, title: title, image: image });
                 }
             });
@@ -89,6 +83,8 @@ var CriticalUrlsWidget = /** @class */ (function (_super) {
                 this.statusColor = _super.prototype.getColor.call(this, this.statusColor);
             }
         }
+        if (this.imgList.length == 0)
+            this.okText = "Everything's cool.";
     };
     CriticalUrlsWidget.prototype.imgClicked = function (img) {
         console.log(img.src);

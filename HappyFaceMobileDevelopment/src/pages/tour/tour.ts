@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
 import {AlertController, NavController} from "ionic-angular";
-import {MonitoringPage} from "../monitoring/monitoring";
 import {Storage} from "@ionic/storage";
 
 @Component({
@@ -15,8 +14,7 @@ export class TourPage
 
     isLoading:boolean = false;
 
-    constructor(private model:DataModel, private navCtrl: NavController, private storage:Storage,
-                private alertCtrl:AlertController) {}
+    constructor(private navCtrl: NavController, private storage:Storage, private alertCtrl:AlertController) {}
 
     ngOnInit()
     {}

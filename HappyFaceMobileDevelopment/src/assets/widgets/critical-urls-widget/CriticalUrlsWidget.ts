@@ -69,7 +69,7 @@ export class CriticalUrlsWidget extends BaseWidget
         this.name = "Critical Urls";
         this.statusText = "No Data";
         this.statusColor = "#F1F1F1";
-        this.okText = "Everything's cool.";
+        this.okText = "No connection";
 
     }
 
@@ -82,11 +82,8 @@ export class CriticalUrlsWidget extends BaseWidget
         if(!this.summary || !this.monitoringUrls || !this.config) return;
         if(!this.summary.urls) return;
 
-        console.log("on reload");
 
         this.statusText = this.summary.level;
-        if(!Array.isArray(this.summary.urls)) this.okText = "No connection";
-        if(this.statusText === "No Data")     this.okText = "No connection";
 
         for(let j:number = 0; j < this.monitoringUrls.length; j++) {
             this.monitoringUrls[j].urls.find((element) => {
@@ -94,7 +91,6 @@ export class CriticalUrlsWidget extends BaseWidget
                     img = element.thumbnail;
                     title = element.name;
                     image = element.image;
-                    console.log("IMG: " + img);
                     this.imgList.push({src: img, title: title, image: image});
                 }
             });
@@ -106,6 +102,8 @@ export class CriticalUrlsWidget extends BaseWidget
                 this.statusColor = super.getColor(this.statusColor);
             }
         }
+
+        if(this.imgList.length == 0) this.okText = "Everything's cool.";
     }
 
     imgClicked(img:any)

@@ -1,8 +1,12 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
-import {ModalController, NavController} from "ionic-angular";
+import {IonicPage, ModalController, NavController} from "ionic-angular";
 import {ControllerDetailPage} from "./controller-detail";
 import {SSHTerminalPage} from "../modals/ssh/ssh-terminal";
+
+@IonicPage({
+    name: 'controller'
+})
 
 @Component({
     selector: 'page-controller',

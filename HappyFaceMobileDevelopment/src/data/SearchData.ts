@@ -3,14 +3,15 @@ import {DataModel} from "./DataModel";
 export class SearchData
 {
     monitoring_urls:any[] = [];
+    systems:any[] = [];
     history:string[]= [];
 
     constructor(private model:DataModel) {}
 
 
-    updateData()
+    updateData():SearchData
     {
-        if(this.model.monitoringUrls && this.model.summary)
+        if(this.model.monitoringUrls && this.model.summary && this.model.summary)
         {
             this.history = this.model.summary.history.split(' ');
             for(let i:number = 0; i < this.model.monitoringUrls.length; i++)
@@ -24,11 +25,11 @@ export class SearchData
                     this.monitoring_urls.push(url);
                 }
             }
-            console.log(this.monitoring_urls);
+            this.systems = this.model.systems;
         }
+
+        return this;
     }
-
-
 
 
     generateURLS(time:string, url:any):any

@@ -29,7 +29,7 @@ import {SSHTerminalPage} from "../pages/modals/ssh/ssh-terminal";
 import {PassModal} from "../pages/modals/ssh/pass-modal";
 import {InstancesBrowserComponent} from "../pages/modals/config/instances.browser.component";
 import {AboutPage} from "../pages/modals/about/about";
-import {HomePage, WidgetCard} from "../pages/home/home";
+import {WidgetCard} from "../pages/home/WidgetLoader";
 import {HomeDetailImagePage} from "../pages/home/home-detail-image";
 import {HttpClientModule} from "@angular/common/http";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
@@ -37,6 +37,8 @@ import {Position} from "../directives/position/Position";
 import {TourPage} from "../pages/tour/tour";
 import {File} from "@ionic-native/file";
 import {FileChooser} from "@ionic-native/file-chooser";
+import {HomePage} from "../pages/home/home";
+import {HomePage2} from "../pages/home/_home";
 
 @NgModule({
     declarations: [
@@ -62,16 +64,27 @@ import {FileChooser} from "@ionic-native/file-chooser";
         PassModal,
         HFCategoriesPage,
         HFModulesPage,
-        HomePage,
         TourPage,
+        HomePage,
         Position,
         WidgetCard,
-        HomeDetailImagePage
+        HomeDetailImagePage,
+        HomePage2
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
-        IonicModule.forRoot(HappyFaceApp),
+        IonicModule.forRoot(HappyFaceApp, {}, {
+            links: [
+                { component: HomePage, name: 'home', segment: 'home' },
+                { component: AnalyzerPage, name: 'analyzer', segment: 'analyzer' },
+                { component: ControllerPage, name: 'controller', segment: 'controller' },
+                { component: LogsPage, name: 'logs', segment: 'logs' },
+                { component: MonitoringPage, name: 'monitoring', segment: 'monitoring' },
+                { component: TabsPage, name: 'tab', segment: 'tab' },
+                { component: VisualizersPage, name: 'visualizers', segment: 'visualizers' }
+            ]
+        }),
         IonicStorageModule.forRoot()
     ],
     bootstrap: [IonicApp],
@@ -98,10 +111,11 @@ import {FileChooser} from "@ionic-native/file-chooser";
         PassModal,
         HFCategoriesPage,
         HFModulesPage,
-        HomePage,
         TourPage,
+        HomePage,
         WidgetCard,
-        HomeDetailImagePage
+        HomeDetailImagePage,
+        HomePage2
     ],
     providers: [
         StatusBar,
