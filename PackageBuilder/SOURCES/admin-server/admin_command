@@ -1,0 +1,7 @@
+#!/bin/bash
+
+LOGFILE=/var/www/html/admin-command.log
+
+echo $*
+#echo $* | tee -a $LOGFILE
+

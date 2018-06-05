@@ -9,7 +9,7 @@ usage="./rebuild.sh [options]
 
    -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
    -b:    build {hf|hf_atlas|hf_extra|madmask|devel|madmodules|rlibs|madfoxd|android-sdk|admin-server}
-   -t:    test installation
+   -t:    test installation [all|admin]
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
 
@@ -220,12 +220,22 @@ set_workdir(){
 }
 
 test_install(){
-    yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
-    rpm -q HappyFaceCore || yum -y install RPMS/x86_64/HappyFaceCore-*.rpm
-    rpm -q HappyFace-ATLAS || yum -y install RPMS/x86_64/HappyFace-ATLAS-*.rpm
-    yum -y install RPMS/x86_64/MadFoxd-*.rpm
-    yum -y install RPMS/x86_64/HappyFace-*.rpm
-    ls RPMS/x86_64/android-sdk-*.rpm && yum -y install RPMS/x86_64/android-sdk-*.rpm
+    case $1 in
+	all)
+	    yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
+	    rpm -q HappyFaceCore || yum -y install RPMS/x86_64/HappyFaceCore-*.rpm
+	    rpm -q HappyFace-ATLAS || yum -y install RPMS/x86_64/HappyFace-ATLAS-*.rpm
+	    yum -y install RPMS/x86_64/MadFoxd-*.rpm
+	    yum -y install RPMS/x86_64/HappyFace-*.rpm
+	    ls RPMS/x86_64/android-sdk-*.rpm && yum -y install RPMS/x86_64/android-sdk-*.rpm
+	    ;;
+	admin)
+	    yum -y install RPMS/x86_64/admin-server-*.rpm
+	    ;;
+	*)
+	    echo "test install: $1 is not defined"
+	    ;;
+    esac
 }
 
 clean_packages(){
@@ -236,7 +246,7 @@ clean_packages(){
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "pb:w:tChv" op
+while getopts "pb:w:t:Chv" op
   do
   case $op in
       p) set_workdir
@@ -250,7 +260,7 @@ while getopts "pb:w:tChv" op
       w) WORK_DIR=$OPTARG
           ;;
       t) set_workdir
-	  test_install
+	  test_install $OPTARG
 	  ;;
       C) set_workdir
 	  clean_packages

@@ -19,9 +19,10 @@ Requires: npm
 #
 # Macro definitions
 %define _prefix         /usr/share
+%define _bin_dir        /usr/bin
 %define _etc_dir        /etc
-%define _initd_dir        /etc/init.d
-%define _sysconf_dir    /etc/httpd/conf.d
+%define _initd_dir      /etc/init.d
+#%define _sysconf_dir    /etc/httpd/conf.d
 
 %define admin_uid	401
 %define admin_user	admin-server
@@ -47,14 +48,16 @@ cd ..
 # make directories
 ! [ -d $RPM_BUILD_ROOT/%{_prefix} ] && mkdir -p $RPM_BUILD_ROOT/%{_prefix}
 ! [ -d $RPM_BUILD_ROOT/%{_initd_dir} ] && mkdir -p $RPM_BUILD_ROOT/%{_initd_dir}
+! [ -d $RPM_BUILD_ROOT/%{_bin_dir} ] && mkdir -p $RPM_BUILD_ROOT/%{_bin_dir}
 ! [ -d $RPM_BUILD_ROOT/%{_sysconf_dir} ] && mkdir -p $RPM_BUILD_ROOT/%{_sysconf_dir}
 
 
 # copy files
 cp -r admin-server $RPM_BUILD_ROOT/%{_prefix}
+ln -s %{_prefix}/admin-server/admin_command $RPM_BUILD_ROOT/%{_bin_dir}
 ln -s %{_prefix}/admin-server/admin-served.conf $RPM_BUILD_ROOT/%{_etc_dir}
 ln -s %{_prefix}/admin-server/admin-served $RPM_BUILD_ROOT/%{_initd_dir}
-ln -s %{_prefix}/admin-server/httpd_admin_server_command_logs.conf $RPM_BUILD_ROOT/%{_sysconf_dir}
+#ln -s %{_prefix}/admin-server/httpd_admin_server_command_logs.conf $RPM_BUILD_ROOT/%{_sysconf_dir}
 
 
 %clean
@@ -67,17 +70,23 @@ groupadd %{admin_group} -g %{admin_gid}
 useradd %{admin_user} -u %{admin_uid} -g %{admin_gid} -d %{_prefix}/admin-server -M
 chown -R %{admin_user}:%{admin_group} %{_prefix}/admin-server
 
+## A test user
+useradd happyface
+echo "happyface" | sudo passwd happyface --stdin
+chown -R happyface:happyface /var/www/html
+
 
 %postun
 echo "Deleting user ..."
-userdel -r %{happyface_user}
+userdel -r %{admin_user}
 
 
 %files
 %defattr(-,root,root)
 %{_prefix}/*
+%{_bin_dir}/*
 %{_etc_dir}/*
-%{_sysconf_dir}/*
+#%{_sysconf_dir}/*
 
 
 %changelog

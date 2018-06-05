@@ -111,7 +111,7 @@ Apr 12 19:09:02 3fd5422be4f4 systemd[1]: madmaskd.service failed.
    * Daemonized web2ssh-gateway.js
 
 ## HappyFace Instance
-   * Allowing CORS:   DOING
+   * Allowing CORS:   DONE
 
 
 ## Mad-Gantry site builder second step
