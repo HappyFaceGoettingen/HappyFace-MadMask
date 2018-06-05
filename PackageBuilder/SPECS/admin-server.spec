@@ -10,7 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Requires: httpd >= 2.0
 Requires: nodejs
 Requires: npm
-
+Requires: openssh-server
 
 ######################################################################
 #
