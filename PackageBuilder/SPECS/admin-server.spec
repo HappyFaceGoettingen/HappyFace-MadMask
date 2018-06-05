@@ -69,7 +69,7 @@ chown -R %{admin_user}:%{admin_group} %{_prefix}/admin-server
 
 ## A test user
 useradd happyface
-echo "happyface" | sudo passwd happyface --stdin
+echo "happyface" | passwd happyface --stdin
 chown -R happyface:happyface /var/www/html
 
 

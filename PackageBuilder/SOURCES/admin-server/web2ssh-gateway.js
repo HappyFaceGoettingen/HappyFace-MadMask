@@ -5,7 +5,7 @@ var crypto = require('crypto');
 
 var server = http.createServer((request, response) => {});
 
-server.listen(1510, () => {});
+server.listen(8111, () => {});
 
 wsServer = new WebSocketServer({
     httpServer: server
@@ -65,14 +65,14 @@ wsServer.on('request', (request) => {
 
 /**
  * Decrypts the incoming message from a HappyFace instance and sends it over ssh2 to the remote location
- * 
+ *
  * @param {MessageEvent} message  The incoming messageevent from a HappyFace instance
  * @param {Channel} _stream   The outgoing ssh2 client channel
  */
 function onCommMessage(message, _stream)
 {
     if(message.type === 'utf8') {
-        
+
         const iv   = message.utf8Data.substring(0, 32);
         const data = message.utf8Data.substring(32);
         const decrypted = decrypt(data, aesSecret, iv);
@@ -192,7 +192,7 @@ function encrypt(data, key)
 }
 
 /**
- * 
+ *
  * @param {string} data  The encrypted message to decrypt
  * @param {any} key   The key used to decrypt the message
  * @param {string} ivstring   The initialisation vector in hex format as string

@@ -11,22 +11,5 @@
     "log_level": "INFO",
     "detector_algorithm": "BCP",
     "forecast_algorithm": "ANFIS",
-    "firefox_profile": "/usr/share/madfoxd/firefox_profiles/pre-configured_firefox_profile_with_MadFox.default",
-    "status": [{
-	"name": "Normal",
-	"color": "item-calm",
-		"file": "http://i.ytimg.com/vi/hEJnMQG9ev8/maxresdefault.jpg"
-    },{
-	"name": "Warning",
-	"color": "item-balanced",
-	"file": "http://surbrook.devermore.net/adaptationsmovie/madmax/wez.jpg"
-    },{
-	"name": "Error",
-	"color": "item-energized",
-	"file": "https://shutupandwatchthemovie.files.wordpress.com/2011/03/mad-max-2-humungus.jpg"
-    },{
-	"name": "Critical",
-	"color": "item-assertive",
-	"file": "http://papystreaming.com/fr/files/2013/10/Mad-Max-2.jpg"
-    }]
+    "firefox_profile": "/usr/share/madfoxd/firefox_profiles/pre-configured_firefox_profile_with_MadFox.default"
 }

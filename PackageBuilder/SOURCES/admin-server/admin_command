@@ -1,7 +1,5 @@
 #!/bin/bash
 
-LOGFILE=/var/www/html/admin-command.log
-
-echo $*
-#echo $* | tee -a $LOGFILE
+. /etc/admin-servd.conf
+echo $(date -u): $* | tee -a $ADMIN_LOGFILE
 
