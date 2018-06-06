@@ -22,7 +22,6 @@ export class ConnectionErrorPage
         this.host = this.navParams.get("host");
         this.m_port = this.navParams.get("mport");
         this.w_port = this.navParams.get("wport");
-        console.log("WEB: " + this.w_port + "  MOBILE: " + this.m_port);
 
 
         this.missingFiles = this.navParams.get("errors");

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
+import {SearchData} from "./SearchData";
 
 
 export var modelCounter:number = 0;
@@ -17,7 +18,7 @@ export class DataModel
     // Debug switches
     static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
-    static FORCE_CLIENT_FUNCTION:boolean = false;
+    static FORCE_CLIENT_FUNCTION:boolean = true;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
 
@@ -164,7 +165,6 @@ export class DataModel
         this.errors = [];
         for(let i:number = 0; i < this.loadingStartedCallbacks.length; i++)
         {
-            console.log("Started start callback");
             this.loadingStartedCallbacks[i]();
         }
         this.asyncLoadFile(this.getRemoteURL() + this.currentlyActive.dir + "/" + DataModel.configJson, this.reload_next.bind(this));
@@ -180,7 +180,6 @@ export class DataModel
             this.loading = false;
             for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
             {
-                console.log("Started finished callback");
                 this.loadingFinishedCallbacks[i]();
             }
             return;
@@ -266,9 +265,11 @@ export class DataModel
 
         for(let i:number = 0; i < this.loadingFinishedCallbacks.length; i++)
         {
-            console.log("Started finished callback");
             this.loadingFinishedCallbacks[i]();
         }
+
+        let d = new SearchData(this);
+        d.updateData();
     }
 
     // Asynchronous load file
@@ -350,7 +351,7 @@ export class DataModel
 
     private plot_name:string = "analysis";
 
-    setLinks(datetime_dir) {
+    async setLinks(datetime_dir) {
         if(!this.config) return;
         //let model:DataModel = DataModel.getInstance();
         let remote_url:string = this.getRemoteURL();
@@ -389,7 +390,7 @@ export class DataModel
 
     setPlots(plot_name:string){
         for (let i:number = 0; i < this.monitoringUrls.length; i++) {
-            for (let j:number = 0; j < this.monitoringUrls[i].urls.length; j++){
+            for (let j:number = 0; j < this.monitoringUrls[i].urls.length; j++) {
                 if ((this.monitoringUrls[i].urls[j].file_prefix == null)){
                     console.log("DEBUG: nop");
                 } else {
@@ -463,7 +464,6 @@ export class DataModel
     {
         if(!this.loopHandler == null) clearInterval(this.loopHandler);
         this.initLoop();
-        console.log("Updated Loop");
     }
 
     // Initial configuration
@@ -563,7 +563,7 @@ export class DataModel
 
     isCordova()
     {
-        return this.plt.is('cordova');
+        return DataModel.FORCE_CLIENT_FUNCTION || this.plt.is('cordova');
     }
 
     /* Deprecated
@@ -648,7 +648,7 @@ export class ConfigurationObject
     private _enableTextSpeech:boolean = true;
     private _enableAutoReadout:boolean = false;
     private _speakInterval:number = 10;
-    private _happyFaceCompatible:boolean = true;
+    private _happyFaceCompatible:boolean = false;
 
     get() {
         return {

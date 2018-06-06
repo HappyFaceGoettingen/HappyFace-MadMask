@@ -1,8 +1,12 @@
-import {NavController} from "ionic-angular";
+import {IonicPage, NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
 import {HFCategoriesPage} from "./hf-classical/hf-categories";
 import {Component, ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef} from "@angular/core";
 import {AnalyzerDetailPage} from "./analyzer-detail";
+
+/*@IonicPage({
+    name: 'analyzer'
+})*/
 
 @Component({
     selector: 'page-analyzer',
