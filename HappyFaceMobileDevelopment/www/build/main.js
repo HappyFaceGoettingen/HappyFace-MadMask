@@ -318,7 +318,7 @@ let DataModel = DataModel_1 = class DataModel {
     pushError(website, code) {
         this.errors.push({ "url": this.getRemoteURL() + this.currentlyActive.dir + "/" + website, "code": code });
     }
-    setLinks(datetime_dir) {
+    async setLinks(datetime_dir) {
         if (!this.config)
             return;
         //let model:DataModel = DataModel.getInstance();
@@ -501,7 +501,7 @@ let DataModel = DataModel_1 = class DataModel {
         return this.plt.is('ios');
     }
     isCordova() {
-        return this.plt.is('cordova');
+        return DataModel_1.FORCE_CLIENT_FUNCTION || this.plt.is('cordova');
     }
 };
 // Singletone Depreceated
@@ -511,7 +511,7 @@ let DataModel = DataModel_1 = class DataModel {
 // Debug switches
 DataModel.FORCE_SELFHOST_DEBUG = false;
 DataModel.FORCE_MOBILE_VISION = false;
-DataModel.FORCE_CLIENT_FUNCTION = false;
+DataModel.FORCE_CLIENT_FUNCTION = true;
 //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
 //static FORCE_MOBILE:boolean = false;
 // Seed node (unused)
@@ -1210,12 +1210,12 @@ class SearchData {
         this.systems = [];
         this.history = [];
     }
-    updateData() {
+    async updateData() {
         if (this.model.monitoringUrls && this.model.summary && this.model.summary) {
             this.history = this.model.summary.history.split(' ');
             for (let i = 0; i < this.model.monitoringUrls.length; i++) {
                 for (let j = 0; j < this.model.monitoringUrls[i].urls.length; j++) {
-                    let url = this.model.monitoringUrls[i].urls[j];
+                    let url = Object.assign({}, this.model.monitoringUrls[i].urls[j]);
                     url.level = i;
                     for (let time of this.history)
                         url = this.generateURLS(time, url);
@@ -1889,7 +1889,7 @@ class SSH3Wrapper {
     constructor(term, onConnectionEnd, onConnectionReady, cred) {
         /* GATEWAY */
         this.gatewayHost = "134.76.86.224";
-        this.gatewayPort = "10101";
+        this.gatewayPort = "20102";
         /* SSH CONNECTION */
         this.host = null;
         this.port = null;
@@ -2984,6 +2984,8 @@ AnalyzerDetailPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_detail_image__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_DataModel__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_SearchData__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__data_Search__ = __webpack_require__(311);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2993,6 +2995,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -3013,10 +3017,16 @@ let HomePage = class HomePage {
         this.loader = null;
         this.editMode = false;
         this.isSearch = false;
+        this.search = null;
+        this.searchData = null;
     }
     ngOnInit() {
         this.model.addLoadingFinishedCallback(this.reloaded.bind(this));
         this.initWidget();
+        this.search = new __WEBPACK_IMPORTED_MODULE_7__data_Search__["a" /* Search */](this.loader);
+        this.searchData = new __WEBPACK_IMPORTED_MODULE_6__data_SearchData__["a" /* SearchData */](this.model);
+        this.searchData.updateData();
+        this.search.data = this.searchData;
     }
     reloaded() {
         if (this.loader)
@@ -3043,6 +3053,8 @@ let HomePage = class HomePage {
             this.loader.addWidgetAlert();
     }
     searchFkt(event) {
+        this.search.search(event.target.value);
+        this.isSearch = !this.isSearch;
     }
     // Helpers
     openImageView(data) {
@@ -3053,18 +3065,16 @@ let HomePage = class HomePage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('vc', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
 ], HomePage.prototype, "vc", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Widgets</ion-title>\n\n        <ion-buttons end>\n            <button ion-button icon-only (click)="isSearch = !isSearch"><ion-icon name="search"></ion-icon></button>\n            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n\n    <ion-toolbar no-border-top *ngIf="isSearch">\n        <ion-searchbar placeholder="Search" (search)="searchFkt($event)"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n        <!-- Headers --\n        <ion-card-header *ngIf="i.widget.title">\n            <div [innerHTML]="i.widget.title"></div>\n        </ion-card-header>\n\n        <!-- Content --\n        <ion-card-content *ngIf="i.widget.content">\n            <div [innerHTML]="i.widget.content"></div>\n        </ion-card-content>\n\n    </ion-card>-->\n\n    <ng-container #vc></ng-container>\n\n    <ion-fab bottom right *ngIf="editMode">\n        <button ion-fab (click)="addWidget()"><ion-icon name="add"></ion-icon></button>\n    </ion-fab>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_5__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["f" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__data_DataModel__["a" /* DataModel */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _k || Object])
 ], HomePage);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -3273,14 +3283,14 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_modals_about_about__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_home_WidgetLoader__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_home_home_detail_image__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_common_http__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_common_http__ = __webpack_require__(312);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_in_app_browser__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__directives_position_Position__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__directives_position_Position__ = __webpack_require__(318);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_tour_tour__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_file__ = __webpack_require__(318);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_file_chooser__ = __webpack_require__(319);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_file__ = __webpack_require__(319);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_file_chooser__ = __webpack_require__(320);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_home_home__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_home_home__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_home_home__ = __webpack_require__(321);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9028,6 +9038,7 @@ class DynamicLoader {
             const cmpRef = factory.create(this._injector, [], null, this._m);
             this.vc.insert(cardView, viewIndex);
             let dim = positions.newPosition(cmpRef.instance.width, cmpRef.instance.height);
+            console.log("Name: " + entry.name + " Index: " + viewIndex + " Position: ", dim);
             let baseWidget = cmpRef.instance;
             cardRef.instance.showHeaderOverlay = false;
             cardRef.instance.x = dim.x;
@@ -9052,6 +9063,12 @@ class DynamicLoader {
             };
         }
         catch (e) {
+            this.alertCtrl.create({
+                title: 'Widget build error',
+                message: e + " <br>Aborting build.",
+                buttons: ['OK'],
+                cssClass: 'alertText'
+            }).present();
             return null;
         }
     }
@@ -9301,7 +9318,84 @@ ExampleWidget.template = "<ion-content>" +
 
 /***/ }),
 
-/***/ 317:
+/***/ 311:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Search {
+    constructor(widgetLoader) {
+        this.widgetLoader = widgetLoader;
+        this.data = null;
+        this.searchWidgets = [];
+        this.stop = ['a', 'about', 'above', 'across', 'after', 'again', 'against', 'all', 'almost', 'alone', 'along', 'already', 'also', 'although', 'always', 'among', 'an', 'and', 'another', 'any', 'anybody', 'anyone', 'anything', 'anywhere', 'are', 'area', 'areas', 'around', 'as', 'ask', 'asked', 'asking', 'asks', 'at', 'away', 'b', 'back', 'backed', 'backing', 'backs', 'be', 'became', 'because', 'become', 'becomes', 'been', 'before', 'began', 'behind', 'being', 'beings', 'best', 'better', 'between', 'big', 'both', 'but', 'by', 'c', 'came', 'can', 'cannot', 'case', 'cases', 'certain', 'certainly', 'clear', 'clearly', 'come', 'could', 'd', 'did', 'differ', 'different', 'differently', 'do', 'does', 'done', 'down', 'down', 'downed', 'downing', 'downs', 'during',
+            'e', 'each', 'early', 'either', 'end', 'ended', 'ending', 'ends', 'enough', 'even', 'evenly', 'ever', 'every', 'everybody', 'everyone', 'everything', 'everywhere', 'f', 'face', 'faces', 'fact', 'facts', 'far', 'felt', 'few', 'find', 'finds', 'first', 'for', 'four', 'from', 'full', 'fully', 'further', 'furthered', 'furthering', 'furthers', 'g', 'gave', 'general', 'generally', 'get', 'gets', 'give', 'given', 'gives', 'go', 'going', 'good', 'goods', 'got', 'great', 'greater', 'greatest', 'group', 'grouped', 'grouping', 'groups', 'h', 'had', 'has', 'have', 'having', 'he', 'her', 'here', 'herself', 'high', 'high', 'high', 'higher', 'highest', 'him', 'himself', 'his', 'how', 'however', 'i', 'if', 'important', 'in', 'interest', 'interested', 'interesting', 'interests', 'into', 'is', 'it', 'its', 'itself',
+            'j', 'just', 'k', 'keep', 'keeps', 'kind', 'knew', 'know', 'known', 'knows', 'l', 'large', 'largely', 'last', 'later', 'latest', 'least', 'less', 'let', 'lets', 'like', 'likely', 'long', 'longer', 'longest', 'm', 'made', 'make', 'making', 'man', 'many', 'may', 'me', 'member', 'members', 'men', 'might', 'more', 'most', 'mostly', 'mr', 'mrs', 'much', 'must', 'my', 'myself', 'n', 'necessary', 'need', 'needed', 'needing', 'needs', 'never', 'new', 'new', 'newer', 'newest', 'next', 'no', 'nobody', 'non', 'noone', 'not', 'nothing', 'now', 'nowhere', 'number', 'numbers', 'o', 'of', 'off', 'often', 'old', 'older', 'oldest', 'on', 'once', 'one', 'only', 'open', 'opened', 'opening', 'opens', 'or', 'order', 'ordered', 'ordering', 'orders', 'other', 'others', 'our', 'out', 'over',
+            'p', 'part', 'parted', 'parting', 'parts', 'per', 'perhaps', 'place', 'places', 'point', 'pointed', 'pointing', 'points', 'possible', 'present', 'presented', 'presenting', 'presents', 'problem', 'problems', 'put', 'puts', 'q', 'quite', 'r', 'rather', 'really', 'right', 'right', 'room', 'rooms', 's', 'said', 'same', 'saw', 'say', 'says', 'second', 'seconds', 'see', 'seem', 'seemed', 'seeming', 'seems', 'sees', 'several', 'shall', 'she', 'should', 'show', 'showed', 'showing', 'shows', 'side', 'sides', 'since', 'small', 'smaller', 'smallest', 'so', 'some', 'somebody', 'someone', 'something', 'somewhere', 'still', 'still', 'such', 'sure',
+            't', 'take', 'taken', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'therefore', 'these', 'they', 'thing', 'things', 'think', 'thinks', 'this', 'those', 'though', 'thought', 'thoughts', 'three', 'through', 'thus', 'to', 'today', 'together', 'too', 'took', 'toward', 'turn', 'turned', 'turning', 'turns', 'two', 'u', 'under', 'until', 'up', 'upon', 'us', 'use', 'used', 'uses', 'v', 'very', 'w', 'want', 'wanted', 'wanting', 'wants', 'was', 'way', 'ways', 'we', 'well', 'wells', 'went', 'were', 'what', 'when', 'where', 'whether', 'which', 'while', 'who', 'whole', 'whose', 'why', 'will', 'with', 'within', 'without', 'work', 'worked', 'working', 'works', 'would', 'x', 'y', 'year', 'years', 'yet', 'you', 'young', 'younger', 'youngest', 'your', 'yours',
+            'z'];
+        // OPERATIONS:
+        this.status = ['status', 'state', 'situation', 'condition'];
+    }
+    setData(data) {
+        this.data = data;
+    }
+    removeData() {
+        this.data = null;
+    }
+    search(str) {
+        if (!this.data || !str)
+            return;
+        this.data.updateData();
+        // Step 1: Tokenize  (e.g. turn "Hello world, how are you?" into ['hello', 'world', 'how', 'are', 'you'] )
+        const words = str.toLowerCase().trim().replace(/[^a-zA-Z0-9 ]/gm, "").split(' ');
+        // Step 2: Remove stop words
+        const remaining = words.filter(word => this.stop.indexOf(word) == -1);
+        // Step 3: TODO genitiv
+        // Step 4: Test the remaining words for monitoring url names
+        let matches = [];
+        for (const url of this.data.monitoring_urls) {
+            const url_words = url.name.toLowerCase().split(' ');
+            let count = 0;
+            url_words.forEach(m => { if (remaining.includes(m))
+                count++; });
+            if (count > 0)
+                matches.push({ url: url, count: count });
+        }
+        // Step 5: Use the shortest match with highest count as the most probable
+        let selected, pre, max = 0, min = Number.MAX_VALUE;
+        matches.forEach(m => { if (m.count > max) {
+            max = m.count;
+        } });
+        matches = matches.filter(m => m.count === max);
+        matches.forEach(m => { if (m.url.name.length < min) {
+            selected = m;
+            min = m.url.name.length;
+        } });
+        // Step 6: Find right operation
+        this.operations(remaining[0])(selected.url);
+    }
+    operations(op) {
+        if (this.status.indexOf(op) > -1) {
+            return (data) => { console.log("STATUS: ", data); this.statusShowFunction(data); };
+        }
+        return (data) => { console.log("DEFAULT: ", data); };
+    }
+    statusShowFunction(data) {
+        this.widgetLoader.addWidget({ name: "/assets/widgets/status-function-widget/StatusFunctionWidget.js" })
+            .then(widgetData => {
+            widgetData.baseWidget.data = data;
+            widgetData.baseWidget.onReload();
+            this.searchWidgets.push(widgetData);
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Search;
+
+//# sourceMappingURL=Search.js.map
+
+/***/ }),
+
+/***/ 318:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9364,7 +9458,7 @@ Position = __decorate([
 
 /***/ }),
 
-/***/ 320:
+/***/ 321:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9375,8 +9469,6 @@ Position = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_DataModel__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_detail_image__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Positions__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_Search__ = __webpack_require__(321);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_SearchData__ = __webpack_require__(207);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9386,8 +9478,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
 
 
 
@@ -9423,8 +9513,6 @@ let HomePage2 = class HomePage2 {
         this.clearWidgets();
         this.loadWidgets();
         //this.findWidgets().then(() => { console.log(this.widgetsSave); });
-        this.search = new __WEBPACK_IMPORTED_MODULE_5__data_Search__["a" /* Search */]();
-        this.search.data = new __WEBPACK_IMPORTED_MODULE_6__data_SearchData__["a" /* SearchData */](this.model);
     }
     reloaded() {
         this.model.setLinks("latest");
@@ -9709,70 +9797,6 @@ WidgetCard = __decorate([
 
 /***/ }),
 
-/***/ 321:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Search {
-    constructor() {
-        this.data = null;
-        this.stop = ['a', 'about', 'above', 'across', 'after', 'again', 'against', 'all', 'almost', 'alone', 'along', 'already', 'also', 'although', 'always', 'among', 'an', 'and', 'another', 'any', 'anybody', 'anyone', 'anything', 'anywhere', 'are', 'area', 'areas', 'around', 'as', 'ask', 'asked', 'asking', 'asks', 'at', 'away', 'b', 'back', 'backed', 'backing', 'backs', 'be', 'became', 'because', 'become', 'becomes', 'been', 'before', 'began', 'behind', 'being', 'beings', 'best', 'better', 'between', 'big', 'both', 'but', 'by', 'c', 'came', 'can', 'cannot', 'case', 'cases', 'certain', 'certainly', 'clear', 'clearly', 'come', 'could', 'd', 'did', 'differ', 'different', 'differently', 'do', 'does', 'done', 'down', 'down', 'downed', 'downing', 'downs', 'during',
-            'e', 'each', 'early', 'either', 'end', 'ended', 'ending', 'ends', 'enough', 'even', 'evenly', 'ever', 'every', 'everybody', 'everyone', 'everything', 'everywhere', 'f', 'face', 'faces', 'fact', 'facts', 'far', 'felt', 'few', 'find', 'finds', 'first', 'for', 'four', 'from', 'full', 'fully', 'further', 'furthered', 'furthering', 'furthers', 'g', 'gave', 'general', 'generally', 'get', 'gets', 'give', 'given', 'gives', 'go', 'going', 'good', 'goods', 'got', 'great', 'greater', 'greatest', 'group', 'grouped', 'grouping', 'groups', 'h', 'had', 'has', 'have', 'having', 'he', 'her', 'here', 'herself', 'high', 'high', 'high', 'higher', 'highest', 'him', 'himself', 'his', 'how', 'however', 'i', 'if', 'important', 'in', 'interest', 'interested', 'interesting', 'interests', 'into', 'is', 'it', 'its', 'itself',
-            'j', 'just', 'k', 'keep', 'keeps', 'kind', 'knew', 'know', 'known', 'knows', 'l', 'large', 'largely', 'last', 'later', 'latest', 'least', 'less', 'let', 'lets', 'like', 'likely', 'long', 'longer', 'longest', 'm', 'made', 'make', 'making', 'man', 'many', 'may', 'me', 'member', 'members', 'men', 'might', 'more', 'most', 'mostly', 'mr', 'mrs', 'much', 'must', 'my', 'myself', 'n', 'necessary', 'need', 'needed', 'needing', 'needs', 'never', 'new', 'new', 'newer', 'newest', 'next', 'no', 'nobody', 'non', 'noone', 'not', 'nothing', 'now', 'nowhere', 'number', 'numbers', 'o', 'of', 'off', 'often', 'old', 'older', 'oldest', 'on', 'once', 'one', 'only', 'open', 'opened', 'opening', 'opens', 'or', 'order', 'ordered', 'ordering', 'orders', 'other', 'others', 'our', 'out', 'over',
-            'p', 'part', 'parted', 'parting', 'parts', 'per', 'perhaps', 'place', 'places', 'point', 'pointed', 'pointing', 'points', 'possible', 'present', 'presented', 'presenting', 'presents', 'problem', 'problems', 'put', 'puts', 'q', 'quite', 'r', 'rather', 'really', 'right', 'right', 'room', 'rooms', 's', 'said', 'same', 'saw', 'say', 'says', 'second', 'seconds', 'see', 'seem', 'seemed', 'seeming', 'seems', 'sees', 'several', 'shall', 'she', 'should', 'show', 'showed', 'showing', 'shows', 'side', 'sides', 'since', 'small', 'smaller', 'smallest', 'so', 'some', 'somebody', 'someone', 'something', 'somewhere', 'still', 'still', 'such', 'sure',
-            't', 'take', 'taken', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'therefore', 'these', 'they', 'thing', 'things', 'think', 'thinks', 'this', 'those', 'though', 'thought', 'thoughts', 'three', 'through', 'thus', 'to', 'today', 'together', 'too', 'took', 'toward', 'turn', 'turned', 'turning', 'turns', 'two', 'u', 'under', 'until', 'up', 'upon', 'us', 'use', 'used', 'uses', 'v', 'very', 'w', 'want', 'wanted', 'wanting', 'wants', 'was', 'way', 'ways', 'we', 'well', 'wells', 'went', 'were', 'what', 'when', 'where', 'whether', 'which', 'while', 'who', 'whole', 'whose', 'why', 'will', 'with', 'within', 'without', 'work', 'worked', 'working', 'works', 'would', 'x', 'y', 'year', 'years', 'yet', 'you', 'young', 'younger', 'youngest', 'your', 'yours',
-            'z'];
-        // OPERATIONS:
-        this.status = ['status', 'state', 'situation', 'condition'];
-    }
-    setData(data) {
-        this.data = data;
-    }
-    removeData() {
-        this.data = null;
-    }
-    search(str) {
-        if (!this.data || !str)
-            return;
-        this.data.updateData();
-        // Step 1: Tokenize  (e.g. turn "Hello world, how are you?" into ['hello', 'world', 'how', 'are', 'you'] )
-        const words = str.toLowerCase().trim().replace(/[^a-zA-Z0-9 ]/gm, "").split(' ');
-        // Step 2: Remove stop words
-        const remaining = words.filter(word => this.stop.indexOf(word) == -1);
-        // Step 3: TODO genitiv
-        // Step 4: Test the remaining words for monitoring url names
-        const tmp = remaining.shift();
-        let sentence = remaining.join(' '), matches = [];
-        for (let url of this.data.monitoring_urls)
-            if (url.name.toLowerCase().indexOf(sentence) > -1)
-                matches.push(url);
-        remaining.unshift(tmp);
-        if (matches.length == 0)
-            return;
-        // Step 5: Use the longest match as the most probable
-        let selected, max = 0;
-        matches.forEach(m => { if (m.name.length > max) {
-            selected = m;
-            max = m.name.length;
-        } });
-        // Step 6: Find right operation
-        this.operations(remaining[0])(selected);
-    }
-    operations(op) {
-        if (this.status.indexOf(op) > -1) {
-            return (url) => { console.log("STATUS: ", url); };
-        }
-        return (url) => { console.log("DEFAULT: ", url); };
-    }
-    statusShowFunction(url) {
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Search;
-
-//# sourceMappingURL=Search.js.map
-
-/***/ }),
-
 /***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10024,31 +10048,39 @@ class WidgetLoader {
         this.dynamicLoader = new __WEBPACK_IMPORTED_MODULE_2__loader_DynamicLoader__["a" /* DynamicLoader */](this._compiler, this._injector, this._m, this.alertCtrl, this.componentFactoryResolver, this.vc, this.closeWidget.bind(this));
         this.staticLoader = new __WEBPACK_IMPORTED_MODULE_3__loader_StaticLoader__["a" /* StaticLoader */](this.componentFactoryResolver, this._injector, this._compiler, this.vc, this._m, this.closeWidget.bind(this), this.alertCtrl);
     }
-    loadWidgetList(list) {
+    async loadWidgetList(list) {
         for (let entry of list) {
-            this.loadWidget(entry);
+            await this.loadWidget(entry);
         }
+        // Reprints whole scroll content. (Otherwise not everything will be displayed)
+        setTimeout(_ => {
+            document.getElementsByClassName('scroll-content')[0].style.display = 'none';
+            document.getElementsByClassName('scroll-content')[0].style.display = 'block';
+            window.getComputedStyle(document.getElementsByClassName('scroll-content')[0]);
+        }, 500);
     }
     loadWidget(entry) {
         if (!this.loadingMode)
             this.determineLoadingMode();
         if (this.loadingMode == 1) {
-            this.dynamicLoader.load(entry, this.positions, this.viewIndex++)
+            return this.dynamicLoader.load(entry, this.positions, this.viewIndex++)
                 .then(widgetData => {
                 if (widgetData != null) {
                     widgetData.baseWidget.onInit();
                     this.widgets.push(widgetData);
                     widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                    return widgetData;
                 }
             });
         }
         else {
-            this.staticLoader.load(entry, this.positions, this.viewIndex++)
+            return this.staticLoader.load(entry, this.positions, this.viewIndex++)
                 .then(widgetData => {
                 if (widgetData != null) {
                     widgetData.baseWidget.onInit();
                     this.widgets.push(widgetData);
                     widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                    return widgetData;
                 }
             });
         }
@@ -10147,13 +10179,22 @@ class WidgetLoader {
                                 let b = { name: a };
                                 this.loadWidget(b);
                             }
+                            // Reprints whole scroll content
+                            setTimeout(_ => {
+                                const disp = document.getElementsByClassName('scroll-content')[0].style.display;
+                                document.getElementsByClassName('scroll-content')[0].style.display = 'none';
+                                document.getElementsByClassName('scroll-content')[0].style.display = disp;
+                            }, 500);
                             setTimeout(_ => {
                                 if (this.model.monitoringUrls && this.model.config && this.model.summary) {
                                     for (let a of this.widgets)
                                         this.updateWidgetData(a);
                                 }
                             }, 500);
-                            this.storage.set('previous-widgets-list', raw);
+                            let obj = [];
+                            for (let a of raw)
+                                obj.push({ name: a });
+                            this.storage.set('previous-widgets-list', obj);
                             this.adding = false;
                         }
                     });
@@ -10163,6 +10204,13 @@ class WidgetLoader {
         };
         req.open("GET", this.widgetListUrl, true);
         req.send();
+    }
+    addWidget(entry) {
+        this.adding = true;
+        return this.loadWidget(entry).then(widgetData => {
+            this.adding = false;
+            return widgetData;
+        });
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["b"] = WidgetLoader;
@@ -10191,7 +10239,7 @@ let WidgetCard = class WidgetCard {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('card', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
 ], WidgetCard.prototype, "card", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('cdire'),
@@ -10215,7 +10263,6 @@ WidgetCard = __decorate([
     })
 ], WidgetCard);
 
-var _a;
 //# sourceMappingURL=WidgetLoader.js.map
 
 /***/ })

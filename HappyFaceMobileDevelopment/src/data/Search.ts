@@ -1,8 +1,10 @@
 import {SearchData} from "./SearchData";
+import {WidgetData, WidgetLoader} from "../pages/home/WidgetLoader";
 
 export class Search
 {
     data:SearchData = null;
+    searchWidgets:WidgetData[] = [];
 
     stop:string[] = ['a', 'about', 'above', 'across', 'after', 'again', 'against', 'all', 'almost', 'alone', 'along', 'already', 'also', 'although', 'always', 'among', 'an', 'and', 'another', 'any', 'anybody', 'anyone', 'anything', 'anywhere', 'are', 'area', 'areas', 'around', 'as', 'ask', 'asked', 'asking', 'asks', 'at', 'away', 'b', 'back', 'backed', 'backing', 'backs', 'be', 'became', 'because', 'become', 'becomes', 'been', 'before', 'began', 'behind', 'being', 'beings', 'best', 'better', 'between', 'big', 'both', 'but', 'by', 'c', 'came', 'can', 'cannot', 'case', 'cases', 'certain', 'certainly', 'clear', 'clearly', 'come', 'could', 'd', 'did', 'differ', 'different', 'differently', 'do', 'does', 'done', 'down', 'down', 'downed', 'downing', 'downs', 'during',
         'e', 'each', 'early', 'either', 'end', 'ended', 'ending', 'ends', 'enough', 'even', 'evenly', 'ever', 'every', 'everybody', 'everyone', 'everything', 'everywhere', 'f', 'face', 'faces', 'fact', 'facts', 'far', 'felt', 'few', 'find', 'finds', 'first', 'for', 'four', 'from', 'full', 'fully', 'further', 'furthered', 'furthering', 'furthers', 'g', 'gave', 'general', 'generally', 'get', 'gets', 'give', 'given', 'gives', 'go', 'going', 'good', 'goods', 'got', 'great', 'greater', 'greatest', 'group', 'grouped', 'grouping', 'groups', 'h', 'had', 'has', 'have', 'having', 'he', 'her', 'here', 'herself', 'high', 'high', 'high', 'higher', 'highest', 'him', 'himself', 'his', 'how', 'however', 'i', 'if', 'important', 'in', 'interest', 'interested', 'interesting', 'interests', 'into', 'is', 'it', 'its', 'itself',
@@ -16,7 +18,7 @@ export class Search
     status:string[] = ['status', 'state', 'situation', 'condition'];
 
 
-    constructor() {}
+    constructor(private widgetLoader:WidgetLoader) {}
 
     setData(data:SearchData)
     {
@@ -42,36 +44,43 @@ export class Search
         // Step 3: TODO genitiv
 
         // Step 4: Test the remaining words for monitoring url names
-        const tmp = remaining.shift();
-        let sentence:string = remaining.join(' '), matches:any[] = [];
-        for(let url of this.data.monitoring_urls)
-            if (url.name.toLowerCase().indexOf(sentence) > -1)
-                matches.push(url);
-        remaining.unshift(tmp);
+        let matches:any[] = [];
+        for(const url of this.data.monitoring_urls)
+        {
+            const url_words:string[] = url.name.toLowerCase().split(' ');
+            let count:number = 0;
+            url_words.forEach( m => { if(remaining.includes(m)) count++; } );
+            if(count > 0) matches.push({ url: url, count: count});
+        }
 
-        if(matches.length == 0) return;
-
-        // Step 5: Use the longest match as the most probable
-        let selected:any, max:number = 0;
-        matches.forEach(m => { if(m.name.length > max) { selected = m; max = m.name.length; } } );
+        // Step 5: Use the shortest match with highest count as the most probable
+        let selected:any, pre:any[], max:number = 0, min:number = Number.MAX_VALUE;
+        matches.forEach(m => { if(m.count > max) { max = m.count; } } );
+        matches = matches.filter(m => m.count === max );
+        matches.forEach(m => { if(m.url.name.length < min) {selected = m; min = m.url.name.length; } } );
 
         // Step 6: Find right operation
-        this.operations(remaining[0])(selected);
+        this.operations(remaining[0])(selected.url);
     }
 
 
-    operations(op:string):(url:any) => void
+    operations(op:string):(data:any) => void
     {
         if(this.status.indexOf(op) > -1)
         {
-            return (url) => { console.log("STATUS: ", url); };
+            return (data) => { console.log("STATUS: ", data); this.statusShowFunction(data); };
         }
 
-        return (url) => { console.log("DEFAULT: ", url); };
+        return (data) => { console.log("DEFAULT: ", data); };
     }
 
-    statusShowFunction(url:any)
+    statusShowFunction(data:any)
     {
-
+        this.widgetLoader.addWidget({ name: "/assets/widgets/status-function-widget/StatusFunctionWidget.js" })
+            .then( widgetData => {
+                widgetData.baseWidget.data = data;
+                widgetData.baseWidget.onReload();
+                this.searchWidgets.push(widgetData);
+            });
     }
 }

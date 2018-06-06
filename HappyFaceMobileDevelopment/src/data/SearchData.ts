@@ -9,7 +9,7 @@ export class SearchData
     constructor(private model:DataModel) {}
 
 
-    updateData():SearchData
+    async updateData():Promise<SearchData>
     {
         if(this.model.monitoringUrls && this.model.summary && this.model.summary)
         {
@@ -18,7 +18,7 @@ export class SearchData
             {
                 for(let j:number = 0; j < this.model.monitoringUrls[i].urls.length; j++)
                 {
-                    let url = this.model.monitoringUrls[i].urls[j];
+                    let url = Object.assign({}, this.model.monitoringUrls[i].urls[j]);
                     url.level = i;
                     for(let time of this.history)
                         url = this.generateURLS(time, url);

@@ -45,38 +45,40 @@ export class WidgetLoader
         this.staticLoader  = new StaticLoader(this.componentFactoryResolver, this._injector, this._compiler, this.vc, this._m, this.closeWidget.bind(this), this.alertCtrl);
     }
 
-    loadWidgetList(list:any[])
+    async loadWidgetList(list:any[])
     {
         for(let entry of list)
         {
-            this.loadWidget(entry);
+            await this.loadWidget(entry);
         }
     }
 
-    loadWidget(entry:any)
+    loadWidget(entry:any):Promise<WidgetData>
     {
         if(!this.loadingMode)
             this.determineLoadingMode();
 
         if(this.loadingMode == 1)
         {
-            this.dynamicLoader.load(entry, this.positions, this.viewIndex++)
+            return this.dynamicLoader.load(entry, this.positions, this.viewIndex++)
                 .then(widgetData => {
                     if (widgetData != null) {
                         widgetData.baseWidget.onInit();
                         this.widgets.push(widgetData);
                         widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                        return widgetData;
                     }
                 });
         }
         else
         {
-            this.staticLoader.load(entry, this.positions, this.viewIndex++)
+            return this.staticLoader.load(entry, this.positions, this.viewIndex++)
                 .then(widgetData => {
                     if (widgetData != null) {
                         widgetData.baseWidget.onInit();
                         this.widgets.push(widgetData);
                         widgetData.cardRef.instance.showHeaderOverlay = this.editMode;
+                        return widgetData;
                     }
                 });
         }
@@ -198,10 +200,9 @@ export class WidgetLoader
                             this.adding = true;
                             /* Dont add widgets already displayed */
                             let data = raw.filter((element) => this.widgets.find((e) => e.path === element) === undefined);
-                            for(let a of data) {
-                                let b = { name: a };
-                                this.loadWidget(b);
-                            }
+                            let comp = data.map(element => { return {name: element}; });
+
+                            this.loadWidgetList(comp);
 
                             setTimeout(_ => {
                                 if(this.model.monitoringUrls && this.model.config && this.model.summary)
@@ -211,7 +212,7 @@ export class WidgetLoader
                                 }
                             }, 500);
 
-                            this.storage.set('previous-widgets-list', raw);
+                            this.storage.set('previous-widgets-list', comp);
 
                             this.adding = false;
                         }
@@ -223,6 +224,17 @@ export class WidgetLoader
         };
         req.open("GET", this.widgetListUrl, true);
         req.send();
+    }
+
+    addWidget(entry:any)
+    {
+        this.adding = true;
+
+        return this.loadWidget(entry).then( widgetData => {
+            this.updateWidgetData(widgetData);
+            this.adding = false;
+            return widgetData;
+        });
     }
 
     /*async dynamicLoad(name:string)

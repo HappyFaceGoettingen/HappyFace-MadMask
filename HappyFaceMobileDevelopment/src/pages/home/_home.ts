@@ -58,8 +58,6 @@ export class HomePage2
         this.loadWidgets();
         //this.findWidgets().then(() => { console.log(this.widgetsSave); });
 
-        this.search = new Search();
-        this.search.data = new SearchData(this.model);
     }
 
     reloaded()

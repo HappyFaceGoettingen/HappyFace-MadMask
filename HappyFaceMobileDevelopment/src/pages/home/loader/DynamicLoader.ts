@@ -80,6 +80,7 @@ export class DynamicLoader
                 this.closeWidget(index);
             };
             cardRef.instance.card.insert(cmpRef.hostView, 0);
+            cardRef.instance.updatePosition();
 
             return {
                 cardRef: cardRef,
@@ -93,6 +94,12 @@ export class DynamicLoader
             }
 
         } catch (e) {
+            this.alertCtrl.create({
+                title: 'Widget build error',
+                message: e + " <br>Aborting build.",
+                buttons: ['OK'],
+                cssClass: 'alertText'
+            }).present();
             return null;
         }
     }

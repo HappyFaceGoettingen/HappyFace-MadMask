@@ -6,7 +6,7 @@ export class SSH3Wrapper
 {
     /* GATEWAY */
     gatewayHost:string = "134.76.86.224";
-    gatewayPort:string = "10101";
+    gatewayPort:string = "20102";
 
     /* SSH CONNECTION */
     host:string = null;

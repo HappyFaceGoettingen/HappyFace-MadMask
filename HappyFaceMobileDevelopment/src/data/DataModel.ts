@@ -18,7 +18,7 @@ export class DataModel
     // Debug switches
     static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
-    static FORCE_CLIENT_FUNCTION:boolean = false;
+    static FORCE_CLIENT_FUNCTION:boolean = true;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
 
@@ -351,7 +351,7 @@ export class DataModel
 
     private plot_name:string = "analysis";
 
-    setLinks(datetime_dir) {
+    async setLinks(datetime_dir) {
         if(!this.config) return;
         //let model:DataModel = DataModel.getInstance();
         let remote_url:string = this.getRemoteURL();
@@ -563,7 +563,7 @@ export class DataModel
 
     isCordova()
     {
-        return this.plt.is('cordova');
+        return DataModel.FORCE_CLIENT_FUNCTION || this.plt.is('cordova');
     }
 
     /* Deprecated

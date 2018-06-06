@@ -44,6 +44,10 @@ var BaseWidget = /** @class */ (function () {
          * @type {(any) => void}
          */
         this.openImageView = null;
+        /**
+         *
+         */
+        this.data = null;
     }
     /**
      * Returns the color codes for status colors used in config.

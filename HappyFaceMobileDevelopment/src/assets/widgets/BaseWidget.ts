@@ -74,6 +74,11 @@ export abstract class BaseWidget
     openImageView:(data:any) => void = null;
 
     /**
+     *
+     */
+    data:any = null;
+
+    /**
      * Returns the color codes for status colors used in config.
      * @param {string} col  Name of the color as found in config.
      * @returns {string}  Hex code of the specified color or "#FFFFFF" if unknown.

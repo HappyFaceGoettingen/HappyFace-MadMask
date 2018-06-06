@@ -12,6 +12,8 @@ import {Storage} from "@ionic/storage";
 import {HomeDetailImagePage} from "./home-detail-image";
 import {AlertController, IonicPage, LoadingController, NavController} from "ionic-angular";
 import {DataModel} from "../../data/DataModel";
+import {SearchData} from "../../data/SearchData";
+import {Search} from "../../data/Search";
 
 @IonicPage({
     name: 'home'
@@ -30,6 +32,9 @@ export class HomePage
     editMode:boolean = false;
     isSearch:boolean = false;
 
+    search:Search = null;
+    searchData:SearchData = null;
+
     constructor(private loadingCtrl:LoadingController, private model:DataModel, private navCtrl:NavController,
                 private _compiler:Compiler, private _injector:Injector, private _m:NgModuleRef<any>,
                 private componentFactoryResolver: ComponentFactoryResolver, private alertCtrl:AlertController,
@@ -40,6 +45,10 @@ export class HomePage
     {
         this.model.addLoadingFinishedCallback(this.reloaded.bind(this));
         this.initWidget();
+        this.search = new Search(this.loader);
+        this.searchData = new SearchData(this.model);
+        this.searchData.updateData();
+        this.search.data = this.searchData;
     }
 
     reloaded()
@@ -79,7 +88,8 @@ export class HomePage
 
     searchFkt(event)
     {
-
+        this.search.search(event.target.value);
+        this.isSearch = !this.isSearch;
     }
 
 
