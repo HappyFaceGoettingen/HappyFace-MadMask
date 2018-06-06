@@ -1,8 +1,8 @@
 import {ViewController} from "ionic-angular";
 import {Component} from "@angular/core";
 import {Storage} from "@ionic/storage";
-import { File, Entry, FileEntry } from '@ionic-native/file';
-import { FileChooser } from '@ionic-native/file-chooser';
+//import { File, Entry, FileEntry } from '@ionic-native/file';
+//import { FileChooser } from '@ionic-native/file-chooser';
 import {DataModel} from "../../../data/DataModel";
 
 @Component({
@@ -26,8 +26,7 @@ export class PassModal
 
     saveConfig:boolean = false;
 
-    constructor(private viewCtrl:ViewController, private storage:Storage, private model:DataModel,
-                private file:File, private chooser:FileChooser)
+    constructor(private viewCtrl:ViewController, private storage:Storage, private model:DataModel)
     {}
 
     ngOnInit()

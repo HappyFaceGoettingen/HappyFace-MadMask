@@ -49,7 +49,7 @@ check_pidfiles(){
 
 run_madfox(){
     local action=$1
-    su $user -c "$prog -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -w $MADFOXD_WAIT_FIREFOX_BOOT -t $MADFOXD_WAIT_FIREFOX_OPEN_TAB -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action"
+    su $user -c "$prog -L $MADFOXD_LOGLEVEL -x $MADFOXD_X_DISPLAY -w $MADFOXD_WAIT_FIREFOX_BOOT -t $MADFOXD_WAIT_FIREFOX_OPEN_TAB -C $MADFOXD_WAIT_FIREFOX_COMMAND -c $MADFOXD_CONFIG -u $MADFOXD_URLFILE -o $MADFOXD_DATA_HOME -l ${logfile_base} -p ${pidfile_base} -a $action"
     return $?
 }
 

@@ -11,20 +11,20 @@
    "mobile_port": "20110",
    "dir": "sites/DE" 
 },{
-   "name": "ATLAS testnet",
-   "host": "141.5.108.29",
+   "name": "ATLAS develnet",
+   "host": "134.76.86.224",
    "web_port": "10100",
    "mobile_port": "20100",
    "dir": "sites/ADC" 
 },{
-   "name": "ATLAS DE testnet",
-   "host": "141.5.108.29",
+   "name": "ATLAS DE develnet",
+   "host": "134.76.86.224",
    "web_port": "10110",
    "mobile_port": "20110",
    "dir": "sites/DE" 
 },{
-   "name": "ATLAS develnet",
-   "host": "134.76.86.224",
+   "name": "ATLAS testnet",
+   "host": "141.5.108.29",
    "web_port": "10100",
    "mobile_port": "20100",
    "dir": "sites/ADC" 

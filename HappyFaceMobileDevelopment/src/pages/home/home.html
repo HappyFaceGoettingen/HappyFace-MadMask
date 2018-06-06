@@ -3,9 +3,14 @@
         <ion-title>Widgets</ion-title>
 
         <ion-buttons end>
+            <button ion-button icon-only (click)="isSearch = !isSearch"><ion-icon name="search"></ion-icon></button>
             <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="isSearch">
+        <ion-searchbar placeholder="Search" (search)="searchFkt($event)"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -27,7 +32,7 @@
     <ng-container #vc></ng-container>
 
     <ion-fab bottom right *ngIf="editMode">
-        <button ion-fab (click)="addWidgetAlert()"><ion-icon name="add"></ion-icon></button>
+        <button ion-fab (click)="addWidget()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
 </ion-content>

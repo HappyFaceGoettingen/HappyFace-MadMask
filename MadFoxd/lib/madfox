@@ -9,6 +9,7 @@ MADFOX_LIB_DIR=~/var/develop/MadMask/MadFoxd/lib
 ## Some parameters before starting firefox and opening its tabs
 WAIT_FIREFOX_BOOT=10
 WAIT_FIREFOX_OPEN_TAB=0.5
+WAIT_FIREFOX_COMMAND=10
 
 ## Wait maximum 60 x WAIT_CLOUD_BOOT sec (= until firefox starts)
 WAIT_CLOUD_BOOT=20
@@ -61,6 +62,7 @@ usage="$0 [options] -a [action]
  -f:  Set Firefox profile
  -w:  Set a wait time to boot Firefox [default: $WAIT_FIREFOX_BOOT]
  -t:  Set a wait time to open each tab [default: $WAIT_FIREFOX_OPEN_TAB]
+ -C:  Set a wait time before running a defined command of URL JSON file [defaut: $WAIT_FIREFOX_COMMAND]
 
  * Common config file
  -c:  Config JSON file (typically, config.json)
@@ -90,7 +92,7 @@ fi
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "S:L:c:u:o:x:r:f:a:w:t:p:l:hv" op
+while getopts "S:L:c:u:o:x:r:f:a:w:t:C:p:l:hv" op
   do
   case $op in
       S) MADFOX_LIB_DIR=$OPTARG
@@ -103,7 +105,6 @@ while getopts "S:L:c:u:o:x:r:f:a:w:t:p:l:hv" op
       u) URL_JSON=$OPTARG
 	  ;;
       o) DATA_HOME=$OPTARG
-	  
 	  ;;
       x) export DISPLAY="$OPTARG"
 	  ;;
@@ -116,6 +117,8 @@ while getopts "S:L:c:u:o:x:r:f:a:w:t:p:l:hv" op
       w) WAIT_FIREFOX_BOOT=$OPTARG
 	  ;;
       t) WAIT_FIREFOX_OPEN_TAB=$OPTARG
+	  ;;
+      C) WAIT_FIREFOX_COMMAND=$OPTARG
 	  ;;
       p) PIDDIR=$OPTARG
 	  ;;
@@ -199,7 +202,8 @@ open_firefox_tabs(){
 	## Run 'firefox_command' 
 	local fcommand="${FIREFOX_COMMANDS[$i]}"
 	if [ ! -z "$fcommand" ] && [ "$fcommand" != "null" ]; then
-	    INFO "Pushed [$fcommand] for Firefox"
+	    INFO "Pushing [$fcommand] for Firefox (waiting [$WAIT_FIREFOX_COMMAND] sec)"
+	    sleep $WAIT_FIREFOX_COMMAND
 	    send_firefox_command "$fcommand"
 	fi
 
@@ -273,6 +277,7 @@ capture_browser(){
     debug_capture_xwin_display
     return 0
 }
+
 
 last_captured(){
     ## Show latest time when images were captured

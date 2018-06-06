@@ -8,27 +8,6 @@
     "name": "GoeGrid 3",
     "file": "sites/GoeGrid/img/GoeGrid_Photo3.jpg"
 },{
-    "name": "GoeGrid Structure",
-    "file": "sites/GoeGrid/img/structure.png"
-},{
-    "name": "GoeGrid SE Real-time Activity",
-    "file": "sites/GoeGrid/img/se-activity-sample.gif"
-},{
-    "name": "GoeGrid PBS CPU Wall Time last 1 day",
-    "file": "sites/GoeGrid/img/accounting_cpu_walltime_day.jpg"
-},{
-    "name": "GoeGrid PBS CPU Wall Time last 1 week",
-    "file": "sites/GoeGrid/img/accounting_cpu_walltime_week.jpg"
-},{
-    "name": "GoeGrid PBS CPU Wall Time last 1 month",
-    "file": "sites/GoeGrid/img/accounting_cpu_walltime_month.jpg"
-},{
-    "name": "GoeGrid PBS CPU Wall Time daily barplot",
-    "file": "sites/GoeGrid/img/accounting_cpu_walltime_day_barplot.jpg"
-},{
-    "name": "GoeGrid PBS CPU Wall Time weekly barplot",
-    "file": "sites/GoeGrid/img/accounting_cpu_walltime_week_barplot.jpg"
-},{
     "name": "Wall Clock consumption last 48h",
     "file": "http://dashb-atlas-job.cern.ch/dashboard/request.py/consumptions_individual?sites=GOEGRID&sitesCat=All%20Countries&resourcetype=All&sitesSort=2&sitesCatSort=0&start=null&end=null&timeRange=last48&granularity=Hourly&generic=0&sortBy=12&series=All&type=wab"
 },{

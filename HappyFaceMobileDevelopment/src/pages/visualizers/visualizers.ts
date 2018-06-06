@@ -1,5 +1,10 @@
 import {Component} from "@angular/core";
 import {DataModel} from "../../data/DataModel";
+import {IonicPage} from "ionic-angular";
+
+@IonicPage({
+    name: 'visualizers'
+})
 
 @Component({
     selector: 'page-visualizers',
