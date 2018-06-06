@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import {NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MonitoringPage} from "../monitoring/monitoring";
 import {ControllerPage} from "../controller/controller";
 import {LogsPage} from "../logs/logs";
@@ -19,7 +19,9 @@ import {TourPage} from "../tour/tour";
  * Ionic pages and navigation.
  */
 
-//@IonicPage()
+@IonicPage({
+    name: 'tab'
+})
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',

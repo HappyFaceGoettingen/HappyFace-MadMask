@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {DataModel} from "../../../data/DataModel";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {InstancesComponent} from "./instances.component";
-import {InstancesBrowserComponent} from "./instances.browser.component";
 import {AboutPage} from "../about/about";
 import {TourPage} from "../../tour/tour";
 
@@ -63,12 +62,10 @@ export class ConfigPage
     tour()
     {
         setTimeout(() => {
+            this.navCtrl.push(TourPage, {});
+            console.log("Starting tour");
             this.closeModal();
-            setTimeout( () => {
-                this.navCtrl.push(TourPage, {});
-                console.log("Starting tour");
-            }, 500);
-        }, 50);
+        }, 500);
     }
 
     about()

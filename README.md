@@ -35,17 +35,20 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
 
 
 --------------------------
-## HappyFace-MadMask (RPM builder)
-A RPM builder for HappyFace-MadMask modules, Mobile components, services and some dependent libraries. The resulting packages, after executing HappyFace-MadMask/rebuild.sh, are HappyFace-MadMask, MadMask-MadModules and MadFoxd RPM packages under RPMS directory.
+## PackageBuilder
+The RPM and Android/iOS application builders. The RPM package builder can generate some RPMs containing HappyFace core, HappyFace modules, Mobile components, services and some dependent libraries. The resulting packages, after executing PackageBuilder/build-rpms.sh, are HappyFaceCore, HappyFace-MadMask, MadMask-MadModules and MadFoxd RPM packages. 
 
 ### How to build RPMs
-     $ ./rebuild.sh -b hf
-     $ ./rebuild.sh -b madmask
-     $ ./rebuild.sh -b madmodules
-     $ ./rebuild.sh -b madfoxd
+     $ ./build-rpms.sh -b hf
+     $ ./build-rpms.sh -b madmask
+     $ ./build-rpms.sh -b madmodules
+     $ ./build.rpms.sh -b madfoxd
 
 ### Testing packages (removing and installing them indeed)
-     $ ./rebuild.sh -t
+     $ ./build-rpms.sh -t
+
+
+## More details about build-apk4ios.sh can be found in MacOSX.md
 
 
 --------------------------

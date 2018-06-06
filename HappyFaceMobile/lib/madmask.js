@@ -172,7 +172,7 @@ module.exports = {
         template = template
                  + "\t\"name\": \"" + systems_item + "\",\n"
                  + "\t\"text\": \"System [" + systems_item + "]\",\n"
-                 + "\t\"img\":  \"img/default_server.png\",\n"
+                 + "\t\"img\":  \"assets/img/dell-server.png\",\n"
                  + "\t\"dependent\":  [],\n"
                  + "\t\"happyface\":  [],\n"
                  + "\t\"elasticsearch\":  [],\n"

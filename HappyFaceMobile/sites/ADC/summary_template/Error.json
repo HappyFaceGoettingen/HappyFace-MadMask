@@ -1,5 +1,7 @@
 {
     "text": "Hello, __MYNAME__ checked status of __SITE__ at __TIME__. Status level is __LEVEL__. Please have a look at __SYSTEMS__",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Emojione_1F914.svg/512px-Emojione_1F914.svg.png",
+    "color": "#fffc33",
     "level": "__LEVEL__",
     "score": "__SCORE__",
     "systems": __SYSTEMS_ARRAY__,

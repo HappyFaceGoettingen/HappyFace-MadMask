@@ -24,9 +24,12 @@ read_common_config(){
     CONFIG_SITE_NAME=$(read_json ".site_name" $config_json)
     CONFIG_PORT=$(read_json ".ionic_port" $config_json)
     CONFIG_DATA_DIR=$(read_json ".data_dir" $config_json)
-    CONFIG_ANALYSIS_IMAGE_SIZE=$(read_json ".analysis_image_size" $config_json)
     CONFIG_KEEP_DATA_DAYS=$(read_json ".keep_data_days" $config_json)
     CONFIG_LOG_LEVEL=$(read_json ".log_level" $config_json)
     CONFIG_FIREFOX_PROFILE=$(read_json ".firefox_profile" $config_json)
+
+    CONFIG_ANALYSIS_IMAGE_SIZE=$(read_json ".analysis_image_size" $config_json)
+    CONFIG_FORECAST_ALGORITHM=$(read_json ".forecast_algorithm" $config_json)
+    CONFIG_DETECTOR_ALGORITHM=$(read_json ".detecotr_algorithm" $config_json)
 }
 
