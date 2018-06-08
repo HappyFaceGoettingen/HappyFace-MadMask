@@ -41,8 +41,8 @@ run.madvision <- function(bcp.threshold=0.7){
   
   ## Mad Vision plot
   latest.date.id <- date.ids[length(date.ids)]
-  latest.img.file <- paste(c(capture.dir, "/", latest.date.id, "/", file.prefix, ".jpg"), collapse="")
-  mad.vision.file <- paste(c(output.dir, "/", file.prefix, ".jpg"), collapse="")
+  latest.img.file <- str.concat(capture.dir, "/", latest.date.id, "/", file.prefix, ".jpg")
+  mad.vision.file <- str.concat(output.dir, "/", file.prefix, ".jpg")
   if (!file.exists(latest.img.file)){
     message("Image file [", latest.img.file, "] does not exist ...")
     return(FALSE)
@@ -52,8 +52,8 @@ run.madvision <- function(bcp.threshold=0.7){
 
   ## Status Not Changed
   if (latest.bcp.pp < bcp.threshold) {
-    relative.path <- system(paste(c("prealpath ", output.dir, " ", latest.img.file ), collapse=""), intern=TRUE)
-    system(paste(c("ln -sv ", relative.path, " ", mad.vision.file ), collapse=""))
+    relative.path <- system(str.concat("prealpath ", output.dir, " ", latest.img.file ), intern=TRUE)
+    system(str.concat("ln -sv ", relative.path, " ", mad.vision.file ))
     return(TRUE)
   }
   
@@ -88,5 +88,5 @@ run.madvision <- function(bcp.threshold=0.7){
 
 
 ## Run
-source(paste(c(rlib.dir, "terminator_view.R"), collapse=""))
+source(str.concat(rlib.dir, "terminator_view.R"))
 run.madvision()

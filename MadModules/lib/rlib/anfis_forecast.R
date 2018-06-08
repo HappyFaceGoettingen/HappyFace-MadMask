@@ -37,7 +37,7 @@ get.sample.data <- function(){
 
 
 run.plot.forecast <- function(input.data, plot.dir, plot.file, main){
-  plot.file <- paste(c(plot.dir, "/", plot.file), collapse="")
+  plot.file <- str.concat(plot.dir, "/", plot.file)
 
   ## Reading time series input
   if (!file.exists(input.data)) {

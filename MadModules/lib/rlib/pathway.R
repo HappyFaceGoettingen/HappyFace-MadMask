@@ -77,6 +77,7 @@ append.graph.matrix <- function(graph.matrix, url.name, systems, all.systems){
   for (system.name in systems){
     graph.matrix <- rbind(graph.matrix, c(system.name, url.name))
   }
+  colnames(graph.matrix) <- c("system", "url")
   return(graph.matrix)
 }
 
@@ -135,7 +136,7 @@ run.sub.pathway <- function(){
   layout <- generate.layout(sub.graph.matrix)
   
   ## Plotting a sub pathway
-  plot.file <- paste(c(output.dir, "/", file.prefix, ".png"), collapse="")
+  plot.file <- str.concat(output.dir, "/", file.prefix, ".png")
   message("Plotting [", plot.file, "] ...")
   png(filename = plot.file, width = WIDTH, height = HEIGHT)
   plot.pathway(sub.pathway.obj, layout, plot.params=plot.params.2)
@@ -147,6 +148,76 @@ run.sub.pathway <- function(){
 }
 
 
+##
+## Converting "graph.matrix" to "Archemy.js type"
+##
+## Outputting an overall pathway in a Archemy.js JSON format
+## The final JSON file is read by Vis.js or Archemy.js
+## Example:
+## ---------------------------------------------
+## {
+##  "comment": "Overall Pathway of Monitoring Systems",
+##  "nodes": [{
+##               "caption": "SE",
+##               "type": "system",
+##               "id": 0
+##           },{
+##               "caption": "Rucio UI",
+##               "type": "url",
+##               "id": 1
+##           }],
+##  "edges": [{
+##               "caption": "Monitoring",
+##               "source": 0,
+##               "target": 1
+##           }]
+## }
+## ---------------------------------------------
+##
+## x <- list( comment = "", nodes = c(list(caption="SE", type="system", id=1)), edges = c(list(caption="Monitoring", source=0, target=1)))
+##
+output.pathway.json <- function(graph.matrix, json.file){
+  ## Init
+  id <- 1
+  nodes <- list()
+  edges <- list()
+  node.systems <- unique(graph.matrix[,"system"])
+  node.urls <- unique(graph.matrix[,"url"])
+  edge.systems <- list()
+  edge.urls <- list()
+
+  ## Looping over system components and making nodes
+  for (node.system in node.systems){
+    nodes[[id]] <- list(caption=node.system, type="system", id=id)
+    edge.systems[[node.system]] <- id
+    id <- id + 1
+  }
+
+  ## Looping over URLs and making nodes.
+  for (node.url in node.urls){
+    nodes[[id]] <- list(caption=node.url, type="url", id=id)
+    edge.urls[[node.url]] <- id
+    id <- id + 1
+  }
+
+  ## Making edges from graph.matrix
+  for (i in c(1:dim(graph.matrix)[1])){
+    node.system <- graph.matrix[i, "system"]
+    node.url <- graph.matrix[i, "url"]
+    edges[[i]] <- list(caption="Monitoring", source=edge.systems[[node.system]], target=edge.urls[[node.url]])
+  }
+  
+  ## Merging and outputting
+  message("Outputting a JSON file [", json.file, "] ...")
+  json <- toJSON(list(comment = "Overall Pathway of Monitoring Systems", nodes=nodes, edges=edges))
+  message(json)
+  write(json, json.file)
+}
+
+
+##
+## Main function to make graph plot/json outputs
+##
 run.pathway <- function(){
   graph.matrix <<- c()
 
@@ -158,16 +229,20 @@ run.pathway <- function(){
   ##----------------------------------------
   ## Generating An Overall Pathway Plot
   ##----------------------------------------
-  robj.overall.pathway <- paste(c(robj.dir, "/overall_pathway.robj"), collapse="")
+  robj.overall.pathway <- str.concat(robj.dir, "/overall_pathway.robj")
   overall.pathway.obj <- generate.graph(graph.matrix)
   
   ## Plottting an overall pathway
-  plot.file <- paste(c(output.dir, "/overall_pathway.png"), collapse="")
+  plot.file <- str.concat(output.dir, "/overall_pathway.png")
   message("Plotting [", plot.file, "] ...")
   png(filename = plot.file, width = L.WIDTH, height = L.HEIGHT)
   main <- "Relational map of monitoring information and systems"
   plot.pathway(overall.pathway.obj, layout=NULL, main=main, plot.params.1)
   dev.off()
+  
+  ## Generating An Overall Pathway JSON file
+  graph.json <- str.concat(output.dir, "/overall_pathway.json")
+  output.pathway.json(graph.matrix, graph.json)
   
   ## saving robj
   message("Saving [", robj.overall.pathway, "] ...")

@@ -33,7 +33,7 @@ generate.terminator.analysis.vision <- function(image.matrix, analysis.data){
   set.draw.parameters(image.width, image.height)
   
   ## Plot
-  jpg.output.file <- paste(c("/tmp/madvision_", runif(1, 1, 10^12), ".jpg"), collapse="")
+  jpg.output.file <- str.concat("/tmp/madvision_", runif(1, 1, 10^12), ".jpg")
   message("Generating Terminator Analysis [", jpg.output.file, "] ...")
   jpeg(jpg.output.file, bg="transparent", width = image.width, height = image.height, quality = 100)
   par(mfrow=c(3,3))

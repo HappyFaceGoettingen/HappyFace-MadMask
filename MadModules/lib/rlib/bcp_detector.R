@@ -72,7 +72,7 @@ generate.plot.analysis <- function(plot.df, filename, width, height){
 
 run.bcp.detector <- function(){
   
-  plot.analysis.file <- paste(c(output.dir, "/", file.prefix, ".png"), collapse="")
+  plot.analysis.file <- str.concat(output.dir, "/", file.prefix, ".png")
 
   ## loop over image files
   if (file.exists(robj.detector)){
@@ -84,7 +84,7 @@ run.bcp.detector <- function(){
   info.gain <- c()
   rownames.info.gain <- c()
   for (date.id in date.ids){
-    file <- paste(c(capture.dir, "/", date.id, "/", file.prefix, ".jpg"), collapse="")
+    file <- str.concat(capture.dir, "/", date.id, "/", file.prefix, ".jpg")
     if (!check.jpeg(file)) next
     
     found <- FALSE

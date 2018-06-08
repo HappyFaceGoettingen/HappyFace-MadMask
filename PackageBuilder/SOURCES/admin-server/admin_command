@@ -1,5 +1,5 @@
 #!/bin/bash
 
-. /etc/admin-servd.conf
+. /etc/admin-served.conf
 echo $(date -u): $* | tee -a $ADMIN_LOGFILE
 

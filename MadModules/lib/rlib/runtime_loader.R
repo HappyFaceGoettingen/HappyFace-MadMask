@@ -86,9 +86,9 @@ message("others          = ", others)
 
 
 ## Main code
-rlib.dir <- paste(c(Sys.getenv("MADANALYZER_LIB_DIR"), "/rlib/"), collapse="")
-consts.code <- paste(c(rlib.dir, "consts.R"), collapse="")
-loader.code <- paste(c(rlib.dir, tolower(loader), ".R"), collapse="")
+rlib.dir <- str.concat(Sys.getenv("MADANALYZER_LIB_DIR"), "/rlib/")
+consts.code <- str.concat(rlib.dir, "consts.R")
+loader.code <- str.concat(rlib.dir, tolower(loader), ".R")
 
 
 ## Definitions of R-Object files
