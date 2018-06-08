@@ -39,6 +39,7 @@ import {File} from "@ionic-native/file";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {HomePage} from "../pages/home/home";
 import {HomePage2} from "../pages/home/_home";
+import {TextToSpeech} from "@ionic-native/text-to-speech";
 
 @NgModule({
     declarations: [
@@ -122,6 +123,7 @@ import {HomePage2} from "../pages/home/_home";
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataModel,
+        TextToSpeech,
         InAppBrowser,
         File,
         FileChooser,

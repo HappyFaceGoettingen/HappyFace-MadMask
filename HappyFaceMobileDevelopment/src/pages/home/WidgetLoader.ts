@@ -231,7 +231,7 @@ export class WidgetLoader
         this.adding = true;
 
         return this.loadWidget(entry).then( widgetData => {
-            this.updateWidgetData(widgetData);
+            //this.updateWidgetData(widgetData);
             this.adding = false;
             return widgetData;
         });

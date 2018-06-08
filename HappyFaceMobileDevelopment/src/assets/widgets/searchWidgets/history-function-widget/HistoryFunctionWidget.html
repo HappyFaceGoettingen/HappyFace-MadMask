@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<ion-content>
+    <div text-center padding *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div text-center padding *ngIf="!isLoading">
+        <p style="font-weight: bold; padding-bottom: 4px" >History of {{data.name}}</p>
+        <div *ngFor="let img of data.image" padding-top="5px">
+            <img src="{{img.url}}" alt="Not found" (click)="openImage()">
+        </div>
+    </div>
+</ion-content>

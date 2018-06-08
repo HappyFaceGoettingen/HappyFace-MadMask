@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ModalController, Platform} from "ionic-angular";
 import {Storage} from "@ionic/storage";
+import {TextToSpeech} from "@ionic-native/text-to-speech";
 import {ConnectionErrorPage} from "../pages/modals/error/connection-error";
 import {SearchData} from "./SearchData";
 
@@ -61,7 +62,7 @@ export class DataModel
 
     configuration   :ConfigurationObject = new ConfigurationObject();
 
-    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController) {
+    constructor(private plt:Platform, private storage:Storage, private modalCtrl: ModalController, private tts:TextToSpeech) {
         modelCounter++;
         console.log("DataModel creation counter: " + modelCounter);
         this.plt.ready().then(_ => {
@@ -402,6 +403,11 @@ export class DataModel
         }
     }
 
+    getPathwayPath()
+    {
+        return this.getRemoteURL() + this.config.data_dir + "/analysis" + "plot_pathway/latest" + "/";
+    }
+
 
     speakSummary()
     {
@@ -420,7 +426,27 @@ export class DataModel
                         rate: 0.75
                     })
                 }
-                else console.log("PLUGIN ERROR: TTS not found in window");
+                else if(this.tts)
+                {
+                    console.log("USING this tts");
+                    this.tts.speak({
+                        text: this.summary.text,
+                        locale: "en-GB",
+                        rate: 0.75
+                    })
+                }
+                else {
+                    try { new SpeechSynthesisUtterance(); }
+                    catch(error) {
+                        console.log("SpeechSynthesisUtterance not found. No voiceout possible. NOTE: SpeechSynthesis is not available in Firefox on Android");
+                        return;
+                    }
+                    console.log("USING SpeechSynthesisUtterance");
+                    let u = new SpeechSynthesisUtterance();
+                    u.text = this.summary.text;
+                    u.lang = 'en-GB';
+                    speechSynthesis.speak(u);
+                }
             }
             else {
                 try { new SpeechSynthesisUtterance(); }

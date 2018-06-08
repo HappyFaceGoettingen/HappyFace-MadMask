@@ -1,4 +1,4 @@
-import {BaseWidget} from "../BaseWidget.js";
+import {BaseWidget} from "../../BaseWidget.js";
 
 export function cls()
 {
@@ -7,7 +7,7 @@ export function cls()
 
 export class StatusFunctionWidget extends BaseWidget
 {
-    static templateUrl:string = "./assets/widgets/status-function-widget/StatusFunctionWidget.html";
+    static templateUrl:string = "./assets/widgets/searchWidgets/status-function-widget/StatusFunctionWidget.html";
 
     width:number  = 300;
     height:number = 300;

@@ -48,8 +48,9 @@ export class MonitoringPage {
             this.loadingFailed = false;
             this.setHistory();
             this.setStatusCard();
-            this.model.setLinks("latest");
-            this.monitoringURLs = this.model.monitoringUrls;
+            this.model.setLinks("latest").then( _ => {
+                this.monitoringURLs = this.model.monitoringUrls;
+            });
         }
         else
             this.loadingFailed = true;
@@ -62,14 +63,11 @@ export class MonitoringPage {
 
     dataExists()
     {
-       if(!(this.model.summary == null || this.model.summary == undefined))
+        if(!(this.model.summary == null || this.model.summary == undefined))
         {
             if(!(this.model.config == null || this.model.config == undefined))
             {
-                if(!(this.model.config.status == null || this.model.config.status == undefined))
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
@@ -86,7 +84,6 @@ export class MonitoringPage {
         console.log("ISLOADING: " + this.isLoading);
         if(this.isLoading) return;
         this.isLoading = true;
-        // DataModel.getInstance().reload();
         this.model.reload();
     }
 
@@ -98,23 +95,11 @@ export class MonitoringPage {
 
     setStatusCard()
     {
-        //this.statusText  = DataModel.getInstance().summary.text;
-        //this.statusLevel = DataModel.getInstance().summary.level;
         this.statusText = this.model.summary.text;
         this.statusLevel = this.model.summary.level;
 
-        //let model:DataModel = DataModel.getInstance();
-        for (let i = 0; i < this.model.config.status.length; i++) {
-            if (this.model.config.status[i].name === this.statusLevel) {
-                this.statusImg = this.model.config.status[i].file;
-            }
-        }
-
-        for (let i = 0; i < this.model.config.status.length; i++) {
-            if (this.model.config.status[i].name === this.statusLevel) {
-                this.statusColor = this.model.config.status[i].color;
-            }
-        }
+        this.statusImg   = this.model.summary.img;
+        this.statusColor = this.model.summary.color;
     }
 
     openHappyFaceCore()
@@ -124,7 +109,6 @@ export class MonitoringPage {
 
     setHistory()
     {
-        //let str:string     = DataModel.getInstance().summary.history;
         let str:string     = this.model.summary.history;
         let array:string[] = str.split(" ");
         this.history       = [];

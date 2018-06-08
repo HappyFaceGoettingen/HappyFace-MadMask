@@ -31,7 +31,7 @@ var StatusFunctionWidget = /** @class */ (function (_super) {
     StatusFunctionWidget.prototype.openImage = function () {
         this.openImageView({ image: this.src, name: this.data.name });
     };
-    StatusFunctionWidget.templateUrl = "./assets/widgets/status-function-widget/StatusFunctionWidget.html";
+    StatusFunctionWidget.templateUrl = "./assets/widgets/searchWidgets/status-function-widget/StatusFunctionWidget.html";
     return StatusFunctionWidget;
 }(BaseWidget));
 export { StatusFunctionWidget };
