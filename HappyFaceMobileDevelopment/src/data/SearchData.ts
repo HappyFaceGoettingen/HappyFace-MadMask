@@ -67,7 +67,7 @@ export class SearchData
         {
             url.thumbnail.push({ time: time, url: remote_url + "assets/img/img-missing.svg" });
             url.image.push({ time: time, url: remote_url + "assets/img/img-missing.svg"});
-            url.analysis_plot.push({ time: time, url: remote_url + "assets/img/img-missing.svg"});
+            url.plot_analysis.push({ time: time, url: remote_url + "assets/img/img-missing.svg"});
             url.plot_pathway.push({ time: time, url: remote_url + "assets/img/img-missing.svg"});
             url.plot_overall_pathway.push({ time: time, url: remote_url + "assets/img/img-missing.svg"});
         }

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HappyFace2</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+    <string name="sk_url">nmsps://NMDPTRIAL_niname408_googlemail_com20180514101447@sslsandbox-nmdp.nuancemobility.net:443</string>
+    <string name="sk_app_key">9344f5f436dd6b6262df512564d97f0dd6e7efef5d4fe8be8a5621dc71a1eb05e5e0f91bbd647d2043ce45a8a8c4b57eaba46d08f355c77dabe85a1c8945216f</string>
+</resources>

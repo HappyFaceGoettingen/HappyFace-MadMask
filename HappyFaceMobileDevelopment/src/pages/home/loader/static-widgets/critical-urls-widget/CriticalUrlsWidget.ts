@@ -96,12 +96,14 @@ export class CriticalUrlsWidget extends BaseWidget
             });
         }
 
-        for (let i = 0; i < this.config.status.length; i++) {
+        /*for (let i = 0; i < this.config.status.length; i++) {
             if (this.config.status[i].name === this.statusText) {
                 this.statusColor = this.config.status[i].color;
                 this.statusColor = super.getColor(this.statusColor);
             }
-        }
+        }*/
+
+        this.statusColor = this.summary.color;
 
         if(this.imgList.length == 0) this.okText = "Everything's cool.";
     }

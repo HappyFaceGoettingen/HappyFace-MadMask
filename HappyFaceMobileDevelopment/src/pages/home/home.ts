@@ -45,7 +45,7 @@ export class HomePage
     {
         this.model.addLoadingFinishedCallback(this.reloaded.bind(this));
         this.initWidget();
-        this.search = new Search(this.loader);
+        this.search = new Search(this.loader, this.openImageView.bind(this));
         this.searchData = new SearchData(this.model);
         this.searchData.updateData();
         this.search.data = this.searchData;
@@ -64,7 +64,9 @@ export class HomePage
         this.storage.get('previous-widgets-list').then( value =>
         {
             if(value)
-                this.loader.loadWidgetList(value);
+                this.loader.loadWidgetList(value).then(_ => {
+                    this.loader.updateWidgets();
+                });
         });
     }
 

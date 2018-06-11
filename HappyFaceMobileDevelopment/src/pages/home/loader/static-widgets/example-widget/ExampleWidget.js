@@ -22,17 +22,13 @@ var ExampleWidget = /** @class */ (function (_super) {
         _this.status = { img: "", level: "" };
         return _this;
     }
-    ExampleWidget.prototype.onInit = function () {
-        var _this = this;
+    ExampleWidget.prototype.onReload = function () {
         if (!this.summary)
             return;
         if (!this.config || !this.config.status)
             return;
         this.status.level = this.summary.level;
-        this.config.status.find(function (element) {
-            if (element.name === _this.status.level)
-                _this.status.img = element.file;
-        });
+        this.status.img = this.summary.img;
     };
     ExampleWidget.template = "<ion-content>" +
         "   <img src='{{status.img}}' alt='missing'>" +

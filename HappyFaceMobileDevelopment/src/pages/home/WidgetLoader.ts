@@ -40,7 +40,7 @@ export class WidgetLoader
                 private vc:ViewContainerRef, private storage:Storage)
     {
         this.positions = new Positions();
-        this.widgetListUrl = "http://localhost:8100/" + this.widgetListUrl;
+        this.widgetListUrl = this.model.getRemoteURL() + this.widgetListUrl;
         this.dynamicLoader = new DynamicLoader(this._compiler, this._injector, this._m, this.alertCtrl, this.componentFactoryResolver, this.vc, this.closeWidget.bind(this));
         this.staticLoader  = new StaticLoader(this.componentFactoryResolver, this._injector, this._compiler, this.vc, this._m, this.closeWidget.bind(this), this.alertCtrl);
     }
@@ -127,6 +127,7 @@ export class WidgetLoader
         baseWidget.monitoringUrls = this.model.monitoringUrls;
         baseWidget.summary = this.model.summary;
         baseWidget.openImageView = this.openImageView.bind(this);
+        console.log("Bind open Image view: ", this.openImageView);
         baseWidget.onReload();
     }
 
@@ -202,15 +203,21 @@ export class WidgetLoader
                             let data = raw.filter((element) => this.widgets.find((e) => e.path === element) === undefined);
                             let comp = data.map(element => { return {name: element}; });
 
-                            this.loadWidgetList(comp);
-
-                            setTimeout(_ => {
+                            this.loadWidgetList(comp).then(_ => {
                                 if(this.model.monitoringUrls && this.model.config && this.model.summary)
                                 {
                                     for(let a of this.widgets)
                                         this.updateWidgetData(a);
                                 }
-                            }, 500);
+                            });
+
+                            /*setTimeout(_ => {
+                                if(this.model.monitoringUrls && this.model.config && this.model.summary)
+                                {
+                                    for(let a of this.widgets)
+                                        this.updateWidgetData(a);
+                                }
+                            }, 500);*/
 
                             this.storage.set('previous-widgets-list', comp);
 

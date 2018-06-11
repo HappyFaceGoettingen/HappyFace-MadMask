@@ -22,14 +22,12 @@ export class ExampleWidget extends BaseWidget
 
     constructor() { super(); }
 
-    onInit()
+    onReload()
     {
         if(!this.summary) return;
         if(!this.config || !this.config.status)  return;
 
         this.status.level = this.summary.level;
-        this.config.status.find( (element) => {
-            if(element.name === this.status.level) this.status.img = element.file;
-        })
+        this.status.img   = this.summary.img;
     }
 }

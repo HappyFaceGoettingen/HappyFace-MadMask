@@ -1,0 +1,7 @@
+{
+    "name": "Widget List",
+    "widgets": [
+        {"src": "critical-urls-widget/CriticalUrlsWidget.js"},
+        {"src": "example-widget/ExampleWidget.js"}
+    ]
+}

@@ -1,0 +1,10 @@
+{
+	"pods": {
+		"SpeechKit": {
+			"id": "SpeechKit"
+		}
+	},
+	"sources": {},
+	"iosMinVersion": "7.0",
+	"useFrameworks": false
+}
