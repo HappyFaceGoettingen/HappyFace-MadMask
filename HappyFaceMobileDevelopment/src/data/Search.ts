@@ -17,9 +17,11 @@ export class Search
     // OPERATIONS:
     status:string[] = ['status', 'state', 'situation', 'condition'];
     history:string[] = ['history', 'chronic', 'past', 'annals', 'record'];
+    dependency:string[] = ['dependency', 'dependence', 'depend'];
+    analysis:string[] = ['analysis', 'time', 'plot', 'graph', 'stability'];
 
 
-    constructor(private widgetLoader:WidgetLoader) {}
+    constructor(private widgetLoader:WidgetLoader, private openImageView:(data:any) => void) {}
 
     setData(data:SearchData)
     {
@@ -75,8 +77,16 @@ export class Search
         {
             return (data) => { console.log("HISTORY: ", data); this.historyShowFunction(data); };
         }
+        else if(this.analysis.indexOf(op) > -1)
+        {
+            return (data) => { console.log("ANALYSIS: ", data); this.analysisShowFunction(data); };
+        }
+        else if(this.dependency.indexOf(op) > -1)
+        {
+            return (data) => { console.log("DEPENDENCY: ", data); this.dependencyShowFunction(data); }
+        }
 
-        return (data) => { console.log("DEFAULT: ", data); };
+        return (data) => { console.log("DEFAULT: (op: " + op + ") ", data); this.statusShowFunction(data); };
     }
 
     statusShowFunction(data:any)
@@ -84,6 +94,7 @@ export class Search
         this.widgetLoader.addWidget({ name: "/assets/widgets/searchWidgets/status-function-widget/StatusFunctionWidget.js" })
             .then( widgetData => {
                 widgetData.baseWidget.data = data;
+                widgetData.baseWidget.openImageView = this.openImageView;
                 widgetData.baseWidget.onReload();
                 this.searchWidgets.push(widgetData);
             });
@@ -94,6 +105,29 @@ export class Search
         this.widgetLoader.addWidget({name: "/assets/widgets/searchWidgets/history-function-widget/HistoryFunctionWidget.js" })
             .then(widgetData => {
                 widgetData.baseWidget.data = data;
+                widgetData.baseWidget.openImageView = this.openImageView;
+                widgetData.baseWidget.onReload();
+                this.searchWidgets.push(widgetData);
+            })
+    }
+
+    dependencyShowFunction(data:any)
+    {
+        this.widgetLoader.addWidget({name: "/assets/widgets/searchWidgets/dependency-function-widget/DependencyFunctionWidget.js"})
+            .then(widgetData => {
+                widgetData.baseWidget.data = data;
+                widgetData.baseWidget.openImageView = this.openImageView;
+                widgetData.baseWidget.onReload();
+                this.searchWidgets.push(widgetData);
+            })
+    }
+
+    analysisShowFunction(data:any)
+    {
+        this.widgetLoader.addWidget({name: "/assets/widgets/searchWidgets/analysis-function-widget/AnalysisFunctionWidget.js"})
+            .then(widgetData => {
+                widgetData.baseWidget.data = data;
+                widgetData.baseWidget.openImageView = this.openImageView;
                 widgetData.baseWidget.onReload();
                 this.searchWidgets.push(widgetData);
             })

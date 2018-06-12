@@ -87,7 +87,7 @@
     <allow-navigation href="http://10.8.8.31:8100" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-filechooser" spec="^1.0.1" />
+    <plugin name="cordova-plugin-tts" spec="^0.2.3" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
-    <plugin name="cordova-plugin-tts" spec="^0.2.3" />
 </widget>

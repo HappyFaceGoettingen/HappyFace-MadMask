@@ -9,12 +9,17 @@ import {
     NgModuleRef,
     ViewContainerRef
 } from "@angular/core";
+import {AlertController, IonicPageModule} from "ionic-angular";
+
 
 // Static widgets
 import {CriticalUrlsWidget} from "./static-widgets/critical-urls-widget/CriticalUrlsWidget";
 import {ExampleWidget} from "./static-widgets/example-widget/ExampleWidget";
 import {BaseWidget} from "../../../assets/widgets/BaseWidget";
-import {AlertController, IonicPageModule} from "ionic-angular";
+import {AnalysisFunctionWidget} from "./static-widgets/searchWidgets/analysis-function-widget/AnalysisFunctionWidget";
+import {DependencyFunctionWidget} from "./static-widgets/searchWidgets/dependency-function-widget/DependencyFunctionWidget";
+import {HistoryFunctionWidget} from "./static-widgets/searchWidgets/history-function-widget/HistoryFunctionWidget";
+import {StatusFunctionWidget} from "./static-widgets/searchWidgets/status-function-widget/StatusFunctionWidget";
 
 export class StaticLoader
 {
@@ -31,6 +36,11 @@ export class StaticLoader
         this._compiler.clearCache();
         if(entry.name.indexOf("CriticalUrlsWidget") >= 0) widget = CriticalUrlsWidget;
         else if(entry.name.indexOf("ExampleWidget") >= 0) widget = ExampleWidget;
+
+        else if(entry.name.indexOf("AnalysisFunctionWidget") >= 0)   widget = AnalysisFunctionWidget;
+        else if(entry.name.indexOf("DependencyFunctionWidget") >= 0) widget = DependencyFunctionWidget;
+        else if(entry.name.indexOf("HistoryFunctionWidget") >= 0)    widget = HistoryFunctionWidget;
+        else if(entry.name.indexOf("StatusFunctionWidget") >= 0)     widget = StatusFunctionWidget;
 
         const cardFactory = this.componentFactoryResolver.resolveComponentFactory(WidgetCard);
         const cardRef = cardFactory.create(this._injector);

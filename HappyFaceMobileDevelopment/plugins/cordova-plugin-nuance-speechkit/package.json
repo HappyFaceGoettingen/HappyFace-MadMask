@@ -1,0 +1,63 @@
+{
+  "_from": "cordova-plugin-nuance-speechkit@^1.0.14",
+  "_id": "cordova-plugin-nuance-speechkit@1.0.14",
+  "_inBundle": false,
+  "_integrity": "sha512-gUdQnldsiNMIT2KGwjKzE6VZv4b1Jr+D7yJK18Wm35XzStXyvaeE2HOBqZPZLzTSza+1eavEVRnB9OSt1HXMOg==",
+  "_location": "/cordova-plugin-nuance-speechkit",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-nuance-speechkit@^1.0.14",
+    "name": "cordova-plugin-nuance-speechkit",
+    "escapedName": "cordova-plugin-nuance-speechkit",
+    "rawSpec": "^1.0.14",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.14"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-nuance-speechkit/-/cordova-plugin-nuance-speechkit-1.0.14.tgz",
+  "_shasum": "f2bfae6457d5255c9b14eaac311a81fae8fd6734",
+  "_spec": "cordova-plugin-nuance-speechkit@^1.0.14",
+  "_where": "C:\\Users\\atopi\\Codes\\bachelor\\HappyFace-MadMask\\HappyFaceMobileDevelopment",
+  "author": {
+    "name": "Markus Karileet"
+  },
+  "bugs": {
+    "url": "https://github.com/Shmarkus/cordova-plugin-nuance-speechkit/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-nuance-speechkit",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Nuance SpeechKit Plugin",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/Shmarkus/cordova-plugin-nuance-speechkit#readme",
+  "keywords": [
+    "cordova",
+    "nuance",
+    "speechkit",
+    "tts",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-nuance-speechkit",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shmarkus/cordova-plugin-nuance-speechkit.git"
+  },
+  "version": "1.0.14"
+}

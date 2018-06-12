@@ -1,0 +1,51 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-sshclient": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-tts": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-filechooser": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-nuance-speechkit": {
+      "URL": "nmsps://NMDPTRIAL_niname408_googlemail_com20180514101447@sslsandbox-nmdp.nuancemobility.net:443",
+      "APP_KEY": "9344f5f436dd6b6262df512564d97f0dd6e7efef5d4fe8be8a5621dc71a1eb05e5e0f91bbd647d2043ce45a8a8c4b57eaba46d08f355c77dabe85a1c8945216f",
+      "PACKAGE_NAME": "io.ionic.starter"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-cocoapod-support": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    }
+  }
+}
