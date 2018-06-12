@@ -8,7 +8,7 @@
             <!--<button ion-button icon-only (click)="openGuide()"><ion-icon name="md-happy"></ion-icon></button>-->
             <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
         </ion-buttons>
-  </ion-navbar>
+    </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
@@ -23,7 +23,7 @@
     <ion-list [hidden]="isLoading || loadingFailed" no-padding>
         <!-- Status card -->
         <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">
-            <ion-card color="{{statusColor}}">
+            <ion-card [style.background-color]="statusColor">
                 <ion-card-header>
                     Status: {{statusLevel}}
                 </ion-card-header>

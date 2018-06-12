@@ -3,6 +3,7 @@
         <ion-title>Happy Monitoring Analyzer</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
+            <button ion-button icon-only (click)="network()"><ion-icon name="search"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -18,8 +19,8 @@
 
     <ion-list [hidden]="isLoading || loadingFailed" no-padding>
         <!-- Status card -->
-        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">
-            <ion-card color="{{statusColor}}">
+        <ion-card id="analyzer-status-card" no-padding no-margin style="width: 100%" (click)="speakSummary()">
+            <ion-card [style.background-color]="statusColor">
                 <ion-card-header>
                     Status: {{statusLevel}}
                 </ion-card-header>
@@ -36,7 +37,7 @@
         <br>
 
         <!-- Viewer chooser -->
-        <ion-item no-padding>
+        <ion-item id="analyzer-view-chooser" no-padding>
             <ion-label>Viewer:</ion-label>
             <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">
                 <ion-option *ngFor="let v of viewers" [selected]="v.id === 'overall_pathway'" [value]="v">{{v.name}}</ion-option>
@@ -65,6 +66,10 @@
             </ion-item>
         </ng-container>
 
+        <!-- TYPE == vis-network -->
+        <ion-item [hidden]="(selectedViewer.type !== 'vis-network')">
+            <div class="vis-network" id="vis-network" *ngIf="visAble"></div>
+        </ion-item>
 
         <!-- TYPE == img -->
         <ion-item *ngIf="(selectedViewer.type === 'img')">
@@ -86,4 +91,5 @@
     <span [hidden]="!(selectedViewer.type === 'page')">
         <ng-container #parent></ng-container>
     </span>
+
 </ion-content>

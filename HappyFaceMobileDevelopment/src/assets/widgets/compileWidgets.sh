@@ -6,7 +6,17 @@ do
     then
         for ffile in $file/*
         do
-            if [[ $ffile =~ \.ts$ ]]
+            if [ -d "$ffile" ]
+            then
+                for fffile in $ffile/*
+                do
+                    if [[ $fffile =~ \.ts$ ]]
+                    then
+                        echo "transpiling: $fffile"
+                        tsc --module esnext $fffile
+                    fi
+                done
+            elif [[ $ffile =~ \.ts$ ]]
             then
                 echo "transpiling: $ffile"
                 tsc --module esnext $ffile

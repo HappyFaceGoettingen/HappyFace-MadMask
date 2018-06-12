@@ -1,4 +1,6 @@
 import {IonicPage, NavController} from "ionic-angular";
+import 'hammerjs';
+import {DataSet, Network} from "vis";
 import {DataModel} from "../../data/DataModel";
 import {HFCategoriesPage} from "./hf-classical/hf-categories";
 import {Component, ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef} from "@angular/core";
@@ -23,6 +25,9 @@ export class AnalyzerPage
 
     isLoading:boolean = true;
     loadingFailed:boolean = false;
+    visAble:boolean = true;
+
+    visNetwork = null;
 
     // Page plugin
     @ViewChild('parent', {read: ViewContainerRef}) parent: ViewContainerRef;
@@ -32,6 +37,7 @@ export class AnalyzerPage
         {"id": "analysis", "name": "Status Analysis", "type": "plots", "src": null},
         {"id": "pathway", "name": "Info Pathway", "type": "plots", "src": null},
         {"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
+        {"id": "vis-network", "name": "Network", "type": "vis-network", "src": null},
         {"id": "happyface", "name": "HappyFace Classical Rating", "type": "page", "src": HFCategoriesPage},
         {"id": "forecast", "name": "Happy Forecast", "type": "imgs", "src": Array<string>(0)}
     ];
@@ -59,9 +65,12 @@ export class AnalyzerPage
             this.setPlots2();
             this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
             this.setForecast();
+            this.model.asyncLoadFile(this.model.getPathwayPath() + "overall_pathway.json" /*"http://localhost:8100/assets/structure.json"*/, this.network.bind(this));
         }
         else
             this.loadingFailed = true;
+
+        const card = document.getElementById('analyzer-status-card'), chooser = document.getElementById('analyzer-view-chooser');
     }
 
     onLoadingStartedListener()
@@ -75,12 +84,9 @@ export class AnalyzerPage
         {
             if(!(this.model.config == null || this.model.config == undefined))
             {
-                if(!(this.model.config.status == null || this.model.config.status == undefined))
+                if(!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined))
                 {
-                    if(!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
@@ -92,17 +98,8 @@ export class AnalyzerPage
         this.statusText = this.model.summary.text;
         this.statusLevel = this.model.summary.level;
 
-        for (let i = 0; i < this.model.config.status.length; i++) {
-            if (this.model.config.status[i].name === this.statusLevel) {
-                this.statusImg = this.model.config.status[i].file;
-            }
-        }
-
-        for (let i = 0; i < this.model.config.status.length; i++) {
-            if (this.model.config.status[i].name === this.statusLevel) {
-                this.statusColor = this.model.config.status[i].color;
-            }
-        }
+        this.statusImg   = this.model.summary.img;
+        this.statusColor = this.model.summary.color;
     }
 
     reload()
@@ -126,6 +123,10 @@ export class AnalyzerPage
             if(this.parent == undefined) console.error("PARENT UNDEFINED");
             else this.pageHolder = this.parent.createComponent(this.componentFactoryResolver.resolveComponentFactory(this.selectedViewer.src))
         }
+        else if(this.selectedViewer.type === 'vis-network')
+        {
+
+        }
     }
 
     speakSummary()
@@ -137,6 +138,32 @@ export class AnalyzerPage
     openPage(url:any)
     {
         this.navControl.push(AnalyzerDetailPage, { 'url' : url });
+    }
+
+    network(content:any, statusCode:number)
+    {
+        if(statusCode !== 200) { this.visAble = false; return; }
+
+        const d = JSON.parse(content);
+        const nData = d.nodes.map(m => { return {id: m.id, label: m.caption}; });
+        const eData = d.edges.map(m => { return {from: m.source, to: m.target}; });
+
+        const nodes = new DataSet(nData);
+        const edges = new DataSet(eData);
+        const container = document.getElementById('vis-network');
+
+        const data = {
+            nodes: nodes,
+            edges: edges
+        };
+        const options = {
+            width: "100%",
+            height: (window.innerHeight - 400) + "px"
+        };
+
+        this.visNetwork = new Network(container, data, options);
+
+        this.visNetwork.fit();
     }
 
     setPlots2()
