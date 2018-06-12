@@ -11,7 +11,7 @@ export var modelCounter:number = 0;
 @Injectable()
 export class DataModel
 {
-    // Singletone Depreceated
+    // Singletone Deprecated
     // private static _instance:DataModel = null;
     // public  static getInstance() { if(this._instance == null) return (this._instance = new DataModel()); else return this._instance;}
     // { return this._instance || (this._instance = new DataModel()); };

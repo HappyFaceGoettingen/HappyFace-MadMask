@@ -90,5 +90,6 @@ var BaseWidget = /** @class */ (function () {
      */
     BaseWidget.templateUrl = null;
     return BaseWidget;
+
 }());
 export { BaseWidget };
