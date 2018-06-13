@@ -38,7 +38,6 @@ import {TourPage} from "../pages/tour/tour";
 import {File} from "@ionic-native/file";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {HomePage} from "../pages/home/home";
-import {HomePage2} from "../pages/home/_home";
 import {TextToSpeech} from "@ionic-native/text-to-speech";
 
 @NgModule({
@@ -69,8 +68,7 @@ import {TextToSpeech} from "@ionic-native/text-to-speech";
         HomePage,
         Position,
         WidgetCard,
-        HomeDetailImagePage,
-        HomePage2
+        HomeDetailImagePage
     ],
     imports: [
         BrowserModule,
@@ -115,8 +113,7 @@ import {TextToSpeech} from "@ionic-native/text-to-speech";
         TourPage,
         HomePage,
         WidgetCard,
-        HomeDetailImagePage,
-        HomePage2
+        HomeDetailImagePage
     ],
     providers: [
         StatusBar,

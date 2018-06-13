@@ -674,7 +674,7 @@ export class ConfigurationObject
     private _enableTextSpeech:boolean = true;
     private _enableAutoReadout:boolean = false;
     private _speakInterval:number = 10;
-    private _happyFaceCompatible:boolean = false;
+    private _happyFaceCompatible:boolean = true;
 
     get() {
         return {
