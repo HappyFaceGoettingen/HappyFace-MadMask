@@ -77,7 +77,7 @@ cp -r HappyFaceMobile/daemon $RPM_BUILD_ROOT/%{_prefix}/MadMask
 cp -r HappyFaceMobile/sites $RPM_BUILD_ROOT/%{_prefix}/MadMask
 cp -v HappyFaceMobile/madmask $RPM_BUILD_ROOT/%{_prefix}/MadMask
 cp -v HappyFaceMobile/LICENSE-Apache-2.0.txt $RPM_BUILD_ROOT/%{_prefix}/MadMask
-rsync -avlp --delete HappyFaceMobile/resources $RPM_BUILD_ROOT/%{_prefix}/MadMask
+#rsync -avlp --delete HappyFaceMobile/resources $RPM_BUILD_ROOT/%{_prefix}/MadMask
 
 cp -v HappyFaceMobile/daemon/madmask.cron $RPM_BUILD_ROOT/%{_etc}/cron.d/madmask.cron
 ln -s MadMask $RPM_BUILD_ROOT/%{_prefix}/HappyFaceMobile

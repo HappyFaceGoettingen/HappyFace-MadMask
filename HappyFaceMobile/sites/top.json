@@ -11,19 +11,19 @@
    "mobile_port": "20110",
    "dir": "sites/DE" 
 },{
-   "name": "ATLAS develnet",
+   "name": "ATLAS testnet",
    "host": "134.76.86.224",
    "web_port": "10100",
    "mobile_port": "20100",
    "dir": "sites/ADC" 
 },{
-   "name": "ATLAS DE develnet",
+   "name": "ATLAS DE testlnet",
    "host": "134.76.86.224",
    "web_port": "10110",
    "mobile_port": "20110",
    "dir": "sites/DE" 
 },{
-   "name": "ATLAS testnet",
+   "name": "ATLAS develnet",
    "host": "141.5.108.29",
    "web_port": "10100",
    "mobile_port": "20100",

@@ -19,7 +19,7 @@ export class DataModel
     // Debug switches
     static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
-    static FORCE_CLIENT_FUNCTION:boolean = true;
+    static FORCE_CLIENT_FUNCTION:boolean = false;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
 
@@ -543,9 +543,9 @@ export class DataModel
         }
         else {
             // Initial configuration
-            this.currentlyActive.name = "GoeGrid";
+            this.currentlyActive.name = "ADC";
             this.currentlyActive.host = "141.5.108.30";
-            this.currentlyActive.mobile_port = "20200";
+            this.currentlyActive.mobile_port = "20100";
             this.currentlyActive.web_port = "10100";
             this.currentlyActive.dir = "sites/default";
 

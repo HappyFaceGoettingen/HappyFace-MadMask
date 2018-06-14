@@ -156,7 +156,7 @@ prepare_ios_env(){
     echo "Preparing env in [$tmp_dir] ..."
     echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
-    rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
+    #rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
     rsync -alp --delete $local_repo/HappyFaceMobile/lib $tmp_dir
     rsync -alp --delete $local_repo/HappyFaceMobile/sites $tmp_dir
     cp -v $local_repo/HappyFaceMobile/madmask $tmp_dir
