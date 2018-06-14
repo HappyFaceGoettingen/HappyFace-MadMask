@@ -431,7 +431,7 @@ export class DataModel
                     console.log("USING this tts");
                     this.tts.speak({
                         text: this.summary.text,
-                        locale: "en-GB",
+                        locale: "en-US",
                         rate: 0.75
                     })
                 }
