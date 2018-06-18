@@ -42,8 +42,8 @@ usage="$0 [options]
  -O:  output dir [default: $OUTPUT_DIR]
 
  * Example
- $0 -B master -b
- $0 -S -b
+ $0 -B master -b ios
+ $0 -S -b ios
 
  Report Bugs to Gen Kawamura <gen.kawamura@cern.ch> 
 "
@@ -127,7 +127,7 @@ install_xcode(){
 
 
 update_script(){
-    local url=https://raw.githubusercontent.com/${GIT_DIR}/${GIT_BRANCH}/PackageBuilder/build-apk4ios.sh
+    local url=https://raw.githubusercontent.com/${GIT_DIR}/${GIT_BRANCH}/PackageBuilder/build-apk.sh
     curl -fsSL $url -o /usr/local/bin/$(basename $url) && chmod 755 /usr/local/bin/$(basename $url)
 }
 
@@ -159,13 +159,15 @@ build_application(){
     prepare_apk_env
 
     ## Calling madmask builder
-    build_apk $platform
+    build_apk
     return $ret
 }
 
 
 ## Internal command for building devel env
 prepare_apk_env(){
+    [ ! -e $TMP_DIR/$platform ] && mkdir -pv $TMP_DIR/$platform && chmod 1777 $TMP_DIR/$platform
+
     echo "Preparing env in [$tmp_dir] ..."
     echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
@@ -193,8 +195,6 @@ prepare_apk_env(){
 
 
 build_apk(){
-    local platform=$1
-    [ ! -e $TMP_DIR/$platform ] && mkdir -pv $TMP_DIR/$platform && chmod 1777 $TMP_DIR/$platform
     [ ! -e $OUTPUT_DIR ] && mkdir -pv $OUTPUT_DIR
 
     pushd $tmp_dir
