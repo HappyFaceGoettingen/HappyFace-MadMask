@@ -49,27 +49,31 @@
 
 In Mac OSX, the following builder command can install the above-mentioned packages/platforms and can build an iPhone application.
 
-       $ ./build-apk4ios.sh [options]
-      
-       * Preparation
-       -I:  install Ionic
-       -X:  install Xcode
-       -U:  Update this script (/usr/local/bin/build-apk4ios.sh)
-       -c:  Connect to [vm|ph2|clouds] via ssh
-      
-       * Git location
-       -R:  set a git repo [default: https://github.com/HappyFaceGoettingen/HappyFace-MadMask]
-       -B:  set a branch name [defaut: gen_development]
-       -C:  set a commit ID [default: ]
-       -S:  set a stable nightly commit [default: gen_development - 4185dbaef0a65a81103135dd122d0f73cfd0e056]
-      
-       * Application Build
-       -i:  set a build ID [default: 20180529-105519]
-       -b:  build iPhone App in a tmp dir [/tmp/HappyFace-MadMask4iOS/ios/gen_development.20180529-105519]
-      
-       * Example
-       ./build-apk4ios.sh -B master -b
-       ./build-apk4ios.sh -S -b
+      $ ./build-apk.sh [options]     
+          
+           * General     
+           -U:  Update this script (/usr/local/bin/build-apk.sh)     
+           -I:  install Ionic     
+          
+           * Preparation for MacOSX     
+           -X:  install Xcode     
+           -c:  Connect to [vm|ph2|clouds] via ssh with port forwarding     
+          
+           * Git location     
+           -R:  set a git repo [default: https://github.com/HappyFaceGoettingen/HappyFace-MadMask]     
+           -B:  set a branch name [defaut: gen_development]     
+           -C:  set a commit ID [default: ]     
+           -S:  set a stable nightly commit [default: gen_development - 4185dbaef0a65a81103135dd122d0f73cfd0e056]     
+          
+           * Application Build     
+           -i:  set a build ID [default: 20180618-125622]     
+           -b:  build {android|ios} apk     
+           -O:  output dir [default: /tmp/HappyFace-MadMask4Apk//gen_development.20180618-125622/application]     
+          
+           * Example     
+           ./build-apk.sh -B master -b ios     
+           ./build-apk.sh -S -b ios     
+
 
       
 
