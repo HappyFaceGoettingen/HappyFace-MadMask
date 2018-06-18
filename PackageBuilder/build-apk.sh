@@ -171,7 +171,7 @@ prepare_apk_env(){
     echo "Preparing env in [$tmp_dir] ..."
     echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
-    #rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
+    rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
 
 
     ## Version
@@ -200,12 +200,12 @@ build_apk(){
     pushd $tmp_dir
     case $platform in
 	ios)
-	    local cordova_ver=6.1.0
+	    local cordova_ver=6.3.0
 	    local sdk_bin=xcodebuild
 	    ! which $sdk_bin && echo "[$sdk_bin] command does not exist" && return 1
             ionic cordova platform remove $platform
-            #ionic cordova platform add ${platform}@${cordova_ver}
-	    ionic cordova platform add ${platform}
+            ionic cordova platform add ${platform}@${cordova_ver}
+	    #ionic cordova platform add ${platform}
             ionic cordova build $platform --prod --release
 	    local ret=$?
 	    [ $ret -eq 0 ] && pushd platforms && tar zcvf HappyFace2.tgz $platform && popd
