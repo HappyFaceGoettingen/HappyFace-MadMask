@@ -171,16 +171,16 @@ prepare_apk_env(){
     echo "Preparing env in [$tmp_dir] ..."
     echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
-    rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
+    #rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
 
 
     ## Version
     pushd $local_repo &> /dev/null
     #local version="$(cat Version.txt) - Git $(git log -1 | grep "^commit")"
-    local version=$(cat Version.txt | cut -d " " -f 1)
+    #local version=$(cat Version.txt | cut -d " " -f 1)
     popd &> /dev/null
     echo "Changing version --> [$version]"
-    sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$version\"/" -i $tmp_dir/package.json
+    #sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$version\"/" -i $tmp_dir/package.json
 
 
     ## NPM packages
