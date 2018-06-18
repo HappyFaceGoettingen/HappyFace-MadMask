@@ -204,7 +204,8 @@ build_apk(){
 	    local sdk_bin=xcodebuild
 	    ! which $sdk_bin && echo "[$sdk_bin] command does not exist" && return 1
             ionic cordova platform remove $platform
-            ionic cordova platform add ${platform}@${cordova_ver}
+            #ionic cordova platform add ${platform}@${cordova_ver}
+	    ionic cordova platform add ${platform}
             ionic cordova build $platform --prod --release
 	    local ret=$?
 	    [ $ret -eq 0 ] && pushd platforms && tar zcvf HappyFace2.tgz $platform && popd
@@ -217,7 +218,8 @@ build_apk(){
 	    local apk_out=platforms/android/build/outputs/apk
 	    ! which android && echo "[android] command does not exist" && return 1
             ionic cordova platform remove $platform
-            ionic cordova platform add ${platform}@${cordova_ver}
+            #ionic cordova platform add ${platform}@${cordova_ver}
+            ionic cordova platform add ${platform}
             ionic cordova build $platform
 	    ionic cordova build $platform --prod --release
 	    local ret=$?
