@@ -13,7 +13,7 @@ GIT_COMMIT=
 
 ## Buildable version
 STABLE_GIT_BRANCH=gen_development
-STABLE_GIT_COMMIT=4185dbaef0a65a81103135dd122d0f73cfd0e056
+STABLE_GIT_COMMIT=313e3d20c39a40b443e0558c229f0e39877477ac
 
 ## Output of application apk/archive
 OUTPUT_DIR=$TMP_DIR/$platform/${GIT_BRANCH}.${BUILD_ID}/application
@@ -200,26 +200,24 @@ build_apk(){
     pushd $tmp_dir
     case $platform in
 	ios)
-	    local cordova_ver=6.3.0
+	    local cordova_ver=
 	    local sdk_bin=xcodebuild
 	    ! which $sdk_bin && echo "[$sdk_bin] command does not exist" && return 1
             ionic cordova platform remove $platform
-            ionic cordova platform add ${platform}@${cordova_ver}
-	    #ionic cordova platform add ${platform}
+            ionic cordova platform add ${platform}${cordova_ver}
             ionic cordova build $platform --prod --release
 	    local ret=$?
-	    [ $ret -eq 0 ] && pushd platforms && tar zcvf HappyFace2.tgz $platform && popd
+	    [ $ret -eq 0 ] && pushd platforms && tar zcvf HappyFace2-${BUILD_ID}.tgz $platform && popd
 	    popd
-	    [ $ret -eq 0 ] && cp -v $tmp_dir/platforms/HappyFace2.tgz $OUTPUT_DIR
+	    [ $ret -eq 0 ] && cp -v $tmp_dir/platforms/HappyFace2-${BUILD_ID}.tgz $OUTPUT_DIR
 	    ;;
 	android)
-	    local cordova_ver=4.5.4
+	    local cordova_ver="@4.5.4"
 	    local sdk_bin=android
 	    local apk_out=platforms/android/build/outputs/apk
 	    ! which android && echo "[android] command does not exist" && return 1
             ionic cordova platform remove $platform
-            #ionic cordova platform add ${platform}@${cordova_ver}
-            ionic cordova platform add ${platform}
+            ionic cordova platform add ${platform}${cordova_ver}
             ionic cordova build $platform
 	    ionic cordova build $platform --prod --release
 	    local ret=$?

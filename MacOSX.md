@@ -9,42 +9,6 @@
  * cordova-ios plugin: ver. 4.5.4
 
 
-## Opening SSH server
-
-* In Mac: [Apple Icon] --> System Preference --> Sharing --> Enable 'Remote Login'
-* SSh port forwarding (10.0.2.2 is a VM host/gantry node)
-
-      $ remote_host=10.0.2.2   ## For a VM
-      $ reverse_port=10000
-      $ ssh -R $reverse_port:localhost:22 $remote_host
-      
-
-## Installing Nodejs, NPM, Cordova and Ionic (by using [Homebrew](https://treehouse.github.io/installation-guides/mac/homebrew))
-
-* Homebrew and Nodejs
-
-      $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      $ brew	update
-      $ brew install node
-      
-     
-* Cordova and Ionic
-
-      $ sudo npm install -g cordova@8.0.0
-      $ sudo npm install -g ionic@3.20.0
-
-
-## Installing XCode ver. 9.2
-
-* Extract Xcode_9.2.xip --> 'Xcode.app' is created
-
-      $ sudo mv Xcode.app /Library
-      $ sudo chown -R root:wheel /Library/Xcode.app
-      $ sudo xcode-select -s /Library/Xcode.app/Contents/Developer
-      
-* Execute Xcode at once, accept the license and install some required packages
-
-
 # A builder script in MacOSX
 
 In Mac OSX, the following builder command can install the above-mentioned packages/platforms and can build an iPhone application.
@@ -75,17 +39,53 @@ In Mac OSX, the following builder command can install the above-mentioned packag
            ./build-apk.sh -S -b ios     
 
 
+
+## Opening SSH server
+
+* In Mac: [Apple Icon] --> System Preference --> Sharing --> Enable 'Remote Login'
+* SSh port forwarding (10.0.2.2 is a VM host/gantry node) (= build-apk.sh -c [type])
+
+      $ remote_host=10.0.2.2   ## For a VM
+      $ reverse_port=10000
+      $ ssh -R $reverse_port:localhost:22 $remote_host
       
+
+## Installing Nodejs, NPM, Cordova and Ionic (by using [Homebrew](https://treehouse.github.io/installation-guides/mac/homebrew)) (= build-apk.sh -I)
+
+* Homebrew and Nodejs 
+
+      $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      $ brew	update
+      $ brew install node
+      
+     
+* Cordova and Ionic
+
+      $ sudo npm install -g cordova@8.0.0
+      $ sudo npm install -g ionic@3.20.0
+
+
+## Installing XCode ver. 9.2 (= build-apk.sh -X)
+
+* Extract Xcode_9.2.xip --> 'Xcode.app' is created
+
+      $ sudo mv Xcode.app /Library
+      $ sudo chown -R root:wheel /Library/Xcode.app
+      $ sudo xcode-select -s /Library/Xcode.app/Contents/Developer
+      
+* Execute Xcode at once, accept the license and install some required packages
+
+
 
 # iTunes Connect and Testflight
 * iTunes Connect: https://itunesconnect.apple.com
 * Apple Developer: https://developer.apple.com
 * TestFlight Overview: https://itunespartner.apple.com/en/apps/overview#testflight-beta-testing
 
-## A procedure to upload a iPhone application onto iTunes Connect
-After running and validating a build process of the iPhone application produced by the above mentioned script (build-apk4ios.sh), one can find a Xcode project file in the platform directory (e.g. /tmp/HappyFace-MadMask4iOS/ios/gen_development.20180529-105519/platform/ios) in Mac. A procedure putting the final application onto iTunes connect is the following:
+## A procedure to upload an iPhone application onto iTunes Connect
+After running and validating a build process of the iPhone application produced by the above mentioned script (build-apk.sh), you can find a Xcode project file in the platform directory (e.g. /tmp/HappyFace-MadMask4Apk/ios/gen_development.20180529-105519/platform/ios) in Mac. A procedure putting the final application onto iTunes connect is the following:
 
-0. Copy build files (e.g. to $HOME/Documents/ios)
+0. Copy build files (e.g. to $HOME/Documents/ios), or extract HappyFace2.tgz
 1. Open XCode (ver. 9.2)
 2. "File" -> "Open" a project file (typically, ios/HappyFace2.xcodeproj)
 3. Put Bundle ID (see a configuration of HappyFace2 in iTunes Connect)
