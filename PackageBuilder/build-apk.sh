@@ -142,8 +142,6 @@ build_application(){
 
     ## Preparing local Git repo
     local local_repo=$TMP_DIR/$(basename $GIT_REPO).$GIT_BRANCH
-    local tmp_dir=$TMP_DIR/$platform/${GIT_BRANCH}.${BUILD_ID}
-
     if [ ! -e "$local_repo" ]; then 
 	echo "Cloning [$(basename $GIT_REPO)] - [$GIT_BRANCH] into [$local_repo] ..."
 	git clone $GIT_REPO -b $GIT_BRANCH $local_repo
@@ -156,6 +154,7 @@ build_application(){
     fi
 
     ## Prepare devel env for Mobile Application
+    local tmp_dir=$TMP_DIR/$platform/${GIT_BRANCH}.${BUILD_ID}
     prepare_apk_env
 
     ## Calling madmask builder
@@ -166,22 +165,12 @@ build_application(){
 
 ## Internal command for building devel env
 prepare_apk_env(){
-    [ ! -e $TMP_DIR/$platform ] && mkdir -pv $TMP_DIR/$platform && chmod 1777 $TMP_DIR/$platform
-
     echo "Preparing env in [$tmp_dir] ..."
     echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
     rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
 
-
-    ## Version
-    pushd $local_repo &> /dev/null
-    #local version="$(cat Version.txt) - Git $(git log -1 | grep "^commit")"
-    #local version=$(cat Version.txt | cut -d " " -f 1)
-    popd &> /dev/null
-    echo "Changing version --> [$version]"
-    #sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$version\"/" -i $tmp_dir/package.json
-
+    change_version $local_repo $tmp_dir
 
     ## NPM packages
     pushd $tmp_dir
@@ -191,6 +180,26 @@ prepare_apk_env(){
     echo "Rebuilding [node-sass] ..."
     npm rebuild node-sass --force
     popd
+}
+
+
+change_version(){
+    local git_repo=$1
+    local build_dir=$2
+
+    ## Chaging version
+    pushd $git_repo
+    local short_version=$(cat Version.txt | cut -d " " -f 1)
+    local full_version="$(cat Version.txt) - Git $(git log -1 | grep "^commit")"
+    popd
+
+    echo "Changing version in package.json --> [$short_version]"
+    sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$short_version\"/" -i $build_dir/package.json
+    echo "Changing version in config.xml --> [$short_version]"
+    sed -e "s/\(<widget id=\".*\" version=\)\".*\"\(.*\)$/\1\"$short_version\"\2/" -i $build_dir/config.xml
+    local about_html=$build_dir/src/pages/modals/about/about.html
+    echo "Changing version in $about_html --> [$full_version]"
+    sed -e "s/{{versionCode}}/$full_version/" -i $about_html
 }
 
 
