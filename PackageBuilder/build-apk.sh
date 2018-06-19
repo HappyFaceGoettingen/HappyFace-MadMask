@@ -195,13 +195,16 @@ change_version(){
     local full_version="$(cat Version.txt) - Git $(git log -1 | grep "^commit")"
     popd
 
+    local sed_option=
+    [ "$(uname)" == "Darwin" ] && sed_option=".org"
+
     echo "Changing version in package.json --> [$short_version]"
-    sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$short_version\"/" -i $build_dir/package.json
+    sed -e "s/\(\"version\"\: \)\".*\"/\1 \"$short_version\"/" -i $sed_option $build_dir/package.json
     echo "Changing version in config.xml --> [$short_version]"
-    sed -e "s/\(<widget id=\".*\" version=\)\".*\"\(.*\)$/\1\"$short_version\"\2/" -i $build_dir/config.xml
+    sed -e "s/\(<widget id=\".*\" version=\)\".*\"\(.*\)$/\1\"$short_version\"\2/" -i $sed_option $build_dir/config.xml
     local about_html=$build_dir/src/pages/modals/about/about.html
     echo "Changing version in $about_html --> [$full_version]"
-    sed -e "s/{{versionCode}}/$full_version/" -i $about_html
+    sed -e "s/{{versionCode}}/$full_version/" -i $sed_option $about_html
 }
 
 
