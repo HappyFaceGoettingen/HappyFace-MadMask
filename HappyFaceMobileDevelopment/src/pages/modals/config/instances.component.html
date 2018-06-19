@@ -37,8 +37,8 @@
           <button ion-item detail-none (click)="choose(loc);">
               {{loc.name}}
               <div item-end text-center *ngIf="level < final_level">
-                  <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">
-                      <ion-icon name="arrow-forward"></ion-icon>
+                  <button class="button-icon" style="background-color: transparent; margin-left: 5px; margin-right: 5px" (click)="itemClicked(loc); $event.stopPropagation()">
+                      <ion-icon name="arrow-forward" padding-left="10px" padding-right="10px"></ion-icon>
                   </button>
               </div>
           </button>

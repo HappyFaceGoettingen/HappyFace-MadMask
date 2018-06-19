@@ -407,7 +407,7 @@ export class DataModel
 
     getPathwayPath()
     {
-        return this.getRemoteURL() + this.config.data_dir + "/analysis" + "plot_pathway/latest" + "/";
+        return this.getRemoteURL() + this.config.data_dir + "/analysis/" + "plot_pathway/latest" + "/";
     }
 
 

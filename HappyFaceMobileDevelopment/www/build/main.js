@@ -379,7 +379,7 @@ let DataModel = DataModel_1 = class DataModel {
             return;
         }
         let urls = [DataModel_1.monitoringUrlsJson, DataModel_1.systemsJson, DataModel_1.visualizersJson,
-            DataModel_1.logsJson, DataModel_1.humansJson, DataModel_1.meta_meta_json, DataModel_1.summaryJson, DataModel_1.analysisJson];
+            DataModel_1.logsJson, DataModel_1.meta_meta_json, DataModel_1.summaryJson, DataModel_1.analysisJson];
         for (let i = 0; i < urls.length; i++) {
             if (this.currentlyActive.host == "localhost")
                 urls[i] = this.currentlyActive.dir + "/" + urls[i];
@@ -415,9 +415,10 @@ let DataModel = DataModel_1 = class DataModel {
         //console.log("THIS: " + JSON.stringify(this));
         //if(statusCodes[0] == 200) this.config = JSON.parse(responses[0]);
         //else this.config = null;
+        this.errors = [];
         // Prevent error through missing urls and systems
-        if (statusCodes[6] == 200 && responses[6])
-            responses[6] = responses[6].replace("__SYSTEMS_ARRAY__", "\"__SYSTEMS_ARRAY__\"").replace("__URLS_ARRAY__", "\"__URLS_ARRAY__\"");
+        if (statusCodes[5] == 200 && responses[5])
+            responses[5] = responses[5].replace("__SYSTEMS_ARRAY__", "\"__SYSTEMS_ARRAY__\"").replace("__URLS_ARRAY__", "\"__URLS_ARRAY__\"");
         if (statusCodes[0] == 200)
             this.monitoringUrls = JSON.parse(responses[0]);
         else {
@@ -442,29 +443,25 @@ let DataModel = DataModel_1 = class DataModel {
             this.logs = null;
             this.pushError(DataModel_1.logsJson, statusCodes[3]);
         }
+        /*if(statusCodes[4] == 200) this.humans = JSON.parse(responses[4]);
+        else { this.humans = null; this.pushError(DataModel.humansJson, statusCodes[4]); }*/
         if (statusCodes[4] == 200)
-            this.humans = JSON.parse(responses[4]);
-        else {
-            this.humans = null;
-            this.pushError(DataModel_1.humansJson, statusCodes[4]);
-        }
-        if (statusCodes[5] == 200)
-            this.metaMetaSites = JSON.parse(responses[5]);
+            this.metaMetaSites = JSON.parse(responses[4]);
         else {
             this.metaMetaSites = null;
-            this.pushError(DataModel_1.meta_meta_json, statusCodes[5]);
+            this.pushError(DataModel_1.meta_meta_json, statusCodes[4]);
         }
-        if (statusCodes[6] == 200)
-            this.summary = JSON.parse(responses[6]);
+        if (statusCodes[5] == 200)
+            this.summary = JSON.parse(responses[5]);
         else {
             this.summary = null;
-            this.pushError(DataModel_1.summaryJson, statusCodes[6]);
+            this.pushError(DataModel_1.summaryJson, statusCodes[5]);
         }
-        if (statusCodes[7] == 200)
-            this.analysis = JSON.parse(responses[7]);
+        if (statusCodes[6] == 200)
+            this.analysis = JSON.parse(responses[6]);
         else {
             this.analysis = null;
-            this.pushError(DataModel_1.analysisJson, statusCodes[7]);
+            this.pushError(DataModel_1.analysisJson, statusCodes[6]);
         }
         this.loading = false;
         this.loadingFailed = this.errors.length > 6;
@@ -593,7 +590,7 @@ let DataModel = DataModel_1 = class DataModel {
         }
     }
     getPathwayPath() {
-        return this.getRemoteURL() + this.config.data_dir + "/analysis" + "plot_pathway/latest" + "/";
+        return this.getRemoteURL() + this.config.data_dir + "/analysis/" + "plot_pathway/latest" + "/";
     }
     speakSummary() {
         if (this.configuration == null || this.summary == null || this.summary.text == null)
@@ -614,7 +611,7 @@ let DataModel = DataModel_1 = class DataModel {
                     console.log("USING this tts");
                     this.tts.speak({
                         text: this.summary.text,
-                        locale: "en-GB",
+                        locale: "en-US",
                         rate: 0.75
                     });
                 }
@@ -712,9 +709,9 @@ let DataModel = DataModel_1 = class DataModel {
         }
         else {
             // Initial configuration
-            this.currentlyActive.name = "GoeGrid";
+            this.currentlyActive.name = "ADC";
             this.currentlyActive.host = "141.5.108.30";
-            this.currentlyActive.mobile_port = "20200";
+            this.currentlyActive.mobile_port = "20100";
             this.currentlyActive.web_port = "10100";
             this.currentlyActive.dir = "sites/default";
             this.storage.get('instance').then((value) => {
@@ -756,7 +753,7 @@ let DataModel = DataModel_1 = class DataModel {
 // Debug switches
 DataModel.FORCE_SELFHOST_DEBUG = false;
 DataModel.FORCE_MOBILE_VISION = false;
-DataModel.FORCE_CLIENT_FUNCTION = true;
+DataModel.FORCE_CLIENT_FUNCTION = false;
 //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
 //static FORCE_MOBILE:boolean = false;
 // Seed node (unused)
@@ -777,7 +774,7 @@ DataModel.summaryJson = "index/latest/summary.json";
 DataModel.analysisJson = "index/latest/analysis.json";
 DataModel = DataModel_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_text_to_speech__["a" /* TextToSpeech */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_text_to_speech__["a" /* TextToSpeech */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_text_to_speech__["a" /* TextToSpeech */]) === "function" && _d || Object])
 ], DataModel);
 
 class ConfigObject {
@@ -863,7 +860,7 @@ class ConfigurationObject {
 }
 /* unused harmony export ConfigurationObject */
 
-var DataModel_1;
+var DataModel_1, _a, _b, _c, _d;
 //# sourceMappingURL=DataModel.js.map
 
 /***/ }),
@@ -1051,6 +1048,8 @@ let MonitoringPage = class MonitoringPage {
         this.isLoading = true;
     }
     dataExists() {
+        //console.log("[MonitoringPage] summary:", this.model.summary);
+        //console.log("[MonitoringPage] config: ", this.model.config);
         if (!(this.model.summary == null || this.model.summary == undefined)) {
             if (!(this.model.config == null || this.model.config == undefined)) {
                 return true;
@@ -1109,9 +1108,10 @@ MonitoringPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-buttons left>\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-cog"></ion-icon></button>\n        </ion-buttons>\n        <ion-title>Happy Meta-Monitoring</ion-title>\n        <ion-buttons end>\n            <!--<button ion-button icon-only (click)="openGuide()"><ion-icon name="md-happy"></ion-icon></button>-->\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <div text-center padding [hidden]="!loadingFailed || isLoading">\n        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>\n    </div>\n\n    <ion-list [hidden]="isLoading || loadingFailed" no-padding>\n        <!-- Status card -->\n        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card [style.background-color]="statusColor">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- History chooser -->\n        <ion-item no-padding>\n            <ion-label>History:</ion-label>\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n        <!-- Content list -->\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n            <ion-card no-padding no-margin>\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                <ion-card-content no-padding>\n                    <ion-grid no-padding>\n                        <ion-row class="group" no-padding no-margin>\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                <div class="launchpad">\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                </div>\n                            </ion-col>\n                        </ion-row>\n                    </ion-grid>\n                </ion-card-content>\n            </ion-card>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object])
 ], MonitoringPage);
 
+var _a, _b, _c;
 //# sourceMappingURL=monitoring.js.map
 
 /***/ }),
@@ -1601,7 +1601,7 @@ let InstancesComponent = class InstancesComponent {
     }
 };
 InstancesComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Choose Instance</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="outer-content">\n\n  <ion-list-header>\n\n    Favorites\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let fav of favorites">\n\n      <button ion-item detail-none (click)="choose(fav)">\n\n        {{fav.name}}\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n\n\n    <br/>\n\n  <ion-list-header>\n\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n\n          <ion-icon name="ios-arrow-back"></ion-icon>\n\n      </button>\n\n      {{label}}\n\n  </ion-list-header>\n\n  <div text-center padding [hidden]="!isLoading">\n\n      <ion-spinner></ion-spinner>\n\n  </div>\n\n  <ion-list [hidden]="isLoading">\n\n      <ion-item-sliding *ngFor="let loc of locations">\n\n          <button ion-item detail-none (click)="choose(loc);">\n\n              {{loc.name}}\n\n              <div item-end text-center *ngIf="level < final_level">\n\n                  <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">\n\n                      <ion-icon name="arrow-forward"></ion-icon>\n\n                  </button>\n\n              </div>\n\n          </button>\n\n          <ion-item-options side="left">\n\n               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n\n          </ion-item-options>\n\n      </ion-item-sliding>\n\n  </ion-list>\n\n  <!--<span [innerHtml]="label"></span>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n    </ion-navbar>\n    <ion-navbar *ngIf="!isIOS">\n        <ion-title>Choose Instance</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="outer-content">\n  <ion-list-header>\n    Favorites\n  </ion-list-header>\n  <ion-list>\n    <ion-item-sliding *ngFor="let fav of favorites">\n      <button ion-item detail-none (click)="choose(fav)">\n        {{fav.name}}\n      </button>\n      <ion-item-options side="left">\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n\n    <br/>\n  <ion-list-header>\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n          <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n      {{label}}\n  </ion-list-header>\n  <div text-center padding [hidden]="!isLoading">\n      <ion-spinner></ion-spinner>\n  </div>\n  <ion-list [hidden]="isLoading">\n      <ion-item-sliding *ngFor="let loc of locations">\n          <button ion-item detail-none (click)="choose(loc);">\n              {{loc.name}}\n              <div item-end text-center *ngIf="level < final_level">\n                  <button class="button-icon" style="background-color: transparent; margin-left: 5px; margin-right: 5px" (click)="itemClicked(loc); $event.stopPropagation()">\n                      <ion-icon name="arrow-forward" padding-left="10px" padding-right="10px"></ion-icon>\n                  </button>\n              </div>\n          </button>\n          <ion-item-options side="left">\n               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n          </ion-item-options>\n      </ion-item-sliding>\n  </ion-list>\n  <!--<span [innerHtml]="label"></span>-->\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
@@ -1650,7 +1650,7 @@ let AboutPage = class AboutPage {
 };
 AboutPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: "about-page",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\about\about.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>About</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="ios7-grey-bg" padding="10px">\n    <div class="logos">\n        <span class="app-logo" >                      <img height="60px" src="assets/img/iTunesArtwork@2x.png"/> </span>\n        <span class="uni-logo" ng-click="openSite()"> <img height="60px" src="assets/img/logoGoe.png"/> </span>\n    </div>\n\n    <br>\n    <div class="settings-explanation credits">\n        <div>\n            <b>HappyFace Meta-Monitoring-Tool</b><br>\n            <b>Mobile Application</b>, version {{versionCode}}\n        </div>\n\n        <br>\n        <div class="row" style="text-align: left;">\n            <div class="col col-top">Developed by</div>\n            <div class="col col-67">\n                Timon Vogt<br>\n                Dr. Gen Kawamura<br>\n                Prof. Dr. Arnulf Quadt<br>\n            </div>\n        </div>\n        <div class="row" style="text-align: left;">\n            <div class="col col-top">Coded by</div>\n            <div class="col col-67">\n                Timon Vogt<br>\n            </div>\n        </div>\n    </div>\n\n    <br>\n    <div class="settings-explanation">\n        <b>Georg-August-Universität Göttingen</b><br>\n        Wilhelmsplatz 1<br>\n        37073 Göttingen<br>\n        Germany<br>\n        Tel. +49 551 39-0<br>\n        Fax +49 551 39-9612<br>\n        pressestelle@uni-goettingen.de\n        <a href="http://www.uni-goettingen.de/de/439379.html">Datenschutzerklärung (Deutsch)</a>\n        <a href="http://www.uni-goettingen.de/en/439379.html">Privacy statement (english)</a>\n    </div>\n    <br>\n    <div class="settings-explanation padding-top">\n        <b>Responsible for content:</b><br>\n        Prof. Dr. Arnulf Quadt<br>\n        II. Physikalisches Institut<br>\n        Friedrich-Hund-Platz 1<br>\n        37077 Göttingen<br>\n        Germany<br>\n        aquadt@uni-goettingen.de\n    </div>\n    <br>\n    <div class="padding-top padding-bottom settings-explanation">\n        Portions of the app are Apache 2.0 licensed.\n        <br>\n        Portions of the app are MIT licensed.\n\n    </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\about\about.html"*/
+        selector: "about-page",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\about\about.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>About</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="ios7-grey-bg" padding="10px">\n    <div class="logos">\n        <!--<span class="app-logo" >              height="60px" src="assets/img/iTunesArtwork@2x.png"/> </span>-->\n        <span class="uni-logo" ng-click="openSite()"> <img height="60px" src="assets/img/logoGoe.png"/> </span>\n    </div>\n\n    <br>\n    <div class="settings-explanation credits">\n        <div>\n            <b>HappyFace Meta-Monitoring-Tool</b><br>\n            <b>Mobile Application</b>, version {{versionCode}}\n        </div>\n\n        <br>\n        <div class="row" style="text-align: left;">\n            <div class="col col-top">Developed by</div>\n            <div class="col col-67">\n                Timon Vogt<br>\n                Dr. Gen Kawamura<br>\n                Prof. Dr. Arnulf Quadt<br>\n            </div>\n        </div>\n        <div class="row" style="text-align: left;">\n            <div class="col col-top">Coded by</div>\n            <div class="col col-67">\n                Timon Vogt<br>\n            </div>\n        </div>\n    </div>\n\n    <br>\n    <div class="settings-explanation">\n        <b>Georg-August-Universität Göttingen</b><br>\n        Wilhelmsplatz 1<br>\n        37073 Göttingen<br>\n        Germany<br>\n        Tel. +49 551 39-0<br>\n        Fax +49 551 39-9612<br>\n        pressestelle@uni-goettingen.de<br>\n        <a href="http://www.uni-goettingen.de/de/439379.html">Datenschutzerklärung (Deutsch)</a><br>\n        <a href="http://www.uni-goettingen.de/en/439379.html">Privacy statement (english)</a>\n    </div>\n    <br>\n    <div class="settings-explanation padding-top">\n        <b>Responsible for content:</b><br>\n        Prof. Dr. Arnulf Quadt<br>\n        II. Physikalisches Institut<br>\n        Friedrich-Hund-Platz 1<br>\n        37077 Göttingen<br>\n        Germany<br>\n        aquadt@uni-goettingen.de\n    </div>\n    <br>\n    <div class="padding-top padding-bottom settings-explanation">\n        Portions of the app are Apache 2.0 licensed.\n        <br>\n        Portions of the app are MIT licensed.\n\n    </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\about\about.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */]])
 ], AboutPage);
@@ -2607,12 +2607,12 @@ let AnalyzerPage = class AnalyzerPage {
         this.viewers = [
             { "id": "analysis", "name": "Status Analysis", "type": "plots", "src": null },
             { "id": "pathway", "name": "Info Pathway", "type": "plots", "src": null },
-            { "id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg" },
-            { "id": "vis-network", "name": "Network", "type": "vis-network", "src": null },
+            //{"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
+            { "id": "vis-network", "name": "Overall Info Pathway", "type": "vis-network", "src": null },
             { "id": "happyface", "name": "HappyFace Classical Rating", "type": "page", "src": __WEBPACK_IMPORTED_MODULE_4__hf_classical_hf_categories__["a" /* HFCategoriesPage */] },
             { "id": "forecast", "name": "Happy Forecast", "type": "imgs", "src": Array(0) }
         ];
-        this.selectedViewer = this.viewers.find(v => v.id === "overall_pathway");
+        this.selectedViewer = this.viewers.find(v => v.id === "vis-network");
     }
     ngOnInit() {
         this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
@@ -2626,7 +2626,7 @@ let AnalyzerPage = class AnalyzerPage {
             this.loadingFailed = false;
             this.setStatusCard();
             this.setPlots2();
-            this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
+            this.viewers.find(v => v.id === "vis-network").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
             this.setForecast();
             this.model.asyncLoadFile(this.model.getPathwayPath() + "overall_pathway.json" /*"http://localhost:8100/assets/structure.json"*/, this.network.bind(this));
         }
@@ -2638,6 +2638,9 @@ let AnalyzerPage = class AnalyzerPage {
         this.isLoading = true;
     }
     dataExists() {
+        //console.log("[AnalyzerPage] summary:", this.model.summary);
+        //console.log("[AnalyzerPage] config: ", this.model.config);
+        //console.log("[AnalyzerPage] monitoringURLs: ", this.model.monitoringUrls);
         if (!(this.model.summary == null || this.model.summary == undefined)) {
             if (!(this.model.config == null || this.model.config == undefined)) {
                 if (!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined)) {
@@ -2743,16 +2746,16 @@ let AnalyzerPage = class AnalyzerPage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_8" /* ViewChild */])('parent', { read: __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
 ], AnalyzerPage.prototype, "parent", void 0);
 AnalyzerPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["m" /* Component */])({
         selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n            <button ion-button icon-only (click)="network()"><ion-icon name="search"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <div text-center padding [hidden]="!loadingFailed || isLoading">\n        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>\n    </div>\n\n    <ion-list [hidden]="isLoading || loadingFailed" no-padding>\n        <!-- Status card -->\n        <ion-card id="analyzer-status-card" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card [style.background-color]="statusColor">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- Viewer chooser -->\n        <ion-item id="analyzer-view-chooser" no-padding>\n            <ion-label>Viewer:</ion-label>\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n\n        <!-- TYPE == plots -->\n        <ng-container *ngIf="(selectedViewer.type === \'plots\')">\n            <ion-item *ngFor="let monitoringURL of selectedViewer.src.monitoringURLs" no-padding no-margin text-wrap>\n                <ion-card no-padding no-margin>\n                    <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                    <ion-card-content no-padding>\n                        <ion-grid no-padding>\n                            <ion-row class="group" no-padding no-margin>\n                                <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                    <div class="launchpad">\n                                        <div class="logo"><img src="{{url.plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n                                        <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-card-content>\n                </ion-card>\n            </ion-item>\n        </ng-container>\n\n        <!-- TYPE == vis-network -->\n        <ion-item [hidden]="(selectedViewer.type !== \'vis-network\')">\n            <div class="vis-network" id="vis-network" *ngIf="visAble"></div>\n        </ion-item>\n\n        <!-- TYPE == img -->\n        <ion-item *ngIf="(selectedViewer.type === \'img\')">\n            <img src="{{selectedViewer.src}}"/>\n        </ion-item>\n\n        <!-- TYPE == imgs -->\n        <ion-item *ngIf="(selectedViewer.type === \'imgs\')">\n            <ion-row>\n                <ion-col col-sm-4 *ngFor="let src of selectedViewer.src">\n                    <img src="{{src}}">\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-list>\n\n    <!-- TYPE == page -->\n    <span [hidden]="!(selectedViewer.type === \'page\')">\n        <ng-container #parent></ng-container>\n    </span>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_5__angular_core__["o" /* ComponentFactoryResolver */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _d || Object])
 ], AnalyzerPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=analyzer.js.map
 
 /***/ }),
@@ -9765,6 +9768,9 @@ let ConfigPage = class ConfigPage {
     about() {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__about_about__["a" /* AboutPage */], { "viewCtrl": this.navParams.get('viewCtrl') });
     }
+    contact() {
+        window.open("mailto:happyface-dev@lists.kit.edu", "_blank");
+    }
     closeModal() {
         let viewCtrl = this.navParams.get('viewCtrl');
         viewCtrl.dismiss();
@@ -9772,7 +9778,7 @@ let ConfigPage = class ConfigPage {
 };
 ConfigPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title *ngIf="!isHost">Configuration</ion-title>\n        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <ion-item (click)="chooseInstance()" *ngIf="!isHost">\n            <!-- Move to Instance selection page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Automatic rotation</ion-label>\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Automatic fetch</ion-label>\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="automaticFetch">\n            Reload Interval:\n            <ion-badge item-end>{{interval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="automaticFetch">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Detect only change</ion-label>\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Enable Mad Vision</ion-label>\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable Text speech</ion-label>\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable automatic voice readout</ion-label>\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="enableAutoReadout">\n            Readout Interval:\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="enableAutoReadout">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>HappyFace compatible</ion-label>\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item (click)="tour()">\n            <!-- Start tour page again -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Tour </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="about()">\n            <!-- Move to Impressum page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> About </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
+        selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title *ngIf="!isHost">Configuration</ion-title>\n        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <ion-item (click)="chooseInstance()" *ngIf="!isHost">\n            <!-- Move to Instance selection page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Automatic rotation</ion-label>\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Automatic fetch</ion-label>\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="automaticFetch">\n            Reload Interval:\n            <ion-badge item-end>{{interval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="automaticFetch">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Detect only change</ion-label>\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Enable Mad Vision</ion-label>\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable Text speech</ion-label>\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable automatic voice readout</ion-label>\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="enableAutoReadout">\n            Readout Interval:\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="enableAutoReadout">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>HappyFace compatible</ion-label>\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item (click)="tour()">\n            <!-- Start tour page again -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Tour </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="about()">\n            <!-- Move to Impressum page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> About </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="contact()">\n            <!-- Open contact email -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Contact </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]])
 ], ConfigPage);

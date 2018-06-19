@@ -13,7 +13,7 @@ GIT_COMMIT=
 
 ## Buildable version
 STABLE_GIT_BRANCH=gen_development
-STABLE_GIT_COMMIT=313e3d20c39a40b443e0558c229f0e39877477ac
+STABLE_GIT_COMMIT=959423386979181ec2ca018e94d01b58afd19cde
 
 ## Output of application apk/archive
 OUTPUT_DIR=$TMP_DIR/application

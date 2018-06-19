@@ -73,6 +73,11 @@ export class ConfigPage
         this.navCtrl.push(AboutPage, {"viewCtrl" : this.navParams.get('viewCtrl')});
     }
 
+    contact()
+    {
+        window.open("mailto:happyface-dev@lists.kit.edu", "_blank");
+    }
+
     closeModal()
     {
         let viewCtrl:ViewController = this.navParams.get('viewCtrl');

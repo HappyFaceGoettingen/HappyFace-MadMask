@@ -63,6 +63,9 @@ export class MonitoringPage {
 
     dataExists()
     {
+        //console.log("[MonitoringPage] summary:", this.model.summary);
+        //console.log("[MonitoringPage] config: ", this.model.config);
+
         if(!(this.model.summary == null || this.model.summary == undefined))
         {
             if(!(this.model.config == null || this.model.config == undefined))
