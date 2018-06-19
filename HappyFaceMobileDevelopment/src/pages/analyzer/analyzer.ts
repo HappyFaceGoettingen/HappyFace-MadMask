@@ -36,12 +36,12 @@ export class AnalyzerPage
     viewers:any[] = [
         {"id": "analysis", "name": "Status Analysis", "type": "plots", "src": null},
         {"id": "pathway", "name": "Info Pathway", "type": "plots", "src": null},
-        {"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
-        {"id": "vis-network", "name": "Network", "type": "vis-network", "src": null},
+        //{"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
+        {"id": "vis-network", "name": "Overall Info Pathway", "type": "vis-network", "src": null},
         {"id": "happyface", "name": "HappyFace Classical Rating", "type": "page", "src": HFCategoriesPage},
         {"id": "forecast", "name": "Happy Forecast", "type": "imgs", "src": Array<string>(0)}
     ];
-    selectedViewer:any = this.viewers.find( v => v.id === "overall_pathway");
+    selectedViewer:any = this.viewers.find( v => v.id === "vis-network");
 
     monitoringURLs:any[];
 
@@ -63,7 +63,7 @@ export class AnalyzerPage
             this.loadingFailed = false;
             this.setStatusCard();
             this.setPlots2();
-            this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
+            this.viewers.find(v => v.id === "vis-network").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
             this.setForecast();
             this.model.asyncLoadFile(this.model.getPathwayPath() + "overall_pathway.json" /*"http://localhost:8100/assets/structure.json"*/, this.network.bind(this));
         }
@@ -80,9 +80,9 @@ export class AnalyzerPage
 
     dataExists()
     {
-        console.log("[AnalyzerPage] summary:", this.model.summary);
-        console.log("[AnalyzerPage] config: ", this.model.config);
-        console.log("[AnalyzerPage] monitoringURLs: ", this.model.monitoringUrls);
+        //console.log("[AnalyzerPage] summary:", this.model.summary);
+        //console.log("[AnalyzerPage] config: ", this.model.config);
+        //console.log("[AnalyzerPage] monitoringURLs: ", this.model.monitoringUrls);
 
         if(!(this.model.summary == null || this.model.summary == undefined))
         {
