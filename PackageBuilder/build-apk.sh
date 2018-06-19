@@ -16,7 +16,7 @@ STABLE_GIT_BRANCH=gen_development
 STABLE_GIT_COMMIT=313e3d20c39a40b443e0558c229f0e39877477ac
 
 ## Output of application apk/archive
-OUTPUT_DIR=$TMP_DIR/$platform/${GIT_BRANCH}.${BUILD_ID}/application
+OUTPUT_DIR=$TMP_DIR/application
 
 
 ## Usage
@@ -136,10 +136,6 @@ build_application(){
     local platform=$1
     [ "$platform" != "android" ] && [ "$platform" != "ios" ] && echo "Platform [$platform] is not defined" && return 1
 
-    ## Removing old Apks
-    ls $OUTPUT_DIR/*.apk &> /dev/null && rm -v $OUTPUT_DIR/*.apk
-    ls $OUTPUT_DIR/*.tgz &> /dev/null && rm -v $OUTPUT_DIR/*.tgz
-
     ## Preparing local Git repo
     local local_repo=$TMP_DIR/$(basename $GIT_REPO).$GIT_BRANCH
     if [ ! -e "$local_repo" ]; then 
@@ -168,10 +164,11 @@ prepare_apk_env(){
     echo "Preparing env in [$tmp_dir] ..."
     mkdir -pv $tmp_dir
 
-    echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
+    echo "Copying [HappyFaceMobileDevelopment and resources] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
     rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
 
+    ## Changing version number
     change_version $local_repo $tmp_dir
 
     ## NPM packages
@@ -189,12 +186,14 @@ change_version(){
     local git_repo=$1
     local build_dir=$2
 
-    ## Chaging version
+    ## Get version
     pushd $git_repo
     local short_version=$(cat Version.txt | cut -d " " -f 1)
-    local full_version="$(cat Version.txt) - Git $(git log -1 | grep "^commit")"
+    local git_id=$(git log -1 | grep "^commit" | awk '{print $2}')
+    local full_version="$(cat Version.txt) - $git_id"
     popd
 
+    ## Changing Version
     local sed_option=
     [ "$(uname)" == "Darwin" ] && sed_option=".org"
 
