@@ -80,6 +80,10 @@ export class AnalyzerPage
 
     dataExists()
     {
+        console.log("[AnalyzerPage] summary:", this.model.summary);
+        console.log("[AnalyzerPage] config: ", this.model.config);
+        console.log("[AnalyzerPage] monitoringURLs: ", this.model.monitoringUrls);
+
         if(!(this.model.summary == null || this.model.summary == undefined))
         {
             if(!(this.model.config == null || this.model.config == undefined))

@@ -379,7 +379,7 @@ let DataModel = DataModel_1 = class DataModel {
             return;
         }
         let urls = [DataModel_1.monitoringUrlsJson, DataModel_1.systemsJson, DataModel_1.visualizersJson,
-            DataModel_1.logsJson, DataModel_1.humansJson, DataModel_1.meta_meta_json, DataModel_1.summaryJson, DataModel_1.analysisJson];
+            DataModel_1.logsJson, DataModel_1.meta_meta_json, DataModel_1.summaryJson, DataModel_1.analysisJson];
         for (let i = 0; i < urls.length; i++) {
             if (this.currentlyActive.host == "localhost")
                 urls[i] = this.currentlyActive.dir + "/" + urls[i];
@@ -415,9 +415,10 @@ let DataModel = DataModel_1 = class DataModel {
         //console.log("THIS: " + JSON.stringify(this));
         //if(statusCodes[0] == 200) this.config = JSON.parse(responses[0]);
         //else this.config = null;
+        this.errors = [];
         // Prevent error through missing urls and systems
-        if (statusCodes[6] == 200 && responses[6])
-            responses[6] = responses[6].replace("__SYSTEMS_ARRAY__", "\"__SYSTEMS_ARRAY__\"").replace("__URLS_ARRAY__", "\"__URLS_ARRAY__\"");
+        if (statusCodes[5] == 200 && responses[5])
+            responses[5] = responses[5].replace("__SYSTEMS_ARRAY__", "\"__SYSTEMS_ARRAY__\"").replace("__URLS_ARRAY__", "\"__URLS_ARRAY__\"");
         if (statusCodes[0] == 200)
             this.monitoringUrls = JSON.parse(responses[0]);
         else {
@@ -442,29 +443,25 @@ let DataModel = DataModel_1 = class DataModel {
             this.logs = null;
             this.pushError(DataModel_1.logsJson, statusCodes[3]);
         }
+        /*if(statusCodes[4] == 200) this.humans = JSON.parse(responses[4]);
+        else { this.humans = null; this.pushError(DataModel.humansJson, statusCodes[4]); }*/
         if (statusCodes[4] == 200)
-            this.humans = JSON.parse(responses[4]);
-        else {
-            this.humans = null;
-            this.pushError(DataModel_1.humansJson, statusCodes[4]);
-        }
-        if (statusCodes[5] == 200)
-            this.metaMetaSites = JSON.parse(responses[5]);
+            this.metaMetaSites = JSON.parse(responses[4]);
         else {
             this.metaMetaSites = null;
-            this.pushError(DataModel_1.meta_meta_json, statusCodes[5]);
+            this.pushError(DataModel_1.meta_meta_json, statusCodes[4]);
         }
-        if (statusCodes[6] == 200)
-            this.summary = JSON.parse(responses[6]);
+        if (statusCodes[5] == 200)
+            this.summary = JSON.parse(responses[5]);
         else {
             this.summary = null;
-            this.pushError(DataModel_1.summaryJson, statusCodes[6]);
+            this.pushError(DataModel_1.summaryJson, statusCodes[5]);
         }
-        if (statusCodes[7] == 200)
-            this.analysis = JSON.parse(responses[7]);
+        if (statusCodes[6] == 200)
+            this.analysis = JSON.parse(responses[6]);
         else {
             this.analysis = null;
-            this.pushError(DataModel_1.analysisJson, statusCodes[7]);
+            this.pushError(DataModel_1.analysisJson, statusCodes[6]);
         }
         this.loading = false;
         this.loadingFailed = this.errors.length > 6;
@@ -614,7 +611,7 @@ let DataModel = DataModel_1 = class DataModel {
                     console.log("USING this tts");
                     this.tts.speak({
                         text: this.summary.text,
-                        locale: "en-GB",
+                        locale: "en-US",
                         rate: 0.75
                     });
                 }
@@ -712,9 +709,9 @@ let DataModel = DataModel_1 = class DataModel {
         }
         else {
             // Initial configuration
-            this.currentlyActive.name = "GoeGrid";
+            this.currentlyActive.name = "ADC";
             this.currentlyActive.host = "141.5.108.30";
-            this.currentlyActive.mobile_port = "20200";
+            this.currentlyActive.mobile_port = "20100";
             this.currentlyActive.web_port = "10100";
             this.currentlyActive.dir = "sites/default";
             this.storage.get('instance').then((value) => {
@@ -777,7 +774,7 @@ DataModel.summaryJson = "index/latest/summary.json";
 DataModel.analysisJson = "index/latest/analysis.json";
 DataModel = DataModel_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_text_to_speech__["a" /* TextToSpeech */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_text_to_speech__["a" /* TextToSpeech */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_text_to_speech__["a" /* TextToSpeech */]) === "function" && _d || Object])
 ], DataModel);
 
 class ConfigObject {
@@ -863,7 +860,7 @@ class ConfigurationObject {
 }
 /* unused harmony export ConfigurationObject */
 
-var DataModel_1;
+var DataModel_1, _a, _b, _c, _d;
 //# sourceMappingURL=DataModel.js.map
 
 /***/ }),
@@ -1051,6 +1048,8 @@ let MonitoringPage = class MonitoringPage {
         this.isLoading = true;
     }
     dataExists() {
+        console.log("[MonitoringPage] summary:", this.model.summary);
+        console.log("[MonitoringPage] config: ", this.model.config);
         if (!(this.model.summary == null || this.model.summary == undefined)) {
             if (!(this.model.config == null || this.model.config == undefined)) {
                 return true;
@@ -1601,7 +1600,7 @@ let InstancesComponent = class InstancesComponent {
     }
 };
 InstancesComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n\n    </ion-navbar>\n\n    <ion-navbar *ngIf="!isIOS">\n\n        <ion-title>Choose Instance</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="outer-content">\n\n  <ion-list-header>\n\n    Favorites\n\n  </ion-list-header>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let fav of favorites">\n\n      <button ion-item detail-none (click)="choose(fav)">\n\n        {{fav.name}}\n\n      </button>\n\n      <ion-item-options side="left">\n\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n\n\n    <br/>\n\n  <ion-list-header>\n\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n\n          <ion-icon name="ios-arrow-back"></ion-icon>\n\n      </button>\n\n      {{label}}\n\n  </ion-list-header>\n\n  <div text-center padding [hidden]="!isLoading">\n\n      <ion-spinner></ion-spinner>\n\n  </div>\n\n  <ion-list [hidden]="isLoading">\n\n      <ion-item-sliding *ngFor="let loc of locations">\n\n          <button ion-item detail-none (click)="choose(loc);">\n\n              {{loc.name}}\n\n              <div item-end text-center *ngIf="level < final_level">\n\n                  <button class="button-icon" style="background-color: transparent" (click)="itemClicked(loc); $event.stopPropagation()">\n\n                      <ion-icon name="arrow-forward"></ion-icon>\n\n                  </button>\n\n              </div>\n\n          </button>\n\n          <ion-item-options side="left">\n\n               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n\n          </ion-item-options>\n\n      </ion-item-sliding>\n\n  </ion-list>\n\n  <!--<span [innerHtml]="label"></span>-->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/'<ion-header>\n    <ion-navbar *ngIf="isIOS" style="height:calc(44px + 20px); min-height:calc(44px + 20px); padding-top:20px;">\n        <ion-title style="padding-top: 15px">Choose Instance</ion-title>\n    </ion-navbar>\n    <ion-navbar *ngIf="!isIOS">\n        <ion-title>Choose Instance</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="outer-content">\n  <ion-list-header>\n    Favorites\n  </ion-list-header>\n  <ion-list>\n    <ion-item-sliding *ngFor="let fav of favorites">\n      <button ion-item detail-none (click)="choose(fav)">\n        {{fav.name}}\n      </button>\n      <ion-item-options side="left">\n        <button ion-button color="danger" (click)="unfavorite(fav)"><ion-icon name="trash"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n\n    <br/>\n  <ion-list-header>\n      <button (click)="backClicked()" item-left class="button-icon" style="background-color: transparent" [hidden]="level == 0">\n          <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n      {{label}}\n  </ion-list-header>\n  <div text-center padding [hidden]="!isLoading">\n      <ion-spinner></ion-spinner>\n  </div>\n  <ion-list [hidden]="isLoading">\n      <ion-item-sliding *ngFor="let loc of locations">\n          <button ion-item detail-none (click)="choose(loc);">\n              {{loc.name}}\n              <div item-end text-center *ngIf="level < final_level">\n                  <button class="button-icon" style="background-color: transparent; margin-left: 5px; margin-right: 5px" (click)="itemClicked(loc); $event.stopPropagation()">\n                      <ion-icon name="arrow-forward"></ion-icon>\n                  </button>\n              </div>\n          </button>\n          <ion-item-options side="left">\n               <button ion-button (click)="favorite(loc)"><ion-icon name="star"></ion-icon></button>\n          </ion-item-options>\n      </ion-item-sliding>\n  </ion-list>\n  <!--<span [innerHtml]="label"></span>-->\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\instances.component.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
@@ -2638,6 +2637,9 @@ let AnalyzerPage = class AnalyzerPage {
         this.isLoading = true;
     }
     dataExists() {
+        console.log("[AnalyzerPage] summary:", this.model.summary);
+        console.log("[AnalyzerPage] config: ", this.model.config);
+        console.log("[AnalyzerPage] monitoringURLs: ", this.model.monitoringUrls);
         if (!(this.model.summary == null || this.model.summary == undefined)) {
             if (!(this.model.config == null || this.model.config == undefined)) {
                 if (!(this.model.monitoringUrls == null || this.model.monitoringUrls == undefined)) {
