@@ -166,6 +166,8 @@ build_application(){
 ## Internal command for building devel env
 prepare_apk_env(){
     echo "Preparing env in [$tmp_dir] ..."
+    mkdir -pv $tmp_dir
+
     echo "Copying [HappyFaceMobileDevelopment, resources, lib, sites and madmask] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
     rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
