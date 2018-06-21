@@ -210,6 +210,11 @@ build_packages(){
 copy_prebuilt_packages(){
     ## Copying pre-built packages
     cp -rv $BUILDER_DIR/RPMS .
+
+    ## R-core is too big (> 50MB)
+    local Rcore=http://mirrors.isu.net.sa/pub/fedora/fedora-epel/7Server/x86_64/r/R-core-3.4.1-1.el7.x86_64.rpm
+    echo "Downloading [$Rcore] --> [$PWD]"
+    wget -q $Rcore -O RPMS/x86_64/$(basename $Rcore)
 }
 
 
