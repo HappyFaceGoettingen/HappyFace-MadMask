@@ -9,7 +9,7 @@ usage="./rebuild.sh [options]
 
    -p:    copy prebuild packages from [$BUILD_DIR/RPMS/*/*.rpm]
    -b:    build {hf|hf_atlas|hf_extra|madmask|devel|madmodules|rlibs|madfoxd|android-sdk|admin-server}
-   -t:    test installation [all|admin]
+   -t:    test installation [admin|all]
    -w:    workdir [default: $WORK_DIR]
    -C:    clean packages
 
@@ -221,16 +221,24 @@ set_workdir(){
 
 test_install(){
     case $1 in
+	admin)
+	    yum -y install RPMS/x86_64/admin-server-*.rpm
+	    ;;
 	all)
+	    ## R lib
+	    yum -y remove yum remove R-core libRmath R-java-*
+	    yum -y install RPMS/x86_64/R-*.rpm RPMS/x86_64/libRmath-*
+	    yum -y install RPMS/x86_64/HappyFace-MadModules-Rlibs-*.rpm
+
+	    ## Main HF packages
 	    yum -y remove HappyFace-MadMask HappyFace-MadModules MadFoxd
 	    rpm -q HappyFaceCore || yum -y install RPMS/x86_64/HappyFaceCore-*.rpm
 	    rpm -q HappyFace-ATLAS || yum -y install RPMS/x86_64/HappyFace-ATLAS-*.rpm
 	    yum -y install RPMS/x86_64/MadFoxd-*.rpm
 	    yum -y install RPMS/x86_64/HappyFace-*.rpm
+
+	    ## Android SDK
 	    ls RPMS/x86_64/android-sdk-*.rpm && yum -y install RPMS/x86_64/android-sdk-*.rpm
-	    ;;
-	admin)
-	    yum -y install RPMS/x86_64/admin-server-*.rpm
 	    ;;
 	*)
 	    echo "test install: $1 is not defined"
