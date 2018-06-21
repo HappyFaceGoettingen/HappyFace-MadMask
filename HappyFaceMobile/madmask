@@ -29,7 +29,6 @@ program
   .option('-H, --HappyFace', 'Run HappyFace CRON job')
   .option('-L, --LogCollector', 'Log Collector')
   .option('-W, --Wipe', 'Wipe old files/dirs in data dir')
-  .option('-b, --build [android|ios]', 'Build Mobile Application', '')
   .parse(process.argv);
 
 //console.log(program);
@@ -61,7 +60,6 @@ if(program.rawArgs.length <= 2) {
    console.log('Generate system.json: %s', program.SystemsTemplate);
    console.log('Log Collector: %s', program.LogCollector);
    console.log('Wipe is: %s', program.Wipe);
-   console.log('Build is: %s', program.build);
 
 
    /*******************************
@@ -83,5 +81,4 @@ if(program.rawArgs.length <= 2) {
 
    if (program.Wipe) madmask.wipe_data(program.config, config);
 
-   if (program.build) madmask.build_mobile_application(program.config, config, program.build);
 }

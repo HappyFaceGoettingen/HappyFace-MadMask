@@ -4,13 +4,13 @@ Version: 1.0.0
 Release: 20180408
 License: Apache License Version 2.0
 Group: Applications/Engineering
-URL: http://goegrid-controller.ph2.physik.uni-goettingen.de:8111
+URL: https://ekptrac.physik.uni-karlsruhe.de/trac/HappyFace
 Source0: rpackages.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 AutoReqProv: no
 
-Requires: R >= 3.3.0
-BuildRequires: R-core >= 3.3.0
+Requires: R <= 3.4.1
+BuildRequires: R-core <= 3.4.1
 BuildRequires: fftw-devel
 BuildRequires: fftw2-devel
 BuildRequires: libjpeg-turbo

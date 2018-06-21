@@ -17,6 +17,7 @@ STABLE_GIT_COMMIT=959423386979181ec2ca018e94d01b58afd19cde
 
 ## Output of application apk/archive
 OUTPUT_DIR=$TMP_DIR/application
+EXT_PLATFORM_DIR=
 
 
 ## Usage
@@ -40,6 +41,7 @@ usage="$0 [options]
  -i:  set a build ID [default: $BUILD_ID]
  -b:  build {android|ios} apk
  -O:  output dir [default: $OUTPUT_DIR]
+ -P:  set external platform dir [default: $EXT_PLATFORM_DIR]
 
  * Example
  $0 -B master -b ios
@@ -167,6 +169,13 @@ prepare_apk_env(){
     echo "Copying [HappyFaceMobileDevelopment and resources] ..."
     rsync -alp --delete $local_repo/HappyFaceMobileDevelopment/ $tmp_dir
     rsync -alp --delete $local_repo/HappyFaceMobile/resources $tmp_dir
+
+    if [ ! -z "$EXT_PLATFORM_DIR" ]; then
+	echo "Making external platform dir [$EXT_PLATFORM_DIR] ..."
+	[ ! -e $EXT_PLATFORM_DIR ] && mkdir -pv $EXT_PLATFORM_DIR
+	[ -e $tmp_dir/platforms ] && rm -rf $tmp_dir/platforms
+	ln -vs $EXT_PLATFORM_DIR $tmp_dir/platforms
+    fi
 
     ## Changing version number
     change_version $local_repo $tmp_dir
@@ -311,7 +320,7 @@ kill_ssh(){
 #--------------------------
 # Getopt
 #--------------------------
-while getopts "IXUc:ki:R:B:C:Sb:pO:hv" op
+while getopts "IXUc:ki:R:B:C:Sb:pO:P:hv" op
   do
   case $op in
       I) install_ionic
@@ -339,6 +348,8 @@ while getopts "IXUc:ki:R:B:C:Sb:pO:hv" op
 	  exit $?
 	  ;;
       O) OUTPUT_DIR=$OPTARG
+	  ;;
+      P) EXT_PLATFORM_DIR=$OPTARG
 	  ;;
       h) echo "$usage"
 	  exit 0
