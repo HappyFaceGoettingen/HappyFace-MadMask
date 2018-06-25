@@ -775,19 +775,5 @@
 	 "link": "https://its.cern.ch/jira/browse/ATLDDMOPS/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel",
 	 "systems": ["Jira"]
      }]
- },
-
-
- {
-     "name": "HappyFace Builds",
-     "text": "",
-     "level": null,
-     "urls": [{
-	 "name": "Android Debug Apk",
-	 "link": "data/ADC/application/android-debug.apk"
-     },{	 
-	 "name": "Android Release Unsigned Apk",
-	 "link": "data/ADC/application/android-release-unsigned.apk"
-     }]
  }
 ]
