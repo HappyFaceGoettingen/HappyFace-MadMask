@@ -94,6 +94,8 @@ export class WidgetLoader
             this.loadingMode = 2;
             console.log("WidgetLoader: Dynamic import not supported");
         }
+        this.loadingMode = 2;
+        console.log("WidgetLoader: DEBUG, static loader used");
     }
 
     closeWidget(index:number)

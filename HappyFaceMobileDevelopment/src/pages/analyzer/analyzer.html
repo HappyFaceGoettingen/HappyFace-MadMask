@@ -2,8 +2,8 @@
     <ion-navbar>
         <ion-title>Happy Monitoring Analyzer</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
-            <button ion-button icon-only (click)="network()"><ion-icon name="search"></ion-icon></button>
+            <button ion-button icon-only (click)="reload()"  *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>
+            <button ion-button icon-only (click)="network()" *ngIf="false"><ion-icon name="search"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -68,7 +68,10 @@
 
         <!-- TYPE == vis-network -->
         <ion-item [hidden]="(selectedViewer.type !== 'vis-network')">
-            <div class="vis-network" id="vis-network" *ngIf="visAble"></div>
+            <div class="vis-network" id="vis-network" [hidden]="!visAble"></div>
+            <div text-center padding [hidden]="visAble">
+                <ion-spinner></ion-spinner>
+            </div>
         </ion-item>
 
         <!-- TYPE == img -->

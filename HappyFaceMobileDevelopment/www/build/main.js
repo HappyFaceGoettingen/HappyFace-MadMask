@@ -401,6 +401,7 @@ let DataModel = DataModel_1 = class DataModel {
                     if (req.readyState == 4) {
                         results[i] = req.response;
                         statusCodes[i] = req.status;
+                        console.log("XHR: (" + urls[i] + "): ", req);
                         remainingCounter--;
                         if (remainingCounter == 0)
                             callback(results, statusCodes);
@@ -408,6 +409,13 @@ let DataModel = DataModel_1 = class DataModel {
                 };
             }(i, req));
             req.open("GET", urls[i], true);
+            if (!DataModel_1.DISABLE_REQUEST_CACHE_HEADER) {
+                req.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
+                req.setRequestHeader('cache-control', 'max-age=0');
+                req.setRequestHeader('expires', '0');
+                req.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
+                req.setRequestHeader('pragma', 'no-cache');
+            }
             req.send();
         }
     }
@@ -604,7 +612,7 @@ let DataModel = DataModel_1 = class DataModel {
                     window.tts.speak({
                         text: this.summary.text,
                         locale: "en-GB",
-                        rate: 0.75
+                        rate: 0.95
                     });
                 }
                 else if (this.tts) {
@@ -612,7 +620,7 @@ let DataModel = DataModel_1 = class DataModel {
                     this.tts.speak({
                         text: this.summary.text,
                         locale: "en-US",
-                        rate: 0.75
+                        rate: 0.95
                     });
                 }
                 else {
@@ -702,8 +710,11 @@ let DataModel = DataModel_1 = class DataModel {
             this.currentlyActive.name = window.location.hostname;
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
-            this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
+            if (parseInt(window.location.port) >= 20000)
+                this.currentlyActive.web_port = (parseInt(window.location.port) - 10000).toString();
+            else
+                this.currentlyActive.web_port = window.location.port;
             console.log("Position: " + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port);
             this.reload();
         }
@@ -754,6 +765,7 @@ let DataModel = DataModel_1 = class DataModel {
 DataModel.FORCE_SELFHOST_DEBUG = false;
 DataModel.FORCE_MOBILE_VISION = false;
 DataModel.FORCE_CLIENT_FUNCTION = false;
+DataModel.DISABLE_REQUEST_CACHE_HEADER = false;
 //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
 //static FORCE_MOBILE:boolean = false;
 // Seed node (unused)
@@ -1108,10 +1120,9 @@ MonitoringPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-monitoring',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-buttons left>\n            <button ion-button icon-only (click)="openModalConfig()"><ion-icon name="md-cog"></ion-icon></button>\n        </ion-buttons>\n        <ion-title>Happy Meta-Monitoring</ion-title>\n        <ion-buttons end>\n            <!--<button ion-button icon-only (click)="openGuide()"><ion-icon name="md-happy"></ion-icon></button>-->\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <div text-center padding [hidden]="!loadingFailed || isLoading">\n        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>\n    </div>\n\n    <ion-list [hidden]="isLoading || loadingFailed" no-padding>\n        <!-- Status card -->\n        <ion-card no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card [style.background-color]="statusColor">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- History chooser -->\n        <ion-item no-padding>\n            <ion-label>History:</ion-label>\n            <ion-select (ionChange)="historyChanged($event)" interface="action-sheet" style="max-width: 75% !important;">\n              <ion-option *ngFor="let ts of history" [selected]="ts.datetime == latest">{{ts.datetime}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n        <!-- Content list -->\n        <ion-item *ngFor="let monitoringURL of monitoringURLs" no-padding no-margin text-wrap>\n            <ion-card no-padding no-margin>\n                <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                <ion-card-content no-padding>\n                    <ion-grid no-padding>\n                        <ion-row class="group" no-padding no-margin>\n                            <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                <div class="launchpad">\n                                    <div class="logo"><img src="{{url.thumbnail}}" alt="Not Captured" (click)="openPage(url)"/></div>\n                                    <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                </div>\n                            </ion-col>\n                        </ion-row>\n                    </ion-grid>\n                </ion-card-content>\n            </ion-card>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\monitoring\monitoring.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */]])
 ], MonitoringPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=monitoring.js.map
 
 /***/ }),
@@ -2601,18 +2612,18 @@ let AnalyzerPage = class AnalyzerPage {
         this.statusText = "World wide Atlas Distributed Computing System";
         this.isLoading = true;
         this.loadingFailed = false;
-        this.visAble = true;
+        this.visAble = false;
         this.visNetwork = null;
         this.pageHolder = null;
         this.viewers = [
             { "id": "analysis", "name": "Status Analysis", "type": "plots", "src": null },
             { "id": "pathway", "name": "Info Pathway", "type": "plots", "src": null },
-            //{"id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg"},
-            { "id": "vis-network", "name": "Overall Info Pathway", "type": "vis-network", "src": null },
+            { "id": "overall_pathway", "name": "Overall Info Pathway", "type": "img", "src": "https://i3.ytimg.com/vi/GYYvKxchHrM/maxresdefault.jpg" },
+            //{"id": "vis-network", "name": "Overall Info Pathway", "type": "vis-network", "src": null},
             { "id": "happyface", "name": "HappyFace Classical Rating", "type": "page", "src": __WEBPACK_IMPORTED_MODULE_4__hf_classical_hf_categories__["a" /* HFCategoriesPage */] },
             { "id": "forecast", "name": "Happy Forecast", "type": "imgs", "src": Array(0) }
         ];
-        this.selectedViewer = this.viewers.find(v => v.id === "vis-network");
+        this.selectedViewer = this.viewers.find(v => v.id === "overall_pathway");
     }
     ngOnInit() {
         this.model.addLoadingStartedCallback(this.onLoadingStartedListener.bind(this));
@@ -2626,13 +2637,12 @@ let AnalyzerPage = class AnalyzerPage {
             this.loadingFailed = false;
             this.setStatusCard();
             this.setPlots2();
-            this.viewers.find(v => v.id === "vis-network").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
+            this.viewers.find(v => v.id === "overall_pathway").src = this.model.monitoringUrls[0].urls[0].plot_overall_pathway;
             this.setForecast();
-            this.model.asyncLoadFile(this.model.getPathwayPath() + "overall_pathway.json" /*"http://localhost:8100/assets/structure.json"*/, this.network.bind(this));
+            //this.model.asyncLoadFile(this.model.getPathwayPath() + "overall_pathway.json" /*"http://localhost:8100/assets/structure.json"*/, this.network.bind(this));
         }
         else
             this.loadingFailed = true;
-        const card = document.getElementById('analyzer-status-card'), chooser = document.getElementById('analyzer-view-chooser');
     }
     onLoadingStartedListener() {
         this.isLoading = true;
@@ -2684,7 +2694,7 @@ let AnalyzerPage = class AnalyzerPage {
     openPage(url) {
         this.navControl.push(__WEBPACK_IMPORTED_MODULE_6__analyzer_detail__["a" /* AnalyzerDetailPage */], { 'url': url });
     }
-    network(content, statusCode) {
+    async network(content, statusCode) {
         if (statusCode !== 200) {
             this.visAble = false;
             return;
@@ -2701,10 +2711,21 @@ let AnalyzerPage = class AnalyzerPage {
         };
         const options = {
             width: "100%",
-            height: (window.innerHeight - 400) + "px"
+            height: (window.innerHeight - 400) + "px",
+            layout: {
+                improvedLayout: false
+            },
+            nodes: {
+                shapeProperties: {
+                    interpolation: false
+                }
+            }
         };
+        console.log("Prior");
         this.visNetwork = new __WEBPACK_IMPORTED_MODULE_2_vis__["Network"](container, data, options);
-        this.visNetwork.fit();
+        console.log("After");
+        //this.visNetwork.fit();
+        this.visAble = true;
     }
     setPlots2() {
         // Generate array
@@ -2746,16 +2767,16 @@ let AnalyzerPage = class AnalyzerPage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["_8" /* ViewChild */])('parent', { read: __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__angular_core__["_10" /* ViewContainerRef */])
 ], AnalyzerPage.prototype, "parent", void 0);
 AnalyzerPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["m" /* Component */])({
-        selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="reload()" *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n            <button ion-button icon-only (click)="network()"><ion-icon name="search"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <div text-center padding [hidden]="!loadingFailed || isLoading">\n        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>\n    </div>\n\n    <ion-list [hidden]="isLoading || loadingFailed" no-padding>\n        <!-- Status card -->\n        <ion-card id="analyzer-status-card" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card [style.background-color]="statusColor">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- Viewer chooser -->\n        <ion-item id="analyzer-view-chooser" no-padding>\n            <ion-label>Viewer:</ion-label>\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n\n        <!-- TYPE == plots -->\n        <ng-container *ngIf="(selectedViewer.type === \'plots\')">\n            <ion-item *ngFor="let monitoringURL of selectedViewer.src.monitoringURLs" no-padding no-margin text-wrap>\n                <ion-card no-padding no-margin>\n                    <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                    <ion-card-content no-padding>\n                        <ion-grid no-padding>\n                            <ion-row class="group" no-padding no-margin>\n                                <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                    <div class="launchpad">\n                                        <div class="logo"><img src="{{url.plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n                                        <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-card-content>\n                </ion-card>\n            </ion-item>\n        </ng-container>\n\n        <!-- TYPE == vis-network -->\n        <ion-item [hidden]="(selectedViewer.type !== \'vis-network\')">\n            <div class="vis-network" id="vis-network" *ngIf="visAble"></div>\n        </ion-item>\n\n        <!-- TYPE == img -->\n        <ion-item *ngIf="(selectedViewer.type === \'img\')">\n            <img src="{{selectedViewer.src}}"/>\n        </ion-item>\n\n        <!-- TYPE == imgs -->\n        <ion-item *ngIf="(selectedViewer.type === \'imgs\')">\n            <ion-row>\n                <ion-col col-sm-4 *ngFor="let src of selectedViewer.src">\n                    <img src="{{src}}">\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-list>\n\n    <!-- TYPE == page -->\n    <span [hidden]="!(selectedViewer.type === \'page\')">\n        <ng-container #parent></ng-container>\n    </span>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/
+        selector: 'page-analyzer',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>Happy Monitoring Analyzer</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="reload()"  *ngIf="!isLoading"><ion-icon name="refresh"></ion-icon></button>\n            <button ion-button icon-only (click)="network()" *ngIf="false"><ion-icon name="search"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n    <div text-center padding [hidden]="!isLoading">\n        <ion-spinner></ion-spinner>\n    </div>\n\n    <div text-center padding [hidden]="!loadingFailed || isLoading">\n        <span style="font-weight: bold; font-size: 22pt">Loading failed <br> No Data</span>\n    </div>\n\n    <ion-list [hidden]="isLoading || loadingFailed" no-padding>\n        <!-- Status card -->\n        <ion-card id="analyzer-status-card" no-padding no-margin style="width: 100%" (click)="speakSummary()">\n            <ion-card [style.background-color]="statusColor">\n                <ion-card-header>\n                    Status: {{statusLevel}}\n                </ion-card-header>\n            </ion-card>\n            <ion-card-content no-padding>\n                <ion-item text-wrap>\n                    <ion-thumbnail item-start>\n                        <img src="{{statusImg}}">\n                    </ion-thumbnail>\n                    <h2>{{statusText}}</h2>\n                </ion-item>\n            </ion-card-content>\n        </ion-card>\n        <br>\n\n        <!-- Viewer chooser -->\n        <ion-item id="analyzer-view-chooser" no-padding>\n            <ion-label>Viewer:</ion-label>\n            <ion-select (ionChange)="viewerChanged($event)" interface="action-sheet" style="max-width: 81% !important;">\n                <ion-option *ngFor="let v of viewers" [selected]="v.id === \'overall_pathway\'" [value]="v">{{v.name}}</ion-option>\n            </ion-select>\n        </ion-item>\n\n\n        <!-- TYPE == plots -->\n        <ng-container *ngIf="(selectedViewer.type === \'plots\')">\n            <ion-item *ngFor="let monitoringURL of selectedViewer.src.monitoringURLs" no-padding no-margin text-wrap>\n                <ion-card no-padding no-margin>\n                    <ion-card-header class="group-title">{{monitoringURL.name}}</ion-card-header>\n                    <ion-card-content no-padding>\n                        <ion-grid no-padding>\n                            <ion-row class="group" no-padding no-margin>\n                                <ion-col col-6 col-sm no-padding *ngFor="let url of monitoringURL.urls">\n                                    <div class="launchpad">\n                                        <div class="logo"><img src="{{url.plot}}" alt="Not Analyzed" (click)="openPage(url)"/></div>\n                                        <a href="{{url.link}}" target="_blank"><div class="caption">{{url.name}}</div></a>\n                                    </div>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-card-content>\n                </ion-card>\n            </ion-item>\n        </ng-container>\n\n        <!-- TYPE == vis-network -->\n        <ion-item [hidden]="(selectedViewer.type !== \'vis-network\')">\n            <div class="vis-network" id="vis-network" [hidden]="!visAble"></div>\n            <div text-center padding [hidden]="visAble">\n                <ion-spinner></ion-spinner>\n            </div>\n        </ion-item>\n\n        <!-- TYPE == img -->\n        <ion-item *ngIf="(selectedViewer.type === \'img\')">\n            <img src="{{selectedViewer.src}}"/>\n        </ion-item>\n\n        <!-- TYPE == imgs -->\n        <ion-item *ngIf="(selectedViewer.type === \'imgs\')">\n            <ion-row>\n                <ion-col col-sm-4 *ngFor="let src of selectedViewer.src">\n                    <img src="{{src}}">\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-list>\n\n    <!-- TYPE == page -->\n    <span [hidden]="!(selectedViewer.type === \'page\')">\n        <ng-container #parent></ng-container>\n    </span>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\analyzer\analyzer.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_5__angular_core__["o" /* ComponentFactoryResolver */]])
 ], AnalyzerPage);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=analyzer.js.map
 
 /***/ }),
@@ -3414,7 +3435,7 @@ class Terminal3 {
         };
         term.writeln('Welcome to the ssh terminal');
         term.writeln('It uses xterm.js as a local terminal emulation.');
-        term.writeln('Type "ssh" to start a ssh connection,.');
+        term.writeln('Type "ssh" to start a ssh connection.');
         term.writeln('');
         term.prompt();
         term.on('key', (key, ev) => {
@@ -9986,6 +10007,8 @@ class WidgetLoader {
             this.loadingMode = 2;
             console.log("WidgetLoader: Dynamic import not supported");
         }
+        this.loadingMode = 2;
+        console.log("WidgetLoader: DEBUG, static loader used");
     }
     closeWidget(index) {
         let ind = -1;
@@ -10127,7 +10150,7 @@ let WidgetCard = class WidgetCard {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('card', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
 ], WidgetCard.prototype, "card", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('cdire'),
@@ -10151,6 +10174,7 @@ WidgetCard = __decorate([
     })
 ], WidgetCard);
 
+var _a;
 //# sourceMappingURL=WidgetLoader.js.map
 
 /***/ })
