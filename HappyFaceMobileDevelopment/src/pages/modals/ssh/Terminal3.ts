@@ -50,7 +50,7 @@ export class Terminal3
 
         term.writeln('Welcome to the ssh terminal');
         term.writeln('It uses xterm.js as a local terminal emulation.');
-        term.writeln('Type "ssh" to start a ssh connection,.');
+        term.writeln('Type "ssh" to start a ssh connection.');
         term.writeln('');
         term.prompt();
 

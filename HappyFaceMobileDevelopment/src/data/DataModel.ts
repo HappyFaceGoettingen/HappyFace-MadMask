@@ -20,6 +20,8 @@ export class DataModel
     static FORCE_SELFHOST_DEBUG:boolean = false;
     static FORCE_MOBILE_VISION:boolean = false;
     static FORCE_CLIENT_FUNCTION:boolean = false;
+
+    static DISABLE_REQUEST_CACHE_HEADER:boolean = false;
     //static FORCE_LOAD_LOCAL_META_META_FILE:boolean = false;
     //static FORCE_MOBILE:boolean = false;
 
@@ -211,12 +213,21 @@ export class DataModel
                     if(req.readyState == 4) {
                         results[i] = req.response;
                         statusCodes[i] = req.status;
+                        console.log("XHR: (" + urls[i] + "): ", req);
                         remainingCounter--;
                         if(remainingCounter == 0) callback(results, statusCodes);
                     }
                 };
             }(i, req));
             req.open("GET", urls[i], true);
+            if(!DataModel.DISABLE_REQUEST_CACHE_HEADER)
+            {
+                req.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
+                req.setRequestHeader('cache-control', 'max-age=0');
+                req.setRequestHeader('expires', '0');
+                req.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
+                req.setRequestHeader('pragma', 'no-cache');
+            }
             req.send();
         }
     }
@@ -425,7 +436,7 @@ export class DataModel
                     (<any>window).tts.speak({
                         text: this.summary.text,
                         locale: "en-GB",
-                        rate: 0.75
+                        rate: 0.95
                     })
                 }
                 else if(this.tts)
@@ -434,7 +445,7 @@ export class DataModel
                     this.tts.speak({
                         text: this.summary.text,
                         locale: "en-US",
-                        rate: 0.75
+                        rate: 0.95
                     })
                 }
                 else {
@@ -536,8 +547,11 @@ export class DataModel
             this.currentlyActive.name = window.location.hostname;
             this.currentlyActive.host = window.location.hostname;
             this.currentlyActive.mobile_port = window.location.port;
-            this.currentlyActive.web_port = window.location.port;
             this.currentlyActive.dir = "sites/default";
+
+            if(parseInt(window.location.port) >= 20000)
+                this.currentlyActive.web_port = (parseInt(window.location.port) - 10000).toString();
+            else this.currentlyActive.web_port = window.location.port;
 
             console.log("Position: " + this.currentlyActive.host + ":" + this.currentlyActive.mobile_port);
 

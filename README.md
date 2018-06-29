@@ -9,15 +9,11 @@ HappyFace mobile application and its web server based on the Ionic framework. Th
      HappyFaceMobile
      ├── daemon   --->  Ioinic web server launcher as daemon, configuration and some cron jobs
      ├── data     --->  A symbolic link to a data location
-     ├── hooks
      ├── lib
      ├── madmask  --->  MadMask command executor as a web server and executable wrappers in HappyFace instance
      ├── node_modules  ---> Local npm libraries
      ├── resources     ---> Resources of native Android and iPhone applications
-     ├── scss
-     ├── sites    --->  Site configurations for HappyFace MadMask instances
-     └── www      --->  Main source codes of mobile application
-
+     └── sites    --->  Site configurations for HappyFace MadMask instances
 
      HappyFaceMobileDevelopment
      ├── node_modules  ---> Local npm libraries
