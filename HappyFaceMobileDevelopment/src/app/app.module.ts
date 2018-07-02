@@ -39,6 +39,7 @@ import {File} from "@ionic-native/file";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {HomePage} from "../pages/home/home";
 import {TextToSpeech} from "@ionic-native/text-to-speech";
+import {IonicImageViewerModule} from "ionic-img-viewer";
 
 @NgModule({
     declarations: [
@@ -84,7 +85,8 @@ import {TextToSpeech} from "@ionic-native/text-to-speech";
                 { component: VisualizersPage, name: 'visualizers', segment: 'visualizers' }
             ]
         }),
-        IonicStorageModule.forRoot()
+        IonicStorageModule.forRoot(),
+        IonicImageViewerModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
