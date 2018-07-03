@@ -64,7 +64,6 @@ export class ConfigPage
         setTimeout(() => {
             this.navCtrl.push(TourPage, {});
             console.log("Starting tour");
-            this.closeModal();
         }, 500);
     }
 

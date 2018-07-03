@@ -29,7 +29,7 @@
             <div class="horizontal-content">
                     <ion-col col-sm-4 *ngFor="let img of imgList" style="padding: 0">
                         <div class="card_temp" (click)="imgClicked(img)" no-margin>
-                            <img src="{{img.src}}">
+                            <img src="{{img.src}}" imageViewer>
                             <span style="font-size: 9px; width: 5em;">{{img.title}}</span>
                         </div>
                     </ion-col>
