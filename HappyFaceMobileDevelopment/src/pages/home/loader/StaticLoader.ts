@@ -29,6 +29,8 @@ export class StaticLoader
                 private vc:ViewContainerRef, private _m:NgModuleRef<any>, private closeWidget:(viewIndex:number) => void,
                 private alertCtrl:AlertController) {}
 
+    static widgetList:string[] = ["critical-urls-widget/CriticalUrlsWidget.js", "example-widget/ExampleWidget.js"];
+
     async load(entry:any, positions:Positions, viewIndex):Promise<WidgetData>
     {
         let widget = null;

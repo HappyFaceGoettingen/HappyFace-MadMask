@@ -68,6 +68,9 @@ export class HomePage
                     this.loader.updateWidgets();
                 });
         });
+
+        this.storage.set('previous-widgets-list', null);
+
     }
 
     edit()
