@@ -32,7 +32,7 @@ export class WidgetLoader
 
     loadingMode:number   = null;  // null -> to be determined, 1 -> dynamic loading, 2 -> static loading
 
-    widgetListUrl:string = "assets/widgets/list.json";
+    staticWidgetListUrl:string = "assets/widgets/list.json";
 
     constructor(private model:DataModel, private openImageView:(data:any) => void, private loadingCtrl:LoadingController,
                 private _compiler:Compiler, private _injector:Injector, private _m:NgModuleRef<any>,
@@ -40,7 +40,6 @@ export class WidgetLoader
                 private vc:ViewContainerRef, private storage:Storage)
     {
         this.positions = new Positions();
-        this.widgetListUrl = this.model.getRemoteURL() + this.widgetListUrl;
         this.dynamicLoader = new DynamicLoader(this._compiler, this._injector, this._m, this.alertCtrl, this.componentFactoryResolver, this.vc, this.closeWidget.bind(this));
         this.staticLoader  = new StaticLoader(this.componentFactoryResolver, this._injector, this._compiler, this.vc, this._m, this.closeWidget.bind(this), this.alertCtrl);
     }
@@ -94,8 +93,6 @@ export class WidgetLoader
             this.loadingMode = 2;
             console.log("WidgetLoader: Dynamic import not supported");
         }
-        this.loadingMode = 2;
-        console.log("WidgetLoader: DEBUG, static loader used");
     }
 
     closeWidget(index:number)
@@ -156,6 +153,9 @@ export class WidgetLoader
 
     addWidgetAlert()
     {
+        let widgetListUrl:string = this.model.getRemoteURL() + this.staticWidgetListUrl;
+        if(widgetListUrl.indexOf("static") > 0) widgetListUrl.replace("static/", "");
+
         let widgetList:string[] = [];
 
         let loading = this.loadingCtrl.create({
@@ -165,15 +165,26 @@ export class WidgetLoader
 
         loading.present();
 
-        let req:XMLHttpRequest = new XMLHttpRequest();
-        req.onreadystatechange = () => {
-            if(req.readyState == 4)
-            {
-                if(req.status == 200)
+        if(!this.model.isCordova())
+        {
+            let req:XMLHttpRequest = new XMLHttpRequest();
+            req.onreadystatechange = () => {
+                if(req.readyState == 4)
                 {
-                    JSON.parse(req.response).widgets.filter((element) => {
-                        widgetList.push("/assets/widgets/" + element.src);
-                    });
+                    if(req.status == 200) {
+                        console.log("Loading widgets from dynamic widget list");
+                        JSON.parse(req.response).widgets.filter((element) => {
+                            widgetList.push("/assets/widgets/" + element.src);
+                        });
+                    }
+
+                    else {
+                        console.log("Dynamic widget list not found. Static list used");
+                        StaticLoader.widgetList.filter( (element) => {
+                            widgetList.push("/assets/widgets/" + element);
+                        });
+                    }
+
                     loading.dismiss();
 
                     let alert = this.alertCtrl.create();
@@ -229,10 +240,11 @@ export class WidgetLoader
 
                     alert.present();
                 }
-            }
-        };
-        req.open("GET", this.widgetListUrl, true);
-        req.send();
+            };
+            console.log("Widget list url: ", widgetListUrl);
+            req.open("GET", widgetListUrl, true);
+            req.send();
+        }
     }
 
     addWidget(entry:any)

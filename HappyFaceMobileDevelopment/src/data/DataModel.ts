@@ -426,8 +426,9 @@ export class DataModel
     {
         if(this.configuration == null || this.summary == null || this.summary.text == null) return;
         if(this.configuration == undefined || this.summary == undefined || this.summary.text == undefined) return;
-        if (this.configuration.get().enableTextSpeech) {
-
+        if (this.configuration.get().enableTextSpeech)
+        {
+            const speechrate:number = (this.isiOS() ? 1.65 : 0.95);
             if(this.isiOS() || this.isAndroid())
             {
                 if((<any>window).tts != null || (<any>window).tts != undefined)
@@ -436,7 +437,7 @@ export class DataModel
                     (<any>window).tts.speak({
                         text: this.summary.text,
                         locale: "en-GB",
-                        rate: 0.95
+                        rate: speechrate
                     })
                 }
                 else if(this.tts)
@@ -445,7 +446,7 @@ export class DataModel
                     this.tts.speak({
                         text: this.summary.text,
                         locale: "en-US",
-                        rate: 0.95
+                        rate: speechrate
                     })
                 }
                 else {
@@ -458,6 +459,7 @@ export class DataModel
                     let u = new SpeechSynthesisUtterance();
                     u.text = this.summary.text;
                     u.lang = 'en-GB';
+                    u.rate = speechrate;
                     speechSynthesis.speak(u);
                 }
             }
@@ -471,6 +473,7 @@ export class DataModel
                 let u = new SpeechSynthesisUtterance();
                 u.text = this.summary.text;
                 u.lang = 'en-GB';
+                u.rate = speechrate;
                 speechSynthesis.speak(u);
             }
         }

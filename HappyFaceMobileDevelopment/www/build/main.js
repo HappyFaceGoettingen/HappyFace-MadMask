@@ -606,13 +606,14 @@ let DataModel = DataModel_1 = class DataModel {
         if (this.configuration == undefined || this.summary == undefined || this.summary.text == undefined)
             return;
         if (this.configuration.get().enableTextSpeech) {
+            const speechrate = (this.isiOS() ? 1.65 : 0.95);
             if (this.isiOS() || this.isAndroid()) {
                 if (window.tts != null || window.tts != undefined) {
                     console.log("USING window.tts");
                     window.tts.speak({
                         text: this.summary.text,
                         locale: "en-GB",
-                        rate: 0.95
+                        rate: speechrate
                     });
                 }
                 else if (this.tts) {
@@ -620,7 +621,7 @@ let DataModel = DataModel_1 = class DataModel {
                     this.tts.speak({
                         text: this.summary.text,
                         locale: "en-US",
-                        rate: 0.95
+                        rate: speechrate
                     });
                 }
                 else {
@@ -635,6 +636,7 @@ let DataModel = DataModel_1 = class DataModel {
                     let u = new SpeechSynthesisUtterance();
                     u.text = this.summary.text;
                     u.lang = 'en-GB';
+                    u.rate = speechrate;
                     speechSynthesis.speak(u);
                 }
             }
@@ -650,6 +652,7 @@ let DataModel = DataModel_1 = class DataModel {
                 let u = new SpeechSynthesisUtterance();
                 u.text = this.summary.text;
                 u.lang = 'en-GB';
+                u.rate = speechrate;
                 speechSynthesis.speak(u);
             }
         }
@@ -3068,6 +3071,7 @@ let HomePage = class HomePage {
                     this.loader.updateWidgets();
                 });
         });
+        this.storage.set('previous-widgets-list', null);
     }
     edit() {
         this.editMode = !this.editMode;
@@ -3094,18 +3098,16 @@ let HomePage = class HomePage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('vc', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
 ], HomePage.prototype, "vc", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: "page-home",template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Widgets</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="isSearch = !isSearch"><ion-icon name="search"></ion-icon></button>\n\n            <button ion-button icon-only (click)="edit()"><ion-icon name="construct"></ion-icon></button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n\n\n    <ion-toolbar no-border-top *ngIf="isSearch">\n\n        <ion-searchbar placeholder="Search" (search)="searchFkt($event)"></ion-searchbar>\n\n    </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n    <!--<ion-card *ngFor="let i of widgets">\n\n\n\n        <!-- Headers --\n\n        <ion-card-header *ngIf="i.widget.title">\n\n            <div [innerHTML]="i.widget.title"></div>\n\n        </ion-card-header>\n\n\n\n        <!-- Content --\n\n        <ion-card-content *ngIf="i.widget.content">\n\n            <div [innerHTML]="i.widget.content"></div>\n\n        </ion-card-content>\n\n\n\n    </ion-card>-->\n\n\n\n    <ng-container #vc></ng-container>\n\n\n\n    <ion-fab bottom right *ngIf="editMode">\n\n        <button ion-fab (click)="addWidget()"><ion-icon name="add"></ion-icon></button>\n\n    </ion-fab>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_5__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["p" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__data_DataModel__["a" /* DataModel */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["p" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["p" /* NavController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Compiler */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModuleRef */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* ComponentFactoryResolver */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _k || Object])
 ], HomePage);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -9153,6 +9155,7 @@ class StaticLoader {
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = StaticLoader;
 
+StaticLoader.widgetList = ["critical-urls-widget/CriticalUrlsWidget.js", "example-widget/ExampleWidget.js"];
 //# sourceMappingURL=StaticLoader.js.map
 
 /***/ }),
@@ -9806,10 +9809,9 @@ ConfigPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-config',template:/*ion-inline-start:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title *ngIf="!isHost">Configuration</ion-title>\n        <ion-title *ngIf="isHost">Advanced Configuration</ion-title>\n        <ion-buttons end>\n            <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <ion-item (click)="chooseInstance()" *ngIf="!isHost">\n            <!-- Move to Instance selection page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Choose Instance</span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span> <!--<i class="icon ion-ios-arrow-right"></i>-->\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Automatic rotation</ion-label>\n            <ion-toggle [(ngModel)]="automaticRotation" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Automatic fetch</ion-label>\n            <ion-toggle [(ngModel)]="automaticFetch" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="automaticFetch">\n            Reload Interval:\n            <ion-badge item-end>{{interval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="automaticFetch">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="interval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Detect only change</ion-label>\n            <ion-toggle [(ngModel)]="detectOnlyChange" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item *ngIf="false">\n            <ion-label>Enable Mad Vision</ion-label>\n            <ion-toggle [(ngModel)]="enableMadVision" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable Text speech</ion-label>\n            <ion-toggle [(ngModel)]="enableTextSpeech" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>Enable automatic voice readout</ion-label>\n            <ion-toggle [(ngModel)]="enableAutoReadout" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-list-header *ngIf="enableAutoReadout">\n            Readout Interval:\n            <ion-badge item-end>{{speakInterval}} min</ion-badge>\n        </ion-list-header>\n        <ion-item *ngIf="enableAutoReadout">\n            <ion-range [min]="1" [max]="60" [step]="1" [(ngModel)]="speakInterval">\n                <ion-icon range-left name="time"></ion-icon>\n            </ion-range>\n        </ion-item>\n\n        <ion-item>\n            <ion-label>HappyFace compatible</ion-label>\n            <ion-toggle [(ngModel)]="happyFaceCompatible" (ionChange)="notify()"></ion-toggle>\n        </ion-item>\n\n        <ion-item (click)="tour()">\n            <!-- Start tour page again -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Tour </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="about()">\n            <!-- Move to Impressum page -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> About </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n\n        <ion-item (click)="contact()">\n            <!-- Open contact email -->\n            <span style="float: left; padding-top: 10px; padding-bottom: 10px"> Contact </span>\n            <span style="float: right; padding-top: 10px; padding-bottom: 10px"><ion-icon name="ios-arrow-forward"></ion-icon></span>\n        </ion-item>\n    </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\atopi\Codes\bachelor\HappyFace-MadMask\HappyFaceMobileDevelopment\src\pages\modals\config\config.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* NavParams */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__data_DataModel__["a" /* DataModel */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* NavParams */]])
 ], ConfigPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=config.js.map
 
 /***/ }),
@@ -9966,9 +9968,8 @@ class WidgetLoader {
         this.dynamicLoader = null;
         this.staticLoader = null;
         this.loadingMode = null; // null -> to be determined, 1 -> dynamic loading, 2 -> static loading
-        this.widgetListUrl = "assets/widgets/list.json";
+        this.staticWidgetListUrl = "assets/widgets/list.json";
         this.positions = new __WEBPACK_IMPORTED_MODULE_1__Positions__["a" /* Positions */]();
-        this.widgetListUrl = this.model.getRemoteURL() + this.widgetListUrl;
         this.dynamicLoader = new __WEBPACK_IMPORTED_MODULE_2__loader_DynamicLoader__["a" /* DynamicLoader */](this._compiler, this._injector, this._m, this.alertCtrl, this.componentFactoryResolver, this.vc, this.closeWidget.bind(this));
         this.staticLoader = new __WEBPACK_IMPORTED_MODULE_3__loader_StaticLoader__["a" /* StaticLoader */](this.componentFactoryResolver, this._injector, this._compiler, this.vc, this._m, this.closeWidget.bind(this), this.alertCtrl);
     }
@@ -10013,8 +10014,6 @@ class WidgetLoader {
             this.loadingMode = 2;
             console.log("WidgetLoader: Dynamic import not supported");
         }
-        this.loadingMode = 2;
-        console.log("WidgetLoader: DEBUG, static loader used");
     }
     closeWidget(index) {
         let ind = -1;
@@ -10058,19 +10057,31 @@ class WidgetLoader {
         }
     }
     addWidgetAlert() {
+        let widgetListUrl = this.model.getRemoteURL() + this.staticWidgetListUrl;
+        if (widgetListUrl.indexOf("static") > 0)
+            widgetListUrl.replace("static/", "");
         let widgetList = [];
         let loading = this.loadingCtrl.create({
             spinner: "dots",
             content: "Searching for widgets"
         });
         loading.present();
-        let req = new XMLHttpRequest();
-        req.onreadystatechange = () => {
-            if (req.readyState == 4) {
-                if (req.status == 200) {
-                    JSON.parse(req.response).widgets.filter((element) => {
-                        widgetList.push("/assets/widgets/" + element.src);
-                    });
+        if (!this.model.isCordova()) {
+            let req = new XMLHttpRequest();
+            req.onreadystatechange = () => {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log("Loading widgets from dynamic widget list");
+                        JSON.parse(req.response).widgets.filter((element) => {
+                            widgetList.push("/assets/widgets/" + element.src);
+                        });
+                    }
+                    else {
+                        console.log("Dynamic widget list not found. Static list used");
+                        __WEBPACK_IMPORTED_MODULE_3__loader_StaticLoader__["a" /* StaticLoader */].widgetList.filter((element) => {
+                            widgetList.push("/assets/widgets/" + element);
+                        });
+                    }
                     loading.dismiss();
                     let alert = this.alertCtrl.create();
                     alert.setTitle("Add Widget");
@@ -10116,10 +10127,11 @@ class WidgetLoader {
                     });
                     alert.present();
                 }
-            }
-        };
-        req.open("GET", this.widgetListUrl, true);
-        req.send();
+            };
+            console.log("Widget list url: ", widgetListUrl);
+            req.open("GET", widgetListUrl, true);
+            req.send();
+        }
     }
     addWidget(entry) {
         this.adding = true;
@@ -10156,7 +10168,7 @@ let WidgetCard = class WidgetCard {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('card', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */]) === "function" && _a || Object)
 ], WidgetCard.prototype, "card", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('cdire'),
@@ -10180,6 +10192,7 @@ WidgetCard = __decorate([
     })
 ], WidgetCard);
 
+var _a;
 //# sourceMappingURL=WidgetLoader.js.map
 
 /***/ })
