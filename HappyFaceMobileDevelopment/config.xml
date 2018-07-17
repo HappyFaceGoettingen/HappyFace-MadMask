@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="2.1.3">
-    <name>HappyFace2</name>
+    <name>HappyFace</name>
     <description>HappyFace Meta-Monitoring System</description>
     <author email="timon.vogt@stud.uni-goettingen.de" href="https://www.uni-goettingen.de/de/550181.html">Timon Vogt and Gen Kawamura</author>
     <content src="index.html" />
