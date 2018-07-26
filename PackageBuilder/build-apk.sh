@@ -229,9 +229,9 @@ build_apk(){
             ionic cordova platform add ${platform}${cordova_ver}
             ionic cordova build $platform --prod --release
 	    local ret=$?
-	    [ $ret -eq 0 ] && pushd platforms && tar zcvf HappyFace2-${BUILD_ID}.tgz $platform && popd
+	    [ $ret -eq 0 ] && pushd platforms && tar zcvf HappyFace-${BUILD_ID}.tgz $platform && popd
 	    popd
-	    [ $ret -eq 0 ] && cp -v $tmp_dir/platforms/HappyFace2-${BUILD_ID}.tgz $OUTPUT_DIR
+	    [ $ret -eq 0 ] && cp -v $tmp_dir/platforms/HappyFace-${BUILD_ID}.tgz $OUTPUT_DIR
 	    ;;
 	android)
 	    local cordova_ver="@4.5.4"
