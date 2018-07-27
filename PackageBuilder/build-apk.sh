@@ -244,6 +244,10 @@ build_apk(){
 	    ! which android && echo "[android] command does not exist" && return 1
             ionic cordova platform remove $platform
             ionic cordova platform add ${platform}${cordova_ver}
+
+	    ## A smarter way should exist
+	    sed -e "s/android:targetSdkVersion=\"23\"/android:targetSdkVersion=\"26\"/g" -i platforms/android/AndroidManifest.xml
+
             ionic cordova build $platform
 	    ionic cordova build $platform --prod --release
 	    local ret=$?
