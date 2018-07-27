@@ -213,6 +213,10 @@ change_version(){
     local about_html=$build_dir/src/pages/modals/about/about.html
     echo "Changing version in $about_html --> [$full_version]"
     sed -e "s/{{versionCode}}/$full_version/" -i $sed_option $about_html
+
+    ## Changing Bundle ID
+    local default_bandle_ID=com.happyface.Y2FjNmE5YmRlN
+    sed -e "s/io\.ionic\.starter/$default_bandle_ID/g" -i $sed_option $build_dir/config.xml
 }
 
 
