@@ -238,21 +238,17 @@ build_apk(){
 	    [ $ret -eq 0 ] && cp -v $tmp_dir/platforms/HappyFace-${BUILD_ID}.tgz $OUTPUT_DIR
 	    ;;
 	android)
-	    local cordova_ver="@4.5.4"
+	    local cordova_ver="@6.4.0"
 	    local sdk_bin=android
 	    local apk_out=platforms/android/build/outputs/apk
 	    ! which android && echo "[android] command does not exist" && return 1
             ionic cordova platform remove $platform
             ionic cordova platform add ${platform}${cordova_ver}
-
-	    ## A smarter way should exist
-	    sed -e "s/android:targetSdkVersion=\"23\"/android:targetSdkVersion=\"26\"/g" -i platforms/android/AndroidManifest.xml
-
             ionic cordova build $platform
 	    ionic cordova build $platform --prod --release
 	    local ret=$?
 	    popd
-	    [ $ret -eq 0 ] && cp -v $tmp_dir/$apk_out/*.apk $OUTPUT_DIR
+	    [ $ret -eq 0 ] && cp -v $tmp_dir/$apk_out/*/*.apk $OUTPUT_DIR
 	    ;;
     esac
 

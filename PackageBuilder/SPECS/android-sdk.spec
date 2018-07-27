@@ -70,6 +70,13 @@ if [ ! -e %{_prefix}/android ]; then
     unzip -q /tmp/$(basename $ADT) -d %{_prefix} && rm -v /tmp/$(basename $ADT)
 fi
 
+## Installing Gradle
+if [ ! -e %{_prefix}/gradle ]; then
+    GRD_VER=4.1
+    GRD="https://services.gradle.org/distributions/gradle-${GRD_VER}-bin.zip"
+    wget -q --no-check-certificate $GRD -O /tmp/$(basename $GRD) || rm -v /tmp/$(basename $GRD)
+    unzip -q /tmp/$(basename $GRD) -d %{_prefix} && ln -sv gradle-${GRD_VER} %{_prefix}/gradle && rm -v /tmp/$(basename $ADT)
+fi
 
 
 
